@@ -33,4 +33,23 @@ B.~S. Baker, ``Approximation algorithms for np-complete problems on planar
   Available: \url{https://doi.org/10.1145/174644.174650}
 \BIBentrySTDinterwordspacing
 
+\bibitem{Korte2007CombinatorialOT}
+\BIBentryALTinterwordspacing
+B.~Korte and J.~Vygen, ``Combinatorial optimization: Theory and algorithms,''
+  2007. [Online]. Available:
+  \url{https://api.semanticscholar.org/CorpusID:265900003}
+\BIBentrySTDinterwordspacing
+
+\bibitem{williamson2011design}
+D.~P. Williamson and D.~B. Shmoys, \emph{The design of approximation
+  algorithms}.\hskip 1em plus 0.5em minus 0.4em\relax Cambridge university
+  press, 2011.
+
+\bibitem{Karp1972}
+\BIBentryALTinterwordspacing
+R.~M. Karp, \emph{Reducibility among Combinatorial Problems}.\hskip 1em plus
+  0.5em minus 0.4em\relax Boston, MA: Springer US, 1972, pp. 85--103. [Online].
+  Available: \url{https://doi.org/10.1007/978-1-4684-2001-2_9}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}
