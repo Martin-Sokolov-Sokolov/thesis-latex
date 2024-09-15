@@ -1,0 +1,27 @@
+\section{Preliminaries}
+
+In this section, we provide the reader with the necessary information in order to follow the paper. We start 
+off with a reminder on Graph Theory. After that, we move to more advanced definitions in the field of 
+Combinatorial Optimization. Finally, we get more on topic by introducing perturbation resilience and certified 
+algorithms from the field of Beyond the Worst-Case Analysis of Algorithms.
+
+\subsection{Graph Theory}
+
+In this section, the authors refer to Bondy and Murty \cite{bondy1976graph}.
+From the same book we get a definition for a \textit{graph} $G$ is an ordered pair $(V(G), E(G))$.
+The set $V(G)$ is called a set of \textit{vertices} and the set $E(G)$, a set of \textit{edges}.
+Together with the incidence function $\psi_G$, that associates each edge with an unordered pair of 
+(not necessarily unique) vertices, we define a graph $G$. We are going to use $n$ as the cardinality 
+of the set $V$ and $m$ for the set of edges $E$. With each edge $e$ of G, let there be associated 
+a real number $w(e)$, called its \textit{weight}. Then G, together with the weighting function 
+$w : E \to \mathbb{R}$, is called a \textit{weighted graph}, and denoted $(G, w)$.
+
+A graph is can be \textit{embedded in the plane}, or is \textit{planar} if it can be drawn on the 
+plane in a way that edges intersect each other only at their ends. Such a drawing is called a 
+\textit{planar embedding} of the graph. A graph $G$ is called \textit{outerplanar} if it has a 
+planar embedding $\widetilde{G}$ in which all the vertices lie on the boundary of the outer face. 
+This is also called a \textit{1-outerplanar graph}. Two forbidden minors of that class are the 
+$K_4$ and $K_{2, 3}$ graphs. In the next subsection we familiarize the reader with Baker's approach 
+\cite{Baker}. Here we define a \textit{k-outerplanar} to be a graph that has a planar embedding in which 
+the vertices belong to at most $k$ concentric layers. Every planar graph is \textit{k-outerplanar} for 
+some $k$. Given a graph $G$, we look for \textit{k-outerplanar} embedding of $G$ for which $k$ is minimal.
