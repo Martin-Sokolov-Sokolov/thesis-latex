@@ -2,10 +2,18 @@
 \usepackage[numbers]{natbib}
 \usepackage{amssymb}
 \usepackage{hyperref}
+\usepackage[utf8]{inputenc}
 \usepackage{tcolorbox}
 \usepackage{amsmath}
 \usepackage{enumitem}
 
+\tcbuselibrary{listingsutf8}
+\newtcolorbox[auto counter, number within=section]{mydefinition}[1][]{
+  colback=blue!5!white, colframe=blue!75!black,
+  fonttitle=\bfseries, 
+  width=\textwidth,
+  title=Definition~\thetcbcounter: #1
+}
 
 \title{Certified Algorithms for the Weighted Feedback Vertex Set and Travelling Salesman Problems}
 \author{Martin Sokolov}

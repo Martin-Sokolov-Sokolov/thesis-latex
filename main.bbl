@@ -52,4 +52,25 @@ R.~M. Karp, \emph{Reducibility among Combinatorial Problems}.\hskip 1em plus
   Available: \url{https://doi.org/10.1007/978-1-4684-2001-2_9}
 \BIBentrySTDinterwordspacing
 
+\bibitem{bilu2012stable}
+Y.~Bilu and N.~Linial, ``Are stable instances easy?'' \emph{Combinatorics,
+  Probability and Computing}, vol.~21, no.~5, pp. 643--660, 2012.
+
+\bibitem{makarychev2014bilu}
+K.~Makarychev, Y.~Makarychev, and A.~Vijayaraghavan, ``Bilu--linial stable
+  instances of max cut and minimum multiway cut,'' in \emph{Proceedings of the
+  twenty-fifth annual ACM-SIAM symposium on Discrete algorithms}.\hskip 1em
+  plus 0.5em minus 0.4em\relax SIAM, 2014, pp. 890--906.
+
+\bibitem{makarychev_et_al:LIPIcs.ITCS.2020.49}
+\BIBentryALTinterwordspacing
+K.~Makarychev and Y.~Makarychev, ``{Certified Algorithms: Worst-Case Analysis
+  and Beyond},'' in \emph{11th Innovations in Theoretical Computer Science
+  Conference (ITCS 2020)}, ser. Leibniz International Proceedings in
+  Informatics (LIPIcs), T.~Vidick, Ed., vol. 151.\hskip 1em plus 0.5em minus
+  0.4em\relax Dagstuhl, Germany: Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r
+  Informatik, 2020, pp. 49:1--49:14. [Online]. Available:
+  \url{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITCS.2020.49}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}
