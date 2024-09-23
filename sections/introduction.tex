@@ -11,18 +11,21 @@ generalize this approach, namely Demaine and Hajiaghayi \cite{demaine2005bidimen
 
 \noindent The notion of Bilu-Linial stability has given rise to much exploration of structured instances in many problems. 
 In their paper \cite{bilu2012stable} they offer the first evidence that stable instances are much easier than worst-case instances. 
-They propose an exact algorithm for $O(n)$-stable instances of Max Cut. This result was improved by Bilu et al. \cite{bilu2012practically} 
+They propose an exact algorithm for $O(n)$-stable instances of \textsc{Max Cut}. This result was improved by Bilu et al. \cite{bilu2012practically} 
 who designed a $O(\sqrt{n})$ for the same problem. Further research yielded a general approach to analysing stable instances in 
 Makarychev et al. \cite{makarychev2014bilu}. They applied that approach to graph partitioning problems and designed 
-$O(\sqrt{\log n}\log\log n)$-stable instances of Max Cut and 4-stable instances of Minimum Multiway Cut. The study of perturbation 
-resilience of clustering problems is explored in \cite{awasthi2012center, balcan2016clustering, balcan2015k}. On the Travelling Salesman 
-Problem, Mihal\'ak et al. \cite{mihalak2011complexity} gave an algorithm for 1.8-stable instances. We refer the reader to the survey \cite{makarychev201613}.
+$O(\sqrt{\log n}\log\log n)$-stable instances of \textsc{Max Cut} and 4-stable instances of \textsc{Minimum Multiway Cut}. The study of perturbation 
+resilience of clustering problems is explored in \cite{awasthi2012center, balcan2016clustering, balcan2015k}. On the \textsc{Travelling Salesman 
+Problem}, Mihal\'ak et al. \cite{mihalak2011complexity} gave an algorithm for 1.8-stable instances. We refer the reader to the survey \cite{makarychev201613}.
 
 \noindent On the subject of Beyond the Worst-Case Analysis we refer to Makarychev and Makarychev \cite{makarychev_et_al:LIPIcs.ITCS.2020.49}. 
 In that paper certified algorithms are first described in an attempt to bridge the gap between the worst-case and structured instances. 
 Since then, researchers have made use of the definitions and results in that paper and applied them to other problems.
 Angelidakis et al. \cite{angelidakis2018bilu} explore the notion of stability and initiate the study of certified algorithms 
-for the Maximum Independent Set problem (\textsc{MIS}). They provide robust and certified algorithms for $(1 + \epsilon)$-stable instances 
-of planar \textsc{MIS}, for any fixed $\epsilon > 0$.
+for the \textsc{Maximum Independent Set} problem (\textsc{MIS}). They provide robust and certified algorithms for $(1 + \epsilon)$-stable instances 
+of planar \textsc{MIS}, for any fixed $\epsilon > 0$. Covering and Dominating in planar graphs was further explored by Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19}. 
+They provide ($1 + \epsilon$)-certified algorithms for \textsc{Dominating Set} and \textsc{H-Subgraph-Free-Deletion}, which for any $\epsilon$ 
+run in time $f(1/\epsilon) \times n^{O(1)}$ on minor-closed classes of graphs of bounded local treewidth.
+
 
 \noindent \textbf{Organization of Material}
