@@ -1,13 +1,13 @@
 \section{Preliminaries}
 
-In this section, we provide the reader with the necessary information in order to follow the paper. We start 
+\noindent In this section, we provide the reader with the necessary information in order to follow the paper. We start 
 off with a reminder on Graph Theory. After that, we move to more advanced definitions in the field of 
 Combinatorial Optimization. Finally, we get on topic by introducing perturbation resilience and certified 
 algorithms from the field of Beyond the Worst-Case Analysis of Algorithms.
 
 \subsection{Graph Theory}
 
-In this section, the authors refer to Bondy and Murty \cite{bondy1976graph}.
+\noindent In this section, the authors refer to Bondy and Murty \cite{bondy1976graph}.
 A \textit{graph} $G$ is an ordered pair denoted as $(V(G), E(G))$.
 The set $V(G)$ is called a set of \textit{vertices} and the set $E(G)$, a set of \textit{edges}.
 The incidence function $\psi_G$ associates each edge with an unordered pair of 
@@ -17,7 +17,7 @@ of the set $V$ and $m$ for the set of edges $E$. With each edge $e$ of G, let th
 a real number $w(e)$, called its \textit{weight}. Then G, together with the weighting function 
 $w : E \to \mathbb{R}$, is called a \textit{weighted graph}, and denoted $(G, w)$.
 
-A graph is can be \textit{embedded in the plane}, or is \textit{planar} if it can be drawn on the 
+\noindent A graph is can be \textit{embedded in the plane}, or is \textit{planar} if it can be drawn on the 
 plane in a way that edges intersect each other only at their ends. Such a drawing is called a 
 \textit{planar embedding} of the graph. A graph $G$ is called \textit{outerplanar} if it has a 
 planar embedding $\widetilde{G}$ in which all the vertices lie on the boundary of the outer face. 
@@ -29,11 +29,23 @@ some $k$. Given a graph $G$, we look for \textit{k-outerplanar} embedding of $G$
 
 \subsection{Combinatorial Optimization}
 
-In this section, we refer to the book on Combinatorial Optimization by Korte and Vygen \cite{Korte2007CombinatorialOT} and 
-Williamson and Shmoys \cite{williamson2011design}. 
+\noindent In this section, we refer to the book on Combinatorial Optimization by Korte and Vygen \cite{Korte2007CombinatorialOT} and 
+Williamson and Shmoys \cite{williamson2011design}. Some definitions can be traced to the end of the book by Cygan et al. \cite{cygan2015parameterized}. 
 We are going to be looking at two problems, namely the \textsc{Feedback Vertex Set} and \textsc{Travelling Salesman Problem}. 
 Both of those problems belong to the class of \textbf{NP-complete} problems. The former was also part of Karp's 
-21 problems \cite{Karp1972}. The weighted version of the problem can be defined as:
+21 problems \cite{Karp1972}. The decision variant of the \textsc{FVS} problem can be defined as:
+
+\begin{mydefinition}[Feedback Vertex Set, label={def:FVS}]
+
+    \textbf{Input:}
+    A graph $G$ and an integer $k$.
+
+    \textbf{Question:}
+    Does there exist a set $X$ of at most $k$ vertices of $G$ such that $G - X$ is a forest?
+
+\end{mydefinition}
+
+\noindent The weighted optimization version of the problem can be defined as:
 
 \begin{mydefinition}[Minimum Weight Feedback Vertex Set, label={def:MWFVS}]
 
@@ -50,7 +62,7 @@ Both of those problems belong to the class of \textbf{NP-complete} problems. The
 
 \end{mydefinition}
 
-The other problem we inspect is an edge-optimization problem, namely the \textsc{Travelling Salesman Problem} (TSP).
+\noindent The other problem we inspect is an edge-optimization problem, namely the \textsc{Travelling Salesman Problem} (TSP).
 
 \begin{mydefinition}[Travelling Salesman Problem, label={def:TSP}]
 
@@ -70,12 +82,14 @@ The other problem we inspect is an edge-optimization problem, namely the \textsc
 
 \end{mydefinition}
 
-As we mentioned, both of the problems are \textbf{NP-complete}, so we turn to \textit{approximation algorithms} 
+\noindent As we mentioned, both of the problems are \textbf{NP-complete}, so we turn to \textit{approximation algorithms} 
 in order to cope with the hardness of the problems. Let $\Pi$ be an optimization problem with nonnegative weights 
-and $k \geq 1$. A \textit{k-factor approximation algorithm} for $\Pi$ is a polynomial-time algorithm $A$ for $\Pi$, 
-such that \[A(I) \leq k \times OPT(I)\] for all instances $I$ of $\Pi$. We say $A$ has performance ratio \textit{k}. 
-The inequality shown is true for minimization problems. This definition is for algorithms for constant-factor 
-approximation or algorithms for \textbf{NP} optimization problems that belong to the class \textbf{APX} 
+and $k \geq 1$.
+A \textit{k-factor approximation algorithm} for $\Pi$ is a polynomial-time algorithm $A$ for $\Pi$, 
+such that \[\frac{1}{k} \times OPT(I) \leq A(I) \leq k \times OPT(I)\] for all instances $I$ of $\Pi$.
+The first inequality shown is true for maximization problems, while the second one holds for minimization problems.
+We say $A$ has performance ratio \textit{k}. 
+This definition is for algorithms for constant-factor approximation or algorithms for \textbf{NP} optimization problems that belong to the class \textbf{APX} 
 (an abbreviation for "approximable"). A polynomial-time approximation scheme (PTAS) is a family of algorithms 
 ${A_{\epsilon}}$ where there is an algorithm for each $\epsilon > 0$, such that $A_{\epsilon}$, is a $(1 + \epsilon)$-
 approximation algorithm (for minimization problems). The running time of the algorithm $A_{\epsilon}$ is polynomial, 
@@ -91,6 +105,40 @@ but can depend arbitrarily on $1/\epsilon$. This dependence could be exponential
 
 \subsubsection{Baker's approach}
 
+\noindent In this subsection, we are going to describe the Shifting technique. We are going to give a more general technique. 
+
+\begin{algorithm}[H]
+    \caption{Baker's Shifting Technique}
+    \label{alg:baker}
+    \begin{algorithmic}[1]
+    \REQUIRE Planar graph $G = (V, E)$, parameter $k$
+    \ENSURE $(1 + \epsilon)$-approximation for the problem
+    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
+    \STATE Label each vertex according to its layer $i \mod k$.
+    \FOR{each $i = 0$ to $k-1$}
+        \STATE Remove the $i$-th layer and solve the problem optimally on the remaining graph
+        \STATE Combine the solution with the $i$-th layer to form a feasible solution for the original graph
+    \ENDFOR
+    \STATE Return the best solution found among all iterations
+    \end{algorithmic}
+\end{algorithm}
+
+\noindent Steps 3 through 5 hide many details, some of which we will now try to explain. 
+By labelling the vertices of $G$ we obtain a partition, such that deleting any one part results in a graph 
+of bounded treewidth $O(k)$. 
+
+\noindent Let's look at an example problem, e. g. the \textsc{Maximum Independent Set}. 
+
+\begin{enumerate}
+    \item for $k = 1/\epsilon$ compute partition $P_1, \dots , P_k$.
+    \item for some $q$ ($1 \leq q \leq k)$, $|OPT \cap P_q| \leq \frac{1}{k} \times |OPT| = \epsilon \times |OPT|$, because 
+    of the pigeonhole principle
+    \item hence, $|OPT \cap (G - P_q)| \geq (1 - k) \times |OPT|$
+    \item return $max {|\text{\textsc{MIS}}(G - P_i)|}$
+\end{enumerate}
+
+
+
 \subsubsection{Linear Programming and Randomized Rounding}
 
 One way of approximating solutions is done through Linear Programming (LP). For a more detailed review on Linear Programming 
@@ -103,7 +151,8 @@ deterministically, we do the process randomly. This technique is called \textit{
 In this section we explore perturbation-resilience, also known as \textit{$\gamma$-stability} or Bilu-Linial stability. 
 The authors refer to the original paper of the two authors Bilu and Linial \cite{bilu2012stable} as well as a survey 
 on the matter by Makarychev and Makarychev \cite{makarychev201613}. In a later work Makarychev and Makarychev define 
-\textit{$\gamma$-certified algorithms} \cite{makarychev_et_al:LIPIcs.ITCS.2020.49}.
+\textit{$\gamma$-certified algorithms} \cite{makarychev_et_al:LIPIcs.ITCS.2020.49}. In the final paragraph we take a look 
+back at combinatorial optimization problems through the lens of constraint satisfaction.
 
 The following definitions for $\gamma$-perturbation are for edge-optimization and vertex-optimization problems respectively. 
 Afterwards, we are going to define stability and certified algorithms for vertex-optimization problems only.
@@ -138,5 +187,24 @@ From now on, the definitions will concentrate on Vertex-Optimization problems.
 
     A $\gamma$-certified solution to an instance $(G, w)$ of a weighted vertex-optimization problem $\Pi$ is a pair $(S, w')$ 
     where $w'$ is a $\gamma$-perturbation of $w$ and $S$ is an optimal solution on $(G, w')$. 
+
+\end{mydefinition}
+
+\begin{mydefinition}[Combinatorial Optimization problems (Constraint Satisfaction), label={def:cosp}]
+
+    An instance of a \textit{combinatorial optimization} problem is specified by a set of feasible solutions $\mathcal{S}$ (the solution space) 
+    a set of constraints $\mathcal{C}$ and constraint weights $w_c > 0$ for $c \in \mathcal{C}$. Typically the solution space is 
+    exponential in size (as is the case with \textsc{MWFVS} with the number of cycles in a graph) and is not provided explicitly. 
+    We say that a feasible solution $s \in \mathcal{S}$ satisfies a constraint $c \in \mathcal{C}$ if $c(s) = 1$.  
+
+    \noindent Consider the minimization and maximization objectives.
+
+    \begin{itemize}[noitemsep, topsep=0pt]
+        \item The minimization objective is to minimize the total weight of the unsatisfied constraints: find $s \in \mathcal{S}$ 
+        that minimizes $\sum_{c \in C} w_c \times (1 - c(s)) = w(\mathcal{C}) - val_{\mathcal{I}}(s)$, where 
+        $w(\mathcal{C}) = \sum_{c \in \mathcal{C}} w(c)$ is the total weight of the constraints.  
+        \item The maximization objective is to maximize the total weight of the satisfied constraints: find $s \in \mathcal{S}$ that 
+        maximizes $val_{\mathcal{I}}(s) = \sum_{c \in \mathcal{C}} w(c)$.
+    \end{itemize}
 
 \end{mydefinition}

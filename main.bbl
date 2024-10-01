@@ -115,6 +115,11 @@ D.~P. Williamson and D.~B. Shmoys, \emph{The design of approximation
   algorithms}.\hskip 1em plus 0.5em minus 0.4em\relax Cambridge university
   press, 2011.
 
+\bibitem{cygan2015parameterized}
+M.~Cygan, F.~V. Fomin, {\L}.~Kowalik, D.~Lokshtanov, D.~Marx, M.~Pilipczuk,
+  M.~Pilipczuk, and S.~Saurabh, \emph{Parameterized algorithms}.\hskip 1em plus
+  0.5em minus 0.4em\relax Springer, 2015, vol.~5, no.~4.
+
 \bibitem{Karp1972}
 \BIBentryALTinterwordspacing
 R.~M. Karp, \emph{Reducibility among Combinatorial Problems}.\hskip 1em plus
