@@ -127,4 +127,11 @@ R.~M. Karp, \emph{Reducibility among Combinatorial Problems}.\hskip 1em plus
   Available: \url{https://doi.org/10.1007/978-1-4684-2001-2_9}
 \BIBentrySTDinterwordspacing
 
+\bibitem{dominatingsetptas}
+\BIBentryALTinterwordspacing
+M.~Marzban and Q.-P. Gu, ``Computational study on a ptas for planar dominating
+  set problem,'' \emph{Algorithms}, vol.~6, no.~1, pp. 43--59, 2013. [Online].
+  Available: \url{https://www.mdpi.com/1999-4893/6/1/43}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

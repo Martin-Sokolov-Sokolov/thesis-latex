@@ -105,39 +105,79 @@ but can depend arbitrarily on $1/\epsilon$. This dependence could be exponential
 
 \subsubsection{Baker's approach}
 
-\noindent In this subsection, we are going to describe the Shifting technique. We are going to give a more general technique. 
+\noindent In this subsection, we are going to describe the Shifting technique. It is described in Baker's seminal paper \cite{Baker}.
+What she describes is a general algorithm that partitions the graph into a disjoint union of levels of vertices. By analysing slices of these 
+levels and more specifically the overlap between these slices, one obtains an approximation ratio for the solution of the optimization 
+problem. The slices constitute a number of levels that are specifically chosen for a problem and it should hold that an exact solution 
+can be found on one slice. It must also hold that this solution can be found in optimal time. 
+
+\noindent There is also another way to view this approach. Instead of analysing the overlap between slices, one could partition the graph 
+by removing said overlap. This way we get a disjoint union which does not sum up to the total solution, but we can argue that we did not stray 
+away so much from the optimum solution. This approach works for hereditary optimization problems like \textsc{Independent Set}, \textsc{Max-Cut}, 
+\textsc{Maximum P-Matching}, etc. 
+
+\noindent We are going to give two examples. The first is the general shifting technique and the example problem for it will be \textsc{Vertex Cover}. 
+Then we will explore the second perspective and take \textsc{Independent Set} as an example. It is important to note that the general technique is 
+much more powerful than partitioning by means of removal of vertices. In the case of \textsc{Vertex Cover} we can still use the second approach 
+and come to a PTAS, but the same does not hold for \textsc{Dominating Set}. However, using the general Shifting technique we can obtain a 
+PTAS for \textsc{Dominating Set} in planar graphs. This was done by Marzban and Gu \cite{dominatingsetptas}. They designed a PTAS with a modified 
+approximation ratio of $(1 + 2/k)$ in $O(2^k \times n)$ time. The two in the approximation ratio appears, because of the overlap needed 
+for \textsc{Dominating Set} between slices which is two levels.
+
+\noindent What follows is a brief explanation of Baker's Shifting technique with \textsc{Vertex Cover} as an example.
 
 \begin{algorithm}[H]
-    \caption{Baker's Shifting Technique}
+    \caption{Baker's Shifting technique}
     \label{alg:baker}
     \begin{algorithmic}[1]
     \REQUIRE Planar graph $G = (V, E)$, parameter $k$
-    \ENSURE $(1 + \epsilon)$-approximation for the problem
+    \ENSURE $(1 + \epsilon)$-approximation for \textsc{Vertex Cover}
+    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
+
+    $i$: \textit{shift}; $j$: \textit{slice}
+
+    \FOR{each $i = 0$ to $k-1$}
+        \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \times k + i$ through $(j+1) \times k + i$ for $0 \leq i < k$.
+        \STATE Let $S_{i, j}$ be the min. \textsc{VC} of $G_{i, j}$.
+        \STATE Let $S_i = \bigcup_{j} S_{i, j}$
+    \ENDFOR
+    \STATE $S_i$ with the minimum cardinality
+    \end{algorithmic}
+\end{algorithm}
+
+\noindent Analysis of the algorithm:
+
+\noindent Now we take a look at the second approach we described.
+
+\begin{algorithm}[H]
+    \caption{Baker's technique with removal}
+    \label{alg:bakeremoval}
+    \begin{algorithmic}[1]
+    \REQUIRE Planar graph $G = (V, E)$, parameter $k$
+    \ENSURE $(1 - \epsilon)$-approximation for \textsc{MIS}
     \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
     \STATE Label each vertex according to its layer $i \mod k$.
     \FOR{each $i = 0$ to $k-1$}
-        \STATE Remove the $i$-th layer and solve the problem optimally on the remaining graph
+        \STATE Remove the $i$-th layer and solve \textsc{MIS} optimally on the remaining graph
         \STATE Combine the solution with the $i$-th layer to form a feasible solution for the original graph
     \ENDFOR
     \STATE Return the best solution found among all iterations
     \end{algorithmic}
 \end{algorithm}
 
-\noindent Steps 3 through 5 hide many details, some of which we will now try to explain. 
+\noindent Steps 2 through 5 hide many details, some of which we will now try to explain. 
 By labelling the vertices of $G$ we obtain a partition, such that deleting any one part results in a graph 
-of bounded treewidth $O(k)$. 
+of bounded treewidth $O(k)$. This allows for the optimal running time of the algorithm.
 
-\noindent Let's look at an example problem, e. g. the \textsc{Maximum Independent Set}. 
+\noindent Analysis of the algorithm:
 
 \begin{enumerate}
     \item for $k = 1/\epsilon$ compute partition $P_1, \dots , P_k$.
     \item for some $q$ ($1 \leq q \leq k)$, $|OPT \cap P_q| \leq \frac{1}{k} \times |OPT| = \epsilon \times |OPT|$, because 
     of the pigeonhole principle
-    \item hence, $|OPT \cap (G - P_q)| \geq (1 - k) \times |OPT|$
-    \item return $max {|\text{\textsc{MIS}}(G - P_i)|}$
+    \item hence, $|OPT \cap (G - P_q)| \geq (1 - 1/k) \times |OPT| = (1 - \epsilon) \times |OPT|$
+    \item return $max_i{|\text{\textsc{MIS}}(G - P_i)|}$
 \end{enumerate}
-
-
 
 \subsubsection{Linear Programming and Randomized Rounding}
 
