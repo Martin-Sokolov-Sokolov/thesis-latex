@@ -10,7 +10,9 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{float}
+\usepackage{parskip} % Add this package for vertical space between paragraphs
 
+\setlength{\parskip}{0.5em}
 \tcbuselibrary{listingsutf8}
 \newtcolorbox[auto counter, number within=section]{mydefinition}[1][]{
   colback=blue!5!white, colframe=blue!75!black,
@@ -32,8 +34,8 @@
 \include{sections/introduction}
 \include{sections/preliminaries}
 \include{sections/research-question}   
-\include{sections/results}
-\include{sections/conclusion}
+%\include{sections/results}
+%\include{sections/conclusion}
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
