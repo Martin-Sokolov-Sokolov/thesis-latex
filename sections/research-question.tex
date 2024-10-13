@@ -4,14 +4,15 @@ In this work, we explore several questions. The first two are of most significan
 will be tackled in what time is left.
 
 \begin{itemize}[left=0pt, labelsep=5pt]
-    \item Explore the \textsc{FVS-BCL} problem as defined in Definition  in planar graphs.
+    \item Explore the \textsc{FVS-BCL} problem as defined in Definition~\ref{FVS-BCL} for planar graphs.
     \begin{itemize}[left=2pt, labelsep=5pt]
         \item To that end we are going to make use of Baker's shifting technique \cite{Baker} as presented in Algorithm~\ref{alg:baker}.
         \item By using the modified version with an overlap between layers of $\left\lfloor \frac{r}{2} \right\rfloor + 1$,
         we capture the essence of breaking cycles of bounded length $r$.
         \item Baker's technique is known to work for problems that involve local conditions on nodes and edges and our imposed restrictions on the \textsc{FVS}
         allow us to deploy this framework.
-        \item We extend this method to devise a PTAS for the weighted version of the problem, \textsc{MWFVS-BCL} for planar graphs.
+        \item We extend this method to devise a PTAS for the weighted version of the problem, \textsc{MWFVS-BCL} as defined in Definition~\ref{MWFVS-BCL}
+        for planar graphs.
     \end{itemize}
     \item Initiate the study of certified algorithms for \textsc{MWFVS-BCL}.
     We provide robust and certified algorithms for $(1 + \epsilon)$-stable instances of planar \textsc{MWFVS-BCL}, for any
@@ -23,26 +24,3 @@ will be tackled in what time is left.
         \item Exploring the translation of PTASs for the \textsc{TSP} to $(1 + \epsilon)$-certified algorithms.
     \end{itemize}
 \end{itemize}
-
-\newpage
-
-\noindent Firstly, we are going to explore the problem of \textsc{FVS} in planar graphs where we try to break all cycles of bounded length $r$. 
-To that end we are going to make use of Baker's shifting technique \cite{Baker}. The reader can imagine a modified version of Algorithm~\ref{alg:baker}
-where 
-the overlap between layers is $\left\lfloor \frac{r}{2} \right\rfloor + 1$. On an intuitive level, this number captures the fact that each 
-(bounded) cycle, that has to broken, starting from a node in the \textsc{BFS} tree \textit{has to go back to the starting vertex}. 
-Baker's technique is known to work for problems that involve local conditions on nodes and edges and our imposed restrictions on the \textsc{FVS}
-allow us to deploy this framework. Then we move on to the weighted version of the problem. For the same conditions we devise a PTAS for the 
-\textsc{MWFVS} problem. 
-
-\noindent Secondly, we initiate the study of certified algorithms for \textsc{MWFVS}. More precisely, we provide robust and 
-certified algorithms for $(1 + \epsilon)$-stable instances of planar \textsc{MWFVS} with cycles of bounded length, 
-for any fixed $\epsilon > 0$. 
-
-\noindent The authors plan to continue this area of research if time allows it, by exploring the following avenues. 
-
-\noindent The first one is looking at the \textsc{Cycle Packing} problem. In the Preliminaries section we described hereditary maximization tasks. 
-This problem falls into that category, thus allowing us to make use of the alternative approach to Baker's technique, 
-namely Algorithm~\ref{alg:bakeremoval} with removal.
-
-\noindent The second one involves checking if we can translate current PTASs for the \textsc{TSP} to $(1 + \epsilon)$-certified algorithms.

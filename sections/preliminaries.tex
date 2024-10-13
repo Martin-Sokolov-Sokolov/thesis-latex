@@ -45,7 +45,6 @@ All of those problems belong to the class of \textbf{NP-complete} problems. The 
     \textbf{Question:}
     Does there exist a set $X$ of at most $k$ vertices of $G$ such that $G - X$ is a forest?
     
-    
 \end{mydefinition}
 
 \noindent The weighted optimization version of the problem can be defined as:
@@ -104,7 +103,7 @@ All of those problems belong to the class of \textbf{NP-complete} problems. The 
 \end{mydefinition}
 
 \noindent We define the problems \textsc{FVS-BCL}, \textsc{MWFVS-BCL} and \textsc{Cycle Packing-BCL} to be the problems that cover and pack cycles respectively
-of bounded length only in the graph. We give only the first definition:
+of bounded length only in the graph. We give two definitions:
 
 \refstepcounter{definition} % Increment counter after the definition content
 \begin{mydefinition}[FVS-BCL]
@@ -115,6 +114,25 @@ of bounded length only in the graph. We give only the first definition:
 
     \textbf{Question:}
     Does there exist a set $X$ of at most $k$ vertices such that every cycle of length at most $r$ contains a vertex in $X$?
+
+\end{mydefinition}
+
+The following is the weighted version of the problem, we define it as an optimization task.
+
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[MWFVS-BCL]
+    \label{MWFVS-BCL}
+
+    \textbf{Instance:}
+    \begin{itemize}[noitemsep, topsep=0pt]
+        \item An undirected weighted graph $(G, w)$, where $G = (V, E)$ and $w: V \to \mathbb{R}$ and an integer $r$.
+    \end{itemize}
+    \textbf{Task:}
+    Find a vertex set $X \subseteq V$ such that:
+    \begin{itemize}[noitemsep, topsep=0pt]
+        \item Every cycle in \( G \setminus X \) of length $\leq r$ has a vertex in $X$.
+        \item The sum of the weights of the vertices in $X$ is minimized.
+    \end{itemize}
 
 \end{mydefinition}
 
