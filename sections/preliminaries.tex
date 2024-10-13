@@ -35,19 +35,24 @@ We are going to be looking at a couple of problems, namely the \textsc{Feedback 
 All of those problems belong to the class of \textbf{NP-complete} problems. The former was also part of Karp's original
 21 problems \cite{Karp1972}. The decision variant of the \textsc{FVS} problem can be defined as:
 
-\begin{mydefinition}[Feedback Vertex Set, label={def:FVS}]
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[FVS]
 
+    \label{FVS}
     \textbf{Input:}
     A graph $G$ and an integer $k$.
 
     \textbf{Question:}
     Does there exist a set $X$ of at most $k$ vertices of $G$ such that $G - X$ is a forest?
-
+    
+    
 \end{mydefinition}
 
 \noindent The weighted optimization version of the problem can be defined as:
 
-\begin{mydefinition}[Minimum Weight Feedback Vertex Set, label={def:MWFVS}]
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[Minimum Weight Feedback Vertex Set]
+    \label{MWFVS}
 
     \textbf{Instance:}
     \begin{itemize}[noitemsep, topsep=0pt]
@@ -64,7 +69,9 @@ All of those problems belong to the class of \textbf{NP-complete} problems. The 
 
 \noindent In some sense dual to the \textsc{FVS} is the \textsc{Cycle Packing} problem. We use the definition from the blue book of Cygan et al. \cite{cygan2015parameterized}.
 
-\begin{mydefinition}[Cycle Packing, label={def:CYCP}]
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[Cycle Packing]
+    \label{def:CYCP}
 
     \textbf{Input:}
     A graph $G$ and an integer $k$.
@@ -76,7 +83,9 @@ All of those problems belong to the class of \textbf{NP-complete} problems. The 
 
 \noindent The other problem we inspect is an edge-optimization problem, namely the \textsc{Travelling Salesman Problem} (TSP).
 
-\begin{mydefinition}[Travelling Salesman Problem, label={def:TSP}]
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[Travelling Salesman Problem]
+    \label{TSP}
 
     \textbf{Instance:}
     \begin{itemize}[noitemsep, topsep=0pt]
@@ -97,7 +106,9 @@ All of those problems belong to the class of \textbf{NP-complete} problems. The 
 \noindent We define the problems \textsc{FVS-BCL}, \textsc{MWFVS-BCL} and \textsc{Cycle Packing-BCL} to be the problems that cover and pack cycles respectively
 of bounded length only in the graph. We give only the first definition:
 
-\begin{mydefinition}[FVS-BCL, label={def:FVS-BCL}]
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[FVS-BCL]
+    \label{FVS-BCL}
 
     \textbf{Input:}
     A graph $G$, integer $k$ and an integer $r$.
@@ -119,7 +130,10 @@ We say $A$ has performance ratio \textit{k}. If a problem falls into that catego
 to another class of approximation algorithms. \textbf{PTAS} is a class of algorithms that works in polynomial time and gets close to an optimal 
 solution with a trade-off. 
 
-\begin{mydefinition}[ Polynomial-Time Approximation Scheme (PTAS), label={def:PTAS}] 
+
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[ Polynomial-Time Approximation Scheme (PTAS)]
+    \label{PTAS}
     
     A polynomial-time approximation scheme (\textbf{PTAS}) is a family of algorithms ${A_{\epsilon}}$ where there is an algorithm for each $\epsilon > 0$, 
     such that $A_{\epsilon}$ is a $(1 + \epsilon)$-approximation algorithm (for minimization problems). The running time of the algorithm $A_{\epsilon}$ 
@@ -251,7 +265,9 @@ back at combinatorial optimization problems through the lens of constraint satis
 The following definitions for $\gamma$-perturbation are for edge-optimization and vertex-optimization problems respectively. 
 Afterwards, we are going to define stability and certified algorithms for vertex-optimization problems only.
 
+\refstepcounter{definition} % Increment counter after the definition content
 \begin{mydefinition}[$\gamma$-perturbation for Edge-Optimization problems]
+    \label{gpeop}
 
     Consider a weighted graph $G = (V, E, w)$ with a set of edge weights $w_e$. An instance $G' = (V, E, w')$ is a 
     $\gamma$-perturbation ($\gamma \in \mathbb{R_{\geq \text{1}}}$) of $G$ if $w(e) \leq w'(e) \leq \gamma \times w(e)$; that is, if we can 
@@ -262,14 +278,18 @@ Afterwards, we are going to define stability and certified algorithms for vertex
 
 \noindent From now on, the definitions will concentrate on Vertex-Optimization problems.
 
-\begin{mydefinition}[ $\gamma$-perturbation for Vertex-Optimization problems, label={def:gpvop}]
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[ $\gamma$-perturbation for Vertex-Optimization problems]
+    \label{gpvop}
 
     Consider a weighted graph $(G, w)$. For any $\gamma \in \mathbb{R_{\geq \text{1}}}$ a $\gamma$-perturbation of the weight function 
     $w : V \to \mathbb{R}$ is a function $w' : V \to R$ satisfying $w(v) \leq w'(v) \leq \gamma \times w(v) \; \forall v \in V$.
 
 \end{mydefinition}
 
-\begin{mydefinition}[$\gamma$-stability, label={def:gs}]
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[$\gamma$-stability]
+    \label{gs}
 
     For any $\gamma \in \mathbb{R_{\geq \text{1}}}$, a $\gamma$-stable instance $(G, w)$ of a \textit{vertex-minimization} problem 
     $\Pi$  is an instance admitting a unique optimal solution \textit{S} which remains optimal even under $\gamma$-perturbations of 
@@ -277,14 +297,18 @@ Afterwards, we are going to define stability and certified algorithms for vertex
 
 \end{mydefinition}
 
-\begin{mydefinition}[Certified Algorithm, label={def:ca}]
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[Certified Algorithm]
+    \label{ca}
 
     A $\gamma$-certified solution to an instance $(G, w)$ of a weighted vertex-optimization problem $\Pi$ is a pair $(S, w')$ 
     where $w'$ is a $\gamma$-perturbation of $w$ and $S$ is an optimal solution on $(G, w')$. 
 
 \end{mydefinition}
 
-\begin{mydefinition}[Combinatorial Optimization problems (Constraint Satisfaction), label={def:cosp}]
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[Combinatorial Optimization problems (Constraint Satisfaction)]
+    \label{cosp}
 
     An instance of a \textit{combinatorial optimization} problem is specified by a set of feasible solutions $\mathcal{S}$ (the solution space) 
     a set of constraints $\mathcal{C}$ and constraint weights $w_c > 0$ for $c \in \mathcal{C}$. Typically the solution space is 

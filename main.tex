@@ -11,15 +11,23 @@
 \usepackage{algorithmic}
 \usepackage{float}
 \usepackage{parskip} % Add this package for vertical space between paragraphs
+\usepackage{hyperref}
 
 \setlength{\parskip}{0.5em}
-\tcbuselibrary{listingsutf8}
-\newtcolorbox[auto counter, number within=section]{mydefinition}[1][]{
-  colback=blue!5!white, colframe=blue!75!black,
-  fonttitle=\bfseries, 
-  width=\textwidth,
-  title=Definition~\thetcbcounter: #1
+
+% Step 1: Create a custom counter for definitions
+\newcounter{definition}[section] % Reset the counter at every new section
+\renewcommand{\thedefinition}{\thesection.\arabic{definition}} % Format the counter as section.definition
+
+\newtcolorbox[]{mydefinition}[1][]{%
+  colback=blue!5!white,  % Background color
+  colframe=blue!75!black, % Frame color
+  fonttitle=\bfseries,    % Title font
+  width=\textwidth,       % Box width
+  sharp corners,          % Style options
+  title=Definition~\thedefinition: #1,  % Definition number and custom title
 }
+
 
 \title{Certified Algorithms for Combinatorial Optimization Problems}
 \author{Martin Sokolov}
