@@ -21,6 +21,39 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{Karp1972}
+\BIBentryALTinterwordspacing
+R.~M. Karp, \emph{Reducibility among Combinatorial Problems}.\hskip 1em plus
+  0.5em minus 0.4em\relax Boston, MA: Springer US, 1972, pp. 85--103. [Online].
+  Available: \url{https://doi.org/10.1007/978-1-4684-2001-2_9}
+\BIBentrySTDinterwordspacing
+
+\bibitem{BECKER1996167}
+\BIBentryALTinterwordspacing
+A.~Becker and D.~Geiger, ``Optimization of pearl's method of conditioning and
+  greedy-like approximation algorithms for the vertex feedback set problem,''
+  \emph{Artificial Intelligence}, vol.~83, no.~1, pp. 167--188, 1996. [Online].
+  Available:
+  \url{https://www.sciencedirect.com/science/article/pii/0004370295000046}
+\BIBentrySTDinterwordspacing
+
+\bibitem{bafnaandfujito}
+\BIBentryALTinterwordspacing
+V.~Bafna, P.~Berman, and T.~Fujito, ``A 2-approximation algorithm for the
+  undirected feedback vertex set problem,'' \emph{SIAM Journal on Discrete
+  Mathematics}, vol.~12, no.~3, pp. 289--297, 1999. [Online]. Available:
+  \url{https://doi.org/10.1137/S0895480196305124}
+\BIBentrySTDinterwordspacing
+
+\bibitem{CHUDAK1998111}
+\BIBentryALTinterwordspacing
+F.~A. Chudak, M.~X. Goemans, D.~S. Hochbaum, and D.~P. Williamson, ``A
+  primal–dual interpretation of two 2-approximation algorithms for the
+  feedback vertex set problem in undirected graphs,'' \emph{Operations Research
+  Letters}, vol.~22, no.~4, pp. 111--118, 1998. [Online]. Available:
+  \url{https://www.sciencedirect.com/science/article/pii/S0167637798000212}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Baker}
 \BIBentryALTinterwordspacing
 B.~S. Baker, ``Approximation algorithms for {NP}-complete problems on planar
@@ -119,13 +152,6 @@ D.~P. Williamson and D.~B. Shmoys, \emph{The design of approximation
 M.~Cygan, F.~V. Fomin, {\L}.~Kowalik, D.~Lokshtanov, D.~Marx, M.~Pilipczuk,
   M.~Pilipczuk, and S.~Saurabh, \emph{Parameterized algorithms}.\hskip 1em plus
   0.5em minus 0.4em\relax Springer, 2015, vol.~5, no.~4.
-
-\bibitem{Karp1972}
-\BIBentryALTinterwordspacing
-R.~M. Karp, \emph{Reducibility among Combinatorial Problems}.\hskip 1em plus
-  0.5em minus 0.4em\relax Boston, MA: Springer US, 1972, pp. 85--103. [Online].
-  Available: \url{https://doi.org/10.1007/978-1-4684-2001-2_9}
-\BIBentrySTDinterwordspacing
 
 \bibitem{dominatingsetptas}
 \BIBentryALTinterwordspacing

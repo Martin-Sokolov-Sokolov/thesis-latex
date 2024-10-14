@@ -4,9 +4,23 @@
     \item Introduce the problem FVS in the most general setting (important problem, many ways to solve it)
     \item Mention approximation algorithms as a way to deal with the NP-hardness of the problem 
     \item Baker's technique as a means of acquiring a PTAS
-    \item Other means of acquiring an approximation ratio, specifically a constant-factor approximation, LP
+    \item  Other means of acquiring an approximation ratio, specifically a constant-factor approximation, LP
     \item BWCA, certified algorithms
 \end{itemize}
+
+\noindent The \textsc{Feedback Vertex Set} (\textsc{FVS}) problem is central to the field of computer science. In Karp's paper \cite{Karp1972} 
+it was shown that there is a reduction from \textsc{Satisfiability} to twenty one problems, one of which is \textsc{FVS}. Because of the 
+hardness of the problem, extensive research has been conducted in order to find a good approximation solution. The problem is known to be \textbf{APX-complete} 
+and the best approximation ratio so far is two and was first found by Becker and Geiger \cite{BECKER1996167}. Around the same time, Bafna et al. 
+\cite{bafnaandfujito} devised the first local ratio technique in order to arrive at the same approximation ratio. These algorithms were translated 
+in primal-dual terms by Chudak et al. \cite{CHUDAK1998111} who devise a third algorithm which yield a 2-approximation both for the unweighted and 
+weighted case of the \textsc{FVS} problem. 
+
+\noindent For planar graphs and \textsc{H-Minor-Free} graphs two approaches have yielded PTASs for many problems. Baker's technique \cite{Baker} 
+focused on approximation algorithms for \textbf{NP-Complete} problems on planar graphs while Demaine and Hajiaghayi \cite{demaine2005bidimensionality} 
+generalized the shifting technique for the latter class of graphs. One of the known limitations of the shifting technique is that it does not handle 
+non-local problems such as the ones we are examining. In our paper we impose restrictions on the planar graph in order to introduce a local property 
+that allows us to devise a PTAS for the \textsc{FVS} problem. 
 
 \subsection{Motivation}
 

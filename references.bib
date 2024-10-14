@@ -202,3 +202,60 @@ ISSN = {1999-4893},
 ABSTRACT = {The dominating set problem is a core NP-hard problem in combinatorial optimization and graph theory, and has many important applications. Baker [JACM 41,1994] introduces a k-outer planar graph decomposition-based framework for designing polynomial time approximation scheme (PTAS) for a class of NP-hard problems in planar graphs. It is mentioned that the framework can be applied to obtain an O(2ckn) time, c is a constant, (1+1/k)-approximation algorithm for the planar dominating set problem. We show that the approximation ratio achieved by the mentioned application of the framework is not bounded by any constant for the planar dominating set problem. We modify the application of the framework to give a PTAS for the planar dominating set problem. With k-outer planar graph decompositions, the modified PTAS has an approximation ratio (1 + 2/k). Using 2k-outer planar graph decompositions, the modified PTAS achieves the approximation ratio (1+1/k) in O(22ckn) time. We report a computational study on the modified PTAS. Our results show that the modified PTAS is practical.},
 DOI = {10.3390/a6010043}
 }
+
+@article{BECKER1996167,
+title = {Optimization of Pearl's method of conditioning and greedy-like approximation algorithms for the vertex feedback set problem},
+journal = {Artificial Intelligence},
+volume = {83},
+number = {1},
+pages = {167-188},
+year = {1996},
+issn = {0004-3702},
+doi = {https://doi.org/10.1016/0004-3702(95)00004-6},
+url = {https://www.sciencedirect.com/science/article/pii/0004370295000046},
+author = {Ann Becker and Dan Geiger},
+abstract = {We show how to find a small loop cutset in a Bayesian network. Finding such a loop cutset is the first step in the method of conditioning for inference. Our algorithm for finding a loop cutset, called MGA, finds a loop cutset which is guaranteed in the worst case to contain less than twice the number of variables contained in a minimum loop cutset. The algorithm is based on a reduction to the weighted vertex feedback set problem and a 2-approximation of the latter problem. The complexity of MGA is O(m + nlogn) where m and n are the number of edges and vertices respectively. A greedy algorithm, called GA, for the weighted vertex feedback set problem is also analyzed and bounds on its performance are given. We test MGA on randomly generated graphs and find that the average ratio between the number of instances associated with the algorithm's output and the number of instances associated with an optimum solution is far better than the worst-case bound.}
+}
+
+@article{bafnaandfujito,
+author = {Bafna, Vineet and Berman, Piotr and Fujito, Toshihiro},
+title = {A 2-Approximation Algorithm for the Undirected Feedback Vertex Set Problem},
+journal = {SIAM Journal on Discrete Mathematics},
+volume = {12},
+number = {3},
+pages = {289-297},
+year = {1999},
+doi = {10.1137/S0895480196305124},
+
+URL = { 
+    
+        https://doi.org/10.1137/S0895480196305124
+    
+    
+
+},
+eprint = { 
+    
+        https://doi.org/10.1137/S0895480196305124
+    
+    
+
+}
+,
+    abstract = { A feedback vertex set of a graph is a subset of vertices that contains at least one vertex from every cycle in the graph. The problem considered is that of finding a minimum feedback vertex set given a weighted and undirected graph. We present a simple and efficient approximation algorithm with performance ratio of at most 2, improving previous best bounds for either weighted or unweighted cases of the problem. Any further improvement on this bound, matching the best constant factor known for the vertex cover problem, is deemed challenging.The approximation principle, underlying the algorithm, is based on a generalized form of the classical local ratio theorem, originally developed for approximation of the vertex cover problem, and a more flexible style of its application. }
+}
+
+@article{CHUDAK1998111,
+title = {A primal–dual interpretation of two 2-approximation algorithms for the feedback vertex set problem in undirected graphs},
+journal = {Operations Research Letters},
+volume = {22},
+number = {4},
+pages = {111-118},
+year = {1998},
+issn = {0167-6377},
+doi = {https://doi.org/10.1016/S0167-6377(98)00021-2},
+url = {https://www.sciencedirect.com/science/article/pii/S0167637798000212},
+author = {Fabián A. Chudak and Michel X. Goemans and Dorit S. Hochbaum and David P. Williamson},
+keywords = {Approximation algorithms, Combinatorial optimization, Feedback vertex set},
+abstract = {Recently, Becker and Geiger and Bafna, Berman and Fujito gave 2-approximation algorithms for the feedback vertex set problem in undirected graphs. We show how their algorithms can be explained in terms of the primal–dual method for approximation algorithms, which has been used to derive approximation algorithms for network design problems. In the process, we give a new integer programming formulation for the feedback vertex set problem whose integrality gap is at worst a factor of two; the well-known cycle formulation has an integrality gap of Θ(logn), as shown by Even, Naor, Schieber and Zosin. We also give a new 2-approximation algorithm for the problem which is a simplification of the Bafna et al. algorithm.}
+}
