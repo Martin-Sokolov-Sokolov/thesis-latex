@@ -18,27 +18,36 @@ weighted case of the \textsc{FVS} problem.
 
 \noindent For planar graphs and \textsc{H-Minor-Free} graphs two approaches have yielded PTASs for many problems. Baker's technique \cite{Baker} 
 focused on approximation algorithms for \textbf{NP-Complete} problems on planar graphs while Demaine and Hajiaghayi \cite{demaine2005bidimensionality} 
-generalized the shifting technique for the latter class of graphs. One of the known limitations of the shifting technique is that it does not handle 
-non-local problems such as the ones we are examining. In our paper we impose restrictions on the planar graph in order to introduce a local property 
-that allows us to devise a PTAS for the \textsc{FVS} problem. 
+generalized the shifting technique for the latter class of graphs. One of the known limitations of the shifting technique is that it does not
+handle non-local problems such as the ones we are examining (\textsc{FVS}, \textsc{Cycle Packing}). In our paper we impose restrictions on 
+the planar graph in order to introduce a local property that allows us to devise a PTAS for the \textsc{FVS-BCL} problem.
+Baker's technique allows for the translation into the weighted version of the problem. We adapt the algorithm to work for the \textsc{MWFVS-BCL} 
+all the while trying to follow the framework for devising certified algorithms established in 
+\cite{Makarychev_Makarychev_2021, angelidakis2018bilu,bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
-\subsection{Motivation}
+\noindent The \textsc{FVS} problem has applications in the field of Bayesian networks. As we said, researchers turned to approximation algorithms 
+and made use of the linear programming framework in order to get desirable ratios. In this paper, we make use of the existing literature on \textsc{LP} 
+for \textsc{FVS} and analyse how to translate the results for the class of graphs with bounded cycle length. 
 
-\subsection{Related Work}
+\noindent Finally, we consider the notions of Bilu-Linial stability \cite{bilu2012stable} and certified algorithms \cite{Makarychev_Makarychev_2021}.
+
+\noindent \textbf{Related Work}
 
 This work is inspired by Baker's seminal paper on designing PTASs in planar graphs \cite{Baker}. There have been other techniques that 
-generalize this approach, namely Demaine and Hajiaghayi \cite{demaine2005bidimensionality}'s bidimensionality theory. 
+generalize this approach, namely Demaine and Hajiaghayi \cite{demaine2005bidimensionality}'s bidimensionality theory. The latter framework 
+explores problems in \textsc{H-Minor-Free} graphs. 
 
 \noindent The notion of Bilu-Linial stability has given rise to much exploration of structured instances in many problems. 
-In their paper \cite{bilu2012stable} they offer the first evidence that stable instances are much easier than worst-case instances. 
+In their paper Bilu and Linial \cite{bilu2012stable} offer the first evidence that stable instances are much easier than worst-case instances of problems. 
 They propose an exact algorithm for $O(n)$-stable instances of \textsc{Max Cut}. This result was improved by Bilu et al. \cite{bilu2012practically} 
 who designed a $O(\sqrt{n})$ for the same problem. Further research yielded a general approach to analysing stable instances in 
 Makarychev et al. \cite{makarychev2014bilu}. They applied that approach to graph partitioning problems and designed 
-$O(\sqrt{\log n}\log\log n)$-stable instances of \textsc{Max Cut} and 4-stable instances of \textsc{Minimum Multiway Cut}. The study of perturbation 
-resilience of clustering problems is explored in \cite{awasthi2012center, balcan2016clustering, balcan2015k}. On the \textsc{Travelling Salesman 
-Problem}, Mihal\'ak et al. \cite{mihalak2011complexity} gave an algorithm for 1.8-stable instances. We refer the reader to the survey \cite{makarychev201613}.
+$O(\sqrt{\log n}\log\log n)$-stable instances of \textsc{Max Cut} and 4-stable instances of \textsc{Minimum Multiway Cut}. The study of
+perturbation resilience of clustering problems is explored in \cite{awasthi2012center, balcan2016clustering, balcan2015k}.
+On the \textsc{Travelling Salesman Problem}, Mihal\'ak et al. \cite{mihalak2011complexity} gave an algorithm for 1.8-stable instances. 
+We refer the reader to the survey \cite{makarychev201713}.
 
-\noindent On the subject of Beyond the Worst-Case Analysis we refer to Makarychev and Makarychev \cite{makarychev_et_al:LIPIcs.ITCS.2020.49}. 
+\noindent On the subject of Beyond the Worst-Case Analysis we refer to Makarychev and Makarychev \cite{Makarychev_Makarychev_2021}. 
 In that paper certified algorithms are first described in an attempt to bridge the gap between the worst-case and structured instances. 
 Since then, researchers have made use of the definitions and results in that paper and applied them to other problems.
 Angelidakis et al. \cite{angelidakis2018bilu} explore the notion of stability and initiate the study of certified algorithms 
@@ -46,6 +55,5 @@ for the \textsc{Maximum Independent Set} problem (\textsc{MIS}). They provide ro
 of planar \textsc{MIS}, for any fixed $\epsilon > 0$. Covering and Dominating in planar graphs was further explored by Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19}. 
 They provide ($1 + \epsilon$)-certified algorithms for \textsc{Dominating Set} and \textsc{H-Subgraph-Free-Deletion}, which for any $\epsilon$ 
 run in time $f(1/\epsilon) \times n^{O(1)}$ on minor-closed classes of graphs of bounded local treewidth.
-
 
 %\noindent \textbf{Organization of Material}

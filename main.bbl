@@ -65,6 +65,27 @@ B.~S. Baker, ``Approximation algorithms for {NP}-complete problems on planar
 E.~D. Demaine and M.~T. Hajiaghayi, ``Bidimensionality: new connections between
   fpt algorithms and ptass.'' in \emph{SODA}, vol.~5, 2005, pp. 590--601.
 
+\bibitem{Makarychev_Makarychev_2021}
+K.~Makarychev and Y.~Makarychev, \emph{Perturbation Resilience}.\hskip 1em plus
+  0.5em minus 0.4em\relax Cambridge University Press, 2021, p. 95–119.
+
+\bibitem{angelidakis2018bilu}
+H.~Angelidakis, P.~Awasthi, A.~Blum, V.~Chatziafratis, and C.~Dan,
+  ``Bilu-linial stability, certified algorithms and the independent set
+  problem,'' \emph{arXiv preprint arXiv:1810.08414}, 2018.
+
+\bibitem{bumpus_et_al:LIPIcs.SWAT.2024.19}
+\BIBentryALTinterwordspacing
+B.~M. Bumpus, B.~M.~P. Jansen, and J.~Venne, ``{Fixed-Parameter Tractable
+  Certified Algorithms for Covering and Dominating in Planar Graphs and
+  Beyond},'' in \emph{19th Scandinavian Symposium and Workshops on Algorithm
+  Theory (SWAT 2024)}, ser. Leibniz International Proceedings in Informatics
+  (LIPIcs), H.~L. Bodlaender, Ed., vol. 294.\hskip 1em plus 0.5em minus
+  0.4em\relax Dagstuhl, Germany: Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r
+  Informatik, 2024, pp. 19:1--19:16. [Online]. Available:
+  \url{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.SWAT.2024.19}
+\BIBentrySTDinterwordspacing
+
 \bibitem{bilu2012stable}
 Y.~Bilu and N.~Linial, ``Are stable instances easy?'' \emph{Combinatorics,
   Probability and Computing}, vol.~21, no.~5, pp. 643--660, 2012.
@@ -100,36 +121,9 @@ M.~Mihal{\'a}k, M.~Sch{\"o}ngens, R.~{\v{S}}r{\'a}mek, and P.~Widmayer, ``On
   Smokovec, Slovakia, January 22-28, 2011. Proceedings 37}.\hskip 1em plus
   0.5em minus 0.4em\relax Springer, 2011, pp. 382--393.
 
-\bibitem{makarychev201613}
-K.~Makarychev and Y.~Makarychev, ``13 bilu-linial stability.''
-
-\bibitem{makarychev_et_al:LIPIcs.ITCS.2020.49}
-\BIBentryALTinterwordspacing
-------, ``{Certified Algorithms: Worst-Case Analysis and Beyond},'' in
-  \emph{11th Innovations in Theoretical Computer Science Conference (ITCS
-  2020)}, ser. Leibniz International Proceedings in Informatics (LIPIcs),
-  T.~Vidick, Ed., vol. 151.\hskip 1em plus 0.5em minus 0.4em\relax Dagstuhl,
-  Germany: Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik, 2020, pp.
-  49:1--49:14. [Online]. Available:
-  \url{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITCS.2020.49}
-\BIBentrySTDinterwordspacing
-
-\bibitem{angelidakis2018bilu}
-H.~Angelidakis, P.~Awasthi, A.~Blum, V.~Chatziafratis, and C.~Dan,
-  ``Bilu-linial stability, certified algorithms and the independent set
-  problem,'' \emph{arXiv preprint arXiv:1810.08414}, 2018.
-
-\bibitem{bumpus_et_al:LIPIcs.SWAT.2024.19}
-\BIBentryALTinterwordspacing
-B.~M. Bumpus, B.~M.~P. Jansen, and J.~Venne, ``{Fixed-Parameter Tractable
-  Certified Algorithms for Covering and Dominating in Planar Graphs and
-  Beyond},'' in \emph{19th Scandinavian Symposium and Workshops on Algorithm
-  Theory (SWAT 2024)}, ser. Leibniz International Proceedings in Informatics
-  (LIPIcs), H.~L. Bodlaender, Ed., vol. 294.\hskip 1em plus 0.5em minus
-  0.4em\relax Dagstuhl, Germany: Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r
-  Informatik, 2024, pp. 19:1--19:16. [Online]. Available:
-  \url{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.SWAT.2024.19}
-\BIBentrySTDinterwordspacing
+\bibitem{makarychev201713}
+K.~Makarychev, ``13 bilu-linial stability,'' \emph{Perturbations, Optimization,
+  and Statistics}, p. 375, 2017.
 
 \bibitem{bondy1976graph}
 J.~A. Bondy, U.~S.~R. Murty \emph{et~al.}, \emph{Graph theory with
