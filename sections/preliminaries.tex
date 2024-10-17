@@ -223,7 +223,7 @@ Therefore we can make the following argument:
     each vertex appears once, except those at levels $q \mod k$, which appear twice. 
 \end{enumerate}
 
-\noindent From the first and fourth step we can conclude that \[S_q \leq |OPT| + |OPT_q| \leq (1 + \epsilon) \times |OPT|\]
+\noindent From the first, second and fourth step we can conclude that: \[S_q \leq |OPT| + |OPT_q| \leq (1 + \epsilon) \times |OPT|\]
 
 \noindent Now we take a look at the second approach we described.
 
@@ -254,8 +254,8 @@ Therefore we can make the following argument:
 \end{enumerate}
 
 \noindent In step 3. of the consequences of the algorithm we skipped much of the analysis that we did for the shifting technique. 
-What we argue however, is that for this particular problem for some $P_q$, a small fraction of the solution resides within that partition. 
-Therefore, the problem allows to forget about that part and the rest of the solution will still be an independent set of bounded size.
+What we argue, however, is that for this particular problem for some $P_q$, a small fraction of the solution resides within that partition. 
+Therefore, we can forget about that part and the rest of the solution will still be an independent set of bounded size.
 
 \noindent The first approach is more general and powerful for constructing algorithms, but it doesn't apply well to the \textsc{Dominating Set} problem.
 The key issue is that the removal technique relies on intersecting an optimal solution with a subgraph, expecting it to remain valid for the
@@ -263,16 +263,17 @@ subgraph. This fails for \textsc{Dominating Set}, since a vertex in the subgraph
 
 \noindent It is shown that the general shifting technique can be used to obtain a PTAS for \textsc{Dominating Set}. The interesting part is that 
 in order to bound the solution one must make the slices overlap on two levels. We refer to Marzban and Gu \cite{dominatingsetptas} for
-the explanation as to why the last is true and how to obtain the $(1 + 2\/k)$ approximation ratio.
+the explanation as to why the last is true and how to obtain the $(1 + 2/k)$ approximation ratio.
 
 \subsubsection{Linear Programming and Randomized Rounding}
 
-One way of approximating solutions is done through Linear Programming (LP). For a more detailed review on Linear Programming 
+One way of approximating solutions is done through Linear Programming (LP). For a more detailed review on \textsc{LP} 
 the reader can consult Chapter 3 of Korte and Vygen \cite{Korte2007CombinatorialOT}. The algorithm we use solves a linear relaxation 
 which provides fractional values as solutions. We then round this fractional solution to an integral one, but rather than doing it 
-deterministically, we do the process randomly. This technique is called \textit{randomized rounding}.
+deterministically, we do the process randomly. This technique is called \textit{randomized rounding}. We exploit that framework, 
+because it is one of the ways one could devise a certified algorithm as explained in Makarychev and Makarychev \cite{Makarychev_Makarychev_2021}. 
 
-\subsection{Beyond the Worst-Case Analysis of Algorithms}
+\subsection{Beyond the Worst-Case Analysis of Algorithms}\label{BWCA-section}
 
 In this section we explore perturbation-resilience, also known as \textit{$\gamma$-stability} or Bilu-Linial stability. 
 The authors refer to the original paper of the two authors Bilu and Linial \cite{bilu2012stable} as well as a survey 
