@@ -18,15 +18,14 @@
 \newcounter{definition}[section] % Reset the counter at every new section
 \renewcommand{\thedefinition}{\thesection.\arabic{definition}} % Format the counter as section.definition
 
-\newtcolorbox[]{mydefinition}[1][]{%
+\newtcolorbox[]{mydefinition}[2][]{%
   colback=blue!5!white,  % Background color
   colframe=blue!75!black, % Frame color
   fonttitle=\bfseries,    % Title font
   width=\textwidth,       % Box width
   sharp corners,          % Style options
-  title=Definition~\thedefinition: #1,  % Definition number and custom title
+  title=#2~\thedefinition: #1,  % Custom label and number
 }
-
 
 \title{Certified Algorithms for Combinatorial Optimization Problems}
 \author{Martin Sokolov}

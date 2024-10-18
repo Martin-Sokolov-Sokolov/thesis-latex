@@ -31,12 +31,15 @@ some $k$. Given a graph $G$, we look for \textit{k-outerplanar} embedding of $G$
 
 \noindent In this section, we refer to the book on Combinatorial Optimization by Korte and Vygen \cite{Korte2007CombinatorialOT} and 
 Williamson and Shmoys \cite{williamson2011design}. Some definitions can be traced to the end of the book by Cygan et al. \cite{cygan2015parameterized}. 
+
+\subsubsection{NP-Complete Problems: Definitions and Variants}
+
 We are going to be looking at a couple of problems, namely the \textsc{Feedback Vertex Set}, the \textsc{Cycle Packing} problem and \textsc{Travelling Salesman Problem}. 
 All of those problems belong to the class of \textbf{NP-complete} problems. The former was also part of Karp's original
 21 problems \cite{Karp1972}. The decision variant of the \textsc{FVS} problem can be defined as:
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[FVS]
+\begin{mydefinition}[FVS]{Definition}
 
     \label{FVS}
     \textbf{Input:}
@@ -50,7 +53,7 @@ All of those problems belong to the class of \textbf{NP-complete} problems. The 
 \noindent The weighted optimization version of the problem can be defined as:
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[Minimum Weight Feedback Vertex Set]
+\begin{mydefinition}[Minimum Weight Feedback Vertex Set]{Definition}
     \label{MWFVS}
 
     \textbf{Instance:}
@@ -69,7 +72,7 @@ All of those problems belong to the class of \textbf{NP-complete} problems. The 
 \noindent In some sense, the \textsc{Cycle Packing} problem is dual to \textsc{FVS}. We use the definition from the blue book of Cygan et al. \cite{cygan2015parameterized}.
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[Cycle Packing]
+\begin{mydefinition}[Cycle Packing]{Definition}
     \label{def:CYCP}
 
     \textbf{Input:}
@@ -83,7 +86,7 @@ All of those problems belong to the class of \textbf{NP-complete} problems. The 
 \noindent The other problem we inspect is an edge-optimization problem, namely the \textsc{Travelling Salesman Problem} (TSP).
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[Travelling Salesman Problem]
+\begin{mydefinition}[Travelling Salesman Problem]{Definition}
     \label{TSP}
 
     \textbf{Instance:}
@@ -102,11 +105,11 @@ All of those problems belong to the class of \textbf{NP-complete} problems. The 
 
 \end{mydefinition}
 
-\noindent We define the problems \textsc{FVS-BCL}, \textsc{MWFVS-BCL} and \textsc{Cycle Packing-BCL} to be the problems that cover and pack cycles respectively
-of bounded length only in the graph. We give two definitions:
+\noindent We define the problems \textsc{FVS-BCL}, \textsc{MWFVS-BCL} and \textsc{Cycle Packing-BCL} to be the problems that cover
+and pack cycles of bounded length. We give the following definitions:
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[FVS-BCL]
+\begin{mydefinition}[FVS-BCL]{Definition}
     \label{FVS-BCL}
 
     \textbf{Input:}
@@ -120,7 +123,7 @@ of bounded length only in the graph. We give two definitions:
 The following is the weighted version of the problem, we define it as an optimization task.
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[MWFVS-BCL]
+\begin{mydefinition}[MWFVS-BCL]{Definition}
     \label{MWFVS-BCL}
 
     \textbf{Instance:}
@@ -136,7 +139,23 @@ The following is the weighted version of the problem, we define it as an optimiz
 
 \end{mydefinition}
 
-\noindent As we mentioned, all three of the problems are \textbf{NP-complete}, so we turn to \textit{approximation algorithms} 
+Finally, we define the maximization problem with an additional constraint:
+
+\refstepcounter{definition}
+\begin{mydefinition}[Cycle Packing-BCL]{Definition}
+    \label{CYCP-BCL}
+
+    \textbf{Input:}
+    A graph $G$, an integer $k$ and an integer $r$.
+
+    \textbf{Question:}
+    Does there exist in $G$ a family of $k$ pairwise vertex-disjoint cycles with each of them having length $\leq r$?
+
+\end{mydefinition}
+
+\subsubsection{Approximation Algorithms and Complexity Classes}
+
+\noindent As we mentioned, all of the problems are \textbf{NP-complete}, so we turn to \textit{approximation algorithms} 
 in order to cope with the hardness of the problems. Let $\Pi$ be an optimization problem with nonnegative weights 
 and $k \geq 1$.
 A \textit{k-factor approximation algorithm} for $\Pi$ is a polynomial-time algorithm $A$ for $\Pi$, 
@@ -150,7 +169,7 @@ solution with a trade-off.
 
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[ Polynomial-Time Approximation Scheme (PTAS)]
+\begin{mydefinition}[ Polynomial-Time Approximation Scheme (PTAS)]{Definition}
     \label{PTAS}
     
     A polynomial-time approximation scheme (\textbf{PTAS}) is a family of algorithms ${A_{\epsilon}}$ where there is an algorithm for each $\epsilon > 0$, 
@@ -285,7 +304,7 @@ The following definitions for $\gamma$-perturbation are for edge-optimization an
 Afterwards, we are going to define stability and certified algorithms for vertex-optimization problems only.
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[$\gamma$-perturbation for Edge-Optimization problems]
+\begin{mydefinition}[$\gamma$-perturbation for Edge-Optimization problems]{Definition}
     \label{gpeop}
 
     Consider a weighted graph $G = (V, E, w)$ with a set of edge weights $w_e$. An instance $G' = (V, E, w')$ is a 
@@ -298,7 +317,7 @@ Afterwards, we are going to define stability and certified algorithms for vertex
 \noindent From now on, the definitions will concentrate on Vertex-Optimization problems.
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[ $\gamma$-perturbation for Vertex-Optimization problems]
+\begin{mydefinition}[ $\gamma$-perturbation for Vertex-Optimization problems]{Definition}
     \label{gpvop}
 
     Consider a weighted graph $(G, w)$. For any $\gamma \in \mathbb{R_{\geq \text{1}}}$ a $\gamma$-perturbation of the weight function 
@@ -307,7 +326,7 @@ Afterwards, we are going to define stability and certified algorithms for vertex
 \end{mydefinition}
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[$\gamma$-stability]
+\begin{mydefinition}[$\gamma$-stability]{Definition}
     \label{gs}
 
     For any $\gamma \in \mathbb{R_{\geq \text{1}}}$, a $\gamma$-stable instance $(G, w)$ of a \textit{vertex-minimization} problem 
@@ -317,7 +336,7 @@ Afterwards, we are going to define stability and certified algorithms for vertex
 \end{mydefinition}
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[Certified Algorithm]
+\begin{mydefinition}[Certified Algorithm]{Definition}
     \label{ca}
 
     A $\gamma$-certified solution to an instance $(G, w)$ of a weighted vertex-optimization problem $\Pi$ is a pair $(S, w')$ 
@@ -326,7 +345,7 @@ Afterwards, we are going to define stability and certified algorithms for vertex
 \end{mydefinition}
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[Combinatorial Optimization problems (Constraint Satisfaction)]
+\begin{mydefinition}[Combinatorial Optimization problems (Constraint Satisfaction)]{Definition}
     \label{cosp}
 
     An instance of a \textit{combinatorial optimization} problem is specified by a set of feasible solutions $\mathcal{S}$ (the solution space) 
@@ -345,3 +364,35 @@ Afterwards, we are going to define stability and certified algorithms for vertex
     \end{itemize}
 
 \end{mydefinition}
+
+\noindent Now we familiarize the reader with the two ways of designing certified algorithms as presented in \cite{Makarychev_Makarychev_2021}. 
+The first is a general framework that (1) starts with an arbitrary solution and (2) iteratively improves it. The improvements in step 2,
+however, are not necessarily local, though it may look like a local search technique. The following is taken from the paper on certified 
+algorithms where it is presented as Task 5.13.
+
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[General framework for $\gamma$-certified algorithms]{Task}
+    \label{gfca}
+
+    Assume we are given an instance $\mathcal{I}(\mathcal{S}, \mathcal{C}, w)$, a partition of its constraints 
+    $\mathcal{C} = \mathcal{C}_{1} \cup \mathcal{C}_{2}$ and a parameter $\gamma$. The task is to either:
+
+    \begin{itemize}[left=0pt, labelsep=5pt, itemsep = 3pt, topsep=3pt]
+
+        \item Option 1: find a better $s \in \mathcal{S}$, such that 
+        $\gamma \times \sum_{c \in \mathcal{C}_1} w_c c(s) > \sum_{c \in \mathcal{C}_2} w_c (1 - c(s))$, or
+
+        \item Option 2: to report that for every $s \in \mathcal{S}$:
+        $\sum_{c \in \mathcal{C}_1} w_c c(s) \leq \sum_{c \in \mathcal{C}_2} w_c (1 - c(s))$.
+
+    \end{itemize}
+
+\end{mydefinition}
+
+\noindent In this procedure, $\mathcal{C}_1$ and $\mathcal{C}_2$ are the sets of constraints that are currently unsatisfied and satisfied
+respectively. If $\gamma = 1$, then Option 1 would try to find a solution where the weight of the unsatisfied constraints is strictly 
+greater than the weight of the unsatisfied by $s$. Therefore, Option 1 finds a better solution then the current one while Option 2 
+reports that there is no solution better than $s$. The options are not mutually exclusive. 
+
+\noindent For the second approach we refer the reader to the paper of Makarychev and Makarychev \cite{Makarychev_Makarychev_2021} 
+as the explanation is quite long and needs to be understood with the examples given.
