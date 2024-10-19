@@ -1,7 +1,7 @@
 \section{Preliminaries}
 
 \noindent In this section, we provide the reader with the necessary information in order to follow the paper. We start 
-off with a reminder on Graph Theory. After that, we move to more advanced definitions in the field of 
+with a reminder of Graph Theory. After that, we move to more advanced definitions in the field of 
 Combinatorial Optimization. Finally, we get on topic by introducing perturbation resilience and certified 
 algorithms from the field of Beyond the Worst-Case Analysis of Algorithms.
 
@@ -9,7 +9,7 @@ algorithms from the field of Beyond the Worst-Case Analysis of Algorithms.
 
 \noindent In this section, the authors refer to Bondy and Murty \cite{bondy1976graph}.
 A \textit{graph} $G$ is an ordered pair denoted as $(V(G), E(G))$.
-The set $V(G)$ is called a set of \textit{vertices} and the set $E(G)$, a set of \textit{edges}.
+The set $V(G)$ is called a set of \textit{vertices} and the set $E(G)$ is a set of \textit{edges}.
 The incidence function $\psi_G$ associates each edge with an unordered pair of 
 (not necessarily unique) vertices. The ordered pair and the incidence function define the graph $G$.
 We are going to use $n$ as the cardinality 
@@ -17,15 +17,15 @@ of the set $V$ and $m$ for the set of edges $E$. With each edge $e$ of G, let th
 a real number $w(e)$, called its \textit{weight}. Then G, together with the weighting function 
 $w : E \to \mathbb{R}$, is called a \textit{weighted graph}, and denoted $(G, w)$.
 
-\noindent A graph is can be \textit{embedded in the plane}, or is \textit{planar} if it can be drawn on the 
+\noindent A graph can be \textit{embedded in the plane} or is \textit{planar} if it can be drawn on the 
 plane in a way that edges intersect each other only at their ends. Such a drawing is called a 
 \textit{planar embedding} of the graph. A graph $G$ is called \textit{outerplanar} if it has a 
 planar embedding $\widetilde{G}$ in which all the vertices lie on the boundary of the outer face. 
 This is also called a \textit{1-outerplanar graph}. Two forbidden minors of that class are the 
-$K_4$ and $K_{2, 3}$ graphs. In the next subsection we familiarize the reader with Baker's approach 
-\cite{Baker}. Here we define a \textit{k-outerplanar} to be a graph that has a planar embedding in which 
+$K_4$ and $K_{2, 3}$ graphs. In the next subsection, we familiarize the reader with Baker's approach 
+\cite{Baker}. Here, we define a \textit{k-outerplanar} to be a graph that has a planar embedding in which 
 the vertices belong to at most $k$ concentric layers. Every planar graph is \textit{k-outerplanar} for 
-some $k$. Given a graph $G$, we look for \textit{k-outerplanar} embedding of $G$ for which $k$ is minimal.
+some $k$. Given a graph $G$, we look for the \textit{k-outerplanar} embedding of $G$ for which $k$ is minimal.
 
 \subsection{Combinatorial Optimization}
 
@@ -34,9 +34,10 @@ Williamson and Shmoys \cite{williamson2011design}. Some definitions can be trace
 
 \subsubsection{NP-Complete Problems: Definitions and Variants}
 
-We are going to be looking at a couple of problems, namely the \textsc{Feedback Vertex Set}, the \textsc{Cycle Packing} problem and \textsc{Travelling Salesman Problem}. 
-All of those problems belong to the class of \textbf{NP-complete} problems. The former was also part of Karp's original
-21 problems \cite{Karp1972}. The decision variant of the \textsc{FVS} problem can be defined as:
+We are going to be looking at a couple of problems, namely the \textsc{Feedback Vertex Set}, the \textsc{Cycle Packing} problem and
+the \textsc{Travelling Salesman Problem}. 
+All of those problems belong to the class of \textbf{NP-complete} problems. 
+The decision variant of the \textsc{FVS} problem can be defined as:
 
 \refstepcounter{definition} % Increment counter after the definition content
 \begin{mydefinition}[FVS]{Definition}
@@ -120,7 +121,7 @@ and pack cycles of bounded length. We give the following definitions:
 
 \end{mydefinition}
 
-The following is the weighted version of the problem, we define it as an optimization task.
+The following is the weighted version of the problem; we define it as an optimization task.
 
 \refstepcounter{definition} % Increment counter after the definition content
 \begin{mydefinition}[MWFVS-BCL]{Definition}
@@ -155,18 +156,17 @@ Finally, we define the maximization problem with an additional constraint:
 
 \subsubsection{Approximation Algorithms and Complexity Classes}
 
-\noindent As we mentioned, all of the problems are \textbf{NP-complete}, so we turn to \textit{approximation algorithms} 
+\noindent As we mentioned, all the problems are \textbf{NP-complete}, so we turn to \textit{approximation algorithms} 
 in order to cope with the hardness of the problems. Let $\Pi$ be an optimization problem with nonnegative weights 
 and $k \geq 1$.
 A \textit{k-factor approximation algorithm} for $\Pi$ is a polynomial-time algorithm $A$ for $\Pi$, 
 such that \[\frac{1}{k} \times OPT(I) \leq A(I) \leq k \times OPT(I)\] for all instances $I$ of $\Pi$.
 The first inequality shown is true for maximization problems, while the second one holds for minimization problems.
-We say $A$ has performance ratio \textit{k}. If a problem falls into that category we say that it is \textbf{APX-complete}. 
+We say $A$ has a performance ratio of \textit{k}. If a problem falls into that category, we say that it is \textbf{APX-complete}. 
 
-\noindent In the last paragraph we mentioned the class of problems \textbf{APX} with regards to approximation algorithms. Now we turn 
-to another class of approximation algorithms. \textbf{PTAS} is a class of algorithms that works in polynomial time and gets close to an optimal 
+\noindent In the last paragraph, we mentioned the class of problems \textbf{APX} regarding approximation algorithms. Now we turn 
+to another class of approximation algorithms. \textbf{PTAS} is a class of algorithms that work in polynomial time and get close to an optimal 
 solution with a trade-off. 
-
 
 \refstepcounter{definition} % Increment counter after the definition content
 \begin{mydefinition}[ Polynomial-Time Approximation Scheme (PTAS)]{Definition}
@@ -179,15 +179,15 @@ solution with a trade-off.
 \end{mydefinition}
 
 \noindent Every problem with a \textbf{PTAS} is also in \textbf{APX}. The relation between these two classes is similar to the one between 
-\textbf{P} and \textbf{NP}. For more on the topic, such as \textit{APX-completeness}, \textit{L-reductions} and the \textit{PCP-theorem} 
+\textbf{P} and \textbf{NP}. For more on the topic, such as \textit{APX-completeness}, \textit{L-reductions} and the \textit{PCP-theorem}, 
 we refer to Korte and Vygen \cite{Korte2007CombinatorialOT}.
 
 \subsubsection{Baker's approach}
 
 \noindent In this subsection, we are going to describe the Shifting technique. It is described in Baker's seminal paper \cite{Baker}.
 What she describes is a general algorithm that partitions the graph into a disjoint union of levels of vertices. By analysing slices of these 
-levels and more specifically the overlap between these slices, one obtains an approximation ratio for the solution of the optimization 
-problem. The slices constitute a number of levels that are specifically chosen for a problem and it should hold that an exact solution 
+levels and, more specifically, the overlap between these slices, one obtains an approximation ratio for the solution to the optimization 
+problem. The slices make up several levels that are specifically chosen for a problem and it should hold that an exact solution 
 can be found on one slice. It must also hold that this solution can be found in optimal time. 
 
 \noindent There is also another way to view this approach. Instead of analysing the overlap between slices, one could partition the graph 
@@ -196,17 +196,17 @@ away so much from the optimum solution. This approach works for hereditary optim
 \textsc{Maximum P-Matching}, etc. 
 
 \noindent We are going to give two examples. The first is the general shifting technique and the example problem for it will be \textsc{Vertex Cover}. 
-Then we will explore the second perspective and take \textsc{Independent Set} as an example. It is important to note that the general technique is 
-much more powerful than partitioning by means of removal of vertices. In the case of \textsc{Vertex Cover} we can still use the second approach 
-and come to a PTAS, but the same does not hold for \textsc{Dominating Set}. However, using the general Shifting technique we can obtain a 
-PTAS for \textsc{Dominating Set} in planar graphs. This was done by Marzban and Gu \cite{dominatingsetptas}. They designed a PTAS with a modified 
-approximation ratio of $(1 + 2/k)$ in $O(2^k \times n)$ time. The two in the approximation ratio appears, because of the overlap needed 
-for \textsc{Dominating Set} between slices which is two levels.
+Then we will explore the second perspective and take the \textsc{Independent Set} problem as an example. It is important to note that the general technique is 
+much more powerful than partitioning by removal of vertices. With \textsc{Vertex Cover}, we can still use the second approach 
+and come to a PTAS, but the same does not hold for the \textsc{Dominating Set} problem. However, using the general shifting technique, we can obtain a 
+PTAS for \textsc{Dominating Set} in planar graphs. This was done by Marzban and Gu \cite{dominatingsetptas}. They designed a PTAS with an 
+approximation ratio of $(1 + 2/k)$ in $O(2^k \times n)$ time. The two in the approximation ratio appears because of the overlap needed 
+for \textsc{Dominating Set} between slices, which is two levels.
 
-\noindent What follows is a brief explanation of Baker's Shifting technique with \textsc{Vertex Cover} as an example.
+\noindent What follows is a brief explanation of Baker's shifting technique with \textsc{Vertex Cover} as an example.
 
 \begin{algorithm}[H]
-    \caption{Baker's Shifting technique}
+    \caption{Baker's shifting technique}
     \label{alg:baker}
     \begin{algorithmic}[1]
     \REQUIRE Planar graph $G = (V, E)$, parameter $k$
@@ -230,14 +230,14 @@ for \textsc{Dominating Set} between slices which is two levels.
 \[ V_i = \{ v \in V \mid \text{level}(v) \equiv i \mod k \} \]
 
 \noindent Let $OPT_i$ denote $OPT \cap V_i$. We notice that $OPT_i$ are disjoint and $OPT = \bigcup_{i} OPT_i$. 
-Therefore we can make the following argument: 
+Therefore, we can make the following argument: 
 
 \begin{enumerate}
     \item $\exists q: |OPT_q| \leq \frac{1}{k} \times OPT = \epsilon |OPT|$
-    \item $S_q \leq \sum_{j} S_{qj}$, for some shift $q$ we have this inequality, because in step 5. of the algorithm 
+    \item $S_q \leq \sum_{j} S_{qj}$, for some shift $q$ we have this inequality because in step 5. of the algorithm 
     we define the set to be a union over all slices and some vertices may appear twice in the boundary layers. 
     \item $\sum_{j} S_{qj} \leq \sum_{j} |OPT \cap V(G_{qj})|$, we know that $S_{qj}$ is a min. \textsc{VC} for $G_{qj}$, while the 
-    optimal solution may choose different vertices, especially on the boundary, for the global optimality of the solution.
+    optimal solution may choose different vertices, especially on the boundary for the global optimality of the solution.
     \item $\sum_{j} |OPT \cap V(G_{qj})| \leq |OPT| + |OPT_q|$, if we consider the graphs $\{G_{qj}\}$, then we can argue that 
     each vertex appears once, except those at levels $q \mod k$, which appear twice. 
 \end{enumerate}
@@ -266,7 +266,7 @@ Therefore we can make the following argument:
 
 \begin{enumerate}
     \item for $k = 1/\epsilon$ compute partition $P_1, \dots , P_k$.
-    \item for some $q$ ($1 \leq q \leq k)$, $|OPT \cap P_q| \leq \frac{1}{k} \times |OPT| = \epsilon \times |OPT|$, because 
+    \item for some $q$ ($1 \leq q \leq k)$, $|OPT \cap P_q| \leq \frac{1}{k} \times |OPT| = \epsilon \times |OPT|$ because 
     of the pigeonhole principle
     \item hence, $|OPT \cap (G - P_q)| \geq (1 - 1/k) \times |OPT| = (1 - \epsilon) \times |OPT|$
     \item return $max_i{|\text{\textsc{MIS}}(G - P_i)|}$
@@ -281,13 +281,13 @@ The key issue is that the removal technique relies on intersecting an optimal so
 subgraph. This fails for \textsc{Dominating Set}, since a vertex in the subgraph could still be dominated by a vertex outside the subgraph.
 
 \noindent It is shown that the general shifting technique can be used to obtain a PTAS for \textsc{Dominating Set}. The interesting part is that 
-in order to bound the solution one must make the slices overlap on two levels. We refer to Marzban and Gu \cite{dominatingsetptas} for
+in order to bound the solution, one must make the slices overlap on two levels. We refer to Marzban and Gu \cite{dominatingsetptas} for
 the explanation as to why the last is true and how to obtain the $(1 + 2/k)$ approximation ratio.
 
 \subsubsection{Linear Programming and Randomized Rounding}
 
-One way of approximating solutions is done through Linear Programming (LP). For a more detailed review on \textsc{LP} 
-the reader can consult Chapter 3 of Korte and Vygen \cite{Korte2007CombinatorialOT}. The algorithm we use solves a linear relaxation 
+One way of approximating solutions is done through Linear Programming (LP). For a more detailed review of \textsc{LP}, 
+the reader can consult Chapter 3 of Korte and Vygen \cite{Korte2007CombinatorialOT}. The algorithm we use solves a linear relaxation, 
 which provides fractional values as solutions. We then round this fractional solution to an integral one, but rather than doing it 
 deterministically, we do the process randomly. This technique is called \textit{randomized rounding}. We exploit that framework, 
 because it is one of the ways one could devise a certified algorithm as explained in Makarychev and Makarychev \cite{Makarychev_Makarychev_2021}. 
@@ -296,11 +296,11 @@ because it is one of the ways one could devise a certified algorithm as explaine
 
 In this section we explore perturbation-resilience, also known as \textit{$\gamma$-stability} or Bilu-Linial stability. 
 The authors refer to the original paper of the two authors Bilu and Linial \cite{bilu2012stable} as well as a survey 
-on the matter by Makarychev and Makarychev \cite{makarychev201713}. In a later work Makarychev and Makarychev define 
-\textit{$\gamma$-certified algorithms} \cite{Makarychev_Makarychev_2021}. In the final paragraph we take a look 
+on the matter by Makarychev and Makarychev \cite{makarychev201713}. In a later work, Makarychev and Makarychev define 
+\textit{$\gamma$-certified algorithms} \cite{Makarychev_Makarychev_2021}. In the final paragraph, we take a look 
 back at combinatorial optimization problems through the lens of constraint satisfaction.
 
-The following definitions for $\gamma$-perturbation are for edge-optimization and vertex-optimization problems respectively. 
+The following definitions for $\gamma$-perturbation are for edge-optimization and vertex-optimization problems, respectively. 
 Afterwards, we are going to define stability and certified algorithms for vertex-optimization problems only.
 
 \refstepcounter{definition} % Increment counter after the definition content
@@ -389,10 +389,10 @@ algorithms where it is presented as Task 5.13.
 
 \end{mydefinition}
 
-\noindent In this procedure, $\mathcal{C}_1$ and $\mathcal{C}_2$ are the sets of constraints that are currently unsatisfied and satisfied
+\noindent In this procedure, $\mathcal{C}_1$ and $\mathcal{C}_2$ are the sets of constraints that are currently unsatisfied and satisfied,
 respectively. If $\gamma = 1$, then Option 1 would try to find a solution where the weight of the unsatisfied constraints is strictly 
-greater than the weight of the unsatisfied by $s$. Therefore, Option 1 finds a better solution then the current one while Option 2 
+greater than the weight of the unsatisfied by $s$. Therefore, Option 1 finds a better solution than the current one, while Option 2 
 reports that there is no solution better than $s$. The options are not mutually exclusive. 
 
-\noindent For the second approach we refer the reader to the paper of Makarychev and Makarychev \cite{Makarychev_Makarychev_2021} 
+\noindent For the second approach, we refer the reader to the paper of Makarychev and Makarychev \cite{Makarychev_Makarychev_2021} 
 as the explanation is quite long and needs to be understood with the examples given.
