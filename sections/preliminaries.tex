@@ -40,7 +40,7 @@ All of those problems belong to the class of \textbf{NP-complete} problems.
 The decision variant of the \textsc{FVS} problem can be defined as:
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[FVS]{Definition}
+\begin{mydefinition}[Feedback Vertex Set (\textbf{FVS})]{Definition}
 
     \label{FVS}
     \textbf{Input:}
@@ -54,7 +54,7 @@ The decision variant of the \textsc{FVS} problem can be defined as:
 \noindent The weighted optimization version of the problem can be defined as:
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[Minimum Weight Feedback Vertex Set]{Definition}
+\begin{mydefinition}[ Minimum Weight Feedback Vertex Set (\textbf{MWFVS})]{Definition}
     \label{MWFVS}
 
     \textbf{Instance:}
@@ -87,7 +87,7 @@ The decision variant of the \textsc{FVS} problem can be defined as:
 \noindent The other problem we inspect is an edge-optimization problem, namely the \textsc{Travelling Salesman Problem} (TSP).
 
 \refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[Travelling Salesman Problem]{Definition}
+\begin{mydefinition}[Travelling Salesman Problem (\textbf{TSP})]{Definition}
     \label{TSP}
 
     \textbf{Instance:}
@@ -107,7 +107,7 @@ The decision variant of the \textsc{FVS} problem can be defined as:
 \end{mydefinition}
 
 \noindent We define the problems \textsc{FVS-BCL}, \textsc{MWFVS-BCL} and \textsc{Cycle Packing-BCL} to be the problems that cover
-and pack cycles of bounded length. We give the following definitions:
+and pack cycles of bounded length. The \textsc{'BCL'} stands for bounded cycle length. We give the following definitions:
 
 \refstepcounter{definition} % Increment counter after the definition content
 \begin{mydefinition}[FVS-BCL]{Definition}
@@ -192,13 +192,13 @@ can be found on one slice. It must also hold that this solution can be found in 
 
 \noindent There is also another way to view this approach. Instead of analysing the overlap between slices, one could partition the graph 
 by removing said overlap. This way we get a disjoint union which does not sum up to the total solution, but we can argue that we did not stray 
-away so much from the optimum solution. This approach works for hereditary optimization problems like \textsc{Independent Set}, \textsc{Max-Cut}, 
+away so much from the optimum solution. This approach works for hereditary maximization problems like \textsc{Independent Set}, \textsc{Max-Cut}, 
 \textsc{Maximum P-Matching}, etc. 
 
 \noindent We are going to give two examples. The first is the general shifting technique and the example problem for it will be \textsc{Vertex Cover}. 
 Then we will explore the second perspective and take the \textsc{Independent Set} problem as an example. It is important to note that the general technique is 
 much more powerful than partitioning by removal of vertices. With \textsc{Vertex Cover}, we can still use the second approach 
-and come to a PTAS, but the same does not hold for the \textsc{Dominating Set} problem. However, using the general shifting technique, we can obtain a 
+and get a PTAS, but the same does not hold for the \textsc{Dominating Set} problem. However, using the general shifting technique, we can obtain a 
 PTAS for \textsc{Dominating Set} in planar graphs. This was done by Marzban and Gu \cite{dominatingsetptas}. They designed a PTAS with an 
 approximation ratio of $(1 + 2/k)$ in $O(2^k \times n)$ time. The two in the approximation ratio appears because of the overlap needed 
 for \textsc{Dominating Set} between slices, which is two levels.
@@ -340,7 +340,8 @@ Afterwards, we are going to define stability and certified algorithms for vertex
     \label{ca}
 
     A $\gamma$-certified solution to an instance $(G, w)$ of a weighted vertex-optimization problem $\Pi$ is a pair $(S, w')$ 
-    where $w'$ is a $\gamma$-perturbation of $w$ and $S$ is an optimal solution on $(G, w')$. 
+    where $w'$ is a $\gamma$-perturbation of $w$ and $S$ is an optimal solution on $(G, w')$. A $\gamma$-certified algorithm 
+    for $\Pi$ maps instances of $\Pi$ to $\gamma$-certified solutions. 
 
 \end{mydefinition}
 
@@ -360,7 +361,7 @@ Afterwards, we are going to define stability and certified algorithms for vertex
         that minimizes $\sum_{c \in C} w_c \times (1 - c(s)) = w(\mathcal{C}) - val_{\mathcal{I}}(s)$, where 
         $w(\mathcal{C}) = \sum_{c \in \mathcal{C}} w(c)$ is the total weight of the constraints.  
         \item The maximization objective is to maximize the total weight of the satisfied constraints: find $s \in \mathcal{S}$ that 
-        maximizes $val_{\mathcal{I}}(s) = \sum_{c \in \mathcal{C}} w(c)$.
+        maximizes $val_{\mathcal{I}}(s) = \sum_{c \in \mathcal{C}} w(c) \times c(s)$.
     \end{itemize}
 
 \end{mydefinition}
