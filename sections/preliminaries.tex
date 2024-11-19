@@ -212,15 +212,17 @@ for \textsc{Dominating Set} between slices, which is two levels.
     \REQUIRE Planar graph $G = (V, E)$, parameter $k$
     \ENSURE $(1 + \epsilon)$-approximation for \textsc{Vertex Cover}
     \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
+    \STATE $S \leftarrow \emptyset$
 
     $i$: \textit{shift}; $j$: \textit{slice}
 
     \FOR{each $i = 0$ to $k-1$}
         \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \times k + i$ through $(j+1) \times k + i$ for $0 \leq i < k$.
-        \STATE $\forall i, j \text{ compute }  S_{i, j}$, the min. \textsc{VC} of $G_{i, j}$.
-        \STATE $\forall i \text{ let } S_i = \bigcup_{j} S_{i, j}$
+        \STATE $\forall j \text{ compute }  S_{i, j}$, the min. \textsc{VC} of $G_{i, j}$.
+        \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
+        \STATE $S \leftarrow S \cup S_i$
     \ENDFOR
-    \STATE $S_i$ with the minimum cardinality
+    \RETURN $S_{i*}$ from $S$ with minimum cardinality
     \end{algorithmic}
 \end{algorithm}
 
@@ -252,13 +254,18 @@ Therefore, we can make the following argument:
     \begin{algorithmic}[1]
     \REQUIRE Planar graph $G = (V, E)$, parameter $k$
     \ENSURE $(1 - \epsilon)$-approximation for \textsc{MIS}
+    \STATE $S \leftarrow \emptyset$
     \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
-    \STATE Label each vertex according to its layer $i \mod k$.
+    \STATE $k \leftarrow 1/\epsilon$
+    \STATE Label each vertex according to its layer $i \mod k$: ${V_1, V_2, \dots V_{k-1}}$
     \FOR{each $i = 0$ to $k-1$}
-        \STATE Remove the $i$-th layer and solve \textsc{MIS} optimally on the remaining graph
-        \STATE Combine the solution with the $i$-th layer to form a feasible solution for the original graph
+        \STATE Let $G_{i} \leftarrow G \backslash V_i$
+        \STATE Let $G_1, G_2, \dots G_j$ be the connected components of $G_i$
+        \STATE $\forall j$ compute the MIS $S_{i, j}$ of $G_{i, j}$
+        \STATE $S_i \leftarrow \bigcup_{j} S_{i, j}$
+        \STATE $S \leftarrow S \cup S_i$
     \ENDFOR
-    \STATE Return the best solution found among all iterations
+    \RETURN $S_{i*}$ from $S$ with minimum cardinality
     \end{algorithmic}
 \end{algorithm}
 
@@ -272,9 +279,9 @@ Therefore, we can make the following argument:
     \item return $max_i{|\text{\textsc{MIS}}(G - P_i)|}$
 \end{enumerate}
 
-\noindent In step 3. of the consequences of the algorithm we skipped much of the analysis that we did for the shifting technique. 
-What we argue, however, is that for this particular problem for some $P_q$, a small fraction of the solution resides within that partition. 
-Therefore, we can forget about that part and the rest of the solution will still be an independent set of bounded size.
+\noindent We skip much of the analysis that we did for the shifting technique, however, we argue that for this particular problem for some $P_q$,
+a small fraction of the solution resides within that partition. Therefore, we can forget about that part and the rest of the solution will still 
+be an independent set of bounded size.
 
 \noindent The first approach is more general and powerful for constructing algorithms, but it doesn't apply well to the \textsc{Dominating Set} problem.
 The key issue is that the removal technique relies on intersecting an optimal solution with a subgraph, expecting it to remain valid for the
