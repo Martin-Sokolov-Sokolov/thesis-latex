@@ -12,8 +12,21 @@
 \usepackage{float}
 \usepackage{parskip} % Add this package for vertical space between paragraphs
 \usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\usepackage[margin=0.5in]{geometry} % Uniform 1-inch margins
+
+\def\layerheight{0.5} % Height of one layer
+\def\layers{5}        % Total number of layers
+\def\overlap{2}       % Number of overlapping layers
+\def\slicelayers{3}   % Layers in each slice (excluding overlap)
+\def\sliceheight{\slicelayers * \layerheight} % Total height of a slice including overlap
 
 \setlength{\parskip}{0.5em}
+
+\hbadness=10000
+\hfuzz=50pt
 
 \newcounter{definition}[section] % Reset the counter at every new section
 \renewcommand{\thedefinition}{\thesection.\arabic{definition}} % Format the counter as section.definition
@@ -39,8 +52,9 @@
 
 \include{sections/introduction}
 \include{sections/preliminaries}
-\include{sections/research-question}   
-%\include{sections/results}
+\include{sections/research-question}
+\include{sections/ptas-fvs-baker}
+
 %\include{sections/conclusion}
 
 \bibliographystyle{IEEEtran}
