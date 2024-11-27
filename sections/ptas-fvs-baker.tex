@@ -53,7 +53,7 @@ breaks every 4-cycle.  Let us fix a slice and shift $a$ and $b$ and take a look 
 the optimal solution for it $S_{a, b}$ and the set $F_{a, b}$. Notice that, much like in the Vertex Cover
 analysis, no vertex in $V(G) \backslash V(G_{a, b})$ can break any 4-cycle that is contained within 
 $G_{a, b}$. Therefore $F_{a, b}$ must contain a vertex that hits every 4-cycle or it will not be 
-a solution in $G_{a, b}$ and subsequently in $G$. From this and the fact that $S_{a, b}$ is an optimum 
+a solution in $G_{a, b}$ and subsequently in $G$. From this and the fact that $S_{a, b}$ is the optimum 
 solution for $G_{a, b}$ we conclude that: \[|S_{a, b}| \leq |F_{a, b}|\text{.}\]
 for some $(a, b)$, therefore it holds $\forall (i, j)$. 
 
@@ -63,9 +63,8 @@ $j$, we mean that it holds for the subgraphs that these variables outline. We wi
 to deepen our understanding of Lemma~\ref{lemma-one}. Moreover, we are going to explore one avenue 
 that gives rise to an inequality in the lemma.
 
-
-
-\begin{center}
+\begin{figure}[H]
+    \centering
     \begin{tikzpicture}
         % Level 0 (Root node)
         \node[circle, draw, fill=blue!20, minimum size=10mm] (1) at (0, 0) {1};
@@ -204,7 +203,9 @@ that gives rise to an inequality in the lemma.
         \node[draw=none] at (6, -20.5) {$2\ell+2$};
 
     \end{tikzpicture}
-\end{center}
+    \caption{BFS tree, showing the distance from the root for each layer.}
+    \label{fig:bfs_tree}
+\end{figure}
 
 \noindent Let $G$ look like the graph we sketched on the previous page. The vertical dots help us 
 clarify the levels while the horizontal signify that there may be other vertices of interest. However, 
@@ -213,6 +214,92 @@ $v_{14}, v_{17} \in F$. What follows is that $v_{14}, v_{17} \in F_{0, 0}$. The 
 reason to claim that $v_{14} \in F$ are all within $G_{0, 0}$. Therefore, it holds that
 Algorithm~\ref{alg:ufvsbcl} will have $v_{14} \in S_{0, 0}$. However, the same does not hold for 
 $v_{17}$, the cycles that it is a part of are in $G_{0, 1}$ and thus $v_{17} \notin S_{0, 0}$, while 
-$v_{17} \in F_{0, 0}$. Thus we will be counting $v_{17}$ twice when we are combining the solutions
-$F_{i, j}$, once in $F_{0, 0}$ and once in $F_{0, 1}$. This is what enables us to obtain an upper bound 
-for $S$.
+$v_{17} \in F_{0, 0}$. This example should not distract the reader from the fact the real reason 
+that $|S_{0, 0}| \leq |F_{0, 0}|$ is because $S_{0, 0}$ is by definition the minimum 4-cycle-breaking 
+set for $G_{0, 0}$, while $F_{0, 0}$ is, as we previously argued, a feasible 4-cycle-breaking set.
+
+\noindent What follows from Lemma~\ref{lemma-one} is a result that holds for any shift $i$.
+
+\refstepcounter{definition}
+\begin{mydefinition}[Optimum solution bound for the whole graph]{Result}
+    \label{result-two}
+
+    Let $S_i$ be the union of optimal solutions defined on line 6 of Algorithm~\ref{alg:ufvsbcl} 
+    for some shift $i$. 
+    Let $F \equiv OPT$ be the optimum solution in $G$ and let $F_{i, j} = G_{i, j} \cap F$.
+    For those sets it holds that: \[|S_{i}| \leq \sum_{j} |S_{i, j}| \leq \sum_{j} |F_{i, j}|\text{.}\]  
+
+\end{mydefinition}
+
+\noindent The first inequality in Result~\ref{result-two} stems from the fact that some vertices 
+in the $S_{i, j}$ sum may appear twice. This pertains to vertices that are located on the boundary. 
+For example if the $v_{30} \in S_{0, 1} \wedge v_{30} \in S_{0, 2}$, then it would be counted once in 
+$S_0$, but twice in $\sum_j S_{0,j}$.
+The second inequality is a result from Lemma~\ref{lemma-one} 
+where we argue that $S_{i, j}$ is an optimum solution for $G_{i, j}$ while $F_{i, j}$ is a 
+4-cycle-breaking set, but not one of necessarily minimum cardinality. 
+
+\noindent In the Lemma~\ref{lemma-two} we look at the bound of the union of the $F_{i, j}$ sets. 
+Before that, however, we make an argument for the vertices on the boundaries. 
+
+\refstepcounter{definition}
+\begin{mydefinition}[Bound for the vertices on the boundaries]{Lemma}
+    \label{lemma-two}
+
+    Let $OPT_i = OPT \cap$ \{vertices at levels $i$ mod $\ell\}$. 
+    The sets $OPT_i$ are disjoint and $\bigcup_i OPT_i = OPT$.
+
+    We claim that: \[\exists q \in \{0, 1, \dots, \ell-1\}:
+    |OPT_q| + |OPT_{q+1}| \leq \frac{2}{\ell} \times |OPT| \text{.}\]
+
+\end{mydefinition}
+
+\noindent Suppose that $\forall q: |OPT_q| + |OPT_{q+1}| > \frac{2}{\ell} \times |OPT|$ .
+
+\noindent As we said those sets are disjoint, meaning $OPT_q \cap OPT_{q+1}| = \emptyset$. We make the following arguments:
+
+\begin{enumerate}
+    \item If inequality ?? holds,
+    then $\sum_{i=0}^{\ell-1} |OPT_i| + |OPT_{i+1}| > 2 \times |OPT|$. 
+    \item Because each $OPT_i$ exists twice in that sum and 
+    $OPT_i \cap OPT_j = \emptyset$, $\forall (i, j), i \neq j$, then 
+    the property $\bigcup_i OPT_i = OPT$ from which follows $\sum_{i}^{\ell-1} |OPT_i| = |OPT|$
+    would not hold.
+    \item From the contradiction in step two, we argue that there indeed 
+    $\exists q: q \in \{0, 1, \dots, \ell-1\}$ by the \textit{pigeonhole principle},
+    such that $|OPT_q| + |OPT_{q+1}| \leq \frac{2}{\ell} \times |OPT|$.
+\end{enumerate}
+
+\noindent Now we argue for the size of the sets $F_{i, j}$. It is natural that we should be able 
+to tie their size to the size of the optimal solution $F$. We will use Lemma~\ref{lemma-two} to do 
+so. First we will state the lemma.
+
+\refstepcounter{definition}
+\begin{mydefinition}[Bound for the cardinality of the intersection sets $F_{i, j}$]{Lemma}
+    \label{lemma-three}
+
+    Let $F \equiv OPT$ be the optimal solution and $F_{i, j} = F \cap G_{i, j}$ be the intersection 
+    sets with the subgraphs. Then we have: 
+    \[\sum_{j} |F_{i, j}| \leq |F| + \frac{2}{\ell} \times |F|\]
+
+    for some specific integer $i$.
+
+\end{mydefinition}
+
+\noindent If we look at Fig.~\ref{fig:bfs_tree}, then we notice that any vertex that is located 
+in the overlap layers would be counted twice in the sum $\sum_{j} |F_{i, j}|$. The interior 
+vertices are counted once towards the optimum solution sum. Therefore, we have that: 
+
+\begin{enumerate}
+    \item $\sum_{j} |F_{i, j}| = |F| + |\{\text{vertices on the boundary}\}| = |F| + |OPT_0| + |OPT_{1}|$
+    for our example in Fig.~\ref{fig:bfs_tree}.
+    \item For the RHS of the equation in 1. we argue that there exists $i^*$, such that 
+    \[|OPT_{i^*}| + |OPT_{i^*+1}| \leq \frac{2}{\ell} \times |OPT|\] using Lemma~\ref{lemma-two}.
+    \item For that $i^*$ it holds that $\sum_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} |F|$.
+\end{enumerate}
+
+Finally, using Lemma~\ref{lemma-one}, Result~\ref{result-two} and Lemma~\ref{lemma-three} we chain 
+the inequalities that are presented and get that for some slice $i^*$ we have:
+
+\[|S_{i^*}| \leq \sum_{j} |S_{i^*, j}| \leq \sum_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} \times |F| \].
+
