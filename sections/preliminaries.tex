@@ -93,14 +93,14 @@ The decision variant of the \textsc{FVS} problem can be defined as:
     \textbf{Instance:}
     \begin{itemize}[noitemsep, topsep=0pt]
         \item A set of cities $C = \{c_1, c_2, \ldots, c_n\}$.
-        \item A distance function $w: C \times C \to \mathbb{R}$ that gives the distance between each pair of cities.
+        \item A distance function $w: C \cdot C \to \mathbb{R}$ that gives the distance between each pair of cities.
     \end{itemize}
     \textbf{Task:}
     Find a permutation $\pi$ of the cities such that:
     \begin{itemize}[noitemsep, topsep=0pt]
         \item The total distance travelled is minimized, i.e., minimize 
         \begin{align*}
-            \sum_{i=1}^{n-1} w(c_{\pi(i)}, c_{\pi(i+1)}) + w(c_{\pi(n)}, c_{\pi(1)}).
+            \sum\limits_{i=1}^{n-1} w(c_{\pi(i)}, c_{\pi(i+1)}) + w(c_{\pi(n)}, c_{\pi(1)}).
         \end{align*}
     \end{itemize}
 
@@ -160,7 +160,7 @@ Finally, we define the maximization problem with an additional constraint:
 in order to cope with the hardness of the problems. Let $\Pi$ be an optimization problem with nonnegative weights 
 and $k \geq 1$.
 A \textit{k-factor approximation algorithm} for $\Pi$ is a polynomial-time algorithm $A$ for $\Pi$, 
-such that \[\frac{1}{k} \times OPT(I) \leq A(I) \leq k \times OPT(I)\] for all instances $I$ of $\Pi$.
+such that \[\frac{1}{k} \cdot OPT(I) \leq A(I) \leq k \cdot OPT(I)\] for all instances $I$ of $\Pi$.
 The first inequality shown is true for maximization problems, while the second one holds for minimization problems.
 We say $A$ has a performance ratio of \textit{k}. If a problem falls into that category, we say that it is \textbf{APX-complete}. 
 
@@ -200,7 +200,7 @@ Then we will explore the second perspective and take the \textsc{Independent Set
 much more powerful than partitioning by removal of vertices. With \textsc{Vertex Cover}, we can still use the second approach 
 and get a PTAS, but the same does not hold for the \textsc{Dominating Set} problem. However, using the general shifting technique, we can obtain a 
 PTAS for \textsc{Dominating Set} in planar graphs. This was done by Marzban and Gu \cite{dominatingsetptas}. They designed a PTAS with an 
-approximation ratio of $(1 + 2/k)$ in $O(2^k \times n)$ time. The two in the approximation ratio appears because of the overlap needed 
+approximation ratio of $(1 + 2/k)$ in $O(2^k \cdot n)$ time. The two in the approximation ratio appears because of the overlap needed 
 for \textsc{Dominating Set} between slices, which is two levels.
 
 \noindent What follows is a brief explanation of Baker's shifting technique with \textsc{Vertex Cover} as an example.
@@ -217,7 +217,7 @@ for \textsc{Dominating Set} between slices, which is two levels.
     $i$: \textit{shift}; $j$: \textit{slice}
 
     \FOR{each $i = 0$ to $k-1$}
-        \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \times k + i$ through $(j+1) \times k + i$ for $0 \leq i < k$.
+        \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \cdot k + i$ through $(j+1) \cdot k + i$ for $0 \leq i < k$.
         \STATE $\forall j \text{ compute }  S_{i, j}$, the min. \textsc{VC} of $G_{i, j}$.
         \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
         \STATE $S \leftarrow S \cup S_i$
@@ -235,16 +235,16 @@ for \textsc{Dominating Set} between slices, which is two levels.
 Therefore, we can make the following argument: 
 
 \begin{enumerate}
-    \item $\exists q: |OPT_q| \leq \frac{1}{k} \times OPT = \epsilon |OPT|$
-    \item $S_q \leq \sum_{j} S_{qj}$, for some shift $q$ we have this inequality because in step 5. of the algorithm 
+    \item $\exists q: |OPT_q| \leq \frac{1}{k} \cdot OPT = \epsilon |OPT|$
+    \item $S_q \leq \sum\limits_{j} S_{qj}$, for some shift $q$ we have this inequality because in step 5. of the algorithm 
     we define the set to be a union over all slices and some vertices may appear twice in the boundary layers. 
-    \item $\sum_{j} S_{qj} \leq \sum_{j} |OPT \cap V(G_{qj})|$, we know that $S_{qj}$ is a min. \textsc{VC} for $G_{qj}$, while the 
+    \item $\sum\limits_{j} S_{qj} \leq \sum\limits_{j} |OPT \cap V(G_{qj})|$, we know that $S_{qj}$ is a min. \textsc{VC} for $G_{qj}$, while the 
     optimal solution may choose different vertices, especially on the boundary for the global optimality of the solution.
-    \item $\sum_{j} |OPT \cap V(G_{qj})| \leq |OPT| + |OPT_q|$, if we consider the graphs $\{G_{qj}\}$, then we can argue that 
+    \item $\sum\limits_{j} |OPT \cap V(G_{qj})| \leq |OPT| + |OPT_q|$, if we consider the graphs $\{G_{qj}\}$, then we can argue that 
     each vertex appears once, except those at levels $q \mod k$, which appear twice. 
 \end{enumerate}
 
-\noindent From the first, second and fourth step we can conclude that: \[S_q \leq |OPT| + |OPT_q| \leq (1 + \epsilon) \times |OPT|\]
+\noindent From the first, second and fourth step we can conclude that: \[S_q \leq |OPT| + |OPT_q| \leq (1 + \epsilon) \cdot |OPT|\]
 
 \noindent Now we take a look at the second approach we described.
 
@@ -273,9 +273,9 @@ Therefore, we can make the following argument:
 
 \begin{enumerate}
     \item for $k = 1/\epsilon$ compute partition $P_1, \dots , P_k$.
-    \item for some $q$ ($1 \leq q \leq k)$, $|OPT \cap P_q| \leq \frac{1}{k} \times |OPT| = \epsilon \times |OPT|$ because 
+    \item for some $q$ ($1 \leq q \leq k)$, $|OPT \cap P_q| \leq \frac{1}{k} \cdot |OPT| = \epsilon \cdot |OPT|$ because 
     of the pigeonhole principle
-    \item hence, $|OPT \cap (G - P_q)| \geq (1 - 1/k) \times |OPT| = (1 - \epsilon) \times |OPT|$
+    \item hence, $|OPT \cap (G - P_q)| \geq (1 - 1/k) \cdot |OPT| = (1 - \epsilon) \cdot |OPT|$
     \item return $max_i{|\text{\textsc{MIS}}(G - P_i)|}$
 \end{enumerate}
 
@@ -315,7 +315,7 @@ Afterwards, we are going to define stability and certified algorithms for vertex
     \label{gpeop}
 
     Consider a weighted graph $G = (V, E, w)$ with a set of edge weights $w_e$. An instance $G' = (V, E, w')$ is a 
-    $\gamma$-perturbation ($\gamma \in \mathbb{R_{\geq \text{1}}}$) of $G$ if $w(e) \leq w'(e) \leq \gamma \times w(e)$; that is, if we can 
+    $\gamma$-perturbation ($\gamma \in \mathbb{R_{\geq \text{1}}}$) of $G$ if $w(e) \leq w'(e) \leq \gamma \cdot w(e)$; that is, if we can 
     obtain a perturbed instance from the original by multiplying the weight of each edge by a number between $1$ and $\gamma$ 
     (the number may vary for each edge).
 
@@ -328,7 +328,7 @@ Afterwards, we are going to define stability and certified algorithms for vertex
     \label{gpvop}
 
     Consider a weighted graph $(G, w)$. For any $\gamma \in \mathbb{R_{\geq \text{1}}}$ a $\gamma$-perturbation of the weight function 
-    $w : V \to \mathbb{R}$ is a function $w' : V \to R$ satisfying $w(v) \leq w'(v) \leq \gamma \times w(v) \; \forall v \in V$.
+    $w : V \to \mathbb{R}$ is a function $w' : V \to R$ satisfying $w(v) \leq w'(v) \leq \gamma \cdot w(v) \; \forall v \in V$.
 
 \end{mydefinition}
 
@@ -365,10 +365,10 @@ Afterwards, we are going to define stability and certified algorithms for vertex
 
     \begin{itemize}[noitemsep, topsep=0pt]
         \item The minimization objective is to minimize the total weight of the unsatisfied constraints: find $s \in \mathcal{S}$ 
-        that minimizes $\sum_{c \in C} w_c \times (1 - c(s)) = w(\mathcal{C}) - val_{\mathcal{I}}(s)$, where 
-        $w(\mathcal{C}) = \sum_{c \in \mathcal{C}} w(c)$ is the total weight of the constraints.  
+        that minimizes $\sum\limits_{c \in C} w_c \cdot (1 - c(s)) = w(\mathcal{C}) - val_{\mathcal{I}}(s)$, where 
+        $w(\mathcal{C}) = \sum\limits_{c \in \mathcal{C}} w(c)$ is the total weight of the constraints.  
         \item The maximization objective is to maximize the total weight of the satisfied constraints: find $s \in \mathcal{S}$ that 
-        maximizes $val_{\mathcal{I}}(s) = \sum_{c \in \mathcal{C}} w(c) \times c(s)$.
+        maximizes $val_{\mathcal{I}}(s) = \sum\limits_{c \in \mathcal{C}} w(c) \cdot c(s)$.
     \end{itemize}
 
 \end{mydefinition}
@@ -388,10 +388,10 @@ algorithms where it is presented as Task 5.13.
     \begin{itemize}[left=0pt, labelsep=5pt, itemsep = 3pt, topsep=3pt]
 
         \item Option 1: find a better $s \in \mathcal{S}$, such that 
-        $\gamma \times \sum_{c \in \mathcal{C}_1} w_c c(s) > \sum_{c \in \mathcal{C}_2} w_c (1 - c(s))$, or
+        $\gamma \cdot \sum\limits_{c \in \mathcal{C}_1} w_c c(s) > \sum\limits_{c \in \mathcal{C}_2} w_c (1 - c(s))$, or
 
         \item Option 2: to report that for every $s \in \mathcal{S}$:
-        $\sum_{c \in \mathcal{C}_1} w_c c(s) \leq \sum_{c \in \mathcal{C}_2} w_c (1 - c(s))$.
+        $\sum\limits_{c \in \mathcal{C}_1} w_c c(s) \leq \sum\limits_{c \in \mathcal{C}_2} w_c (1 - c(s))$.
 
     \end{itemize}
 

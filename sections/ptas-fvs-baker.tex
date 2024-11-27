@@ -1,6 +1,15 @@
-\section{(E)PTAS for FVS-BCL Problem Using Baker's Technique}
+\section{(E)PTAS for the FVS-BCL Problem Using Baker's Technique}
 
-\noindent In this section we provide the necessary definitions, lemmas and theorems to demonstrate how to obtain an EPTAS for the problem 
+In this section we will demonstrate how to obtain an EPTAS for the weighted version of FVS-BCL. We begin 
+by looking at the unweighted version and argue about the correctness and efficiency of our algorithm. 
+Then we prove that using tree decompositions and dynamic programming one can exactly solve the 
+4-cycle-breaking problem in one subgraph. Finally, we show that the running time is indeed polynomial in 
+the size of the input (and exponential in the parameter $\ell$ which we define below).
+
+\subsection{Baker's technique for unweighted FVS-BCL on planar graphs}
+\label{subsec:baker_unweighted_fvs}
+
+\noindent In this subsection we provide the necessary definitions, lemmas and theorems to demonstrate how to obtain an EPTAS for the problem 
 we defined in \ref{FVS-BCL}, namely FVS-BCL. In the preliminaries we gave two examples of how to construct algorithms using Baker's technique 
 and how to further analyse them. In the same fashion we now construct Algorithm \ref{alg:ufvsbcl} and reason for its effectiveness.
 
@@ -19,8 +28,9 @@ define on line 4 in Algorithm~\ref{alg:ufvsbcl} is $\ell$-outerplanar.
     $i$: \textit{shift}; $j$: \textit{slice}
 
     \FOR{each $i = 0$ to $\ell-1$}
-        \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \times k + i$ through $(j+1) \times k + i$ for $0 \leq i < k$.
-        \STATE $\forall j \text{ compute }  S_{i, j}$, the min. \textsc{VC} of $G_{i, j}$.
+        \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i$ for $0 \leq i < \ell$.
+        \STATE $\forall j \text{ compute }  S_{i, j}$, the min. unweighted \textsc{FVS-BCL} 
+        of $G_{i, j}$ using Algorithm~\ref{alg:eafvss} as a subroutine.
         \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
         \STATE $S \leftarrow S \cup S_i$
     \ENDFOR
@@ -33,7 +43,7 @@ to prove that Algorithm~\ref{alg:ufvsbcl} obtains a $(1 + 2/\ell)$-approximation
 optimum solution.
 
 \refstepcounter{definition}
-\begin{mydefinition}[Optimum solution bound]{Lemma}
+\begin{mydefinition}[Optimum solution bound (Unweighted Case)]{Lemma}
     \label{lemma-one}
 
     Let $S_{i, j}$ be an optimum solution for $G_{i, j}$ for some shift $i$ and slice $j$, 
@@ -221,20 +231,20 @@ set for $G_{0, 0}$, while $F_{0, 0}$ is, as we previously argued, a feasible 4-c
 \noindent What follows from Lemma~\ref{lemma-one} is a result that holds for any shift $i$.
 
 \refstepcounter{definition}
-\begin{mydefinition}[Optimum solution bound for the whole graph]{Result}
+\begin{mydefinition}[Optimum solution bound for the whole graph (Unweighted Case)]{Result}
     \label{result-two}
 
     Let $S_i$ be the union of optimal solutions defined on line 6 of Algorithm~\ref{alg:ufvsbcl} 
     for some shift $i$. 
     Let $F \equiv OPT$ be the optimum solution in $G$ and let $F_{i, j} = G_{i, j} \cap F$.
-    For those sets it holds that: \[|S_{i}| \leq \sum_{j} |S_{i, j}| \leq \sum_{j} |F_{i, j}|\text{.}\]  
+    For those sets it holds that: \[|S_{i}| \leq \sum\limits_{j} |S_{i, j}| \leq \sum\limits_{j} |F_{i, j}|\text{.}\]  
 
 \end{mydefinition}
 
 \noindent The first inequality in Result~\ref{result-two} stems from the fact that some vertices 
 in the $S_{i, j}$ sum may appear twice. This pertains to vertices that are located on the boundary. 
 For example if the $v_{30} \in S_{0, 1} \wedge v_{30} \in S_{0, 2}$, then it would be counted once in 
-$S_0$, but twice in $\sum_j S_{0,j}$.
+$S_0$, but twice in $\sum\limits_j S_{0,j}$.
 The second inequality is a result from Lemma~\ref{lemma-one} 
 where we argue that $S_{i, j}$ is an optimum solution for $G_{i, j}$ while $F_{i, j}$ is a 
 4-cycle-breaking set, but not one of necessarily minimum cardinality. 
@@ -243,31 +253,31 @@ where we argue that $S_{i, j}$ is an optimum solution for $G_{i, j}$ while $F_{i
 Before that, however, we make an argument for the vertices on the boundaries. 
 
 \refstepcounter{definition}
-\begin{mydefinition}[Bound for the vertices on the boundaries]{Lemma}
+\begin{mydefinition}[Bound for the vertices on the boundaries (Unweighted Case)]{Lemma}
     \label{lemma-two}
 
     Let $OPT_i = OPT \cap$ \{vertices at levels $i$ mod $\ell\}$. 
     The sets $OPT_i$ are disjoint and $\bigcup_i OPT_i = OPT$.
 
     We claim that: \[\exists q \in \{0, 1, \dots, \ell-1\}:
-    |OPT_q| + |OPT_{q+1}| \leq \frac{2}{\ell} \times |OPT| \text{.}\]
+    |OPT_q| + |OPT_{q+1}| \leq \frac{2}{\ell} \cdot |OPT| \text{.}\]
 
 \end{mydefinition}
 
-\noindent Suppose that $\forall q: |OPT_q| + |OPT_{q+1}| > \frac{2}{\ell} \times |OPT|$ .
+\noindent Suppose that $\forall q: |OPT_q| + |OPT_{q+1}| > \frac{2}{\ell} \cdot |OPT|$ .
 
 \noindent As we said those sets are disjoint, meaning $OPT_q \cap OPT_{q+1}| = \emptyset$. We make the following arguments:
 
 \begin{enumerate}
     \item If inequality ?? holds,
-    then $\sum_{i=0}^{\ell-1} |OPT_i| + |OPT_{i+1}| > 2 \times |OPT|$. 
+    then $\sum\limits_{i=0}^{\ell-1} |OPT_i| + |OPT_{i+1}| > 2 \cdot |OPT|$. 
     \item Because each $OPT_i$ exists twice in that sum and 
     $OPT_i \cap OPT_j = \emptyset$, $\forall (i, j), i \neq j$, then 
-    the property $\bigcup_i OPT_i = OPT$ from which follows $\sum_{i}^{\ell-1} |OPT_i| = |OPT|$
+    the property $\bigcup_i OPT_i = OPT$ from which follows $\sum\limits_{i}^{\ell-1} |OPT_i| = |OPT|$
     would not hold.
     \item From the contradiction in step two, we argue that there indeed 
     $\exists q: q \in \{0, 1, \dots, \ell-1\}$ by the \textit{pigeonhole principle},
-    such that $|OPT_q| + |OPT_{q+1}| \leq \frac{2}{\ell} \times |OPT|$.
+    such that $|OPT_q| + |OPT_{q+1}| \leq \frac{2}{\ell} \cdot |OPT|$.
 \end{enumerate}
 
 \noindent Now we argue for the size of the sets $F_{i, j}$. It is natural that we should be able 
@@ -275,31 +285,199 @@ to tie their size to the size of the optimal solution $F$. We will use Lemma~\re
 so. First we will state the lemma.
 
 \refstepcounter{definition}
-\begin{mydefinition}[Bound for the cardinality of the intersection sets $F_{i, j}$]{Lemma}
+\begin{mydefinition}[Bound for the cardinality of the intersection sets (Unweighted Case)]{Lemma}
     \label{lemma-three}
 
     Let $F \equiv OPT$ be the optimal solution and $F_{i, j} = F \cap G_{i, j}$ be the intersection 
     sets with the subgraphs. Then we have: 
-    \[\sum_{j} |F_{i, j}| \leq |F| + \frac{2}{\ell} \times |F|\]
+    \[\sum\limits_{j} |F_{i, j}| \leq |F| + \frac{2}{\ell} \cdot |F|\]
 
     for some specific integer $i$.
 
 \end{mydefinition}
 
 \noindent If we look at Fig.~\ref{fig:bfs_tree}, then we notice that any vertex that is located 
-in the overlap layers would be counted twice in the sum $\sum_{j} |F_{i, j}|$. The interior 
+in the overlap layers would be counted twice in the sum $\sum\limits_{j} |F_{i, j}|$. The interior 
 vertices are counted once towards the optimum solution sum. Therefore, we have that: 
 
 \begin{enumerate}
-    \item $\sum_{j} |F_{i, j}| = |F| + |\{\text{vertices on the boundary}\}| = |F| + |OPT_0| + |OPT_{1}|$
-    for our example in Fig.~\ref{fig:bfs_tree}.
+    \item $\sum\limits_{j} |F_{i, j}| = |F| + |\{\text{vertices on the boundary}\}| = |F| + |OPT_i| + |OPT_{i+1}|$
+    for some $i \in \{0, 1, \dots, \ell-1\}$.
     \item For the RHS of the equation in 1. we argue that there exists $i^*$, such that 
-    \[|OPT_{i^*}| + |OPT_{i^*+1}| \leq \frac{2}{\ell} \times |OPT|\] using Lemma~\ref{lemma-two}.
-    \item For that $i^*$ it holds that $\sum_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} |F|$.
+    \[|OPT_{i^*}| + |OPT_{i^*+1}| \leq \frac{2}{\ell} \cdot |OPT|\] using Lemma~\ref{lemma-two}.
+    \item For that $i^*$ it holds that $\sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} |F|$.
 \end{enumerate}
 
 Finally, using Lemma~\ref{lemma-one}, Result~\ref{result-two} and Lemma~\ref{lemma-three} we chain 
 the inequalities that are presented and get that for some slice $i^*$ we have:
 
-\[|S_{i^*}| \leq \sum_{j} |S_{i^*, j}| \leq \sum_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} \times |F| \].
+\[|S_{i^*}| \leq \sum\limits_{j} |S_{i^*, j}| \leq \sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} \cdot |F| \].
 
+\begin{algorithm}[H]
+    \caption{Exact algorithm for unweighted FVS-BCL for each subgraph $G_{i, j}$}
+    \label{alg:eafvss}
+    \begin{algorithmic}[1]
+    \REQUIRE $\ell$-outerplanar graph $G = (V, E)$
+    \ENSURE Exact solution $S$
+    \RETURN $S$
+    \end{algorithmic}
+\end{algorithm}
+
+\subsection{Baker's technique for the weighted FVS-BCL on planar graphs}
+
+\noindent In this subsection we look at the weighted version of the problem. 
+Firstly, we construct Algorithm~\ref{alg:wfvsbcl} which differs from Algorithm~\ref{alg:ufvsbcl} 
+only on step 5. For step 5 we construct Algorithm~\ref{alg:weafvss} and use it as a subroutine to 
+get the solution we want.
+
+\begin{algorithm}[H]
+    \caption{Baker's technique for the weighted FVS-BCL}
+    \label{alg:wfvsbcl}
+    \begin{algorithmic}[1]
+    \REQUIRE Planar graph $G = (V, E)$, parameter $\ell$, $w : V \rightarrow \mathbb{R}$
+    \ENSURE $(1 + \epsilon)$-approximation for \textsc{FVS-BCL}
+    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
+    \STATE $S \leftarrow \emptyset$
+
+    $i$: \textit{shift}; $j$: \textit{slice}
+
+    \FOR{each $i = 0$ to $\ell-1$}
+        \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i$ for $0 \leq i < \ell$.
+        \STATE $\forall j \text{ compute }  S_{i, j}$, the min. weighted \textsc{FVS-BCL} 
+        of $G_{i, j}$ using Algorithm~\ref{alg:weafvss} as a subroutine.
+        \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
+        \STATE $S \leftarrow S \cup S_i$
+    \ENDFOR
+    \RETURN $S_{i*}$ from $S$, such that $w(S_{i^*}) \leq w(S_{i}) , \forall i \in \{1, 2, \dots, \ell-1\}$.
+    \end{algorithmic}
+\end{algorithm}
+
+Much like the proof we did in subsection~\ref{subsec:baker_unweighted_fvs}, we start off with 
+finding a bound for the optimum solution for each subgraph. 
+
+\refstepcounter{definition}
+\begin{mydefinition}[Optimum solution bound (Weighted Case)]{Lemma}
+    \label{lemma-osbwc}
+
+    Let $G = (V, E)$ be a planar graph and $w : V \rightarrow \mathbb{R}$ be a weight function.
+    Let $S_{i, j}$ be an optimum solution for $G_{i, j}$ for some shift $i$ and slice $j$, 
+    let $F \equiv OPT$ be the optimum solution in $G$ and let $F_{i, j} = G_{i, j} \cap F$. 
+    In the weighted case we claim that: \[w(S_{i, j}) \leq w(F_{i, j})\text{.}\]
+
+\end{mydefinition}
+
+The proof of Lemma~\ref{lemma-osbwc} is presented in three steps. Let us fix the integer arguments for 
+shift and slice. We take $a$ to be the offset (shift) and look at an arbitrary slice $b$. Note that 
+when we look at a slice $b$, we mean that we look at the subgraph $G_{a, b}$ induced on vertices at levels 
+$b \cdot \ell + a$ through $(b + 1) \cdot \ell + a$.
+
+\begin{enumerate}
+    \item Firstly, one needs to be sure that no vertex $v$, such that $v \in V(G) \backslash V(G_{a, b})$ 
+    can break any 4-cycle that is contained within $G_{a, b}$.
+    \item From step 1 and the definition of $F_{a, b}$, it follows that $F_{a, b}$ is a feasible solution 
+    of the 4-cycle-breaking problem within $G_{a, b}$.
+    \item Finally we argue, that because $S_{a, b}$ is an optimum solution for the 4-cycle-breaking problem 
+    within $G_{a, b}$ and $F_{a, b}$ is a feasible solution for the same problem, we have: 
+    \[w(S_{a, b}) \leq w(F_{a, b})\].
+\end{enumerate}
+
+The statement in Lemma~\ref{lemma-osbwc} holds for all values for the shift and slice. Now we mention 
+a useful result that follows from the lemma.
+
+\refstepcounter{definition}
+\begin{mydefinition}[Optimum solution bound for the whole graph (Weighted Case)]{Result}
+    \label{result-osbwc}
+
+    Let $S_i$ be the union of optimal solutions defined on line 6 of Algorithm~\ref{alg:wfvsbcl} 
+    for some shift $i$.
+    Let $F \equiv OPT$ be the optimum solution in $G$ and let $F_{i, j} = G_{i, j} \cap F$.
+    For those sets it holds that: \[w(S_{i}) \leq \sum\limits_{j} w(S_{i, j}) \leq \sum\limits_{j} w(F_{i, j}) \text{.}\]  
+
+\end{mydefinition}
+
+\noindent \textit{Proof.} This result immediately follows from the fact that when we define $S_i$ as the union of the subgraphs 
+some vertices, specifically those on the overlapping layers, will have their weights added twice 
+to the sum $\sum\limits_{j} w(S_{i, j})$. If we inspect the LHS, however, each vertex and its weight will be 
+counted only once towards $w(S_i)$. Therefore, it holds that $w(S_i) \leq \sum\limits_{j} w(S_{i, j})$ 
+and from Lemma~\ref{lemma-osbwc} we chain the inequalities to get Result~\ref{result-osbwc}.
+
+\refstepcounter{definition}
+\begin{mydefinition}[Bound for the weight of the vertices on the boundary (Weighted Case)]{Lemma}
+    \label{lemma-bvwfvsbcl}
+
+    Let $G = (V, E)$ be a planar graph and suppose we run a BFS from an arbitrary vertex.
+    Let $w : V \rightarrow \mathbb{R}$ be a weight function.
+    Let $OPT_i = OPT \cap$ \{vertices at levels $i$ mod $\ell\}$. 
+    The sets $OPT_i$ are disjoint and $\bigcup_i OPT_i = OPT$.
+
+    We claim that: \[\exists q \in \{0, 1, \dots, \ell-1\}:
+    w(OPT_{q}) + w(OPT_{q+1}) \leq \frac{2}{\ell} \cdot w(OPT) \text{.}\]
+
+\end{mydefinition}
+
+\noindent \textit{Proof.} Suppose the opposite, $\forall i \in \{1, 2, \dots, \ell-1\}$ it holds that 
+$w(OPT_i) + w(OPT_{i+1}) > \frac{2}{\ell} \cdot w(OPT)$.
+
+\begin{enumerate}
+    \item From the two properties in the definition of $OPT_i$, namely that
+    
+    $OPT_i \cap OPT_j = \emptyset, \forall i, j \in \{1, 2, \dots, \ell-1\}, i \neq j$ and 
+
+    $OPT = \bigcup_i OPT_i$, it follows that $\sum\limits_{i = 0}^{\ell-1} w(OPT_i) = w(OPT)$.
+    
+    \item However, if inequality ?? holds,
+    then $\sum\limits_{i=0}^{\ell-1} w(OPT_i) + w(OPT_{i+1}) > 
+    \sum\limits_{i=0}^{\ell-1} \frac{2}{\ell} \cdot w(OPT) >
+    2 \cdot w(OPT)$. 
+    Because each $OPT_i$ is counted twice in the sum of step 2, then there is a contradiction between 
+    the sums in steps 1 and 2. 
+
+    \item Finally, we claim that because of the \textit{pigeonhole principle} there must exist a 
+    "small pair" $OPT_q$ and $OPT_{q+1}$, such that $w(OPT_q) + w(OPT_{q+1}) \leq \frac{2}{\ell} \cdot w(OPT)$.
+
+\end{enumerate}
+
+\refstepcounter{definition}
+\begin{mydefinition}[Bound for the weight of the intersection sets (Weighted Case)]{Lemma}
+    \label{lemma-bciswfvsbcl}
+
+    Let $F \equiv OPT$ be the optimal solution and $F_{i, j} = F \cap G_{i, j}$ be the intersection 
+    sets with the subgraphs. Then we have: 
+    \[\sum\limits_{j} w(F_{i, j}) \leq w(F) + \frac{2}{\ell} \cdot w(F)\]
+
+    for some specific integer $i$.
+
+\end{mydefinition}
+
+The interior vertices of each subgraph have their weights counted only once towards the sum 
+$\sum\limits_j w(F_{i, j})$. The same does not hold for the vertices on the boundary, they are counted 
+once in $F_{i, j}$ and once in $F_{i, j+1}$. To account for that we rewrite the sum on the LHS as:
+
+\begin{enumerate}
+    \item $\sum\limits_j w(F_{i, j}) = w(F) + w(\{\text{vertices on the boundary}\})$.
+    \item Now we can rewrite the RHS of 1 as:
+    
+    $w(F) + w(\{\text{vertices on the boundary}\}) = w(F) + w(OPT_i) + w(OPT_{i+1})$ for some 
+    $i \in \{1, 2, \dots, \ell-1\}$.
+    \item From Lemma~\ref{lemma-bvwfvsbcl} we have an integer $i^* \in \{1, 2, \dots, \ell-1\}$, such that:
+    
+    $w(OPT_{i^*}) + w(OPT_{i^* + 1}) \leq \frac{2}{\ell} \cdot w(F)$.
+    \item For the integer $i^*$ in step 3 we substitute in step 2 and get:
+    
+    $w(F) + w(OPT_{i^*}) + w(OPT_{i^* + 1}) \leq w(F) + \frac{2}{\ell} \cdot w(F)$.
+\end{enumerate}
+
+\noindent Finally, we chain the inequalities we obtained in Lemma~\ref{lemma-osbwc}, Result~\ref{result-osbwc}, 
+and Lemma~\ref{lemma-bciswfvsbcl} to argue that for some $i^* \in \{1, 2, \dots, \ell-1\}$: 
+
+\[w(S_{i^*}) \leq \sum\limits_j w(S_{i^*, j}) \leq \sum\limits_j w(F_{i^*, j}) \leq w(F) + \frac{2}{\ell} \cdot w(F)\].
+
+\begin{algorithm}[H]
+    \caption{Exact algorithm for weighted FVS-BCL for each subgraph $G_{i, j}$}
+    \label{alg:weafvss}
+    \begin{algorithmic}[1]
+    \REQUIRE $\ell$-outerplanar graph $G = (V, E)$, $w : V \rightarrow \mathbb{R}$
+    \ENSURE Exact solution $S$
+    \RETURN $S$
+    \end{algorithmic}
+\end{algorithm}
