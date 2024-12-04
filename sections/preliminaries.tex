@@ -23,9 +23,9 @@ plane in a way that edges intersect each other only at their ends. Such a drawin
 planar embedding $\widetilde{G}$ in which all the vertices lie on the boundary of the outer face. 
 This is also called a \textit{1-outerplanar graph}. Two forbidden minors of that class are the 
 $K_4$ and $K_{2, 3}$ graphs. In the next subsection, we familiarize the reader with Baker's approach 
-\cite{Baker}. Here, we define a \textit{k-outerplanar} to be a graph that has a planar embedding in which 
-the vertices belong to at most $k$ concentric layers. Every planar graph is \textit{k-outerplanar} for 
-some $k$. Given a graph $G$, we look for the \textit{k-outerplanar} embedding of $G$ for which $k$ is minimal.
+\cite{Baker}. Here, we define a \textit{$\ell$-outerplanar} to be a graph that has a planar embedding in which 
+the vertices belong to at most $\ell$ concentric layers. Every planar graph is \textit{$\ell$-outerplanar} for 
+some $\ell$. Given a graph $G$, we look for the \textit{$\ell$-outerplanar} embedding of $G$ for which $\ell$ is minimal.
 
 \subsection{Combinatorial Optimization}
 
@@ -44,10 +44,10 @@ The decision variant of the \textsc{FVS} problem can be defined as:
 
     \label{FVS}
     \textbf{Input:}
-    A graph $G$ and an integer $k$.
+    A graph $G$ and an integer $\ell$.
 
     \textbf{Question:}
-    Does there exist a set $X$ of at most $k$ vertices of $G$ such that $G - X$ is a forest?
+    Does there exist a set $X$ of at most $\ell$ vertices of $G$ such that $G - X$ is a forest?
     
 \end{mydefinition}
 
@@ -77,10 +77,10 @@ The decision variant of the \textsc{FVS} problem can be defined as:
     \label{def:CYCP}
 
     \textbf{Input:}
-    A graph $G$ and an integer $k$.
+    A graph $G$ and an integer $\ell$.
 
     \textbf{Question:}
-    Does there exist in $G$ a family of $k$ pairwise vertex-disjoint cycles?
+    Does there exist in $G$ a family of $\ell$ pairwise vertex-disjoint cycles?
 
 \end{mydefinition}
 
@@ -114,10 +114,10 @@ and pack cycles of bounded length. The \textsc{'BCL'} stands for bounded cycle l
     \label{FVS-BCL}
 
     \textbf{Input:}
-    A graph $G$, integer $k$ and an integer $r$.
+    A graph $G$, integer $\ell$ and an integer $r$.
 
     \textbf{Question:}
-    Does there exist a set $X$ of at most $k$ vertices such that every cycle of length at most $r$ contains a vertex in $X$?
+    Does there exist a set $X$ of at most $\ell$ vertices such that every cycle of length at most $r$ contains a vertex in $X$?
 
 \end{mydefinition}
 
@@ -147,10 +147,10 @@ Finally, we define the maximization problem with an additional constraint:
     \label{CYCP-BCL}
 
     \textbf{Input:}
-    A graph $G$, an integer $k$ and an integer $r$.
+    A graph $G$, an integer $\ell$ and an integer $r$.
 
     \textbf{Question:}
-    Does there exist in $G$ a family of $k$ pairwise vertex-disjoint cycles with each of them having length $\leq r$?
+    Does there exist in $G$ a family of $\ell$ pairwise vertex-disjoint cycles with each of them having length $\leq r$?
 
 \end{mydefinition}
 
@@ -200,7 +200,7 @@ Then we will explore the second perspective and take the \textsc{Independent Set
 much more powerful than partitioning by removal of vertices. With \textsc{Vertex Cover}, we can still use the second approach 
 and get a PTAS, but the same does not hold for the \textsc{Dominating Set} problem. However, using the general shifting technique, we can obtain a 
 PTAS for \textsc{Dominating Set} in planar graphs. This was done by Marzban and Gu \cite{dominatingsetptas}. They designed a PTAS with an 
-approximation ratio of $(1 + 2/k)$ in $O(2^k \cdot n)$ time. The two in the approximation ratio appears because of the overlap needed 
+approximation ratio of $(1 + 2/\ell)$ in $O(2^\ell \cdot n)$ time. The two in the approximation ratio appears because of the overlap needed 
 for \textsc{Dominating Set} between slices, which is two levels.
 
 \noindent What follows is a brief explanation of Baker's shifting technique with \textsc{Vertex Cover} as an example.
@@ -209,15 +209,15 @@ for \textsc{Dominating Set} between slices, which is two levels.
     \caption{Baker's shifting technique}
     \label{alg:baker}
     \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, parameter $k$
+    \REQUIRE Planar graph $G = (V, E)$, parameter $\ell$
     \ENSURE $(1 + \epsilon)$-approximation for \textsc{Vertex Cover}
     \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
     \STATE $S \leftarrow \emptyset$
 
     $i$: \textit{shift}; $j$: \textit{slice}
 
-    \FOR{each $i = 0$ to $k-1$}
-        \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \cdot k + i$ through $(j+1) \cdot k + i$ for $0 \leq i < k$.
+    \FOR{each $i = 0$ to $\ell - 1$}
+        \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i$ for $0 \leq i < \ell$.
         \STATE $\forall j \text{ compute }  S_{i, j}$, the min. \textsc{VC} of $G_{i, j}$.
         \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
         \STATE $S \leftarrow S \cup S_i$
@@ -228,20 +228,20 @@ for \textsc{Dominating Set} between slices, which is two levels.
 
 \noindent Analysis of the algorithm:
 
-\noindent Let \( V_i \) be the set of vertices at levels \( i \mod k \):
-\[ V_i = \{ v \in V \mid \text{level}(v) \equiv i \mod k \} \]
+\noindent Let \( V_i \) be the set of vertices at levels \( i \mod \ell \):
+\[ V_i = \{ v \in V \mid \text{level}(v) \equiv i \mod \ell \} \]
 
 \noindent Let $OPT_i$ denote $OPT \cap V_i$. We notice that $OPT_i$ are disjoint and $OPT = \bigcup_{i} OPT_i$. 
 Therefore, we can make the following argument: 
 
 \begin{enumerate}
-    \item $\exists q: |OPT_q| \leq \frac{1}{k} \cdot OPT = \epsilon |OPT|$
-    \item $S_q \leq \sum\limits_{j} S_{qj}$, for some shift $q$ we have this inequality because in step 5. of the algorithm 
+    \item $\exists q: |OPT_q| \leq \frac{1}{\ell} \cdot OPT = \epsilon |OPT|$
+    \item $S_q \leq \sum\limits_{j} S_{q, j}$, for some shift $q$ we have this inequality because in step 5. of the algorithm 
     we define the set to be a union over all slices and some vertices may appear twice in the boundary layers. 
-    \item $\sum\limits_{j} S_{qj} \leq \sum\limits_{j} |OPT \cap V(G_{qj})|$, we know that $S_{qj}$ is a min. \textsc{VC} for $G_{qj}$, while the 
+    \item $\sum\limits_{j} S_{qj} \leq \sum\limits_{j} |OPT \cap V(G_{q, j})|$, we know that $S_{q, j}$ is a min. \textsc{VC} for $G_{q, j}$, while the 
     optimal solution may choose different vertices, especially on the boundary for the global optimality of the solution.
-    \item $\sum\limits_{j} |OPT \cap V(G_{qj})| \leq |OPT| + |OPT_q|$, if we consider the graphs $\{G_{qj}\}$, then we can argue that 
-    each vertex appears once, except those at levels $q \mod k$, which appear twice. 
+    \item $\sum\limits_{j} |OPT \cap V(G_{q, j})| \leq |OPT| + |OPT_q|$, if we consider the graphs $\{G_{q, j}\}$, then we can argue that 
+    each vertex appears once, except those at levels $q \mod \ell$, which appear twice. 
 \end{enumerate}
 
 \noindent From the first, second and fourth step we can conclude that: \[S_q \leq |OPT| + |OPT_q| \leq (1 + \epsilon) \cdot |OPT|\]
@@ -252,13 +252,13 @@ Therefore, we can make the following argument:
     \caption{Baker's technique with removal}
     \label{alg:bakeremoval}
     \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, parameter $k$
+    \REQUIRE Planar graph $G = (V, E)$, parameter $\ell$
     \ENSURE $(1 - \epsilon)$-approximation for \textsc{MIS}
     \STATE $S \leftarrow \emptyset$
     \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
-    \STATE $k \leftarrow 1/\epsilon$
-    \STATE Label each vertex according to its layer $i \mod k$: ${V_1, V_2, \dots V_{k-1}}$
-    \FOR{each $i = 0$ to $k-1$}
+    \STATE $\ell \leftarrow 1/\epsilon$
+    \STATE Label each vertex according to its layer $i \mod \ell$: ${V_1, V_2, \dots V_{\ell - 1}}$
+    \FOR{each $i = 0$ to $\ell - 1$}
         \STATE Let $G_{i} \leftarrow G \backslash V_i$
         \STATE Let $G_1, G_2, \dots G_j$ be the connected components of $G_i$
         \STATE $\forall j$ compute the MIS $S_{i, j}$ of $G_{i, j}$
@@ -272,10 +272,10 @@ Therefore, we can make the following argument:
 \noindent Consequence of the algorithm:
 
 \begin{enumerate}
-    \item for $k = 1/\epsilon$ compute partition $P_1, \dots , P_k$.
-    \item for some $q$ ($1 \leq q \leq k)$, $|OPT \cap P_q| \leq \frac{1}{k} \cdot |OPT| = \epsilon \cdot |OPT|$ because 
+    \item for $\ell = 1/\epsilon$ compute partition $P_1, \dots , P_k$.
+    \item for some $q$ ($1 \leq q \leq \ell)$, $|OPT \cap P_q| \leq \frac{1}{\ell} \cdot |OPT| = \epsilon \cdot |OPT|$ because 
     of the pigeonhole principle
-    \item hence, $|OPT \cap (G - P_q)| \geq (1 - 1/k) \cdot |OPT| = (1 - \epsilon) \cdot |OPT|$
+    \item hence, $|OPT \cap (G - P_q)| \geq (1 - 1 / \ell) \cdot |OPT| = (1 - \epsilon) \cdot |OPT|$
     \item return $max_i{|\text{\textsc{MIS}}(G - P_i)|}$
 \end{enumerate}
 
@@ -289,7 +289,7 @@ subgraph. This fails for \textsc{Dominating Set}, since a vertex in the subgraph
 
 \noindent It is shown that the general shifting technique can be used to obtain a PTAS for \textsc{Dominating Set}. The interesting part is that 
 in order to properly analyse the solution, one must make the slices overlap on two levels. We refer to Marzban and Gu \cite{dominatingsetptas} for
-the explanation as to why the last is true and how to obtain the $(1 + 2/k)$ approximation ratio.
+the explanation as to why the last is true and how to obtain the $(1 + 2 / \ell)$ approximation ratio.
 
 \subsubsection{Linear Programming and Randomized Rounding}
 
