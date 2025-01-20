@@ -584,90 +584,100 @@ in three steps.
     \item What is the partial solution?
     \item What are the characteristics of the partial solution?
     \item How does the filling of the table reflect finding the solution?
-\end{enumerate}
-
-\noindent Before starting with the partial solution we will define the set $M : V \to \binom{V}{4}$. 
-Using Depth First Search we could find for every vertex each 4-cycle that it is contained within. 
-This allows us $O(1)$ lookup when constructing the DP table. 
-
-\noindent We define the following set operations: 
-
-\begin{enumerate}
-    \item $\text{remove}(v, S) = \{ A \setminus \{v\} \mid A \in S \}$
-    \item $\text{flatten}(S) = \bigcup_{A \in S} A$
-    \item $\text{covered}(v, S) = \text{flatten}\left(\text{remove}(v, S)\right)$
-\end{enumerate}
+\end{enumerate} 
 
 \noindent We also define the sets that will be used for the construction of the DP tables. 
 
 \noindent As per Def.~\ref{MWFVS-BCL} for the MWFVS-BCL let $w : V \to R$ be the weight function and 
-$F \subseteq V$ be a set that breaks every 4-cycle. Assume we are given a nice tree decomposition 
-$(X, T)$. For a bag $i = 1 \dots p$, let $G_i = (V_i, E_i)$ be the subgraph induced by the vertices 
-in bags $X_j$ for $j = 1 \dots i$, i. e. on level $i$ or the descendants of the bag on that level.
-We define the table entries of the dynamic programming algorithm: for every bag $i = 1 \dots p$ 
-and partition $I,E,C$ of $X_i$. The partition is comprised of three sets.
+$F \subseteq V$ be a set that breaks every 4-cycle.
+
+\noindent Assume we are given a nice tree decomposition $(T, \{X_x\}_{x \in V(T)})$. We are 
+interested in the best partial solutions in the graph $G_{x}$. One thing to note 
+is that we work with introduce edge nodes. 
+
+\noindent With each node $x$ of the tree decomposition we associate the subgraph 
+\[G_x = \left(V_{x}, E_{x} = \{e: e \text{ is introduced in the subtree rooted at x}\}\right)\].
+
+\noindent A coloring of a bag $X_x$ is a mapping $f : X_x \rightarrow \{1, 0\}$
+assigning two different colors to each vertex in a bag. 
 
 \begin{enumerate}
-    \item $I$ - the set of vertices that are included in the partial solution.
-    \item $E$ - the set of vertices that are excluded from the partial solution and they have cycles that must be covered.
-    \item $C$ - the set of vertices that are excluded from the partial solution and have all of their cycles covered.
+    \item \textbf{Black}, represented by 1. All black vertices must be contained in the partial solution.
+    \item \textbf{White}, represented by 0. White vertices are not contained in the partial solution and already have their 4-cycles covered.
 \end{enumerate}
 
-\noindent The following shows what the partial solution looks like:
+\noindent For a node $x$, there are $2^{X_x}$ coloring of $X_x$. This is the state space at node $x$. 
+For a coloring $f$ of node $x$, we define $A_{x}(f)$ to be the set $F \subseteq V_x$ of minimum weight 
+such that: 
 
-\begin{center}
-    $A[i, I, E, C] = \min \{w(W): W$ is a 4-cycle breaking set with $W \cap X_i = I \}$
-    
-    What also holds is that for every $u \in V_i \backslash C$, covered($u, M(u)$) $ \cap W \neq \emptyset$.
-
-\end{center}
+\begin{enumerate}
+    \item $F \cap X_x = f^{-1}\left(1\right)$, which is the set of vertices colored in black.
+    \item Every vertex of $V_x$ is either in $F$ or is a part of a 4-cycle that has a vertex in $F$.
+\end{enumerate}
 
 \textbf{Leaf bag:}
 
+\noindent Let $x$ be a leaf node in $T$. Let $v$ be the vertex in the leaf node. Then we 
+compute $A_x$ in the following way:
+
 \[
 \begin{aligned}
-    A[i, \emptyset, \emptyset, \{v\}] &= 0 \quad &&\text{if } M(v) &= \emptyset \\
-    \\
-    A[i, \{v\}, \emptyset, \text{covered}(v, M(v))] &= w(v) \\
-    A[i, \emptyset, \{v\}, \emptyset] &= \infty \\
-    A[i, \emptyset, \emptyset, \{v\}] &= 0
+    A_{x}\left(\{1\}\right) &= w\left(v\right) \\
+    A_{x}\left(\{0\}\right) &= 0 \\
 \end{aligned}
 \]
 
 \begin{enumerate}
-    \item If the vertex does not take part in any 4-cycles, then we can safely put it in the covered set. 
-    \item Otherwise we can include the vertex and add its weight to the solution.
-    \item If $v$ is not included and it has cycles to be covered we set the value to the default for the minimum operator which is $\infty$.
-    \item If it is to be covered by other vertices we do not include it and set the value to 0.
+    \item We consider the vertex to be a part of the solution, thus adding its weight.
+    \item If $v$ is not included and all of its cycles are covered (or it has no 4-cycles), we set its value to zero.
 \end{enumerate}
 
 \textbf{Introduce vertex bag:}
 
+\noindent Because we will be working with introduce edge bags, here we only introduce the vertex 
+and none of its edges, i. e. the vertex is isolated. We make sure we have a value that reflects 
+the fact that all of its 4-cycles at that point are covered, coloring it in \textit{white}.
+
+\noindent Let $x$ be an introduce vertex node in $T$ with child $y$ introducing vertex $v$.
+
+\begin{center}
+    \[
+    \begin{aligned}
+        A_{x}\left(f \times \{1\}\right) &= w\left(v\right) + A_{y}\left(f\right) \\
+        A_{x}\left(f \times \{0\}\right) &= A_{y}\left(f\right) \\
+    \end{aligned}
+    \]
+\end{center}
+
+
+\begin{enumerate}
+    \item If we color $v$ black, then we add its weight to the solution.
+    \item Otherwise we consider that all of its 4-cycles are covered and do not change the value of the solution.
+\end{enumerate} 
+
+\textbf{Introduce edge bag:}
+
+\noindent Let $x$ be an introduce edge node in $T$ with child $y$ introducing edge $uv$. 
+Let $f$ be a coloring for $X_x$. Then sets $F$ compatible for $f$ and $x$ are almost the same 
+as sets compatible for $f$ and $y$. The only difference is that with edge $uv$ we might find 
+a 4-cycle which allows us to make a restriction on the solution. Let $uvwz$ be the 4-cycle. 
+
 \[
 \begin{aligned}
-A[i, I, E, C \cup \{v\}] &= A[j, I, E, C] \quad &&\text{if } M(v) = \emptyset \\
-\\
-A[i, I \cup \{v\}, E, C] &= w(v) + A[j, I, E \backslash \text{covered}(v, M(v)), C \cup \text{covered}(v, M(v))], \\
-A[i, I, E \cup \{v\}, C] &= \infty \quad &&\text{if } M(v) \nsubseteq C_I, \\
-A[i, I, E \cup \{v\}, C] &= A[j, I, E, C] \quad &&\text{if } M(v) \subseteq C_I, \\
-A[i, I, E, C \cup \{v\}] &= A[j, I, E, C].
+A_{x}\left(f\right) &= \infty \quad \text{when} \left(f(u),f(v),f(w),f(z)\right) = \left(0,0,0,0\right) \\
+A_{x}\left(f\right) &= A_{y}\left(f\right) \quad \text{otherwise} \\
 \end{aligned}
 \]
 
-\begin{enumerate}
-    \item If $v$ is not a part of a single 4-cycle, then we can safely add it to the covered set.
-    \item If $v$ is included we account for its weight and all of the 4-cycles that it is a part 
-    of do not need to be added. 
-    \item If $v$ is excluded and still has 4-cycles that have to be covered we set the value to $\infty$.
-    \item If $v$ is excluded, but all of its 4-cycles are covered, we can remove it.
-    \item Otherwise $v$ is covered, so we simply remove it.
-\end{enumerate} 
-
 \textbf{Forget bag:}
+
+Let $x$ be a forget node in $T$ with child $y$, such that $X_x$ = $X_y \backslash \{v\}$. 
+Every set $F$ compatible for $x$ and $f$ is also compatible for $y$ and $f$. Therefore we 
+only minimize over the possibilities for coloring $v$.  
 
 \[
 \begin{aligned}
-A[i, I, E, C] &= \min \{A[j, I \cup \{v\}, E, C], A[j, I, E, C \cup \{v\}]\}.
+A_{x}\left(f\right) &= \min \{A_{y}\left(f \times \{1\} \right), A_{y}\left(f \times \{0\}\right)\}.
 \end{aligned}
 \]
 
@@ -676,12 +686,22 @@ in the solution.
 
 \textbf{Join bag:}
 
+Let $x$ be a join node with children $x_{1}$ and $x_{2}$. What holds is that 
+$X_{x} = X_{x_{1}} = X_{x_{2}}$. We say that the coloring in $x$ and $f$ is consistent with 
+the colorings in $x_{1}$ and $f_{1}$, and $x_{2}$ and $f_{2}$ if the following conditions hold:
+
+\begin{enumerate}
+    \item $f\left(v\right) = 1$ \textit{iff} $f_{1}\left(v\right) = f_{2}\left(v\right) = 1$.
+    \item $f\left(v\right) = 0$ \textit{iff} $f_{1}\left(v\right) = f_{2}\left(v\right) = 0$.
+\end{enumerate}
+
+\noindent If we find a consistent coloring, namely $F_1$ is compatible for $f_1$ and $x_1$ and 
+$F_2$ for $f_2$ and $x_2$, and $f_1$, $f_2$ are consistent with $f$, then we can see that 
+$F := F_1 \cup F_2$. It follows that $w(F) = w(F_1) + w(F_2) - w(f^{-1}\left(1\right))$. 
+Therefore, we have to take the minimum over all colorings that we have defined as consistent. 
+
 \[
 \begin{aligned}
-A[i, I, E, C] = \min_{\substack{C_1 \cup C_2 = C \\ C_1 \subseteq C,\, C_2 \subseteq C}} \{A[j, I, E \cup C_2, C_1] + A[k, I, E \cup C_1, C_2] - \omega(I)\}
+A_x\left(f\right) = \min_{f_1 , f_2} \{A_{x_{1}}\left(f_1\right) + A_{x_{2}}\left(f_2\right) - w(f^{-1}(1))\}
 \end{aligned}
 \]
-
-In the join bag we iterate through all of the possibilities where the set C is covered. In our case 
-$C_1$ is the set that covers $X \cap V_j$ and $C_2$ is the set that covers $X \cap V_k$. If this 
-is the case, then 
