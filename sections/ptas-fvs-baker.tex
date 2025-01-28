@@ -575,156 +575,68 @@ the RHS of the inequality $w(S_i) \leq \sum\limits_{j} w(S_{i, j})$.
 
 \subsection{Exact algorithm for FVS-BCL}
 
-\noindent Before introducing the algorithm, we define the sets that we will use and some data structures 
-that will be exploited for the construction of the solution. Making use of dynamic programming and a nice 
-tree decomposition of the given planar graph we need to make sure the solution is correct.
+\noindent In this subsection we are looking for an algorithm that finds exact solutions to the 
+FVS-BCL problem in each subgraph. For each subgraph we can find the treewidth. 
 
-\noindent As per Def.~\ref{MWFVS-BCL} for the MWFVS-BCL let $w : V \to R$ be the weight function and 
-$F \subseteq V$ be a set that breaks every $\rho$-cycle.
+\noindent We take a logical approach that was introduced by Courcelle~\cite{courcelle1990monadic}. 
+He shows that graph properties that can be stated in monadic second-order logic (MSOL) can be solved in 
+linear time for graphs of bounded treewidth. In the following two subsections we briefly explain MSOL and 
+then apply it to our problem. We follow a survey on the matter in Satzinger \cite{satzinger2014tree}. 
 
-\noindent Assume we are given a nice tree decomposition $(T, \{X_x\}_{x \in V(T)})$. We are 
-interested in the best partial solutions in the graph $G_{x}$. One thing to note 
-is that we work with introduce edge nodes. 
+\subsubsection{MSOL - a language for graph problems}
 
-\noindent With each node $x$ of the tree decomposition we associate the subgraph 
-\[G_x = \left(V_{x}, E_{x} = \{e: e \text{ is introduced in the subtree rooted at x}\}\right)\].
+\noindent We want to introduce a language that translates graph problems to formulas, therefore reducing 
+the problem to a satisfiability problem. Consequently, our goal is to find a formula $\Phi$ with the 
+property: 
 
-\noindent A coloring of a bag $X_x$ is a mapping $f : X_x \rightarrow \{1, 0\}$
-assigning two different colors to each vertex in a bag. 
+\[\text{The problem $\Pi$ is solvable for a graph $G$ \textit{iff} $G \models \Phi$, i. e. the formula 
+$\Phi$ is satisfied by the graph $G$.}\]
 
-\begin{enumerate}[label=\textbf{•}, labelsep=0.5em]
-    \label{colors}
-    \item \textbf{Black}, represented by 1. All black vertices must be contained in the partial solution.
-    \item \textbf{White}, represented by 0. White vertices are not contained in the partial solution and already have their $\rho$-cycles covered.
+\noindent Problem $\Pi$ is solvable in polynomial (in this case linear) time for graphs of treewidth at 
+most $k$.
+
+\noindent Monadic second-order logic is an extension of first-order logic. Additionally to having 
+object variables $x, y \dots$, logical connectives $\lnot, \land, \lor, \lnot,
+\rightarrow, \longleftrightarrow$ and quantifiers for object variables $\forall x, 
+\exists x$, MSOL considers sets of object variables $X, Y \dots$, and relation to them 
+via $\in$.
+
+\noindent Whenever graph problems are involved, typically we express solution through 
+vertices and edges. Additionally, as we mentioned, we can construct sets of vertices 
+and edges. Therefore we have the following machinery:
+
+\begin{enumerate}[label=\textbf{•}]
+    \item Object variables: \textit{vertices}: $v_1, v_2, \dots$ and \textit{edges}: $e_1, e_2, \dots$. 
+    \item Set variables: sets of vertices $V_1, V_2, \dots$ and sets of edges $E_1, E_2, \dots$.
+    \item Binary relation $\in : \{\text{object variable}\} \times \{\text{set variable}\} \to \{0, 1\}$. Therefore 
+    $v \in V$ \textit{iff} $v$ is an element of the corresponding set $V$.
+    \item The $Adj(e, v_i, v_j)$ relation. It detects whether edge $e$ is an edge from vertex $v_i$ to 
+    vertex $v_j$ where $v_i \neq v_j$.
 \end{enumerate}
 
-\noindent Given these definitions we are going to try to answer the following questions:
+\noindent With this machinery, one obtains a first-order language suitable for expressing relations in a graph. 
+To extend this to a traditional second-order logic language, one must add quantifications over set 
+variables. 
 
-\begin{enumerate}
-    \item What is the partial solution?
-    \item What are the characteristics of the partial solution?
-    \item How does the filling of the table reflect finding the solution?
+\begin{enumerate}[label=\textbf{•}]
+    \item Quantification over set variables: $\forall V_i, \forall E_i$ and $\exists V_i, \exists E_i$.
 \end{enumerate}
 
-\noindent We follow a well detailed framework on how to construct DP tables for solving graph 
-theoretical problems layed out in \cite{}.
+\subsubsection{Exact algorithm for FVS-BCL using MSOL}
 
-\begin{enumerate}
-    \item Define the notion of a \textit{solution}. In our case for the FVS-BCL problem, the solution for a graph 
-    $G$ is a set $F$ that breaks every cycle of a given length.
-    \item Define the notion of a \textit{partial solution}. In our case the partial solutions are for the subgraph 
-    $G_{x}$. This graph $G_{x}$ is the terminal subgraph $H$ of $G$, to which the partial solution should 
-    find a local solution to. In our case partial solutions $F_x \subseteq V_x$ are solutions for the graph $G_x$. 
-    Note that restrictions of solutions are solutions for the subgraph $G_x$ because all $\rho$-cycles 
-    in $G_x$ need to be covered by one of the vertices in the cycle.
-    \item Define the notion of \textit{extension of a partial solution}. A solution $F$ is an extension 
-    of a partial solution $F_y$ for $G_y$ if $F \cap V_y = F_y$.
-    \item Define the notion of a \textit{characteristic} of a partial solution. For the vertices in 
-    $V_x \backslash X_x$ it holds that the $\rho$-cycles that they are a part of already have to be 
-    covered. For the vertices in $X_x$ we color them as mentioned in \ref{colors}. It holds that:
-    
-    \begin{enumerate}[label=\textbf{•}, labelsep=0.5em]
-        \item $F \cap X_x = f^{-1}\left(1\right)$, which is the set of vertices colored in black.
-        \item Every vertex of $V_x$ is either in $F$ or is a part of a $\rho$-cycle that has a vertex in $F$.
-    \end{enumerate}
+\noindent Courcelle's work was extended to extended monadic second-order logic 
+\cite{arnborg1991easy,borie1991deterministic,courcelle1993monadic}. These extensions allow to optimize 
+over the size and weight of a free set variable. 
 
-    \noindent 
-
-    \noindent For a node $x$, there are $2^{X_x}$ coloring of $X_x$. This is the state space at node $x$. 
-    For a coloring $f$ of node $x$, we define $A_{x}(f)$ to be the set $F \subseteq V_x$ of minimum weight.
-
-
-\end{enumerate}
-
-\noindent Now consider the evaluation steps for the nodes in a nice tree-decomposition.
-
-\textbf{Leaf bag:}
-
-\noindent Let $x$ be a leaf node in $T$. Let $v$ be the vertex in the leaf node. Then we 
-compute $A_x$ in the following way:
+\noindent The minimum weight FVS-BCL for a length $\rho=4$ can be expressed as:
 
 \[
 \begin{aligned}
-    A_{x}\left(\{1\}\right) &= w\left(v\right) \\
-    A_{x}\left(\{0\}\right) &= 0 \\
+\min_{F \subseteq V} & \ w(F) : \forall v \forall u \forall w \forall z: \\
+& v \in V \land u \in V \land w \in V \land z \in V \\
+& \land v \neq w \land u \neq z \\
+& \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \\
+& \to v \in F \lor u \in F \lor w \in F \lor z \in F
 \end{aligned}
 \]
 
-\begin{enumerate}
-    \item We consider the vertex to be a part of the solution, thus adding its weight.
-    \item If $v$ is not included and all of its cycles are covered (or it has no $\rho$-cycles), we set its value to zero.
-\end{enumerate}
-
-\textbf{Introduce vertex bag:}
-
-\noindent Because we will be working with introduce edge bags, here we only introduce the vertex 
-and none of its edges, i. e. the vertex is isolated. We make sure we have a value that reflects 
-the fact that all of its $\rho$-cycles at that point are covered, coloring it in \textit{white}.
-
-\noindent Let $x$ be an introduce vertex node in $T$ with child $y$ introducing vertex $v$.
-
-\begin{center}
-    \[
-    \begin{aligned}
-        A_{x}\left(f \times \{1\}\right) &= w\left(v\right) + A_{y}\left(f\right) \\
-        A_{x}\left(f \times \{0\}\right) &= A_{y}\left(f\right) \\
-    \end{aligned}
-    \]
-\end{center}
-
-
-\begin{enumerate}
-    \item If we color $v$ black, then we add its weight to the solution.
-    \item Otherwise we consider that all of its $\rho$-cycles are covered and do not change the value of the solution.
-\end{enumerate} 
-
-\textbf{Introduce edge bag:}
-
-\noindent Let $x$ be an introduce edge node in $T$ with child $y$ introducing edge $uv$. 
-Let $f$ be a coloring for $X_x$. Then sets $F$ compatible for $f$ and $x$ are almost the same 
-as sets compatible for $f$ and $y$. The only difference is that with edge $uv$ we might find 
-a $\rho$-cycle which allows us to make a restriction on the solution. Let $uvwz$ be the $\rho$-cycle. 
-
-\[
-\begin{aligned}
-A_{x}\left(f\right) &= \infty \quad \text{when} \left(f(u),f(v),f(w),f(z)\right) = \left(0,0,0,0\right) \\
-A_{x}\left(f\right) &= A_{y}\left(f\right) \quad \text{otherwise} \\
-\end{aligned}
-\]
-
-\textbf{Forget bag:}
-
-Let $x$ be a forget node in $T$ with child $y$, such that $X_x$ = $X_y \backslash \{v\}$. 
-Every set $F$ compatible for $x$ and $f$ is also compatible for $y$ and $f$. Therefore we 
-only minimize over the possibilities for coloring $v$.  
-
-\[
-\begin{aligned}
-A_{x}\left(f\right) &= \min \{A_{y}\left(f \times \{1\} \right), A_{y}\left(f \times \{0\}\right)\}.
-\end{aligned}
-\]
-
-\noindent When forgetting a vertex we only have to decide whether or not to include it 
-in the solution.
-
-\textbf{Join bag:}
-
-Let $x$ be a join node with children $x_{1}$ and $x_{2}$. What holds is that 
-$X_{x} = X_{x_{1}} = X_{x_{2}}$. We say that the coloring in $x$ and $f$ is consistent with 
-the colorings in $x_{1}$ and $f_{1}$, and $x_{2}$ and $f_{2}$ if the following conditions hold:
-
-\begin{enumerate}
-    \item $f\left(v\right) = 1$ \textit{iff} $f_{1}\left(v\right) = f_{2}\left(v\right) = 1$.
-    \item $f\left(v\right) = 0$ \textit{iff} $f_{1}\left(v\right) = f_{2}\left(v\right) = 0$.
-\end{enumerate}
-
-\noindent If we find a consistent coloring, namely $F_1$ is compatible for $f_1$ and $x_1$ and 
-$F_2$ for $f_2$ and $x_2$, and $f_1$, $f_2$ are consistent with $f$, then we can see that 
-$F := F_1 \cup F_2$. It follows that $w(F) = w(F_1) + w(F_2) - w(f^{-1}\left(1\right))$. 
-Therefore, we have to take the minimum over all colorings that we have defined as consistent. 
-
-\[
-\begin{aligned}
-A_x\left(f\right) = \min_{f_1 , f_2} \{A_{x_{1}}\left(f_1\right) + A_{x_{2}}\left(f_2\right) - w(f^{-1}(1))\}
-\end{aligned}
-\]

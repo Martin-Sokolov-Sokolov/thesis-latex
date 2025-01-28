@@ -154,4 +154,27 @@ M.~Marzban and Q.-P. Gu, ``Computational study on a ptas for planar dominating
   Available: \url{https://www.mdpi.com/1999-4893/6/1/43}
 \BIBentrySTDinterwordspacing
 
+\bibitem{courcelle1990monadic}
+B.~Courcelle, ``The monadic second-order logic of graphs. i. recognizable sets
+  of finite graphs,'' \emph{Information and computation}, vol.~85, no.~1, pp.
+  12--75, 1990.
+
+\bibitem{satzinger2014tree}
+C.~Satzinger, ``On tree-decompositions and their algorithmic implications for
+  bounded-treewidth graphs,'' Ph.D. dissertation.
+
+\bibitem{arnborg1991easy}
+S.~Arnborg, J.~Lagergren, and D.~Seese, ``Easy problems for tree-decomposable
+  graphs,'' \emph{Journal of Algorithms}, vol.~12, no.~2, pp. 308--340, 1991.
+
+\bibitem{borie1991deterministic}
+R.~B. Borie, R.~G. Parker, and C.~A. Tovey, ``Deterministic dcomposition of
+  recursive graph classes,'' \emph{SIAM Journal on Discrete Mathematics},
+  vol.~4, no.~4, pp. 481--501, 1991.
+
+\bibitem{courcelle1993monadic}
+B.~Courcelle and M.~Mosbah, ``Monadic second-order evaluations on
+  tree-decomposable graphs,'' \emph{Theoretical Computer Science}, vol. 109,
+  no. 1-2, pp. 49--82, 1993.
+
 \end{thebibliography}
