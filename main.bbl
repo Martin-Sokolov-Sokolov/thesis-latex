@@ -177,4 +177,8 @@ B.~Courcelle and M.~Mosbah, ``Monadic second-order evaluations on
   tree-decomposable graphs,'' \emph{Theoretical Computer Science}, vol. 109,
   no. 1-2, pp. 49--82, 1993.
 
+\bibitem{venne2022designing}
+J.~Venne, ``Designing (1)-certified algorithms for planar optimiza-tion
+  problems with local feasibility properties,'' 2022.
+
 \end{thebibliography}
