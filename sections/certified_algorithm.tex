@@ -38,7 +38,7 @@ of $J$ and "stitch" onto it some part of $S_2$ along the subgraph $J$.
     $S_1, S_2 \subseteq V(G)$. Then we define the \textit{m-stitch} of $S_2$ onto $S_1$ along 
     $J$ as the set:
 
-    \[S_3 := (S_1 \backslash V(J)) \cup (S_2 \cap N^{m}_{G} \left[V(J)\right]).\]
+    \[S_3 := (S_1 \backslash J) \cup (S_2 \cap N^{m}_{G} \left[J\right]).\]
 
 \end{mydefinition}
 
@@ -145,7 +145,7 @@ removing the vertices of $J$ from the set $S_1$.
             \end{scope}
 
         \end{tikzpicture}
-        \caption{Subgraph $J$ of $G$ in light orange and $N^{2}_{G}\left[V(J)\right]$ in darker orange}
+        \caption{Subgraph $J$ of $G$ in light orange and $N^{2}_{G}\left[J\right]$ in darker orange}
     \end{minipage}
     \hfill
     \begin{minipage}{0.49\textwidth}
@@ -182,7 +182,7 @@ removing the vertices of $J$ from the set $S_1$.
             \draw[red, thick] (4) circle(0.2);
 
         \end{tikzpicture}
-        \caption{Remove $V(J)$ from $S_1$}
+        \caption{Remove $J$ from $S_1$}
         \label{fig:remove_s1}
     \end{minipage}
 \end{figure}
@@ -231,7 +231,7 @@ stitched set in Fig.~\ref{fig:stitched_set}.
 
 
         \end{tikzpicture}
-        \caption{Add $S_2 \cap N^{2}_{G} \left[V(J)\right]$}
+        \caption{Add $S_2 \cap N^{2}_{G} \left[J\right]$}
         \label{fig:second_step}
     \end{minipage}
     \hfill
@@ -281,7 +281,7 @@ at the set $S_3$, this would too be a feasible solution.
     of a vertex optimization problem $\Pi$ we have that the m-stitching of $S_2$ onto $S_1$ along 
     $J$, $S_3$ is a feasible solution to $\Pi$ on $G$.
 
-    \[S_3 := (S_1 \backslash V(J)) \cup (S_2 \cap N^{m}_{G} \left[V(J)\right]).\]
+    \[S_3 := (S_1 \backslash J) \cup (S_2 \cap N^{m}_{G} \left[J\right]).\]
 
 \end{mydefinition}
 
@@ -291,15 +291,15 @@ it to the current problem.
 
 \refstepcounter{definition}
 \begin{mydefinition}[$\Pi$-m-stitching]{Algorithm.}
-    \label{p-m-stitching}
+    \label{alg:p-m-stitching}
 
     \textbf{Input:}
     an instance ($G, w : V(G) \to \mathbb{N}$) to an m-stitchable vertex optimization problem $\Pi$ 
-    along with a solution $S$ and a vertex set $J \subseteq V(G)$.
+    along with a solution $S_1$ and a vertex set $J \subseteq V(G)$.
 
     \textbf{Task:}
     find a feasible solution $S^{\prime}$ to $\Pi$ on $G$, such that for all other feasible solutions 
-    $S^*$ it holds that $w(S^{\prime}) \leq w\left(\text{m-stitch}(S^{*}, S)\right)$.
+    $S^*$ it holds that $w(S^{\prime}) \leq w\left(S^{*} \oplus^{2}_{G,J} S_1\right)$.
 
 \end{mydefinition}
 
@@ -360,289 +360,157 @@ therefore there are no 4-cycles left, after selecting that set.
 \begin{mydefinition}[FVS-BCL is 2-stitchable]{Lemma}
     \label{lemma-m-stitchable}
 
-    \noindent Let $(G, w)$ be any instance to the FVS-BCL problem, $J \subseteq G$ any induced subgraph 
-    and $S_1$ and $S_2$ any two feasible solutions to the problem in $G$. It suffices to prove that 
-    $S_3$ is a feasible solution, where: 
-    \[S_3 := (S_1 \backslash V(J)) \cup (S_2 \cap N^{2}_{G} \left[V(J)\right]).\]
+    \noindent Let $(G, w)$ be any instance to the FVS-4CL problem, $J \subseteq V(G)$, some subset
+    of the vertices in the graph 
+    and $S_1$ and $S_2$ any two feasible solutions to the problem in $G$. Then the set $S_3$:
+    \[S_3 := (S_1 \backslash J) \cup (S_2 \cap N^{2}_{G} \left[J\right]).\]
+    
+    is a feasible solution to the problem.
 
-    Let any 4-cycle be of vertices $v_1, v_2, v_3, v_4$.
 
 \end{mydefinition}
 
-\noindent \textit{Proof}. We inspect the possible cases for the 4-cycle $v_1 v_2 v_3 v_4$. In order 
+\noindent \textit{Proof}.
+Let the vertices $\{v_1,v_2,v_3,v_4\}$ form a 4-cycle.
+We inspect the possible cases for the 4-cycle $v_1 v_2 v_3 v_4$. In order 
 to prove \ref{lemma-m-stitchable} we have to prove that there exists a $v \in \{v_1, v_2, v_3, v_4\}$,
 such that $v \in S_3$. 
 
 \begin{enumerate}[label=\textbf{•}]
-    \item $\exists v^{\prime} \in \{v_1,v_2,v_3,v_4\}$, such that $v^{\prime} \in J$.
-
-    Now we can argue for the vertex $v$. Because one of the vertices of the cycle in question is in 
-    $J$, then we can argue that one of them will be in the intersection $S_2 \cap N^{2}_{G}[V(J)]$. 
-    Formally,
+    \item $\exists v^{\prime} \in \{v_1,v_2,v_3,v_4\}$, such that $v^{\prime} \in J$. We argue in three steps.
 
     \begin{enumerate}
-        \item Because $v^{\prime} \in J$, no vertex $v'' \in V(G) \backslash N^{2}_{G}[V(J)]$ can be 
-        a part of the set $v_1,v_2,v_3,v_4$ and therefore break the cycle.
-        \item However, $S_2$ is a feasible solution and in that intersection $S_2 \cap N^{2}_{G}[V(J)]$ 
-        it follows that $\exists v \in N^{2}_{G}[V(J)]$, such that $v \in \{v_1,v_2,v_3,v_4\}$.
-        \item Finally, $S_2 \cap N^{2}_{G}[V(J)] \subseteq S_3$, therefore $v \in S_3$.
+        \item Because $S_2$ is a feasible solution, then $\exists v'' \in \{v_1, v_2, v_3, v_4\}$,
+        such that $v'' \in S_2$.
+        \item Because there $\exists v' \in \{v_1,v_2,v_3,v_4\} \in J$, then it also holds
+        that $\forall  v' \in \{v_1,v_2,v_3,v_4\}, v' \in N^{2}_{G}[J]$. From that and the previous 
+        point it follows that $v'' \in S_2 \cap N^{2}_{G}[J]$.
+        \item Finally, $S_2 \cap N^{2}_{G}[J] \subseteq S_3$, therefore $v'' \in S_3$.
     \end{enumerate}
 
-    \item $\forall v' \in \{v_1,v_2,v_3,v_4\}$, it holds that $v' \notin J$. This case is simpler 
-    as it follows from the feasibility of $S_1$. This is because the operation $S_1 \backslash V(J)$ 
-    would not remove any vertex $v'$ from the cycle. What also holds is that $S_1 \backslash V(J) \subseteq S_3$. 
-    Finally, we piece together the fact that for $v \in \{v_1,v_2,v_3,v_4\}$ it holds that 
-    $v \in S_3$.
+    \item $\forall v' \in \{v_1,v_2,v_3,v_4\}$, it holds that $v' \notin J$.
+    This case follows from the feasibility of $S_1$.
+
+    \begin{enumerate}
+        \item Because $S_1$ is a feasible solution, then $\exists v'' \in \{v_1,v_2,v_3,v_4\}$,
+        such that $v'' \in S_1$.
+        \item From $\forall v' \in \{v_1,v_2,v_3,v_4\} \notin J$ and the previous point, it follows 
+        that $v'' \in S_1 \backslash J$.
+        \item Because $S_1 \backslash J \subseteq S_3$, then $v'' \in S_3$.
+    \end{enumerate}
 
 \end{enumerate}
 
-\noindent Let us now try and construct an algorithm $A_\text{FVS-BCL}$ that solves the problem, 
-parameterized by the treewidth of the closed m-neighbourhood of any subgraph $J \subseteq G$. We first 
-take an explicitly wrong approach which is close to how we solve the problem on the induced subgraph 
-$G_{i, j}$ in Baker's technique. There, we independently solved the problem on each induced subgraph 
-and combined the solutions to place an upper bound on the global solution. We now attempt the same 
-technique. 
-
-\noindent In this case, the technique extends to finding an optimal solution within the closed 
-m-neighbourhood of $J$, $N^{m}_{G}[J]$ and taking the union of that result with the part in 
-$S_1 \backslash V(J)$. The problem arises for vertices with the following properties:
-
-\begin{enumerate}
-    \item $v \in S_1$ and $v$ is a part of a 4-cycle
-    \item $v \in N^{m}_G[J]$
-    \item $v \notin J$
-\end{enumerate}
-
-\noindent Because we have to ensure the feasibility of $S_3$, we 
-must add $v$ to $S_3$, but it may not be optimal to do so.
-It comes down to the fact that we do not consider that those vertices $v$ may break cycles in 
-$N^{2}_{G}[J]$, they will be added to $S_3$ anyway, so those cycles in the closed 2-neighbourhood 
-should be considered covered.
-Therefore, to ensure that the exact algorithm 
-will select such vertices $v$ during the work in $N^{m}_G[J]$, we set the values of those nodes to zero.
-
-\noindent In the following example $J = \{7\}, N^{2}_{G}[J] = \{4,5,6,7\}, S_1 = \{4\}, S_2 = \{3,5,7\}$.
-Both solutions are feasible, so by lemma \ref{lemma-m-stitchable}, $S_3$ will be feasible.
-Let the weights of the vertices in the graph be equal to one, except the weight of vertex with 
-label 4, which has a weight of ten. 
-
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        % Define nodes
-        \node[draw, circle, fill=black, scale=0.3, label=above:1] (1) at (0,2) {};
-        \node[draw, circle, fill=black, scale=0.3, label=left:2] (2) at (-1,1) {};
-        \node[draw, circle, fill=black, scale=0.3, label=right:3] (3) at (1,1) {};
-        \node[draw, circle, fill=black, scale=0.3, label=right:4, label=left:10] (4) at (0,0) {};
-        \node[draw, circle, fill=black, scale=0.3, label=left:5] (5) at (-1,-1) {};
-        \node[draw, circle, fill=black, scale=0.3, label=right:6] (6) at (1,-1) {};
-        \node[draw, circle, fill=black, scale=0.3, label=below:7] (7) at (0,-2) {};
-
-        % Draw edges
-        \draw (1) -- (2);
-        \draw (1) -- (3);
-        \draw (2) -- (4);
-        \draw (3) -- (4);
-        \draw (4) -- (5);
-        \draw (4) -- (6);
-        \draw (5) -- (7);
-        \draw (6) -- (7);
-
-        \begin{scope}[on background layer]   
-            \filldraw[orange!70,line width=20pt,rounded corners=5pt] (6.center) -- (7.center) -- (5.center) -- (4.center) -- cycle;
-        \end{scope}
-
-        \begin{scope}[on background layer]   
-            \filldraw[orange!35,line width=20pt,rounded corners=5pt] (7.center) -- cycle;
-        \end{scope}
-
-        \draw[red, thick] (4) circle(0.2);
-
-        \draw[blue, thick] (3) circle(0.2);
-        \draw[blue, thick] (5) circle(0.2);
-        \draw[blue, thick] (7) circle(0.2);
-
-    \end{tikzpicture}
-    \caption{$J$ in light orange, $N^{2}_{G}[J]$ in darker orange, $S_1$ in red, $S_2$ in blue}
-    \label{fig:example-graph}
-\end{figure}
-
-\noindent In Baker's approach we would solve the problem exactly in the closed m-neighbourhood 
-$N^{2}_G[J]$ parameterized by the treewidth and combine that solution with $S_1 \backslash J$. In 
-Fig.~\ref{fig:exact-solution} the weight of the 4-cycle breaking set would be $w(\{5\}) = w(\{6\}) = w(\{7\}) = 1$.
-However, as we said, we must add all vertices in $S_1 \backslash V(J)$ to the solution in order 
-to maintain feasibility of $S_3$. That is why in Fig.~\ref{fig:incorrect-solution} we get a suboptimal 
-solution for $S_3$, one that we could prevent. 
-
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.50\textwidth}
-        \centering
-        \begin{tikzpicture}
-            % Define nodes
-            \node[draw, circle, fill=black, scale=0.3, label=right:4, label=left:10] (4) at (0,0) {};
-            \node[draw, circle, fill=black, scale=0.3, label=left:5] (5) at (-1,-1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=right:6] (6) at (1,-1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=below:7] (7) at (0,-2) {};
-
-            % Draw edges
-            \draw (4) -- (5);
-            \draw (4) -- (6);
-            \draw (5) -- (7);
-            \draw (6) -- (7);
-
-            \draw[black, thick] (5) circle(0.2);
-
-
-        \end{tikzpicture}
-        \caption{Find an exact solution in $N^{2}_{G}[J]$}
-        \label{fig:exact-solution}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.49\textwidth}
-        \centering
-        \begin{tikzpicture}
-            % Define nodes
-            \node[draw, circle, fill=black, scale=0.3, label=above:1] (1) at (0,2) {};
-            \node[draw, circle, fill=black, scale=0.3, label=left:2] (2) at (-1,1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=right:3] (3) at (1,1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=right:4] (4) at (0,0) {};
-            \node[draw, circle, fill=black, scale=0.3, label=left:5] (5) at (-1,-1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=right:6] (6) at (1,-1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=below:7] (7) at (0,-2) {};
-
-            % Draw edges
-            \draw (1) -- (2);
-            \draw (1) -- (3);
-            \draw (2) -- (4);
-            \draw (3) -- (4);
-            \draw (4) -- (5);
-            \draw (4) -- (6);
-            \draw (5) -- (7);
-            \draw (6) -- (7);
-
-            \draw[green, thick] (4) circle(0.2);
-            \draw[green, thick] (5) circle(0.2);
-
-        \end{tikzpicture}
-        \caption{Set $S_3$}
-        \label{fig:incorrect-solution}
-    \end{minipage}
-\end{figure}
-
-\noindent As it is mentioned in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19}, there are other ways to deal 
-with the problem above, but setting those weights to zero works as well. The weight function 
-$w' : V \to \mathbb{N}$ is defined as follows:
-\[
-w'(u) :=
-\begin{cases} 
-0, & \text{if } u \in (S_1 \cap N^{1,2}_{G}[J]) \\ 
-w(u), & \text{otherwise}.
-\end{cases}
-\]
-
-\noindent Using this new function, we attempt to solve the problem and observe the following change. 
-In Fig.~\ref{fig:exact-solution-new-weight-function} using the new weight function we accomplish what 
-we set out to do. Using vertex with label $4$, the algorithm recognizes that there is no need to 
-look for an optimal way to break the 4-cycle $4-6-7-5-4$ as the vertex $4$ will be added to the set 
-$S_3$ anyway. The final result is shown in Fig.~\ref{fig:correct-solution}.
-
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.50\textwidth}
-        \centering
-        \begin{tikzpicture}
-            % Define nodes
-            \node[draw, circle, fill=black, scale=0.3, label=right:4, label=left:0] (4) at (0,0) {};
-            \node[draw, circle, fill=black, scale=0.3, label=left:5] (5) at (-1,-1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=right:6] (6) at (1,-1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=below:7] (7) at (0,-2) {};
-
-            % Draw edges
-            \draw (4) -- (5);
-            \draw (4) -- (6);
-            \draw (5) -- (7);
-            \draw (6) -- (7);
-
-            \draw[black, thick] (4) circle(0.2);
-
-
-        \end{tikzpicture}
-        \caption{Find an exact solution using $w'$ in $N^{2}_{G}[J]$}
-        \label{fig:exact-solution-new-weight-function}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.49\textwidth}
-        \centering
-        \begin{tikzpicture}
-            % Define nodes
-            \node[draw, circle, fill=black, scale=0.3, label=above:1] (1) at (0,2) {};
-            \node[draw, circle, fill=black, scale=0.3, label=left:2] (2) at (-1,1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=right:3] (3) at (1,1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=right:4, label=left:10] (4) at (0,0) {};
-            \node[draw, circle, fill=black, scale=0.3, label=left:5] (5) at (-1,-1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=right:6] (6) at (1,-1) {};
-            \node[draw, circle, fill=black, scale=0.3, label=below:7] (7) at (0,-2) {};
-
-            % Draw edges
-            \draw (1) -- (2);
-            \draw (1) -- (3);
-            \draw (2) -- (4);
-            \draw (3) -- (4);
-            \draw (4) -- (5);
-            \draw (4) -- (6);
-            \draw (5) -- (7);
-            \draw (6) -- (7);
-
-            \draw[green, thick] (4) circle(0.2);
-
-        \end{tikzpicture}
-        \caption{Set $S_3$}
-        \label{fig:correct-solution}
-    \end{minipage}
-\end{figure}
-
-\noindent What allows us to work with the altered weight function in order to find an optimal 
-solution is a property of FVS-BCL problem, namely that a set $X$ which breaks every 4-cycle is 
-closed under taking induced subgraphs.
-
-\noindent Now we write out $A_{\text{FVS-BCL}}$ in pseudocode and afterwards prove the correctness 
-of the algorithm.
+\noindent Now we describe an algorithm to find a feasible solution of minimum weight.
 
 \begin{algorithm}[H]
-    \caption{Stitch FVS-BCL}
-    \label{alg:stitch-fvs-bcl}
+    \caption{Stitch-FVS-4CL}
+    \label{alg:stitch-fvs-4cl}
     \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, $w : V(G) \to \mathbb{N}$, $J \subseteq G$, $S_1$ - a feasible 
-    4-cycle breaking set on $G$.
-    \ENSURE $S^{*}$- a 4-cycle breaking set of $G$, where $w(S^{*}) < w(S_1)$ if there exists a 4-cycle 
-    breaking set that can be obtained by a 2-stitch onto $S_1$ along $J$; otherwise we return $S_1$.
-    \FOR{$u \in N^{2}_{G}[V(J)]$}
-        \IF{ $u \in (S_1 \cap N^{1,2}_{G}[V(G)])$ }
-            \STATE $w'[u] \gets 0$
-        \ELSE
-            \STATE $w'[u] \gets w[u]$
-        \ENDIF
-    \ENDFOR
-    \STATE Let $S_J$ be an optimal solution for $(G[N^{2}_{G}[V(J)]], w')$ by the algorithm we 
-    described in \ref{}.
-    \STATE $S^{*} \leftarrow (S_1 \backslash V(J)) \cup S_J$
-    \IF{ $w(S^{*}) < w(S_1)$ }
-        \RETURN $S^{*}$
+    \REQUIRE Vertex-weighted planar graph $(G, w:V(G) \to \mathbb{N})$, a vertex set $J \subseteq V(G)$ and
+    a feasible solution $S_1$ on $G$.
+    \ENSURE a feasible solution $S'$ on $G$, such that for all other feasible solutions $S^{*}$, 
+    we have $w(S') \leq w(S^{*} \oplus^{2}_{G,J} S_1)$. 
+    \STATE Let $H \leftarrow G[N^{2}_{G}[J] \backslash (S_1 \backslash J)]$. \label{state:construct-H}
+    \STATE Let $S_2$ be the output of algorithm $A$, described in Lemma~\ref{lemma-stictch-fvs-4cl}, on 
+    input $(H, w)$. \label{state:opt-solution}
+    \IF{ $w(S_2 \oplus^{2}_{G,J} S_1) < w(S_1)$ }
+        \RETURN $S_2 \oplus^{2}_{G,J} S_1$
     \ELSE
         \RETURN $S_1$
     \ENDIF
     \end{algorithmic}
 \end{algorithm}
 
-\noindent In what follows we prove the third property needed in \ref{theorem-main} to obtaining 
-a certified algorithm for the problem. 
-
 \refstepcounter{definition}
-\begin{mydefinition}[Algorithm~\ref{alg:stitch-fvs-bcl} solves FVS-BCL-m-stitching in efficient time]{Lemma.}
-    \label{lemma:proof-of-p-m-stitching}
+\begin{mydefinition}[FVS-4CL-2-stitching]{Lemma}
+    \label{lemma-stictch-fvs-4cl}
 
-    Assume we have a planar weighted graph $G$ with a weight function $w$. Let $S_1, S_2 \subseteq v(G)$. 
-    For any induced subgraph $J$
-
+    \noindent Let $A$ be an algorithm that solves FVS-4CL on any vertex-weighted instance $(G, w:V(G) \to \mathbb{N})$
+    in time $f(tw(G)) \cdot |V(G)|^{O(1)}$. Then Algorithm~\ref{alg:stitch-fvs-4cl} solves 
+    FVS-4CL-2-stitching in time $f(tw(N^{2}_{G}[J])) \cdot V(G)^{O(1)}$.
+    
 \end{mydefinition}
+
+Note that it is not obvious that the set $S_2 \oplus^{2}_{G,J} S_1$ is a feasible solution in $G$ as $S_2$ is not 
+necessarily a feasible solution in $G$. If the last was the case, then the feasibility of the 
+$S_2 \oplus^{2}_{G,J} S_1$ would follow from Lemma~\ref{lemma-m-stitchable}. Therefore we first prove 
+feasibility of $S_2 \oplus^{2}_{G,J} S_1$. Afterwards, we prove that it is of minimum weight.
+
+\textit{Proof}.
+
+We prove the feasibility of $S_2 \oplus^{2}_{G,J} S_1$ by case analysis on any four vertices $v_1 v_2 v_3 v_4$
+that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J) \cup (S_2 \cap N^{2}_{G}[J])$.
+
+\begin{enumerate}
+    \item $\forall v' \in \{v_1,v_2,v_3,v_4\}: v' \in V(G) \backslash J$.
+
+    Firstly, because of the feasibility of $S_1$, there $\exists v'' \in \{v_1,v_2,v_3,v_4\}: v'' \in S_1$.
+
+    Secondly, $\forall v' \in \{v_1, v_2, v_3, v_4\}$, it holds that $v' \in V(G) \backslash J$.
+
+    Finally from the first two conditions, using the property $A \backslash B = A \cap B^c$, 
+    it holds that $v'' \in S_1 \backslash J$. From this
+    and $S_1 \backslash J \subseteq S_2 \oplus^{2}_{G,J} S_1$, it follows that $S_2 \oplus^{2}_{G,J} S_1$ is feasible in $G$.
+
+    \item $\exists v' \in \{v_1,v_2,v_3,v_4\}: v' \in J$. This also means that in this case 
+    $\forall v' \in \{v_1,v_2,v_3,v_4\}: v' \in N^{2}_{G}[J]$.
+    There are two cases to consider again. We know there $\exists v'' \in \{v_1,v_2,v_3,v_4\}$, 
+    such that $v'' \in S_1$, we still have not considered whether or not it is a part of $J$.
+
+    \begin{enumerate}
+        \item $\exists v \in \{v_1,v_2,v_3,v_4\}: v \in S_1 \land v \notin J$:
+        
+        In this case we can directly apply the previous point. From the properties of the set 
+        difference operator we get: $v \in S_1 \backslash J \subseteq S_2 \oplus^{2}_{G,J} S_1$.
+
+        \item $\forall v \in \{v_1,v_2,v_3,v_4\}: v \in S_1 \land v \in J$:
+
+        In line~\ref{state:construct-H} of Algorithm~\ref{alg:stitch-fvs-4cl}, we have the following 
+        construction of $H \leftarrow G[N^{2}_{G}[J] \backslash (S_1 \backslash J)]$. 
+
+        \begin{align}
+            V(H) &= N^{2}_{G}[J] \backslash (S_1 \backslash J) \\
+                 &= N^{2}_{G}[J] \cap J \cup (N^{2}_G[J] \backslash S_1) \\
+                 &= J \cup (N^{2}_G[J] \backslash S_1)
+        \end{align}
+
+        However, $\forall v \in \{v_1,v_2,v_3,v_4\}: v \in S_1 \land v \in J$. 
+        Therefore $\{v_1,v_2,v_3,v_4\} \subseteq V(H)$. This means that in line~\ref{state:opt-solution} of 
+        Algorithm~\ref{alg:stitch-fvs-4cl} we will add some $v^{*} \in \{v_1,v_2,v_3,v_4\}$ to $S_2$.
+
+        Therefore $v \in S_2$, which has the same meaning as $v \in S_2 \cap N^{2}_{G}[J]$,
+        and because $S_2 \cap N^{2}_{G}[J] \subseteq S_2 \oplus^{2}_{G,J} S_1$, we get 
+        $v \in S_2 \oplus^{2}_{G,J} S_1$.
+
+    \end{enumerate}
+
+\end{enumerate}
+
+\noindent The proof of optimality of the set $S_2 \oplus^{2}_{G,J} S_1$ is similar to the one in 
+\textbf{Lemma 3.2.} in Bumpus et al.\cite{bumpus_et_al:LIPIcs.SWAT.2024.19}. It is important to note 
+that we can use the same proof, because of a property of the FVS-4CL problem, namely that 
+a 4-cycle breaking set is closed under taking induced subgraphs.
+
+\noindent Remember we are still trying to prove what we mentioned in Algorithm~\ref{alg:p-m-stitching},
+namely that some feasible solution $S'$ (which in our case is the $S_2 \oplus^{2}_{G,J} S_1$), is of minimum weight,
+that is, for all other feasible solutions $S^{*}$, it holds that $w(S') \leq w(S^{*} \oplus^{2}_{G,J} S_1)$.
+
+\noindent Assume by way of contradiction that there is a feasible solution $S_3$ for $G$,
+such that $w(S_3 \oplus^{2}_{G,J} S_1) < s(S_2 \oplus^{2}_{G,J} S_1)$. Then it would follow that:
+
+\[
+\begin{aligned}
+w|_{V(F)}(S_2) &= w(S_2) && \text{since } S_2 \subseteq V(F) \text{} \\
+&= w(S_2 \cap N^{2}_{G}[J]) && \text{since } V(F) \subseteq N^{2}_{G}[J] \\
+&= w(S_1 \setminus J) + w(S_2 \cap N^{2}_{G}[J]) - w(S_1 \setminus J)  \\
+&= w((S_1 \setminus J) \cup (S_2 \cap N^{2}_{G}[J])) - w(S_1 \setminus J) && \text{since } V(F) \cap (S_1 \setminus J) = \emptyset \\
+&= w(S_2 \oplus^{2}_{G,J} S_1) - w(S_1 \setminus J) && \text{by definition of stitch} \\
+&> w(S_3 \oplus^{2}_{G,J} S_1) - w(S_1 \setminus J) && \text{by assumption on } S_3 \\
+&= w((S_1 \setminus J) \cup (S_3 \cap N^{2}_{G}[J])) - w(S_1 \setminus J) && \text{by definition of stitch} \\
+&= w((S_3 \cap N^{2}_{G}[J]) \setminus (S_1 \setminus J)) && \text{since } w(A \cup B) - w(A) = w(B \setminus A)  \\
+&= w(S_3 \cap (N^{2}_{G}[J] \setminus (S_1 \setminus J))) && \text{since } (A \cap B) \setminus C = A \cap (B \setminus C)  \\
+&= w(S_3 \cap V(F)) && \text{by definition of } F \\
+&= w|_{V(F)}(S_3 \cap V(F))
+\end{aligned}
+\]
