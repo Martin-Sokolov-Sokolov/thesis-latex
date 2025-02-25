@@ -453,18 +453,267 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
     it holds that $v'' \in S_1 \backslash J$. From this
     and $S_1 \backslash J \subseteq S_2 \oplus^{2}_{G,J} S_1$, it follows that $S_2 \oplus^{2}_{G,J} S_1$ is feasible in $G$.
 
+    In Fig.~\ref{fig:first-figure} we show (a part of) an example graph $G$ and the feasible solution 
+    $S_1$ for it. In Fig.~\ref{fig:second-figure}, one can see that 4-cycles that do not have vertices 
+    in $J$, are a part of $S_1 \backslash J \subseteq S_2 \oplus^{2}_{G,J} S_1$. 
+
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.50\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.8]
+                %Draw J vertices
+                \node[fill=black, circle, inner sep=1.5pt] (j01) at (0.75,0.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j02) at (-0.5,1) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j03) at (0.5,1.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j04) at (1.75,1) {};
+        
+                \node[fill=black, circle, inner sep=1.5pt] (j1) at (0,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j2) at (2,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j3) at (1,2) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j4) at (1,-0.5) {};
+                
+                % Draw N^1[J] vertices
+        
+                \node[fill=black, circle, inner sep=1.5pt] (n11) at (3.5,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n12) at (3.75,1.25) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n13) at (3,3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n14) at (0,-1.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n15) at (1,-1.75) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n16) at (2.5,-1.25) {};
+        
+        
+                % Draw N^2[J] vertices
+                \node[fill=black, circle, inner sep=1.5pt] (n21) at (5, 3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n22) at (4,-2) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n23) at (4.75,-1) {};
+        
+                % Draw vertices outside N^2[J]
+                \node[fill=black, circle, inner sep=1.5pt] (n31) at (4, -4) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n32) at (5, -3.25) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n33) at (6, -3.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n34) at (4.5, -5) {};
+        
+                % Draw edges inside J (induced subgraph)
+                \draw (j01) -- (j02);
+                \draw (j02) -- (j03);
+                \draw (j03) -- (j04);
+                \draw (j04) -- (j01);
+        
+                \draw (j4) -- (j1);
+                
+                % Draw edges from J to N^1[J]
+                \draw (j2) -- (n11);
+                \draw (j2) -- (n16);
+                \draw (j3) -- (n12);
+                \draw (j1) -- (n14);
+                \draw (j3) -- (n13);
+                \draw (j4) -- (n15);
+        
+                % Draw edges inside N^1[J]
+                \draw (n14) -- (n15);
+                \draw (n16) -- (n11);
+        
+                % Draw edges between N^1[J] and N^2[J]
+                \draw (n16) -- (n22);
+                \draw (n11) -- (n23);
+                \draw (n13) -- (n21);
+                \draw (n12) -- (n21);
+        
+                % Draw edges between N^2[J] and N^2[J]
+                \draw (n22) -- (n23);
+        
+                % Draw edges between N^2[J] and the other part of the graph
+                \draw (n22) -- (n32);
+        
+                % Draw edges between the edges that are outside of N^2[J]
+                \draw (n31) -- (n32);
+                \draw (n32) -- (n33);
+                \draw (n33) -- (n34);
+                \draw (n34) -- (n31);
+        
+                % Draw the J circle
+                \draw[dashed, thick] (1,1) circle [radius=2];
+                \node at (0,2) {\large $J$};
+        
+                \draw[dashed] (1,1) circle [radius=3.5];
+                \node at (1,3.75) {\large $N^1[J]$};
+                
+                % Draw the N^2[J] boundary as a larger circle
+                \draw[thick] (1,1) circle [radius=5];
+                \node at (1.75,5.25) {\large $N^2[J]$};
+        
+                % Draw vertices that are part of S_1
+                \draw[blue, thick] (j01) circle(0.3);
+                \draw[blue, thick] (j02) circle(0.3);
+                \draw[blue, thick] (j04) circle(0.3);
+        
+                \draw[blue, thick] (j1) circle(0.3);
+                \draw[blue, thick] (j3) circle(0.3);
+                \draw[blue, thick] (n14) circle(0.5);
+                \draw[blue, thick] (n16) circle(0.5);
+                \draw[blue, thick] (n23) circle(0.5);
+                \draw[blue, thick] (n31) circle(0.5);
+        
+        
+        
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        
+            \end{tikzpicture}
+        \caption{Sets $J \subseteq N^{1}_{G}[J] \subseteq N^{2}_{G}[J] \subseteq G$;
+        Feasible solution $S_1$ colored in blue.}
+        \label{fig:first-figure}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.8]
+    
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                
+                %Draw J vertices
+                \node[fill=black, circle, inner sep=1.5pt] (j01) at (0.75,0.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j02) at (-0.5,1) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j03) at (0.5,1.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j04) at (1.75,1) {};
+    
+                \node[fill=black, circle, inner sep=1.5pt] (j1) at (0,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j2) at (2,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j3) at (1,2) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j4) at (1,-0.5) {};
+                
+                % Draw N^1[J] vertices
+    
+                \node[fill=black, circle, inner sep=1.5pt] (n11) at (3.5,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n12) at (3.75,1.25) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n13) at (3,3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n14) at (0,-1.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n15) at (1,-1.75) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n16) at (2.5,-1.25) {};
+    
+    
+                % Draw N^2[J] vertices
+                \node[fill=black, circle, inner sep=1.5pt] (n21) at (5, 3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n22) at (4,-2) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n23) at (4.75,-1) {};
+    
+                % Draw vertices outside N^2[J]
+                \node[fill=black, circle, inner sep=1.5pt] (n31) at (4, -4) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n32) at (5, -3.25) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n33) at (6, -3.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n34) at (4.5, -5) {};
+    
+                % Draw edges inside J (induced subgraph)
+                \draw (j01) -- (j02);
+                \draw (j02) -- (j03);
+                \draw (j03) -- (j04);
+                \draw (j04) -- (j01);
+    
+                \draw (j4) -- (j1);
+                
+                % Draw edges from J to N^1[J]
+                \draw (j2) -- (n11);
+                \draw (j2) -- (n16);
+                \draw (j3) -- (n12);
+                \draw (j1) -- (n14);
+                \draw (j3) -- (n13);
+                \draw (j4) -- (n15);
+    
+                % Draw edges inside N^1[J]
+                \draw (n14) -- (n15);
+                \draw (n16) -- (n11);
+    
+                % Draw edges between N^1[J] and N^2[J]
+                \draw (n16) -- (n22);
+                \draw (n11) -- (n23);
+                \draw (n13) -- (n21);
+                \draw (n12) -- (n21);
+    
+                % Draw edges between N^2[J] and N^2[J]
+                \draw (n22) -- (n23);
+    
+                % Draw edges between N^2[J] and the other part of the graph
+                \draw (n22) -- (n32);
+    
+                % Draw edges between the edges that are outside of N^2[J]
+                \draw (n31) -- (n32);
+                \draw (n32) -- (n33);
+                \draw (n33) -- (n34);
+                \draw (n34) -- (n31);
+    
+                % Draw the J circle
+                \draw[dashed, thick] (1,1) circle [radius=2];
+                \node at (0,2) {\large $J$};
+    
+                % Draw the N^2[J] boundary as a larger circle
+                \draw[thick] (1,1) circle [radius=5];
+                \node at (1.75,5.25) {\large $N^2[J]$};
+    
+                % Draw vertices that are part of S_1
+                \draw[blue, thick] (j01) circle(0.3);
+                \draw[blue, thick] (j02) circle(0.3);
+                \draw[blue, thick] (j04) circle(0.3);
+    
+                \draw[blue, thick] (j1) circle(0.3);
+                \draw[blue, thick] (j3) circle(0.3);
+                \draw[blue, thick] (n14) circle(0.5);
+                \draw[blue, thick] (n16) circle(0.5);
+                \draw[blue, thick] (n23) circle(0.5);
+                \draw[blue, thick] (n31) circle(0.5);
+    
+                \begin{scope}[on background layer]   
+                    \filldraw[orange!35,line width=15pt,rounded corners=5pt] (n31.center) -- (n32.center) -- (n33.center) -- (n34.center) -- cycle;
+                \end{scope}
+    
+                \begin{scope}[on background layer]   
+                    \filldraw[orange!35,line width=15pt,rounded corners=5pt] (n22.center) -- (n23.center) -- (n11.center) -- (n16.center) -- cycle;
+                \end{scope}
+    
+            \end{tikzpicture}
+            \caption{4-cycles $\forall v \{v_1,v_2,v_3,v_4\}: v \notin J$}
+            \label{fig:second-figure}
+        \end{minipage}
+    \end{figure}
+
+
     \item $\exists v' \in \{v_1,v_2,v_3,v_4\}: v' \in J$. This also means that in this case 
     $\forall v' \in \{v_1,v_2,v_3,v_4\}: v' \in N^{2}_{G}[J]$.
     There are two cases to consider again. We know there $\exists v'' \in \{v_1,v_2,v_3,v_4\}$, 
     such that $v'' \in S_1$, we still have not considered whether or not it is a part of $J$.
 
     \begin{enumerate}
-        \item $\exists v \in \{v_1,v_2,v_3,v_4\}: v \in S_1 \land v \notin J$:
+        \item $\exists v \in S_1: v \notin J$:
         
         In this case we can directly apply the previous point. From the properties of the set 
-        difference operator we get: $v \in S_1 \backslash J \subseteq S_2 \oplus^{2}_{G,J} S_1$.
+        difference operator we get: $v \in S_1 \backslash J \subseteq S_2 \oplus^{2}_{G,J} S_1$. 
+        Consult Fig.~\ref{fig:third-figure} to see that there exists a vertex $v_{1,4}$ that is a part of 
+        the 4-cycle, $v_{1,4} \notin J$, therefore $v_{1,4} \in S_1 \backslash J \subseteq S_2 \oplus^{2}_{G,J} S_1$.
+        This means that in the new set $v_{1,4}$ will break that cycle.
 
-        \item $\forall v \in \{v_1,v_2,v_3,v_4\}: v \in S_1 \land v \in J$:
+        \item $\forall v \in S_1: v \in J$:
 
         In line~\ref{state:construct-H} of Algorithm~\ref{alg:stitch-fvs-4cl}, we have the following 
         construction of $H \leftarrow G[N^{2}_{G}[J] \backslash (S_1 \backslash J)]$. 
@@ -483,7 +732,249 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
         and because $S_2 \cap N^{2}_{G}[J] \subseteq S_2 \oplus^{2}_{G,J} S_1$, we get 
         $v \in S_2 \oplus^{2}_{G,J} S_1$.
 
+        Consult Fig.~\ref{fig:fourth-figure}. 
+
     \end{enumerate}
+
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.50\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.8]
+                %Draw J vertices
+                \node[fill=black, circle, inner sep=1.5pt] (j01) at (0.75,0.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j02) at (-0.5,1) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j03) at (0.5,1.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j04) at (1.75,1) {};
+        
+                \node[fill=black, circle, inner sep=1.5pt] (j1) at (0,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j2) at (2,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j3) at (1,2) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j4) at (1,-0.5) {};
+                
+                % Draw N^1[J] vertices
+        
+                \node[fill=black, circle, inner sep=1.5pt] (n11) at (3.5,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n12) at (3.75,1.25) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n13) at (3,3) {};
+                \node[fill=black, circle, inner sep=1.5pt, label=below:$v_{1,4}$]  at (0,-1.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n15) at (1,-1.75) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n16) at (2.5,-1.25) {};
+        
+        
+                % Draw N^2[J] vertices
+                \node[fill=black, circle, inner sep=1.5pt] (n21) at (5, 3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n22) at (4,-2) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n23) at (4.75,-1) {};
+        
+                % Draw vertices outside N^2[J]
+                \node[fill=black, circle, inner sep=1.5pt] (n31) at (4, -4) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n32) at (5, -3.25) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n33) at (6, -3.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n34) at (4.5, -5) {};
+        
+                % Draw edges inside J (induced subgraph)
+                \draw (j01) -- (j02);
+                \draw (j02) -- (j03);
+                \draw (j03) -- (j04);
+                \draw (j04) -- (j01);
+        
+                \draw (j4) -- (j1);
+                
+                % Draw edges from J to N^1[J]
+                \draw (j2) -- (n11);
+                \draw (j2) -- (n16);
+                \draw (j3) -- (n12);
+                \draw (j1) -- (n14);
+                \draw (j3) -- (n13);
+                \draw (j4) -- (n15);
+        
+                % Draw edges inside N^1[J]
+                \draw (n14) -- (n15);
+                \draw (n16) -- (n11);
+        
+                % Draw edges between N^1[J] and N^2[J]
+                \draw (n16) -- (n22);
+                \draw (n11) -- (n23);
+                \draw (n13) -- (n21);
+                \draw (n12) -- (n21);
+        
+                % Draw edges between N^2[J] and N^2[J]
+                \draw (n22) -- (n23);
+        
+                % Draw edges between N^2[J] and the other part of the graph
+                \draw (n22) -- (n32);
+        
+                % Draw edges between the edges that are outside of N^2[J]
+                \draw (n31) -- (n32);
+                \draw (n32) -- (n33);
+                \draw (n33) -- (n34);
+                \draw (n34) -- (n31);
+        
+                % Draw the J circle
+                \draw[dashed, thick] (1,1) circle [radius=2];
+                \node at (0,2) {\large $J$};
+        
+                % Draw the N^2[J] boundary as a larger circle
+                \draw[thick] (1,1) circle [radius=5];
+                \node at (1.75,5.25) {\large $N^2[J]$};
+        
+                % Draw vertices that are part of S_1
+                \draw[blue, thick] (j01) circle(0.3);
+                \draw[blue, thick] (j02) circle(0.3);
+                \draw[blue, thick] (j04) circle(0.3);
+        
+                \draw[blue, thick] (j1) circle(0.3);
+                \draw[blue, thick] (j3) circle(0.3);
+                \draw[blue, thick] (n14) circle(0.3);
+                \draw[blue, thick] (n16) circle(0.5);
+                \draw[blue, thick] (n23) circle(0.5);
+                \draw[blue, thick] (n31) circle(0.5);
+    
+                \begin{scope}[on background layer]   
+                    \filldraw[orange!35,line width=15pt,rounded corners=5pt] (j1.center) -- (n14.center) -- (n15.center) -- (j4.center) -- cycle;
+                \end{scope}
+        
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+        
+            \end{tikzpicture}
+        \caption{$\exists v \in S_1: v \notin J$ (Remember we are in the case 
+        where $\exists v \in J$)}
+        \label{fig:third-figure}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.8]
+    
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                
+                %Draw J vertices
+                \node[fill=black, circle, inner sep=1.5pt] (j01) at (0.75,0.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j02) at (-0.5,1) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j03) at (0.5,1.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j04) at (1.75,1) {};
+    
+                \node[fill=black, circle, inner sep=1.5pt] (j1) at (0,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j2) at (2,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j3) at (1,2) {};
+                \node[fill=black, circle, inner sep=1.5pt] (j4) at (1,-0.5) {};
+                
+                % Draw N^1[J] vertices
+    
+                \node[fill=black, circle, inner sep=1.5pt] (n11) at (3.5,0) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n12) at (3.75,1.25) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n13) at (3,3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n14) at (0,-1.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n15) at (1,-1.75) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n16) at (2.5,-1.25) {};
+    
+    
+                % Draw N^2[J] vertices
+                \node[fill=black, circle, inner sep=1.5pt] (n21) at (5, 3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n22) at (4,-2) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n23) at (4.75,-1) {};
+    
+                % Draw vertices outside N^2[J]
+                \node[fill=black, circle, inner sep=1.5pt] (n31) at (4, -4) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n32) at (5, -3.25) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n33) at (6, -3.5) {};
+                \node[fill=black, circle, inner sep=1.5pt] (n34) at (4.5, -5) {};
+    
+                % Draw edges inside J (induced subgraph)
+                \draw (j01) -- (j02);
+                \draw (j02) -- (j03);
+                \draw (j03) -- (j04);
+                \draw (j04) -- (j01);
+    
+                \draw (j4) -- (j1);
+                
+                % Draw edges from J to N^1[J]
+                \draw (j2) -- (n11);
+                \draw (j2) -- (n16);
+                \draw (j3) -- (n12);
+                \draw (j1) -- (n14);
+                \draw (j3) -- (n13);
+                \draw (j4) -- (n15);
+    
+                % Draw edges inside N^1[J]
+                \draw (n14) -- (n15);
+                \draw (n16) -- (n11);
+    
+                % Draw edges between N^1[J] and N^2[J]
+                \draw (n16) -- (n22);
+                \draw (n11) -- (n23);
+                \draw (n13) -- (n21);
+                \draw (n12) -- (n21);
+    
+                % Draw edges between N^2[J] and N^2[J]
+                \draw (n22) -- (n23);
+    
+                % Draw edges between N^2[J] and the other part of the graph
+                \draw (n22) -- (n32);
+    
+                % Draw edges between the edges that are outside of N^2[J]
+                \draw (n31) -- (n32);
+                \draw (n32) -- (n33);
+                \draw (n33) -- (n34);
+                \draw (n34) -- (n31);
+    
+                % Draw the J circle
+                \draw[dashed, thick] (1,1) circle [radius=2];
+                \node at (0,2) {\large $J$};
+    
+                % Draw the N^2[J] boundary as a larger circle
+                \draw[thick] (1,1) circle [radius=5];
+                \node at (1.75,5.25) {\large $N^2[J]$};
+    
+                % Draw vertices that are part of S_1
+                \draw[blue, thick] (j01) circle(0.3);
+                \draw[blue, thick] (j02) circle(0.3);
+                \draw[blue, thick] (j04) circle(0.3);
+    
+                \draw[blue, thick] (j1) circle(0.3);
+                \draw[blue, thick] (j3) circle(0.3);
+                \draw[blue, thick] (n14) circle(0.5);
+                \draw[blue, thick] (n16) circle(0.5);
+                \draw[blue, thick] (n23) circle(0.5);
+                \draw[blue, thick] (n31) circle(0.5);
+    
+                \begin{scope}[on background layer]   
+                    \filldraw[orange!35,line width=15pt,rounded corners=5pt] (j01.center) -- (j02.center) -- (j03.center) -- (j04.center) -- cycle;
+                \end{scope}
+    
+                \begin{scope}[on background layer]   
+                    \filldraw[orange!35,line width=15pt,rounded corners=5pt] (j3.center) -- (n12.center) -- (n21.center) -- (n13.center) -- cycle;
+                \end{scope}
+    
+            \end{tikzpicture}
+            \caption{$\forall v \in S_1: v \in J$}
+            \label{fig:fourth-figure}
+        \end{minipage}
+    \end{figure}
 
 \end{enumerate}
 
@@ -515,232 +1006,4 @@ w|_{V(F)}(S_2) &= w(S_2) && \text{since } S_2 \subseteq V(F) \text{} \\
 \end{aligned}
 \]
 
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.50\textwidth}
-        \centering
-        \begin{tikzpicture}[scale=0.9]
-            %Draw J vertices
-            \node[fill=black, circle, inner sep=1.5pt] (j01) at (0.75,0.5) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j02) at (-0.5,1) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j03) at (0.5,1.5) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j04) at (1.75,1) {};
-    
-            \node[fill=black, circle, inner sep=1.5pt] (j1) at (0,0) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j2) at (2,0) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j3) at (1,2) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j4) at (1,-0.5) {};
-            
-            % Draw N^1[J] vertices
-    
-            \node[fill=black, circle, inner sep=1.5pt] (n11) at (3.5,0) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n12) at (3.75,1.25) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n13) at (3,3) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n14) at (0,-1.5) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n15) at (1,-1.75) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n16) at (2.5,-1.25) {};
-    
-    
-            % Draw N^2[J] vertices
-            \node[fill=black, circle, inner sep=1.5pt] (n21) at (5, 3) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n22) at (4,-2) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n23) at (4.75,-1) {};
-    
-            % Draw vertices outside N^2[J]
-            \node[fill=black, circle, inner sep=1.5pt] (n31) at (4, -4) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n32) at (5, -3.25) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n33) at (6, -3.5) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n34) at (4.5, -5) {};
-    
-            % Draw edges inside J (induced subgraph)
-            \draw (j01) -- (j02);
-            \draw (j02) -- (j03);
-            \draw (j03) -- (j04);
-            \draw (j04) -- (j01);
-    
-            \draw (j4) -- (j1);
-            
-            % Draw edges from J to N^1[J]
-            \draw (j2) -- (n11);
-            \draw (j3) -- (n12);
-            \draw (j1) -- (n14);
-            \draw (j3) -- (n13);
-            \draw (j4) -- (n15);
-    
-            % Draw edges inside N^1[J]
-            \draw (n14) -- (n15);
-            \draw (n16) -- (n11);
-    
-            % Draw edges between N^1[J] and N^2[J]
-            \draw (n16) -- (n22);
-            \draw (n11) -- (n23);
-            \draw (n13) -- (n21);
-            \draw (n12) -- (n21);
-    
-            % Draw edges between N^2[J] and N^2[J]
-            \draw (n22) -- (n23);
-    
-            % Draw edges between N^2[J] and the other part of the graph
-            \draw (n22) -- (n32);
-    
-            % Draw edges between the edges that are outside of N^2[J]
-            \draw (n31) -- (n32);
-            \draw (n32) -- (n33);
-            \draw (n33) -- (n34);
-            \draw (n34) -- (n31);
-    
-            % Draw the J circle
-            \draw[dashed, thick] (1,1) circle [radius=2];
-            \node at (0,2) {\large $J$};
-    
-            \draw[dashed] (1,1) circle [radius=3.5];
-            \node at (1,3.75) {\large $N^1[J]$};
-            
-            % Draw the N^2[J] boundary as a larger circle
-            \draw[thick] (1,1) circle [radius=5];
-            \node at (1.75,5.25) {\large $N^2[J]$};
-    
-            % Draw vertices that are part of S_1
-            \draw[blue, thick] (j01) circle(0.3);
-            \draw[blue, thick] (j02) circle(0.3);
-            \draw[blue, thick] (j04) circle(0.3);
-    
-            \draw[blue, thick] (j1) circle(0.3);
-            \draw[blue, thick] (j3) circle(0.3);
-            \draw[blue, thick] (n14) circle(0.5);
-            \draw[blue, thick] (n16) circle(0.5);
-            \draw[blue, thick] (n23) circle(0.5);
-            \draw[blue, thick] (n31) circle(0.5);
-    
-    
-    
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    
-        \end{tikzpicture}
-    \caption{Sets $J \subseteq N^{1}_{G}[J] \subseteq N^{2}_{G}[J] \subseteq G$;
-    Feasible solution $S_1$ colored in blue.}
-    \label{fig:first-figure}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.49\textwidth}
-        \centering
-        \begin{tikzpicture}[scale=0.9]
 
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            
-            %Draw J vertices
-            \node[fill=black, circle, inner sep=1.5pt] (j01) at (0.75,0.5) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j02) at (-0.5,1) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j03) at (0.5,1.5) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j04) at (1.75,1) {};
-
-            \node[fill=black, circle, inner sep=1.5pt] (j1) at (0,0) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j2) at (2,0) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j3) at (1,2) {};
-            \node[fill=black, circle, inner sep=1.5pt] (j4) at (1,-0.5) {};
-            
-            % Draw N^1[J] vertices
-
-            \node[fill=black, circle, inner sep=1.5pt] (n11) at (3.5,0) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n12) at (3.75,1.25) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n13) at (3,3) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n14) at (0,-1.5) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n15) at (1,-1.75) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n16) at (2.5,-1.25) {};
-
-
-            % Draw N^2[J] vertices
-            \node[fill=black, circle, inner sep=1.5pt] (n21) at (5, 3) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n22) at (4,-2) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n23) at (4.75,-1) {};
-
-            % Draw vertices outside N^2[J]
-            \node[fill=black, circle, inner sep=1.5pt] (n31) at (4, -4) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n32) at (5, -3.25) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n33) at (6, -3.5) {};
-            \node[fill=black, circle, inner sep=1.5pt] (n34) at (4.5, -5) {};
-
-            % Draw edges inside J (induced subgraph)
-            \draw (j01) -- (j02);
-            \draw (j02) -- (j03);
-            \draw (j03) -- (j04);
-            \draw (j04) -- (j01);
-
-            \draw (j4) -- (j1);
-            
-            % Draw edges from J to N^1[J]
-            \draw (j2) -- (n11);
-            \draw (j3) -- (n12);
-            \draw (j1) -- (n14);
-            \draw (j3) -- (n13);
-            \draw (j4) -- (n15);
-
-            % Draw edges inside N^1[J]
-            \draw (n14) -- (n15);
-            \draw (n16) -- (n11);
-
-            % Draw edges between N^1[J] and N^2[J]
-            \draw (n16) -- (n22);
-            \draw (n11) -- (n23);
-            \draw (n13) -- (n21);
-            \draw (n12) -- (n21);
-
-            % Draw edges between N^2[J] and N^2[J]
-            \draw (n22) -- (n23);
-
-            % Draw edges between N^2[J] and the other part of the graph
-            \draw (n22) -- (n32);
-
-            % Draw edges between the edges that are outside of N^2[J]
-            \draw (n31) -- (n32);
-            \draw (n32) -- (n33);
-            \draw (n33) -- (n34);
-            \draw (n34) -- (n31);
-
-            % Draw the J circle
-            \draw[dashed, thick] (1,1) circle [radius=2];
-            \node at (0,2) {\large $J$};
-
-            % Draw the N^2[J] boundary as a larger circle
-            \draw[thick] (1,1) circle [radius=5];
-            \node at (1.75,5.25) {\large $N^2[J]$};
-
-            % Draw vertices that are part of S_1
-            \draw[blue, thick] (j01) circle(0.3);
-            \draw[blue, thick] (j02) circle(0.3);
-            \draw[blue, thick] (j04) circle(0.3);
-
-            \draw[blue, thick] (j1) circle(0.3);
-            \draw[blue, thick] (j3) circle(0.3);
-            \draw[blue, thick] (n14) circle(0.5);
-            \draw[blue, thick] (n16) circle(0.5);
-            \draw[blue, thick] (n23) circle(0.5);
-            \draw[blue, thick] (n31) circle(0.5);
-        \end{tikzpicture}
-        \caption{change caption}
-        \label{fig:second-figure}
-    \end{minipage}
-\end{figure}
