@@ -632,10 +632,21 @@ over the size and weight of a free set variable.
 
 \[
 \begin{aligned}
-\min_{F \subseteq V} & \ w(F) : \forall v \forall u \forall w \forall z: \\
-& v \in V \land u \in V \land w \in V \land z \in V \\
+\min_{F \subseteq V} & \ w(F) : |F| \leq k \\
+& \land \forall v \forall u \forall w \forall z: \\
+& v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
 & \land v \neq w \land u \neq z \\
-& \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \\
-& \to v \in F \lor u \in F \lor w \in F \lor z \in F
+& \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \to \bot
 \end{aligned}
 \]
+
+\refstepcounter{definition}
+\begin{mydefinition}[Courcelle's theorem \cite{courcelle1990monadic}]{Theorem}
+    \label{theorem:courcelle}
+
+    Assume that $\phi$ is a MSOL formula and $G$ is an n-vertex graph, and there is an evaluation 
+    of all of the free variables of $\phi$. Suppose, that a tree decomposition of $G$ of width $t$ 
+    is provided. Then there exists an algorithm that verifies that $\phi$ is satisfied 
+    in $G$ in time $f(||\phi||, t) \cdot n$, for some computable function $f$. 
+    
+\end{mydefinition}
