@@ -1,18 +1,14 @@
-\section{Certified Algorithm}
+\section{\textit{m-stitching} and \textit{$\Pi$-m-stitching}}
 
-\noindent In this section we initiate the study of certified algorithms for FVS-BCL. We 
-begin with a reminder on perturbation resilience and how that is related with the current 
-topic. Following that, the next subsection introduces some key concepts that allow us 
+\noindent In this section we initiate the study of certified algorithms for FVS-BCL.
+We introduce some key concepts that allow us 
 to construct certified algorithms in general. Some of them include \textit{m-stitching} 
 and the notion of \textit{$\Pi$-m-stitching}. We refer to the literature 
-in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19, venne2022designing}. Finally, we construct 
-a certified algorithm for FVS-BCL.
+in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19, venne2022designing}. 
 
 \noindent Unless specified otherwise, let $\Pi$ be a vertex-minimization problem.
 
-\subsection{Perturbation resilience}
-
-\subsection{\textit{m-stitching} and \textit{$\Pi$-m-stitching}}
+\subsection{Algorithms for \textit{m-stitching} and \textit{$\Pi$-m-stitching}}
 
 \noindent As we mentioned before, in this section we refer to Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19} 
 and a Master's thesis on the subject by Venne \cite{venne2022designing} with more examples. 
@@ -336,8 +332,6 @@ The following is Theorem 1.7 in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19}.
     runs in time $f(\lambda \cdot m / \epsilon) \cdot \left|V(G)\right| ^ {\mathbb{O}(1)}$.
 
 \end{mydefinition}
-
-\subsection{Certified Algorithm}
 
 \noindent The proof of theorem \ref{theorem-main} is beyond the scope of this paper. In this section 
 we only apply the three steps, mentioned to the FVS-BCL problem without generalizing to other 
@@ -1005,5 +999,3 @@ w|_{V(F)}(S_2) &= w(S_2) && \text{since } S_2 \subseteq V(F) \text{} \\
 &= w|_{V(F)}(S_3 \cap V(F))
 \end{aligned}
 \]
-
-

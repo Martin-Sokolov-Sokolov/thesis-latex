@@ -1,0 +1,39 @@
+\section{Certified Algorithm}
+
+\noindent In this section we present an Algorithm that finds $\gamma$-certified solutions to the FVS-4CL problem.
+The algorithm is similar to Algorithm~\cite[4.2.1]{bumpus_et_al:LIPIcs.SWAT.2024.19}, 
+but is adopted to our problem. This distinction will be made clear in the first subsection. 
+We will also simulate a run of the certified algorithm, 
+in order to find an optimal solution in the second subsection. Finally, in the third 
+subsection we give a proof that this algorithm indeed finds $\gamma$-certified solutions.
+
+\subsection{Certified Algorithm for FVS-4CL}
+
+\noindent The algorithm has three main stages. Much like Baker's technique we first run 
+BFS in order to obtain a layer decomposition from an arbitrary vertex $r$. Afterwards, 
+we run $A_{\text{FVS-4CL}}$ on a given number of consecutive layers. In this step we claim 
+that we will find a better solution if there is one within those layers, otherwise we 
+choose the next block of layers. Once we loop through the graph in the second step, 
+we get an optimal solution. In the third step we perturb the weight function in a way 
+that would give us a certified solution. 
+
+\begin{algorithm}[H]
+    \caption{Certified Algorithm}
+    \label{alg:certified-algorithm}
+    \begin{algorithmic}[1]
+    \REQUIRE Planar graph $G = (V, E)$, weight function $w : V(G) \to \mathbb{N}$, parameter $\epsilon$
+    \ENSURE Solution $S$ to FVS-4CL in $G$, $(1 + \epsilon)$-perturbed weights $w'$ of $w$ that certify $S$.
+    \STATE $S \leftarrow \emptyset$
+    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$.
+    \STATE $L_i = \{v \in V(G)$ $|$ $d(v, r) = i\}$ for $i = 0, \dots d_{\text{max}}$.
+    \STATE Compute a feasible solution $S$ to $G$ according to Def.~\ref{guessable}.
+    \FOR{each $i = 0$ to $\ell - 1$}
+        \STATE Let $G_{i} \leftarrow G \backslash V_i$
+        \STATE Let $G_1, G_2, \dots G_j$ be the connected components of $G_i$
+        \STATE $\forall j$ compute the MIS $S_{i, j}$ of $G_{i, j}$
+        \STATE $S_i \leftarrow \bigcup_{j} S_{i, j}$
+        \STATE $S \leftarrow S \cup S_i$
+    \ENDFOR
+    \RETURN $S_{i*}$ from $S$ with minimum cardinality
+    \end{algorithmic}
+\end{algorithm}
