@@ -401,8 +401,9 @@ such that $v \in S_3$.
     \caption{Stitch-FVS-4CL}
     \label{alg:stitch-fvs-4cl}
     \begin{algorithmic}[1]
-    \REQUIRE Vertex-weighted planar graph $(G, w:V(G) \to \mathbb{N})$, a vertex set $J \subseteq V(G)$ and
-    a feasible solution $S_1$ on $G$.
+    \REQUIRE Vertex-weighted planar graph $(G, w:V(G) \to \mathbb{N})$, a feasible solution $S_1$ on $G$
+    and a vertex set $J \subseteq V(G)$
+    .
     \ENSURE a feasible solution $S'$ on $G$, such that for all other feasible solutions $S^{*}$, 
     we have $w(S') \leq w(S^{*} \oplus^{2}_{G,J} S_1)$. 
     \STATE Let $H \leftarrow G[N^{2}_{G}[J] \backslash (S_1 \backslash J)]$. \label{state:construct-H}
@@ -495,6 +496,10 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw (j04) -- (j01);
         
                 \draw (j4) -- (j1);
+
+                \draw (j02) -- (j1);
+                \draw (j04) -- (j2);
+                \draw (j03) -- (j3);
                 
                 % Draw edges from J to N^1[J]
                 \draw (j2) -- (n11);
@@ -627,6 +632,10 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw (j04) -- (j01);
     
                 \draw (j4) -- (j1);
+
+                \draw (j02) -- (j1);
+                \draw (j04) -- (j2);
+                \draw (j03) -- (j3);
                 
                 % Draw edges from J to N^1[J]
                 \draw (j2) -- (n11);
@@ -774,6 +783,10 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw (j04) -- (j01);
         
                 \draw (j4) -- (j1);
+
+                \draw (j02) -- (j1);
+                \draw (j04) -- (j2);
+                \draw (j03) -- (j3);
                 
                 % Draw edges from J to N^1[J]
                 \draw (j2) -- (n11);
@@ -905,6 +918,10 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw (j04) -- (j01);
     
                 \draw (j4) -- (j1);
+
+                \draw (j02) -- (j1);
+                \draw (j04) -- (j2);
+                \draw (j03) -- (j3);
                 
                 % Draw edges from J to N^1[J]
                 \draw (j2) -- (n11);
@@ -973,11 +990,11 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
 \end{enumerate}
 
 \noindent The proof of optimality of the set $S_2 \oplus^{2}_{G,J} S_1$ is similar to the one in 
-\textbf{Lemma 3.2.} in Bumpus et al.\cite{bumpus_et_al:LIPIcs.SWAT.2024.19}. It is important to note 
+Bumpus et al.\cite[Lemma 3.2]{bumpus_et_al:LIPIcs.SWAT.2024.19}. It is important to note 
 that we can use the same proof, because of a property of the FVS-4CL problem, namely that 
 a 4-cycle breaking set is closed under taking induced subgraphs.
 
-\noindent Remember we are still trying to prove what we mentioned in Algorithm~\ref{alg:p-m-stitching},
+\noindent Remember, we are still trying to prove what we mentioned in Algorithm~\ref{alg:p-m-stitching},
 namely that some feasible solution $S'$ (which in our case is the $S_2 \oplus^{2}_{G,J} S_1$), is of minimum weight,
 that is, for all other feasible solutions $S^{*}$, it holds that $w(S') \leq w(S^{*} \oplus^{2}_{G,J} S_1)$.
 
