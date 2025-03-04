@@ -459,7 +459,7 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
             \begin{tikzpicture}[scale=0.8]
                 %Draw J vertices
                 \node[fill=black, circle, inner sep=1.5pt] (j01) at (0.75,0.5) {};
-                \node[fill=black, circle, inner sep=1.5pt] (j02) at (-0.5,1) {};
+                \node[fill=black, circle, inner sep=1.5pt, label=above:r] (j02) at (-0.5,1) {};
                 \node[fill=black, circle, inner sep=1.5pt] (j03) at (0.5,1.5) {};
                 \node[fill=black, circle, inner sep=1.5pt] (j04) at (1.75,1) {};
         
@@ -488,6 +488,11 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \node[fill=black, circle, inner sep=1.5pt] (n32) at (5, -3.25) {};
                 \node[fill=black, circle, inner sep=1.5pt] (n33) at (6, -3.5) {};
                 \node[fill=black, circle, inner sep=1.5pt] (n34) at (4.5, -5) {};
+
+                \node[fill=black, circle, inner sep=1.5pt] (new31) at (6, 4) {};
+                \node[fill=black, circle, inner sep=1.5pt] (new32) at (6.5, 3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (new33) at (7, 3.5) {};
+                
         
                 % Draw edges inside J (induced subgraph)
                 \draw (j01) -- (j02);
@@ -553,6 +558,12 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw[blue, thick] (n16) circle(0.5);
                 \draw[blue, thick] (n23) circle(0.5);
                 \draw[blue, thick] (n31) circle(0.5);
+                \draw[blue, thick] (new31) circle(0.5);
+
+                \draw (n21) -- (new31);
+                \draw (n21) -- (new32);
+                \draw (new31) -- (new33);
+                \draw (new32) -- (new33);
         
         
         
@@ -595,7 +606,7 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 
                 %Draw J vertices
                 \node[fill=black, circle, inner sep=1.5pt] (j01) at (0.75,0.5) {};
-                \node[fill=black, circle, inner sep=1.5pt] (j02) at (-0.5,1) {};
+                \node[fill=black, circle, inner sep=1.5pt, label=above:r] (j02) at (-0.5,1) {};
                 \node[fill=black, circle, inner sep=1.5pt] (j03) at (0.5,1.5) {};
                 \node[fill=black, circle, inner sep=1.5pt] (j04) at (1.75,1) {};
     
@@ -624,6 +635,10 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \node[fill=black, circle, inner sep=1.5pt] (n32) at (5, -3.25) {};
                 \node[fill=black, circle, inner sep=1.5pt] (n33) at (6, -3.5) {};
                 \node[fill=black, circle, inner sep=1.5pt] (n34) at (4.5, -5) {};
+
+                \node[fill=black, circle, inner sep=1.5pt] (new31) at (6, 4) {};
+                \node[fill=black, circle, inner sep=1.5pt] (new32) at (6.5, 3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (new33) at (7, 3.5) {};
     
                 % Draw edges inside J (induced subgraph)
                 \draw (j01) -- (j02);
@@ -666,6 +681,11 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw (n32) -- (n33);
                 \draw (n33) -- (n34);
                 \draw (n34) -- (n31);
+
+                \draw (n21) -- (new31);
+                \draw (n21) -- (new32);
+                \draw (new31) -- (new33);
+                \draw (new32) -- (new33);
     
                 % Draw the J circle
                 \draw[dashed, thick] (1,1) circle [radius=2];
@@ -686,6 +706,7 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw[blue, thick] (n16) circle(0.5);
                 \draw[blue, thick] (n23) circle(0.5);
                 \draw[blue, thick] (n31) circle(0.5);
+                \draw[blue, thick] (new31) circle(0.5);
     
                 \begin{scope}[on background layer]   
                     \filldraw[orange!35,line width=15pt,rounded corners=5pt] (n31.center) -- (n32.center) -- (n33.center) -- (n34.center) -- cycle;
@@ -693,6 +714,10 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
     
                 \begin{scope}[on background layer]   
                     \filldraw[orange!35,line width=15pt,rounded corners=5pt] (n22.center) -- (n23.center) -- (n11.center) -- (n16.center) -- cycle;
+                \end{scope}
+
+                \begin{scope}[on background layer]   
+                    \filldraw[orange!35,line width=15pt,rounded corners=5pt] (n21.center) -- (new31.center) -- (new33.center) -- (new32.center) -- cycle;
                 \end{scope}
     
             \end{tikzpicture}
@@ -746,7 +771,7 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
             \begin{tikzpicture}[scale=0.8]
                 %Draw J vertices
                 \node[fill=black, circle, inner sep=1.5pt] (j01) at (0.75,0.5) {};
-                \node[fill=black, circle, inner sep=1.5pt] (j02) at (-0.5,1) {};
+                \node[fill=black, circle, inner sep=1.5pt, label=above:r] (j02) at (-0.5,1) {};
                 \node[fill=black, circle, inner sep=1.5pt] (j03) at (0.5,1.5) {};
                 \node[fill=black, circle, inner sep=1.5pt] (j04) at (1.75,1) {};
         
@@ -775,7 +800,11 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \node[fill=black, circle, inner sep=1.5pt] (n32) at (5, -3.25) {};
                 \node[fill=black, circle, inner sep=1.5pt] (n33) at (6, -3.5) {};
                 \node[fill=black, circle, inner sep=1.5pt] (n34) at (4.5, -5) {};
-        
+
+                \node[fill=black, circle, inner sep=1.5pt] (new31) at (6, 4) {};
+                \node[fill=black, circle, inner sep=1.5pt] (new32) at (6.5, 3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (new33) at (7, 3.5) {};
+
                 % Draw edges inside J (induced subgraph)
                 \draw (j01) -- (j02);
                 \draw (j02) -- (j03);
@@ -817,6 +846,11 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw (n32) -- (n33);
                 \draw (n33) -- (n34);
                 \draw (n34) -- (n31);
+
+                \draw (n21) -- (new31);
+                \draw (n21) -- (new32);
+                \draw (new31) -- (new33);
+                \draw (new32) -- (new33);
         
                 % Draw the J circle
                 \draw[dashed, thick] (1,1) circle [radius=2];
@@ -837,6 +871,7 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw[blue, thick] (n16) circle(0.5);
                 \draw[blue, thick] (n23) circle(0.5);
                 \draw[blue, thick] (n31) circle(0.5);
+                \draw[blue, thick] (new31) circle(0.5);
     
                 \begin{scope}[on background layer]   
                     \filldraw[orange!35,line width=15pt,rounded corners=5pt] (j1.center) -- (n14.center) -- (n15.center) -- (j4.center) -- cycle;
@@ -881,7 +916,7 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 
                 %Draw J vertices
                 \node[fill=black, circle, inner sep=1.5pt] (j01) at (0.75,0.5) {};
-                \node[fill=black, circle, inner sep=1.5pt] (j02) at (-0.5,1) {};
+                \node[fill=black, circle, inner sep=1.5pt, label=above:r] (j02) at (-0.5,1) {};
                 \node[fill=black, circle, inner sep=1.5pt] (j03) at (0.5,1.5) {};
                 \node[fill=black, circle, inner sep=1.5pt] (j04) at (1.75,1) {};
     
@@ -910,6 +945,10 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \node[fill=black, circle, inner sep=1.5pt] (n32) at (5, -3.25) {};
                 \node[fill=black, circle, inner sep=1.5pt] (n33) at (6, -3.5) {};
                 \node[fill=black, circle, inner sep=1.5pt] (n34) at (4.5, -5) {};
+
+                \node[fill=black, circle, inner sep=1.5pt] (new31) at (6, 4) {};
+                \node[fill=black, circle, inner sep=1.5pt] (new32) at (6.5, 3) {};
+                \node[fill=black, circle, inner sep=1.5pt] (new33) at (7, 3.5) {};
     
                 % Draw edges inside J (induced subgraph)
                 \draw (j01) -- (j02);
@@ -952,6 +991,11 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw (n32) -- (n33);
                 \draw (n33) -- (n34);
                 \draw (n34) -- (n31);
+
+                \draw (n21) -- (new31);
+                \draw (n21) -- (new32);
+                \draw (new31) -- (new33);
+                \draw (new32) -- (new33);
     
                 % Draw the J circle
                 \draw[dashed, thick] (1,1) circle [radius=2];
@@ -972,6 +1016,7 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw[blue, thick] (n16) circle(0.5);
                 \draw[blue, thick] (n23) circle(0.5);
                 \draw[blue, thick] (n31) circle(0.5);
+                \draw[blue, thick] (new31) circle(0.5);
     
                 \begin{scope}[on background layer]   
                     \filldraw[orange!35,line width=15pt,rounded corners=5pt] (j01.center) -- (j02.center) -- (j03.center) -- (j04.center) -- cycle;

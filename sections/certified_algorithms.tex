@@ -25,7 +25,7 @@ that would give us a certified solution.
 
     Let $G$ be a planar graph and $\kappa$ a natural number. Let $J$ be the set of vertices of 
     any $\kappa$ subsequent layers, where the layers are a result of a BFS run. Then the 
-    graph $G[V(J)]$ is a $\kappa$-layered subgraph. We denote such a subgraph $G_{\kappa}$. 
+    graph $G[V(J_{\kappa})]$ is a $\kappa$-layered subgraph. We denote such a subgraph $G_{\kappa}$. 
     If the set of vertices $J$ is made of $\kappa$ subsequent layers, then we denote it as 
     $J_{\kappa}$.
 
@@ -34,7 +34,7 @@ that would give us a certified solution.
 \noindent For more clarity on Def~\ref{def:k-layered-graph}, one can consult line~\ref{line:4} of 
 Algorithm~\ref{alg:baker} and Fig.~\ref{fig:bfs_tree} where for the first time we defined a subgraph $G_{i, j}$ 
 and subsequently sketched it.
-Our graph $G[V(J)]$ is really a subgraph $G_{i, j}$ of $G$ with width $k$ (of $k$ layers).
+Our graph $G[V(J_{\kappa})]$ is really a subgraph $G_{i, j}$ of $G$ with width $\kappa$ (of $\kappa$ layers).
 
 \noindent Notice that Algorithm~\ref{alg:stitch-fvs-4cl} takes as input a graph and a weighted 
 function $(G, w)$, a feasible solution $S$ and some vertex set $J$. 
@@ -67,10 +67,11 @@ function $(G, w)$, a feasible solution $S$ and some vertex set $J$.
 lines~\ref{line:bfs-one},\ref{line:bfs-two} and is vital when later we have to choose a vertex set 
 $J_{\kappa}$.
 
-\begin{center}
+\begin{figure}[H]
+    \centering
     \begin{tikzpicture}[scale=0.8]
 
-        \node[fill=black, circle, inner sep=1.5pt] (j02) at (-5,-1) {};
+        \node[fill=black, circle, inner sep=1.5pt, label=left:r] (j02) at (-5,-1) {};
 
         \node[fill=black, circle, inner sep=1.5pt] (j1) at (-3,-2.5) {};
         \node[fill=black, circle, inner sep=1.5pt] (j01) at (-3,-1.5) {};
@@ -91,16 +92,22 @@ $J_{\kappa}$.
         \node[fill=black, circle, inner sep=1.5pt] (n11) at (3,0) {};
         \node[fill=black, circle, inner sep=1.5pt] (n16) at (3,-2) {};
 
-        \node[fill=black, circle, inner sep=1.5pt] (n21) at (3, 1.5) {};
+        \node[fill=black, circle, inner sep=1.5pt, label=above:$v_{2,1}$] (n21) at (3, 1.5) {};
         
         \node[fill=black, circle, inner sep=1.5pt] (n22) at (5,-2) {};
         \node[fill=black, circle, inner sep=1.5pt] (n23) at (5,0) {};
+        \node[fill=black, circle, inner sep=1.5pt] (new31) at (5, 2) {};
+        \node[fill=black, circle, inner sep=1.5pt] (new32) at (5, 1) {};
 
-        \node[fill=black, circle, inner sep=1.5pt] (n32) at (7, -1) {};
+        \node[fill=black, circle, inner sep=1.5pt] (n32) at (7, -2) {};
+        \node[fill=black, circle, inner sep=1.5pt] (new33) at (7,1.5) {};
 
-        \node[fill=black, circle, inner sep=1.5pt] (n31) at (9, 0) {};
-        \node[fill=black, circle, inner sep=1.5pt] (n33) at (9, -2) {};
-        \node[fill=black, circle, inner sep=1.5pt] (n34) at (11, -1) {};
+
+        \node[fill=black, circle, inner sep=1.5pt] (n31) at (9, -3) {};
+        \node[fill=black, circle, inner sep=1.5pt] (n33) at (9, -1) {};
+
+
+        \node[fill=black, circle, inner sep=1.5pt] (n34) at (11, -2) {};
 
         % Draw edges inside J (induced subgraph)
         \draw (j01) -- (j02);
@@ -144,14 +151,29 @@ $J_{\kappa}$.
         \draw (n33) -- (n34);
         \draw (n34) -- (n31);
 
+        \draw (n21) -- (new31);
+        \draw (n21) -- (new32);
+        \draw (new31) -- (new33);
+        \draw (new32) -- (new33);
+
 
     \end{tikzpicture}
-\end{center}
+    \caption{Layer decomposition of graph in Fig.~\ref{fig:first-figure}}
+    \label{fig:reconfigure}
+\end{figure}
+
+\noindent Fig.~\ref{fig:reconfigure} is the layer decomposition of fig.~\ref{fig:first-figure}. 
+The starting vertex is $r$ and is shown in both graphics.
 
 \noindent In the second stage, we compute a feasible solution, set $k$ and loop through 
 the layers looking for a better solution. 
-A word on the argument $k$ and the value that we set it to. 
-As we will argue later more formally, the while statement 
+
+\noindent A word on the argument $k$ and the value that we set it to. In our case, for the FVS-4CL problem, 
+$m$ is equal to two. Therefore, $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$. Notice that the set 
+$J_{\kappa}$ is of width $k-2m$, therefore the $m$-neighbourhood (2-neighbourhood) is of width 
+$k - 2m + 2m = k$. Therefore, the graphs within we stitch are of width $\geq 5$.
+
+\noindent As we will argue later more formally, the while statement 
 is the one that dominates running time and provides us with an ultimately optimal solution $S$ on $(G, w)$.
 Note that in the worst case there will be $W \cdot n$ calls to line~\ref{line:while}, where 
 $W = \sum_{v \in V(G)} w(v)$. This is because in each iteration we improve the value of the solution 
