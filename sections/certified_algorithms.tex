@@ -4,7 +4,8 @@
 The algorithm is similar to Algorithm~\cite[4.2.1]{bumpus_et_al:LIPIcs.SWAT.2024.19}, 
 but is adopted to our problem. This distinction will be made clear in the first subsection. 
 We will also simulate a run of the certified algorithm, 
-in order to find an optimal solution in the second subsection. Finally, in the third 
+in order to find a solution, which cannot be optimized using $A_{\text{FVS-4CL}}$,
+in the second subsection. Finally, in the third 
 subsection we give a proof that this algorithm indeed finds $\gamma$-certified solutions.
 
 \subsection{Certified Algorithm for FVS-4CL}
@@ -14,7 +15,7 @@ BFS in order to obtain a layer decomposition from an arbitrary vertex $r$. After
 we run $A_{\text{FVS-4CL}}$ on a given number of consecutive layers. In this step we claim 
 that we will find a better solution if there is one within those layers, otherwise we 
 choose the next block of layers. Once we loop through the graph in the second step, 
-we get an optimal solution. In the third step we perturb the weight function in a way 
+we get an inclusion-minimal solution. In the third step we perturb the weight function in a way 
 that would give us a certified solution. 
 
 \noindent Before we give the algorithm we will define some concepts, that we will make use of.
@@ -171,10 +172,14 @@ the layers looking for a better solution.
 \noindent A word on the argument $k$ and the value that we set it to. In our case, for the FVS-4CL problem, 
 $m$ is equal to two. Therefore, $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$. Notice that the set 
 $J_{\kappa}$ is of width $k-2m$, therefore the $m$-neighbourhood (2-neighbourhood) is of width 
-$k - 2m + 2m = k$. Therefore, the graphs within we stitch are of width $\geq 5$.
+$k - 2m + 2m = k$. Therefore, in our case, the graphs within we stitch are of width
+$k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$.
+Take for example 
+vertex $v_{2,1}$ in fig.~\ref{fig:reconfigure}. In order to find every cycle that it is a part of, 
+one would need to consider the layer that it is in, two layers to the left and two layers to the right. 
 
 \noindent As we will argue later more formally, the while statement 
-is the one that dominates running time and provides us with an ultimately optimal solution $S$ on $(G, w)$.
+is the one that dominates running time and provides us with an ultimately inclusion-minimal solution $S$ on $(G, w)$.
 Note that in the worst case there will be $W \cdot n$ calls to line~\ref{line:while}, where 
 $W = \sum_{v \in V(G)} w(v)$. This is because in each iteration we improve the value of the solution 
 by at least 1, notice that we have used natural numbers for the weight functions. 
