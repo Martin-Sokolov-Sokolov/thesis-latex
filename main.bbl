@@ -154,6 +154,10 @@ M.~Marzban and Q.-P. Gu, ``Computational study on a ptas for planar dominating
   Available: \url{https://www.mdpi.com/1999-4893/6/1/43}
 \BIBentrySTDinterwordspacing
 
+\bibitem{bodlaender1998partial}
+H.~L. Bodlaender, ``A partial k-arboretum of graphs with bounded treewidth,''
+  \emph{Theoretical computer science}, vol. 209, no. 1-2, pp. 1--45, 1998.
+
 \bibitem{courcelle1990monadic}
 B.~Courcelle, ``The monadic second-order logic of graphs. i. recognizable sets
   of finite graphs,'' \emph{Information and computation}, vol.~85, no.~1, pp.

@@ -34,20 +34,20 @@ define on line~\ref{alg3:line4} in Algorithm~\ref{alg:unweighted_feedback_vertex
     \begin{algorithmic}[1]
     \REQUIRE Planar graph $G = (V, E)$, parameter $\ell$
     \ENSURE $(1 + \epsilon)$-approximation for \textsc{FVS-4CL}
-    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
+    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$ \label{alg3:line1}
     \STATE $S \leftarrow \emptyset$
 
     $i$: \textit{shift}; $j$: \textit{slice}
 
-    \FOR{each $i = 0$ to $\ell-1$}
+    \FOR{each $i = 0$ to $\ell-1$} \label{alg3:for-loop}
         \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels
         $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + 1$ for $0 \leq i < \ell$. \label{alg3:line4}
         \STATE $\forall j \text{ compute }  S_{i, j}$, the min. unweighted \textsc{FVS-4CL} 
-        of $G_{i, j}$ using Algorithm~\ref{alg:exact_local_unweighted} as a subroutine.
+        of $G_{i, j}$ using Algorithm~\ref{courcelle:unweighted} as a subroutine. \label{alg3:subroutine}
         \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$ \label{alg3:line6}
         \STATE $S \leftarrow S \cup S_i$
     \ENDFOR
-    \RETURN $S_{i*}$ from $S$ with minimum cardinality
+    \RETURN $S_{i*}$ from $S$ with minimum cardinality \label{alg3:line9}
     \end{algorithmic}
 \end{algorithm}
 
@@ -71,7 +71,8 @@ optimum solution.
 In subsection~\ref{subsection:exact-alg} we show how to get an exact solution, but for now we argue
 that the inequality in Lemma~\ref{lemma-one} holds in each subgraph $G_{i, j}$.
 
-\noindent We first argue that in each subgraph $G_{i, j}$, the set $F_{i, j}$ contains a vertex that 
+\noindent \textit{Proof.}
+We first argue that in each subgraph $G_{i, j}$, the set $F_{i, j}$ contains a vertex that 
 breaks every 4-cycle.  Let us fix a slice and shift $a$ and $b$ and take a look at the subgraph $G_{a, b}$, 
 the optimal solution for it $S_{a, b}$ and the set $F_{a, b}$. Notice that, much like in the Vertex Cover
 analysis, no vertex in $V(G) \backslash V(G_{a, b})$ can break any 4-cycle that is contained within 
@@ -277,16 +278,18 @@ Before that, however, we make an argument for the vertices on the boundaries in 
 
 \end{mydefinition}
 
-\noindent Assume, by way of contradiction, that:
+\noindent \textit{Proof.}
+Assume, by way of contradiction, that:
 
-\begin{displaymath}
-    \forall q: |OPT_q| + |OPT_{q+1}| > \frac{2}{\ell} \cdot |OPT| \tag{*} \label{eq:opt_bound}
-\end{displaymath}
+\begin{equation}
+    \forall q: |OPT_q| + |OPT_{q+1}| > \frac{2}{\ell} \cdot |OPT|
+    \label{ineq:opt_bound}
+\end{equation}
 
 \noindent As we said those sets are disjoint, meaning $OPT_q \cap OPT_{q+1} = \emptyset$. We make the following arguments:
 
 \begin{enumerate}
-    \item If inequality (*) holds,
+    \item If inequality \ref{ineq:opt_bound} holds,
     then $\sum\limits_{i=0}^{\ell-1} |OPT_i| + |OPT_{i+1}| > 2 \cdot |OPT|$. 
     \item Because each $OPT_i$ exists twice in that sum and 
     $OPT_i \cap OPT_j = \emptyset$, $\forall (i, j), i \neq j$, then 
@@ -313,7 +316,8 @@ so. First we will state the lemma.
 
 \end{mydefinition}
 
-\noindent If we look at Fig.~\ref{fig:bfs_tree}, then we notice that any vertex that is located 
+\noindent \textit{Proof.}
+If we look at Fig.~\ref{fig:bfs_tree}, then we notice that any vertex that is located 
 in the overlap layers would be counted twice in the sum $\sum\limits_{j} |F_{i, j}|$. The interior 
 vertices are counted once towards the optimum solution sum. Therefore, we have that: 
 
@@ -325,18 +329,34 @@ vertices are counted once towards the optimum solution sum. Therefore, we have t
     \item For that $i^*$ it holds that $\sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} |F|$.
 \end{enumerate}
 
-Finally, using Lemma~\ref{lemma-one}, Result~\ref{result-two} and Lemma~\ref{lemma-three} we chain 
-the inequalities that are presented and get that for some slice $i^*$ we have:
+Finally, we chain the inequalities presented in Lemma~\ref{lemma-one}, Result~\ref{result-two}
+and Lemma~\ref{lemma-three}, and get that for some slice $i^*$, it holds that:
 
-\[|S_{i^*}| \leq \sum\limits_{j} |S_{i^*, j}| \leq \sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} \cdot |F| \].
+\[|S_{i^*}| \leq \sum\limits_{j} |S_{i^*, j}| \leq \sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} \cdot |F| = (1 + \frac{2}{\ell}) \cdot |F|\].
+
+\noindent The inequality $S_{i^*} \leq (1 + \frac{2}{\ell}) \cdot |F|$, gives us that the solution 
+produced by Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} has the approximation ratio $(1 + \frac{2}{\ell})$ for the planar 
+unweighted FVS-4CL.
+
+\noindent \textbf{Running time:}
+
+\noindent Lines~\ref{alg3:line1} and~\ref{alg3:line9} of Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
+can be computed in linear time $O(n)$. The loop that starts on line~\ref{alg3:for-loop} has a running time
+that is dominated by step~\ref{alg3:subroutine} where we call Algorithm~\ref{courcelle:unweighted} as a subroutine.
+That algorithm takes as input subgraphs that are $\ell + 2$-outerplanar. Using a result from 
+Bodlaender~\cite[Theorem 83]{bodlaender1998partial}, we get that the treewidth of each of those 
+subgraphs is $3\cdot\ell+6-1=3\cdot\ell+5$. Finally, using Theorem~\ref{theorem:courcelle}, 
+we conclude, that the for loop takes $O(f(3\ell+5)\cdot\ell\cdot n)$ for some computable function $f$. Therefore,
+Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} has a running time of 
+$O(n) + O(f(3\ell + 5)\cdot\ell\cdot n) + O(n) = O(f(\ell)\cdot\ell\cdot n)$.
 
 \subsection{Baker's technique for the weighted FVS-4CL on planar graphs}
 \label{subsec:baker_weighted_fvs}
 
 \noindent In this subsection we look at the weighted version of the problem. 
 Firstly, we construct Algorithm~\ref{alg:weighted_feedback_vertex_set_global} which differs from Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
-only on step 5. For step 5 we construct Algorithm~\ref{alg:exact_local_weighted_feedback_vertex_set} and use it as a subroutine to 
-get the solution we want.
+only on step~\ref{alg4:step5}. On line~\ref{alg4:step5}
+we construct Algorithm~\ref{courcelle:weighted} and use it as a subroutine to get the solution we want.
 
 \begin{algorithm}[H]
     \caption{Baker's technique for the weighted FVS-4CL}
@@ -352,7 +372,7 @@ get the solution we want.
     \FOR{each $i = 0$ to $\ell-1$}
         \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + 1$ for $0 \leq i < \ell$.
         \STATE $\forall j \text{ compute }  S_{i, j}$, the min. weighted \textsc{FVS-4CL} 
-        of $G_{i, j}$ using Algorithm~\ref{alg:exact_local_weighted_feedback_vertex_set} as a subroutine.
+        of $G_{i, j}$ using Algorithm~\ref{courcelle:weighted} as a subroutine. \label{alg4:step5}
         \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
         \STATE $S \leftarrow S \cup S_i$
     \ENDFOR
@@ -374,6 +394,7 @@ finding a bound for the optimum solution for each subgraph.
 
 \end{mydefinition}
 
+\noindent \textit{Proof.}
 The proof of Lemma~\ref{lemma-osbwc} is presented in three steps. Let us fix the integer arguments for 
 shift and slice. We take $a$ to be the offset (shift) and look at an arbitrary slice $b$. Note that 
 when we look at a slice $b$, we mean that we look at the subgraph $G_{a, b}$ induced on vertices at levels 
@@ -424,8 +445,11 @@ and from Lemma~\ref{lemma-osbwc} we chain the inequalities to get Result~\ref{re
 \end{mydefinition}
 
 \noindent \textit{Proof.} Assume, by way of contradiction, that:
-$\forall i \in \{1, 2, \dots, \ell-1\}$ it holds that 
-$w(OPT_i) + w(OPT_{i+1}) > \frac{2}{\ell} \cdot w(OPT)$.
+
+\begin{equation}
+    \forall i \in \{1, 2, \dots, \ell-1\}, \quad w(OPT_i) + w(OPT_{i+1}) > \frac{2}{\ell} \cdot w(OPT).
+    \label{ineq:two}
+\end{equation}
 
 \begin{enumerate}
     \item From the two properties in the definition of $OPT_i$, namely that
@@ -434,7 +458,7 @@ $w(OPT_i) + w(OPT_{i+1}) > \frac{2}{\ell} \cdot w(OPT)$.
 
     $OPT = \bigcup_i OPT_i$, it follows that $\sum\limits_{i = 0}^{\ell-1} w(OPT_i) = w(OPT)$.
     
-    \item However, if inequality ?? holds,
+    \item However, if inequality \ref{ineq:two} holds,
     then $\sum\limits_{i=0}^{\ell-1} w(OPT_i) + w(OPT_{i+1}) > 
     \sum\limits_{i=0}^{\ell-1} \frac{2}{\ell} \cdot w(OPT) >
     2 \cdot w(OPT)$. 
@@ -481,15 +505,14 @@ and Lemma~\ref{lemma-bcisweighted_feedback_vertex_set_global} to argue that for 
 
 \[w(S_{i^*}) \leq \sum\limits_j w(S_{i^*, j}) \leq \sum\limits_j w(F_{i^*, j}) \leq w(F) + \frac{2}{\ell} \cdot w(F)\].
 
-\begin{algorithm}[H]
-    \caption{Exact algorithm for weighted FVS-4CL for each subgraph $G_{i, j}$}
-    \label{alg:exact_local_weighted_feedback_vertex_set}
-    \begin{algorithmic}[1]
-    \REQUIRE $\ell$-outerplanar graph $G = (V, E)$, $w : V \rightarrow \mathbb{R}$
-    \ENSURE Exact solution $S$
-    \RETURN $S$
-    \end{algorithmic}
-\end{algorithm}
+\noindent \textbf{Running time:}
+
+\noindent The only difference from the unweighted case comes from line~\ref{alg4:step5} of 
+Algorithm~\ref{alg:weighted_feedback_vertex_set_global}. We call a different subroutine, 
+namely Algorithm~\ref{courcelle:weighted}. However, using Theorem~\ref{theorem:courcelle}, 
+we get that the running time of the algorithm is $O(f(\ell)\cdot\ell\cdot n)$ for some 
+computable function $f$.
+
 
 \noindent THINGS TO PROVE/CLARIFY:
 \begin{enumerate}
@@ -524,7 +547,7 @@ interested in breaking cycles of length $\rho$.
         $(j+1) \cdot \ell + i + \lfloor \frac{\rho}{2} \rfloor$ 
         for $0 \leq i < \ell$.
         \STATE $\forall j \text{ compute }  S_{i, j}$, the min. weighted \textsc{FVS-BCL} 
-        of $G_{i, j}$ using Algorithm~\ref{alg:exact_algorithm_cycle_length_rho} as a subroutine.
+        of $G_{i, j}$ using Algorithm~\ref{courcelle:rho} as a subroutine.
         \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
         \STATE $S \leftarrow S \cup S_i$
     \ENDFOR
@@ -564,15 +587,8 @@ feasible solution $F_{a, b}$ for $G_{a, b}$.
 \noindent The first inequality holds, because the vertices on the boundaries are counted twice towards 
 the RHS of the inequality $w(S_i) \leq \sum\limits_{j} w(S_{i, j})$.
 
-\begin{algorithm}[H]
-    \caption{Exact algorithm for weighted FVS-BCL of cycle length $\rho$}
-    \label{alg:exact_algorithm_cycle_length_rho}
-    \begin{algorithmic}[1]
-    \REQUIRE $\ell$-outerplanar graph $G = (V, E)$, $w : V \rightarrow \mathbb{R}$, $\rho$ - cycle length
-    \ENSURE Exact solution $S$
-    \RETURN $S$
-    \end{algorithmic}
-\end{algorithm}
+
+
 
 \subsection{Exact algorithm for FVS-4CL}
 \label{subsection:exact-alg}
@@ -581,7 +597,7 @@ the RHS of the inequality $w(S_i) \leq \sum\limits_{j} w(S_{i, j})$.
 FVS-4CL problem in each subgraph. For each subgraph we can find the treewidth. 
 
 \noindent We take a logical approach that was introduced by Courcelle~\cite{courcelle1990monadic}. 
-He shows that graph properties that can be stated in monadic second-order logic (MSOL) can be solved in 
+He shows that graph properties, that can be stated in monadic second-order logic (MSOL), can be solved in 
 linear time for graphs of bounded treewidth. In the following two subsections we briefly explain MSOL and 
 then apply it to our problem. We follow a survey on the matter in Satzinger \cite{satzinger2014tree}. 
 
@@ -624,21 +640,53 @@ variables.
     \item Quantification over set variables: $\forall V_i, \forall E_i$ and $\exists V_i, \exists E_i$.
 \end{enumerate}
 
-\subsubsection{Exact algorithm for FVS-4CL using MSOL}
+\subsubsection{Exact algorithm for unweighted FVS-4CL using MSOL}
 
 \noindent Courcelle's work was extended to extended monadic second-order logic 
 \cite{arnborg1991easy,borie1991deterministic,courcelle1993monadic}. These extensions allow to optimize 
-over the size and weight of a free set variable. 
-
-\noindent The minimum weight FVS-4CL for a length $\rho=4$ can be expressed as:
+over the size and weight of a free set variable.
 
 \[
 \begin{aligned}
-\min_{F \subseteq V} & \ w(F) : |F| \leq k \\
-& \land \forall v \forall u \forall w \forall z: \\
-& v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
-& \land v \neq w \land u \neq z \\
-& \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \to \bot
+    \label{courcelle:unweighted}
+    \min_{F \subseteq V} & \ |F|: \\
+    & \land \forall v u w z: \\
+    & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
+    & \land v \neq w \land u \neq z \\
+    & \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \to \bot
+\end{aligned}
+\]
+
+\subsubsection{Exact algorithm for weighted FVS-4CL using MSOL}
+
+\noindent The minimum weight FVS-4CL can be expressed as:
+
+\[
+\begin{aligned}
+    \label{courcelle:weighted}
+    \min_{F \subseteq V} & \ w(F) : |F| \leq k \\
+    & \land \forall v u w z: \\
+    & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
+    & \land v \neq w \land u \neq z \\
+    & \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \to \bot
+\end{aligned}
+\]
+
+\subsubsection{Exact algorithm for weighted FVS-$\rho$CL using MSOL}
+
+\noindent The minimum weight FVS-$\rho$CL can be expressed as:
+
+\[
+\begin{aligned}
+    \label{courcelle:rho}
+    \min_{F \subseteq V} & \ w(F) : |F| \leq k \\
+    & \land \forall v_1 v_2 \dots v_{\rho}: \\
+    & v_1 \in (V \backslash F) \land v_2 \in (V \backslash F) \dots \land v_{\rho} \in (V \backslash F) \\
+    & \land (v_1 \neq v_2 \land v_1 \neq v_3 \land \dots \land v_1 \neq v_{\rho}) \\ 
+    & \land (v_2 \neq v_1 \land v_2 \neq v_3 \land \dots \land v_2 \neq v_{\rho}) \\
+    & \dots \\
+    & \land (v_{\rho} \neq v_1 \land v_{\rho} \neq v_2 \land \dots \land v_{\rho} \neq v_{\rho-1}) \\
+    & \land (v_1, v_2) \in E \land (v_2, v_3) \in E \land \dots \land (v_{\rho-1},v_{\rho}) \in E \land (v_{\rho}, v_1) \in E \to \bot
 \end{aligned}
 \]
 
