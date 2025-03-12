@@ -15,8 +15,7 @@ notation used in subsections~\ref{subsec:baker_unweighted_fvs} and \ref{subsec:b
 i. e. regardless of whether or not the problem is weighted. In subsection~\ref{subsec:weighted_arbitrary_length} 
 we go back to calling the problem $\Pi$ - FVS-BCL as we have arbitrary cycle length $\rho$. 
 In further chapters we also make use of that notation and if mentioned explicitly,
-one should regard FVS-4CL as the weighted version as this work is ultimately interested
-in that version.
+one should regard FVS-4CL as the weighted version of the problem.
 
 \subsection{Baker's technique for unweighted FVS-4CL on planar graphs}
 \label{subsec:baker_unweighted_fvs}
@@ -71,15 +70,25 @@ optimum solution.
 In subsection~\ref{subsection:exact-alg} we show how to get an exact solution, but for now we argue
 that the inequality in Lemma~\ref{lemma-one} holds in each subgraph $G_{i, j}$.
 
-\noindent \textit{Proof.}
-We first argue that in each subgraph $G_{i, j}$, the set $F_{i, j}$ contains a vertex that 
-breaks every 4-cycle.  Let us fix a slice and shift $a$ and $b$ and take a look at the subgraph $G_{a, b}$, 
-the optimal solution for it $S_{a, b}$ and the set $F_{a, b}$. Notice that, much like in the Vertex Cover
-analysis, no vertex in $V(G) \backslash V(G_{a, b})$ can break any 4-cycle that is contained within 
-$G_{a, b}$. Therefore $F_{a, b}$ must contain a vertex that hits every 4-cycle or it will not be 
-a solution in $G_{a, b}$ and subsequently in $G$. From this and the fact that $S_{a, b}$ is the optimum 
-solution for $G_{a, b}$ we conclude that: \[|S_{a, b}| \leq |F_{a, b}|\text{.}\]
-for some $(a, b)$, therefore it holds $\forall (i, j)$. 
+\begin{proof}
+    We first argue that in each subgraph $G_{i, j}$, the set $F_{i, j}$ contains a vertex that 
+    breaks every 4-cycle.
+    
+    \begin{enumerate}
+        \item Let us fix a slice and shift $a$ and $b$ and take a look at the subgraph $G_{a, b}$.
+        \item For $G_{a, b}$, using Algorithm~\ref{alg:unweighted_feedback_vertex_set_global}
+        we can get $S_{a, b}$ and we have $F_{a, b}$.
+        \item Notice that, much like in the Vertex Cover
+        analysis, no vertex in $V(G) \backslash V(G_{a, b})$ can break any 4-cycle that is contained within 
+        $G_{a, b}$. Therefore $F_{a, b}$ must contain a vertex that hits every 4-cycle or it will not be 
+        a solution in $G_{a, b}$ and subsequently in $G$.
+        \item From this and the fact that $S_{a, b}$ is the optimum 
+        solution for $G_{a, b}$ we conclude that: \[|S_{a, b}| \leq |F_{a, b}|\text{.}\]
+        for some $(a, b)$, therefore it holds $\forall (i, j)$. 
+    \end{enumerate}
+
+\end{proof}
+
 
 \noindent One must confront the fact that notation is abused throughout the paper, especially when it 
 comes down to $j$, the slice variable. When we say that a statement holds for all values $i$ and
@@ -278,7 +287,8 @@ Before that, however, we make an argument for the vertices on the boundaries in 
 
 \end{mydefinition}
 
-\noindent \textit{Proof.}
+\begin{proof}
+    
 Assume, by way of contradiction, that:
 
 \begin{equation}
@@ -300,6 +310,9 @@ Assume, by way of contradiction, that:
     such that $|OPT_q| + |OPT_{q+1}| \leq \frac{2}{\ell} \cdot |OPT|$.
 \end{enumerate}
 
+\end{proof}
+
+
 \noindent Now we argue for the size of the sets $F_{i, j}$. It is natural that we should be able 
 to tie their size to the size of the optimal solution $F$. We will use Lemma~\ref{lemma-two} to do 
 so. First we will state the lemma.
@@ -316,7 +329,8 @@ so. First we will state the lemma.
 
 \end{mydefinition}
 
-\noindent \textit{Proof.}
+\begin{proof}
+    
 If we look at Fig.~\ref{fig:bfs_tree}, then we notice that any vertex that is located 
 in the overlap layers would be counted twice in the sum $\sum\limits_{j} |F_{i, j}|$. The interior 
 vertices are counted once towards the optimum solution sum. Therefore, we have that: 
@@ -328,6 +342,8 @@ vertices are counted once towards the optimum solution sum. Therefore, we have t
     \[\exists i^* |OPT_{i^*}| + |OPT_{i^*+1}| \leq \frac{2}{\ell} \cdot |OPT|\] using Lemma~\ref{lemma-two}.
     \item For that $i^*$ it holds that $\sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} |F|$.
 \end{enumerate}
+
+\end{proof}
 
 Finally, we chain the inequalities presented in Lemma~\ref{lemma-one}, Result~\ref{result-two}
 and Lemma~\ref{lemma-three}, and get that for some slice $i^*$, it holds that:
@@ -394,7 +410,8 @@ finding a bound for the optimum solution for each subgraph.
 
 \end{mydefinition}
 
-\noindent \textit{Proof.}
+\begin{proof}
+    
 The proof of Lemma~\ref{lemma-osbwc} is presented in three steps. Let us fix the integer arguments for 
 shift and slice. We take $a$ to be the offset (shift) and look at an arbitrary slice $b$. Note that 
 when we look at a slice $b$, we mean that we look at the subgraph $G_{a, b}$ induced on vertices at levels 
@@ -410,8 +427,11 @@ $b \cdot \ell + a$ through $(b + 1) \cdot \ell + a + 1$.
     \[w(S_{a, b}) \leq w(F_{a, b})\].
 \end{enumerate}
 
-The statement in Lemma~\ref{lemma-osbwc} holds for all values for the shift and slice. Now we mention 
-a useful result that follows from the lemma.
+\noindent The statement in Lemma~\ref{lemma-osbwc} holds for arbitrary values $a,b$. Therefore, in 
+$G$, it holds that:
+\[\forall i,j w(S_{i, j}) \leq w(F_{i, j})\]
+
+\end{proof}
 
 \refstepcounter{definition}
 \begin{mydefinition}[Optimum solution bound for the whole graph (Weighted Case)]{Result}
@@ -424,11 +444,16 @@ a useful result that follows from the lemma.
 
 \end{mydefinition}
 
-\noindent \textit{Proof.} This result immediately follows from the fact that when we define $S_i$ as the union of the subgraphs 
+
+\begin{proof}
+    
+This result immediately follows from the fact that when we define $S_i$ as the union of the subgraphs 
 some vertices, specifically those on the overlapping layers, will have their weights added twice 
 to the sum $\sum\limits_{j} w(S_{i, j})$. If we inspect the LHS, however, each vertex and its weight will be 
 counted only once towards $w(S_i)$. Therefore, it holds that $w(S_i) \leq \sum\limits_{j} w(S_{i, j})$ 
 and from Lemma~\ref{lemma-osbwc} we chain the inequalities to get Result~\ref{result-osbwc}.
+
+\end{proof}
 
 \refstepcounter{definition}
 \begin{mydefinition}[Bound for the weight of the vertices on the boundary (Weighted Case)]{Lemma}
@@ -444,7 +469,10 @@ and from Lemma~\ref{lemma-osbwc} we chain the inequalities to get Result~\ref{re
 
 \end{mydefinition}
 
-\noindent \textit{Proof.} Assume, by way of contradiction, that:
+
+\begin{proof}
+    
+Assume, by way of contradiction, that:
 
 \begin{equation}
     \forall i \in \{1, 2, \dots, \ell-1\}, \quad w(OPT_i) + w(OPT_{i+1}) > \frac{2}{\ell} \cdot w(OPT).
@@ -469,6 +497,8 @@ and from Lemma~\ref{lemma-osbwc} we chain the inequalities to get Result~\ref{re
     "small pair" $OPT_q$ and $OPT_{q+1}$, such that $w(OPT_q) + w(OPT_{q+1}) \leq \frac{2}{\ell} \cdot w(OPT)$.
 
 \end{enumerate}
+
+\end{proof}
 
 \refstepcounter{definition}
 \begin{mydefinition}[Bound for the weight of the intersection sets (Weighted Case)]{Lemma}
@@ -545,20 +575,22 @@ interested in breaking cycles of length $\rho$.
         \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels 
         $j \cdot \ell + i$ through 
         $(j+1) \cdot \ell + i + \lfloor \frac{\rho}{2} \rfloor$ 
-        for $0 \leq i < \ell$.
+        for $0 \leq i < \ell$. \label{alg5:line4}
         \STATE $\forall j \text{ compute }  S_{i, j}$, the min. weighted \textsc{FVS-BCL} 
         of $G_{i, j}$ using Algorithm~\ref{courcelle:rho} as a subroutine.
-        \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
-        \STATE $S \leftarrow S \cup S_i$
+        \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$ \label{alg5:line6}
+        \STATE $S \leftarrow S \cup S_i$ \label{alg5:line7}
     \ENDFOR
     \RETURN $S_{i*}$ from $S$, such that $w(S_{i^*}) \leq w(S_{i}) , \forall i \in \{1, 2, \dots, \ell-1\}$.
     \end{algorithmic}
 \end{algorithm}
 
 \noindent The changes between Algorithm~\ref{alg:weighted_feedback_vertex_set_global} and 
-Algorithm~\ref{alg:baker_arbitrary_length} pertain to lines 4-7. The main difference is on line 4 where 
+Algorithm~\ref{alg:baker_arbitrary_length} pertain to lines \ref{alg5:line4}-\ref{alg5:line7}.
+The main difference is on line \ref{alg5:line4} where 
 we define the subgraphs we want to inspect. This change enables us to argue that the union 
-of the local solutions, defined on line 6, is indeed a feasible solution for the whole graph. 
+of the local solutions, defined on line \ref{alg5:line6}, is indeed a feasible solution for the
+whole graph. 
 What we then have to prove is that this solution is not only feasible, but for some integer $i^*$, 
 it is optimal.
 
@@ -577,17 +609,22 @@ we got in Lemma~\ref{lemma-osbwc} and Result~\ref{result-osbwc} for arbitrary cy
 
 \end{mydefinition}
 
-\noindent We first prove the second inequality by choosing random shift and slice variables and seeing that the 
-inequality holds. In this step we deviate from Lemma~\ref{lemma-osbwc} in that when we choose $(a, b)$ 
-to be the aforementioned variables, we inspect the induced subgraph $G_{a, b}$ on levels 
-$b \cdot \ell + a$ through $(b + 1) \cdot \ell + a + \lfloor \frac{\rho}{2} \rfloor$. In that subgraph,
-the optimum solution $S_{a, b}$ found on step 5 of Algorithm~\ref{alg:baker_arbitrary_length} is better than the 
-feasible solution $F_{a, b}$ for $G_{a, b}$.
+\begin{proof}
+    \noindent We first prove the second inequality by choosing arbitrary shift and slice variables
+    $(a, b)$ and observing that the inequality holds. The induced subgraph $G_{a, b}$ is 
+    defined on levels $b \cdot \ell + a$ through $(b + 1) \cdot \ell + a + \lfloor \frac{\rho}{2} \rfloor$.
+    In the next subsection, we argue that using Alg.~\ref{courcelle:rho}, we get $S_{a, b}$, an optimal solution 
+    in $G_{a,b}$, while $F_{a, b}$ is feasible, but not necessarily optimal.
+    Thus the following inequality holds:
+    \[\sum_{j} w(S_{i, j}) \leq \sum_{j} w(F_{i, j})\]
 
-\noindent The first inequality holds, because the vertices on the boundaries are counted twice towards 
-the RHS of the inequality $w(S_i) \leq \sum\limits_{j} w(S_{i, j})$.
+    \noindent The first inequality holds, because the vertices on the boundaries are counted twice towards 
+    the RHS of the inequality. Therefore we have:
+    \[w(S_i) \leq \sum\limits_{j} w(S_{i, j})\]
 
-
+    \noindent Chaining the inequalities we get
+    \[w(S_i) \leq \sum\limits_{j} w(S_{i, j}) \leq \sum_{j} w(F_{i, j})\]
+\end{proof}
 
 
 \subsection{Exact algorithm for FVS-4CL}
@@ -646,49 +683,52 @@ variables.
 \cite{arnborg1991easy,borie1991deterministic,courcelle1993monadic}. These extensions allow to optimize 
 over the size and weight of a free set variable.
 
-\[
-\begin{aligned}
+\begin{equation}
     \label{courcelle:unweighted}
-    \min_{F \subseteq V} & \ |F|: \\
-    & \land \forall v u w z: \\
-    & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
-    & \land v \neq w \land u \neq z \\
-    & \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \to \bot
-\end{aligned}
-\]
+    \begin{aligned}
+        \min_{F \subseteq V} & \ |F|: \\
+        & \land \forall v u w z: \\
+        & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
+        & \land v \neq w \land u \neq z \\
+        & \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \to \bot
+    \end{aligned}
+\end{equation}
+
 
 \subsubsection{Exact algorithm for weighted FVS-4CL using MSOL}
 
 \noindent The minimum weight FVS-4CL can be expressed as:
 
-\[
-\begin{aligned}
+\begin{equation}
     \label{courcelle:weighted}
-    \min_{F \subseteq V} & \ w(F) : |F| \leq k \\
-    & \land \forall v u w z: \\
-    & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
-    & \land v \neq w \land u \neq z \\
-    & \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \to \bot
-\end{aligned}
-\]
+    \begin{aligned}
+        \min_{F \subseteq V} & \ w(F) : |F| \leq k \\
+        & \land \forall v u w z: \\
+        & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
+        & \land v \neq w \land u \neq z \\
+        & \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \to \bot
+    \end{aligned}
+\end{equation}
 
-\subsubsection{Exact algorithm for weighted FVS-$\rho$CL using MSOL}
+
+\subsubsection{Exact algorithm for weighted FVS-BCL using MSOL}
 
 \noindent The minimum weight FVS-$\rho$CL can be expressed as:
 
-\[
-\begin{aligned}
+\begin{equation}
     \label{courcelle:rho}
-    \min_{F \subseteq V} & \ w(F) : |F| \leq k \\
-    & \land \forall v_1 v_2 \dots v_{\rho}: \\
-    & v_1 \in (V \backslash F) \land v_2 \in (V \backslash F) \dots \land v_{\rho} \in (V \backslash F) \\
-    & \land (v_1 \neq v_2 \land v_1 \neq v_3 \land \dots \land v_1 \neq v_{\rho}) \\ 
-    & \land (v_2 \neq v_1 \land v_2 \neq v_3 \land \dots \land v_2 \neq v_{\rho}) \\
-    & \dots \\
-    & \land (v_{\rho} \neq v_1 \land v_{\rho} \neq v_2 \land \dots \land v_{\rho} \neq v_{\rho-1}) \\
-    & \land (v_1, v_2) \in E \land (v_2, v_3) \in E \land \dots \land (v_{\rho-1},v_{\rho}) \in E \land (v_{\rho}, v_1) \in E \to \bot
-\end{aligned}
-\]
+    \begin{aligned}
+        \min_{F \subseteq V} & \ w(F) : |F| \leq k \\
+        & \land \forall v_1 v_2 \dots v_{\rho}: \\
+        & v_1 \in (V \backslash F) \land v_2 \in (V \backslash F) \dots \land v_{\rho} \in (V \backslash F) \\
+        & \land (v_1 \neq v_2 \land v_1 \neq v_3 \land \dots \land v_1 \neq v_{\rho}) \\ 
+        & \land (v_2 \neq v_1 \land v_2 \neq v_3 \land \dots \land v_2 \neq v_{\rho}) \\
+        & \dots \\
+        & \land (v_{\rho} \neq v_1 \land v_{\rho} \neq v_2 \land \dots \land v_{\rho} \neq v_{\rho-1}) \\
+        & \land (v_1, v_2) \in E \land (v_2, v_3) \in E \land \dots \land (v_{\rho-1},v_{\rho}) \in E \land (v_{\rho}, v_1) \in E \to \bot
+    \end{aligned}
+\end{equation}
+
 
 \refstepcounter{definition}
 \begin{mydefinition}[Courcelle's theorem \cite{courcelle1990monadic}]{Theorem}

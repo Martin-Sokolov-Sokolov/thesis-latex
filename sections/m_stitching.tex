@@ -1,4 +1,4 @@
-\section{\textit{m-stitching} and \textit{$\Pi$-m-stitching}}
+\section{m-stitching and FVS-BCL-m-stitching}
 
 \noindent In this section we initiate the study of certified algorithms for FVS-BCL.
 We introduce some key concepts that allow us 
@@ -8,18 +8,18 @@ in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19, venne2022designing}.
 
 \noindent Unless specified otherwise, let $\Pi$ be a vertex-minimization problem.
 
-\subsection{Algorithms for \textit{m-stitching} and \textit{$\Pi$-m-stitching}}
+\subsection{Algorithms for m-stitching and FVS-m-stitching}
 
 \noindent As we mentioned before, in this section we refer to Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19} 
 and a Master's thesis on the subject by Venne \cite{venne2022designing} with more examples. 
 
 \noindent The restriction we imposed on the Feedback Vertex Set problem enables us to look 
-for optimal solutions in a local space. This is what m-stitching and \textit{$\Pi$-m-stitching}
+for optimal solutions in a local space. This is what m-stitching and $\Pi$-m-stitching
 hint at. Here, the the variable $m$ is a positive integer that depends on the vertex optimization 
 problem $\Pi$ at hand. In our case this is tied to the $\rho$ argument, i. e. the length of 
 the cycles we are trying to break. 
 
-\noindent To introduce \textit{$\Pi$-m-stitching}, one needs to first understand m-stitching and m-stitchable problems. In the stitching 
+\noindent To introduce $\Pi$-m-stitching, one needs to first understand m-stitching and m-stitchable problems. In the stitching 
 operation we are given solutions $S_1$ and $S_2$ for a vertex optimization problem, 
 along with an induced subgraph $J$ of $G$. Intuitively, we take the portion of $S_1$, that is not a part 
 of $J$ and "stitch" onto it some part of $S_2$ along the subgraph $J$. 
@@ -347,8 +347,11 @@ vertex-minimization problems.
 
 \end{mydefinition}
 
-\noindent \textit{Proof}. The graph $G - X$ where $X$ is the set of all vertices $V(G)$ is the empty graph, 
-therefore there are no 4-cycles left, after selecting that set.
+
+\begin{proof}
+    The graph $G - X$ where $X$ is the set of all vertices $V(G)$ is the empty graph, 
+    therefore there are no 4-cycles left, after selecting that set.
+\end{proof}
 
 \refstepcounter{definition}
 \begin{mydefinition}[FVS-BCL is 2-stitchable]{Lemma}
@@ -364,7 +367,9 @@ therefore there are no 4-cycles left, after selecting that set.
 
 \end{mydefinition}
 
-\noindent \textit{Proof}.
+
+\begin{proof}
+
 Let the vertices $\{v_1,v_2,v_3,v_4\}$ form a 4-cycle.
 We inspect the possible cases for the 4-cycle $v_1 v_2 v_3 v_4$. In order 
 to prove \ref{lemma-m-stitchable} we have to prove that there exists a $v \in \{v_1, v_2, v_3, v_4\}$,
@@ -394,6 +399,9 @@ such that $v \in S_3$.
     \end{enumerate}
 
 \end{enumerate}
+
+\end{proof}
+
 
 \noindent Now we describe an algorithm to find a feasible solution of minimum weight.
 
@@ -432,8 +440,8 @@ necessarily a feasible solution in $G$. If the last was the case, then the feasi
 $S_2 \oplus^{2}_{G,J} S_1$ would follow from Lemma~\ref{lemma-m-stitchable}. Therefore we first prove 
 feasibility of $S_2 \oplus^{2}_{G,J} S_1$. Afterwards, we prove that it is of minimum weight.
 
-\textit{Proof}.
-
+\begin{proof}
+    
 We prove the feasibility of $S_2 \oplus^{2}_{G,J} S_1$ by case analysis on any four vertices $v_1 v_2 v_3 v_4$
 that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J) \cup (S_2 \cap N^{2}_{G}[J])$.
 
@@ -1061,3 +1069,4 @@ w|_{V(F)}(S_2) &= w(S_2) && \text{since } S_2 \subseteq V(F) \text{} \\
 &= w|_{V(F)}(S_3 \cap V(F))
 \end{aligned}
 \]
+\end{proof}
