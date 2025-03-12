@@ -275,15 +275,48 @@ where we argue that $S_{i, j}$ is an optimum solution for $G_{i, j}$ while $F_{i
 \noindent In Lemma~\ref{lemma-three} we look at the bound of the union of the $F_{i, j}$ sets. 
 Before that, however, we make an argument for the vertices on the boundaries in Lemma~\ref{lemma-two}. 
 
+\noindent Before we continue with the next lemma, we define what in \cite[Definition 4.5]{bumpus_et_al:LIPIcs.SWAT.2024.19} 
+is described as modular slices. In the preliminaries section the algorithms () had 
+one layer of overlap. Now we need a way to map to all $s$-consequent layers where 
+$s$ is a width parameter. For Fig.~\ref{fig:modular-slices}, imagine we ran a 
+BFS algorithm from an arbitrary vertex and the graph was decomposed into nine layers.
+
+\begin{figure}[h]
+    \centering
+    \setlength{\arrayrulewidth}{0.2pt}
+    \renewcommand{\arraystretch}{1}
+    
+    \begin{tabular}{r c c c c c c c c c c c c}
+        \textit{index} : & 0 & & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & \\
+        $\sigma_{2}^{\mod 4}(0)$ : & \multicolumn{3}{|c|}{\hrulefill} & & & \multicolumn{2}{|c|}{\hrulefill} & & & \multicolumn{2}{|c|}{\hrulefill} &  \\
+        $\sigma_{2}^{\mod 4}(1)$ : & \multicolumn{1}{c|}{\hrulefill} & & \multicolumn{2}{|c|}{\hrulefill} & & & \multicolumn{2}{|c|}{\hrulefill} & & & \multicolumn{2}{|c}{\hrulefill}  \\
+
+    \end{tabular}
+
+    \caption{Modular slices}
+    \label{fig:modular-slices}
+    
+\end{figure}
+
+The notation $\sigma_{s}^{\mod \ell}(i)$ means that we take all of the vertices
+that are on levels that start at 
+level $i \mod \ell$ of width $s$.
+In our case (for the FVS-4CL problem), we wanted two layers of overlap. Therefore, 
+$s$ is equal to two. In 
+
+If we are examining the set $\sigma_{2}^{\ell}(i)$, then 
+we are in fact talking about the sets $F_i$ and $F_{i+1}$, notice that $F_{i+1 \mod \ell}$ may 
+wrap around and be $F_0$.
+
 \refstepcounter{definition}
 \begin{mydefinition}[Bound for the vertices on the boundaries (Unweighted Case)]{Lemma}
     \label{lemma-two}
 
-    Let $OPT_i = OPT \cap$ \{vertices at levels $i$ mod $\ell\}$. 
-    The sets $OPT_i$ are disjoint and $\bigcup_i OPT_i = OPT$.
+    Let $F_i = F$ $\cap$ \{vertices at levels $i$ mod $\ell\}$. 
+    The sets $F_i$ are disjoint and $\bigcup_i F_i = F$.
 
     We claim that: \[\exists q \in \{0, 1, \dots, \ell-1\}:
-    |OPT_q| + |OPT_{q+1}| \leq \frac{2}{\ell} \cdot |OPT| \text{.}\]
+    |\sigma_{2}^{\ell}(q)| \leq \frac{2}{\ell} \cdot |F|\]
 
 \end{mydefinition}
 
@@ -292,30 +325,38 @@ Before that, however, we make an argument for the vertices on the boundaries in 
 Assume, by way of contradiction, that:
 
 \begin{equation}
-    \forall q: |OPT_q| + |OPT_{q+1}| > \frac{2}{\ell} \cdot |OPT|
+    \forall i \in \{0,1,\dots,\ell-1\}: |\sigma_{2}^{\ell}(i)| > \frac{2}{\ell} \cdot |F|
     \label{ineq:opt_bound}
 \end{equation}
 
-\noindent As we said those sets are disjoint, meaning $OPT_q \cap OPT_{q+1} = \emptyset$. We make the following arguments:
+\noindent As we said the sets $F_i$ are disjoint, i. e. $\forall i, j (i \neq j)$,
+$F_i \cap F_j = \emptyset$. 
+Also, $F = \cup_{i} F_i$.
+We make the following arguments:
 
 \begin{enumerate}
     \item If inequality \ref{ineq:opt_bound} holds,
-    then $\sum\limits_{i=0}^{\ell-1} |OPT_i| + |OPT_{i+1}| > 2 \cdot |OPT|$. 
-    \item Because each $OPT_i$ exists twice in that sum and 
-    $OPT_i \cap OPT_j = \emptyset$, $\forall (i, j), i \neq j$, then 
-    the property $\bigcup_i OPT_i = OPT$ from which follows $\sum\limits_{i}^{\ell-1} |OPT_i| = |OPT|$
-    would not hold.
+    then $\sum\limits_{i=0}^{\ell-1} |\sigma_{2}^{\ell}(i)| >
+    \sum\limits_{i=0}^{\ell-1} \frac{2}{\ell} |F| =
+    2 \cdot |F|$. 
+    \item Now, we argue for the LHS of the inequality in the previous step.
+    In the sum $\sum\limits_{i=0}^{\ell-1} |\sigma_{2}^{\ell}(i)|$,
+    $\forall i \in \{0,1,\dots,\ell-1\}: F_i$ is counted exactly twice.
+    Therefore $\sum\limits_{i=0}^{\ell-1} |\sigma_{2}^{\ell}(i)| = 2 \cdot |F|$
     \item From the contradiction in step two, we argue that there indeed 
-    $\exists q: q \in \{0, 1, \dots, \ell-1\}$ by the \textit{pigeonhole principle},
-    such that $|OPT_q| + |OPT_{q+1}| \leq \frac{2}{\ell} \cdot |OPT|$.
+    $\exists q: q \in \{0, 1, \dots, \ell-2\}$ by the \textit{pigeonhole principle},
+    such that $|\sigma_{2}^{\ell}(q)| \leq \frac{2}{\ell} \cdot |F|$.
 \end{enumerate}
 
 \end{proof}
 
-
 \noindent Now we argue for the size of the sets $F_{i, j}$. It is natural that we should be able 
 to tie their size to the size of the optimal solution $F$. We will use Lemma~\ref{lemma-two} to do 
-so. First we will state the lemma.
+so. Before we state the lemma, the reader should keep in mind that we will abuse notation 
+in order to avoid the loaded symbol $\sigma_{s}^{\mod \ell}$. Whenever we refer to $F_i$ and $F_{i+1}$,
+one should keep in mind that the second term may wrap around and become $F_0$. This 
+definition is instructive and we will come back to it in the weighted case and 
+more importantly in the arbitrary cycle length case in \ref{lemma-rho-cl-boundary}.
 
 \refstepcounter{definition}
 \begin{mydefinition}[Bound for the cardinality of the intersection sets (Unweighted Case)]{Lemma}
@@ -336,10 +377,10 @@ in the overlap layers would be counted twice in the sum $\sum\limits_{j} |F_{i, 
 vertices are counted once towards the optimum solution sum. Therefore, we have that: 
 
 \begin{enumerate}
-    \item $\sum\limits_{j} |F_{i, j}| = |F| + |\{\text{vertices on the boundary}\}| = |F| + |OPT_i| + |OPT_{i+1}|$
+    \item $\sum\limits_{j} |F_{i, j}| = |F| + |\{\text{vertices on the boundary}\}| = |F| + |F_i| + |F_{i+1}|$
     for some $i \in \{0, 1, \dots, \ell-1\}$. \label{enum:eq1}
     \item For the RHS of the equation in step~\ref{enum:eq1}. we argue that:
-    \[\exists i^* |OPT_{i^*}| + |OPT_{i^*+1}| \leq \frac{2}{\ell} \cdot |OPT|\] using Lemma~\ref{lemma-two}.
+    \[\exists i^* |F_{i^*}| + |F_{i^*+1}| \leq \frac{2}{\ell} \cdot |F|\] using Lemma~\ref{lemma-two}.
     \item For that $i^*$ it holds that $\sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} |F|$.
 \end{enumerate}
 
@@ -429,7 +470,7 @@ $b \cdot \ell + a$ through $(b + 1) \cdot \ell + a + 1$.
 
 \noindent The statement in Lemma~\ref{lemma-osbwc} holds for arbitrary values $a,b$. Therefore, in 
 $G$, it holds that:
-\[\forall i,j w(S_{i, j}) \leq w(F_{i, j})\]
+\[\forall i,j: w(S_{i, j}) \leq w(F_{i, j})\]
 
 \end{proof}
 
@@ -461,41 +502,41 @@ and from Lemma~\ref{lemma-osbwc} we chain the inequalities to get Result~\ref{re
 
     Let $G = (V, E)$ be a planar graph and suppose we run a BFS from an arbitrary vertex.
     Let $w : V \rightarrow \mathbb{R}$ be a weight function.
-    Let $OPT_i = OPT \cap$ \{vertices at levels $i$ mod $\ell\}$. 
-    The sets $OPT_i$ are disjoint and $\bigcup_i OPT_i = OPT$.
+    Let $F_i = F$ $\cap$ \{vertices at levels $i$ mod $\ell\}$. 
+    The sets $F_i$ are disjoint and $\bigcup_i F_i = F$.
 
     We claim that: \[\exists q \in \{0, 1, \dots, \ell-1\}:
-    w(OPT_{q}) + w(OPT_{q+1}) \leq \frac{2}{\ell} \cdot w(OPT) \text{.}\]
-
+    w(\sigma_{2}^{\mod \ell}(q)) \leq \frac{2}{\ell} \cdot w(F)\]
 \end{mydefinition}
-
 
 \begin{proof}
     
 Assume, by way of contradiction, that:
 
 \begin{equation}
-    \forall i \in \{1, 2, \dots, \ell-1\}, \quad w(OPT_i) + w(OPT_{i+1}) > \frac{2}{\ell} \cdot w(OPT).
+    \forall i \in \{1, 2, \dots, \ell-1\}, w(\sigma_{2}^{\mod \ell}(i)) > \frac{2}{\ell} \cdot w(F).
     \label{ineq:two}
 \end{equation}
 
 \begin{enumerate}
-    \item From the two properties in the definition of $OPT_i$, namely that
+    \item From the two properties in the definition of $F_i$, namely that
     
-    $OPT_i \cap OPT_j = \emptyset, \forall i, j \in \{1, 2, \dots, \ell-1\}, i \neq j$ and 
+    $F_i \cap F_j = \emptyset, \forall i, j \in \{0, 1, 2, \dots, \ell-1\}, i \neq j$ and 
 
-    $OPT = \bigcup_i OPT_i$, it follows that $\sum\limits_{i = 0}^{\ell-1} w(OPT_i) = w(OPT)$.
+    $F = \bigcup_i F_i$ $\forall i \in \{0,1,2,\dots \ell-1\}$,
+    
+    it follows that $\sum\limits_{i = 0}^{\ell-1} w(\sigma_{2}^{\mod \ell}(i)) = 2 \cdot w(F)$.
     
     \item However, if inequality \ref{ineq:two} holds,
-    then $\sum\limits_{i=0}^{\ell-1} w(OPT_i) + w(OPT_{i+1}) > 
-    \sum\limits_{i=0}^{\ell-1} \frac{2}{\ell} \cdot w(OPT) >
-    2 \cdot w(OPT)$. 
-    Because each $OPT_i$ is counted twice in the sum of step 2, then there is a contradiction between 
+    then $\sum\limits_{i=0}^{\ell-1} w(\sigma_{2}^{\mod \ell}(i)) >
+    \sum\limits_{i=0}^{\ell-1} \frac{2}{\ell} \cdot w(F) =
+    2 \cdot w(F)$. 
+    Because each $F_i$ is counted twice in the sum of step 2, then there is a contradiction between 
     the sums in steps 1 and 2. 
 
-    \item Finally, we claim that because of the \textit{pigeonhole principle} there must exist a 
-    "small pair" $OPT_q$ and $OPT_{q+1}$, such that $w(OPT_q) + w(OPT_{q+1}) \leq \frac{2}{\ell} \cdot w(OPT)$.
-
+    \item Because of the \textit{pigeonhole principle}, there $\exists q$, such that 
+    $w(\sigma_{2}^{\mod \ell}(q)) \leq \frac{2}{\ell} \cdot w(F)$.
+    
 \end{enumerate}
 
 \end{proof}
@@ -591,11 +632,6 @@ The main difference is on line \ref{alg5:line4} where
 we define the subgraphs we want to inspect. This change enables us to argue that the union 
 of the local solutions, defined on line \ref{alg5:line6}, is indeed a feasible solution for the
 whole graph. 
-What we then have to prove is that this solution is not only feasible, but for some integer $i^*$, 
-it is optimal.
-
-\noindent In Lemma~\ref{lemma:optimum_solution_bound_rho_cycle_length} we present the two results 
-we got in Lemma~\ref{lemma-osbwc} and Result~\ref{result-osbwc} for arbitrary cycle length.
 
 \refstepcounter{definition}
 \begin{mydefinition}[Optimum solution bound for FVS-$\rho$CL]{Lemma}
@@ -619,12 +655,66 @@ we got in Lemma~\ref{lemma-osbwc} and Result~\ref{result-osbwc} for arbitrary cy
     \[\sum_{j} w(S_{i, j}) \leq \sum_{j} w(F_{i, j})\]
 
     \noindent The first inequality holds, because the vertices on the boundaries are counted twice towards 
-    the RHS of the inequality. Therefore we have:
+    the RHS of the inequality and only once in the LHS. Therefore we have:
     \[w(S_i) \leq \sum\limits_{j} w(S_{i, j})\]
 
     \noindent Chaining the inequalities we get
     \[w(S_i) \leq \sum\limits_{j} w(S_{i, j}) \leq \sum_{j} w(F_{i, j})\]
 \end{proof}
+
+
+\refstepcounter{definition}
+\begin{mydefinition}[Bound for the weight of the vertices on the boundary $\rho$-cycle length]{Lemma}
+    \label{lemma-rho-cl-boundary}
+
+    Let $G = (V, E)$ be a planar graph and suppose we run a BFS from an arbitrary vertex.
+
+    Let $w : V \rightarrow \mathbb{R}$ be a weight function.
+    Let $F_i = F$ $\cap$ \{vertices at levels $i$ mod $\ell\}$. 
+    The sets $F_i$ are disjoint and $\bigcup_i F_i = F$.
+
+    We claim that: \[\exists q \in \{0, 1, \dots, \ell - 1\}:
+    w(\sigma_{\lfloor \rho / 2 \rfloor}(q)) \leq \frac{\lfloor \rho / 2\rfloor}{\ell} \cdot w(F)\]
+\end{mydefinition}
+
+\begin{proof}
+    Assume, by way of contradiction, that: 
+
+    \begin{equation}
+        \label{ineq:lemma-rho-bound}
+        \forall i \in \{0, 1, \dots, \ell - 1\}:
+        w(\sigma_{\lfloor \rho / 2 \rfloor}(i))
+        > \frac{\lfloor \rho / 2 \rfloor}{\ell} \cdot w(F)
+    \end{equation}
+
+    \begin{enumerate}
+        \item In Lemma~\ref{lemma-rho-cl-boundary} we laid out two properties for $F_i$, namely that:
+        
+        $F_i \cap F_j = \emptyset,
+        \forall i, j \in \{0, 1, 2, \dots, \ell-1\}, i \neq j$ and 
+    
+        $F = \bigcup_i F_i$ $ \forall i \in \{0,1,2,\dots \ell-1\}$,
+        
+        it follows that
+        $\sum\limits_{i = 0}^{\ell-1} w(\sigma_{\lfloor \rho / 2 \rfloor}(i)) =
+        \lfloor \rho / 2 \rfloor \cdot w(F)$ as every set $F_i$ is counted 
+        $\lfloor \rho / 2 \rfloor$ times.
+        
+        \item However, if inequality \ref{ineq:lemma-rho-bound} holds,
+        then:
+        \[\sum\limits_{i=0}^{\ell-1} w(\sigma_{\lfloor \rho / 2 \rfloor}(i)) >
+        \sum\limits_{i=0}^{\ell-1} \frac{\lfloor\rho/2\rfloor}{\ell} \cdot w(F) =
+        \lfloor \rho/2 \rfloor \cdot w(F)\] 
+        There is a contradiction between the results in step one and two.
+    
+        \item Therefore, we claim that:
+        \[\exists q \in \{0, 1, \dots, \ell - 1\}:
+    w(\sigma_{\lfloor \rho / 2 \rfloor}(q)) \leq \frac{\lfloor \rho / 2\rfloor}{\ell} \cdot w(F)\]
+
+    \end{enumerate}
+
+\end{proof}
+
 
 
 \subsection{Exact algorithm for FVS-4CL}
