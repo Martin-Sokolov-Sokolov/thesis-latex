@@ -175,12 +175,26 @@ solution with a trade-off.
     A polynomial-time approximation scheme (\textbf{PTAS}) is a family of algorithms ${A_{\epsilon}}$ where there is an algorithm for each $\epsilon > 0$, 
     such that $A_{\epsilon}$ is a $(1 + \epsilon)$-approximation algorithm (for minimization problems). The running time of the algorithm $A_{\epsilon}$ 
     is polynomial, but can depend arbitrarily on $1/\epsilon$. This dependence could be exponential or even worse.
+    Thus an algorithm running in time $O(n^{1/\epsilon})$ counts as a PTAS.
 
 \end{mydefinition}
 
-\noindent Every problem with a \textbf{PTAS} is also in \textbf{APX}. The relation between these two classes is similar to the one between 
-\textbf{P} and \textbf{NP}. For more on the topic, such as \textit{APX-completeness}, \textit{L-reductions} and the \textit{PCP-theorem}, 
+\noindent Every problem with a PTAS is also in APX. The relation between these two classes is similar to the one between 
+\textbf{P} and \textbf{NP}. For more on the topic, such as APX-completeness, L-reductions and the PCP-theorem, 
 we refer to Korte and Vygen \cite{Korte2007CombinatorialOT}.
+
+\noindent An important distinction in the complexity zoo is made in Cesati and
+Trevisan \cite{cesati1997efficiency}. To the best of the knowledge of the author, this is the paper 
+that describes what an efficient PTAS is.
+
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[Efficient Polynomial-Time Approximation Scheme (EPTAS)]{Definition}
+    \label{def:EPTAS}
+    
+    An efficient PTAS yields a $(1 + \epsilon)$ approximation scheme and has a running time 
+    of $f(\epsilon) \cdot n^{c}$ where $f$ is an arbitrary function and $c$ is a constant. 
+
+\end{mydefinition}
 
 \subsubsection{Baker's approach}
 

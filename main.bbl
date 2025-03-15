@@ -147,6 +147,11 @@ M.~Cygan, F.~V. Fomin, {\L}.~Kowalik, D.~Lokshtanov, D.~Marx, M.~Pilipczuk,
   M.~Pilipczuk, and S.~Saurabh, \emph{Parameterized algorithms}.\hskip 1em plus
   0.5em minus 0.4em\relax Springer, 2015, vol.~5, no.~4.
 
+\bibitem{cesati1997efficiency}
+M.~Cesati and L.~Trevisan, ``On the efficiency of polynomial time approximation
+  schemes,'' \emph{Information Processing Letters}, vol.~64, no.~4, pp.
+  165--171, 1997.
+
 \bibitem{dominatingsetptas}
 \BIBentryALTinterwordspacing
 M.~Marzban and Q.-P. Gu, ``Computational study on a ptas for planar dominating

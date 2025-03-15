@@ -405,7 +405,7 @@ Bodlaender~\cite[Theorem 83]{bodlaender1998partial}, we get that the treewidth o
 subgraphs is $3\cdot\ell+6-1=3\cdot\ell+5$. Finally, using Theorem~\ref{theorem:courcelle}, 
 we conclude, that the for loop takes $O(f(3\ell+5)\cdot\ell\cdot n)$ for some computable function $f$. Therefore,
 Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} has a running time of 
-$O(n) + O(f(3\ell + 5)\cdot\ell\cdot n) + O(n) = O(f(\ell)\cdot\ell\cdot n)$.
+$O(n) + O(f(3\ell + 5)\cdot\ell\cdot n) + O(n) = O(f(3\ell+5)\cdot n)$.
 
 \subsection{Baker's technique for the weighted FVS-4CL on planar graphs}
 \label{subsec:baker_weighted_fvs}
@@ -545,31 +545,34 @@ Assume, by way of contradiction, that:
 \begin{mydefinition}[Bound for the weight of the intersection sets (Weighted Case)]{Lemma}
     \label{lemma-bcisweighted_feedback_vertex_set_global}
 
-    Let $F \equiv OPT$ be the optimal solution and $F_{i, j} = F \cap G_{i, j}$ be the intersection 
+    Let $F \equiv OPT$ be the optimal solution of the FVS-4CL problem.
+    Let $F_{i, j} = F \cap G_{i, j}$ be the intersection 
     sets with the subgraphs. Then we have: 
-    \[\sum\limits_{j} w(F_{i, j}) \leq w(F) + \frac{2}{\ell} \cdot w(F)\]
+    \[\sum\limits_{j} w(F_{i^{*}, j}) \leq w(F) + \frac{2}{\ell} \cdot w(F)\]
 
-    for some specific integer $i$.
+    for some specific integer $i^{*}$.
 
 \end{mydefinition}
 
-\noindent The interior vertices of each subgraph have their weights counted only once towards the sum 
-$\sum\limits_j w(F_{i, j})$. The same does not hold for the vertices on the boundary, they are counted 
-once in $F_{i, j}$ and once in $F_{i, j+1}$. To account for that we rewrite the sum on the LHS as:
+\begin{proof}
+    
+    \noindent The interior vertices of each subgraph have their weights counted only once towards the sum 
+    $\sum\limits_j w(F_{i, j})$. The same does not hold for the vertices on the boundary, they are counted 
+    once in $F_{i, j}$ and once in $F_{i, j+1}$. To account for that we rewrite the sum on the LHS as:
 
-\begin{enumerate}
-    \item $\sum\limits_j w(F_{i, j}) = w(F) + w(\{\text{vertices on the boundary}\})$.
-    \item Now we can rewrite the RHS of 1 as:
-    
-    $w(F) + w(\{\text{vertices on the boundary}\}) = w(F) + w(OPT_i) + w(OPT_{i+1})$ for some 
-    $i \in \{1, 2, \dots, \ell-1\}$.
-    \item From Lemma~\ref{lemma-bvweighted_feedback_vertex_set_global} we have an integer $i^* \in \{1, 2, \dots, \ell-1\}$, such that:
-    
-    $w(OPT_{i^*}) + w(OPT_{i^* + 1}) \leq \frac{2}{\ell} \cdot w(F)$.
-    \item For the integer $i^*$ in step 3 we substitute in step 2 and get:
-    
-    $w(F) + w(OPT_{i^*}) + w(OPT_{i^* + 1}) \leq w(F) + \frac{2}{\ell} \cdot w(F)$.
-\end{enumerate}
+    \begin{enumerate}
+        \item $\sum\limits_j w(F_{i, j}) = w(F) + w(\{\text{vertices on the boundary}\})$.
+        \item From Lemma~\ref{lemma-bvweighted_feedback_vertex_set_global} we have an integer $i^* \in \{1, 2, \dots, \ell-1\}$, such that:
+        
+        $w(OPT_{i^*}) + w(OPT_{i^* + 1}) \leq \frac{2}{\ell} \cdot w(F)$.
+        \item From the previous two steps we get:
+        \[\sum\limits_j w(F_{i, j}) =
+        w(F) + w(\{\text{vertices on the boundary}\}) \leq
+        \frac{2}{\ell} \cdot w(F)
+        \]
+    \end{enumerate}
+
+\end{proof}
 
 \noindent Finally, we chain the inequalities we obtained in Lemma~\ref{lemma-osbwc}, Result~\ref{result-osbwc}, 
 and Lemma~\ref{lemma-bcisweighted_feedback_vertex_set_global} to argue that for some $i^* \in \{1, 2, \dots, \ell-1\}$: 
@@ -581,7 +584,7 @@ and Lemma~\ref{lemma-bcisweighted_feedback_vertex_set_global} to argue that for 
 \noindent The only difference from the unweighted case comes from line~\ref{alg4:step5} of 
 Algorithm~\ref{alg:weighted_feedback_vertex_set_global}. We call a different subroutine, 
 namely Algorithm~\ref{courcelle:weighted}. However, using Theorem~\ref{theorem:courcelle}, 
-we get that the running time of the algorithm is $O(f(\ell)\cdot\ell\cdot n)$ for some 
+we get that the running time of the algorithm is still $O(f(3\ell+5)\cdot\ell\cdot n) = O(f(3\ell+5)\cdot n)$ for some 
 computable function $f$.
 
 
@@ -607,7 +610,7 @@ interested in breaking cycles of length $\rho$.
     \REQUIRE Planar graph $G = (V, E)$, parameter $\ell \leftarrow \frac{1}{\epsilon}$, $w : V \rightarrow \mathbb{R}$, 
     $\rho$ - integer specifying cycles of what length to break
     \ENSURE $(1 + \epsilon)$-approximation for \textsc{FVS-BCL}
-    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
+    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$ \label{alg5:line1}
     \STATE $S \leftarrow \emptyset$
 
     $i$: \textit{shift}; $j$: \textit{slice}
@@ -618,11 +621,11 @@ interested in breaking cycles of length $\rho$.
         $(j+1) \cdot \ell + i + \lfloor \frac{\rho}{2} \rfloor$ 
         for $0 \leq i < \ell$. \label{alg5:line4}
         \STATE $\forall j \text{ compute }  S_{i, j}$, the min. weighted \textsc{FVS-BCL} 
-        of $G_{i, j}$ using Algorithm~\ref{courcelle:rho} as a subroutine.
+        of $G_{i, j}$ using Algorithm~\ref{courcelle:rho} as a subroutine. \label{alg5:line5}
         \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$ \label{alg5:line6}
         \STATE $S \leftarrow S \cup S_i$ \label{alg5:line7}
     \ENDFOR
-    \RETURN $S_{i*}$ from $S$, such that $w(S_{i^*}) \leq w(S_{i}) , \forall i \in \{1, 2, \dots, \ell-1\}$.
+    \RETURN $S_{i*}$ from $S$, such that $w(S_{i^*}) \leq w(S_{i}) , \forall i \in \{1, 2, \dots, \ell-1\}$. \label{alg5:line9}
     \end{algorithmic}
 \end{algorithm}
 
@@ -715,7 +718,49 @@ whole graph.
 
 \end{proof}
 
+\refstepcounter{definition}
+\begin{mydefinition}[Bound for the weight of the intersection sets]{Lemma}
+    \label{lemma-rho-bound-is}
 
+    Let $F \equiv OPT$ be the optimal solution of the FVS-$\rho$CL length problem for 
+    an integer $\rho \in \mathbb{N}_{\geq 3}$.
+    Let $F_{i, j} = F \cap G_{i, j}$ be the intersection 
+    sets with the subgraphs. Then we have: 
+    \[\sum\limits_{j} w(F_{i^*, j}) \leq w(F) + \frac{\lfloor\rho/2\rfloor}{\ell} \cdot w(F)\]
+
+    for some specific integer $i^*$.
+
+\end{mydefinition}
+
+\begin{proof}
+    
+    \begin{enumerate}
+        \item $\sum\limits_j w(F_{i, j}) = w(F) + w(\{\text{vertices on the boundary}\})$.
+        \item From Lemma~\ref{lemma-rho-cl-boundary} we have that: \[\exists i^* \in \{0, 1, \dots, \ell - 1\}:
+        w(\sigma_{\lfloor \rho / 2 \rfloor}(i^*)) \leq \frac{\lfloor \rho / 2\rfloor}{\ell} \cdot w(F)\]
+
+        The vertices on the boundary are comprised of exactly $\lfloor \rho/2 \rfloor$ consecutive 
+        layers of vertices.
+
+        \item From the previous two steps we get:
+        \[\sum\limits_j w(F_{i^*, j}) =
+        w(F) + w(\{\text{vertices on the boundary}\}) \leq
+        \frac{\lfloor\rho/2\rfloor}{\ell} \cdot w(F)
+        \]
+    \end{enumerate}
+
+\end{proof}
+
+\textbf{Running time:}
+
+In Algorithm~\ref{alg:baker_arbitrary_length} which solves FVS-BCL the computation on line~\ref{alg5:line5}
+dominates the running time. In planar graphs steps \ref{alg5:line1} and \ref{alg5:line9} take linear time 
+to the input. Using Courcelle's theorem \cite{courcelle1990monadic} we argue for the running time 
+of line ~\ref{alg5:line5}, which uses Alg.~\ref{courcelle:rho} as a subroutine. As we will say in the next 
+section, the subroutine runs in time $f(||\phi||, t) \cdot n$ for some computable function $f$ 
+where a tree decomposition of width $t$ is provided. Using a result from Bodlaender~\cite[Theorem 83]{bodlaender1998partial}
+one can incur that the treewidth of each subgraph is $3\ell + 5$. Therefore the running time of Alg.~\ref{alg:baker_arbitrary_length} 
+is $O(n) + O(f(3\ell + 5) \cdot \ell \cdot n) + O(n) = O(f(3\ell + 5) \cdot n)$ for some computable function $f$.
 
 \subsection{Exact algorithm for FVS-4CL}
 \label{subsection:exact-alg}
@@ -780,7 +825,7 @@ over the size and weight of a free set variable.
         & \land \forall v u w z: \\
         & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
         & \land v \neq w \land u \neq z \\
-        & \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \to \bot
+        & \land \neg ((v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E)
     \end{aligned}
 \end{equation}
 
@@ -796,7 +841,7 @@ over the size and weight of a free set variable.
         & \land \forall v u w z: \\
         & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
         & \land v \neq w \land u \neq z \\
-        & \land (v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E \to \bot
+        & \land \neg((v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E)
     \end{aligned}
 \end{equation}
 
@@ -815,7 +860,7 @@ over the size and weight of a free set variable.
         & \land (v_2 \neq v_1 \land v_2 \neq v_3 \land \dots \land v_2 \neq v_{\rho}) \\
         & \dots \\
         & \land (v_{\rho} \neq v_1 \land v_{\rho} \neq v_2 \land \dots \land v_{\rho} \neq v_{\rho-1}) \\
-        & \land (v_1, v_2) \in E \land (v_2, v_3) \in E \land \dots \land (v_{\rho-1},v_{\rho}) \in E \land (v_{\rho}, v_1) \in E \to \bot
+        & \land \neg((v_1, v_2) \in E \land (v_2, v_3) \in E \land \dots \land (v_{\rho-1},v_{\rho}) \in E \land (v_{\rho}, v_1) \in E)
     \end{aligned}
 \end{equation}
 
