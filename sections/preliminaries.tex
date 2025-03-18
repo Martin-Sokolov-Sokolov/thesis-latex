@@ -305,13 +305,70 @@ subgraph. This fails for \textsc{Dominating Set}, since a vertex in the subgraph
 in order to properly analyse the solution, one must make the slices overlap on two levels. We refer to Marzban and Gu \cite{dominatingsetptas} for
 the explanation as to why the last is true and how to obtain the $(1 + 2 / \ell)$ approximation ratio.
 
+\subsubsection{Treewidth}
+
+\noindent According to Diestel~\cite[pp. 354-355]{diestel2000graph} the notions of 
+tree decomposition and treewidth were introduced by 
+Halin~\cite{halin1976s} under the name of $S$-functions and Robertson and Seymour ~\cite{ROBERTSON1986309}.
+We give brief definitions of these concepts and then discuss bounded local treewidth and linear local 
+treewidth. The last two notions are important for the main theorem we work with, namely
+Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
+
+\noindent From Diestel~\cite[Section 12.3]{diestel2000graph} we have the following definition of a 
+tree decomposition.
+
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[Tree Decomoposition]{Definition}
+    \label{def:tree-decomp}
+
+    Let $G$ be a graph, $T$ a tree, and let $\mathcal{V} = (V_t)_{t \in T}$ be a family of vertex sets
+    $V_t \subseteq V(G)$ indexed by the vertices $t$ of $T$.
+    The pair $(T, \mathcal{V})$ is called a \emph{tree decomposition} of $G$ if it satisfies
+    the following conditions:
+
+    \begin{itemize}
+        \item[(T1)] $V(G) = \bigcup_{t \in T} V_t$.
+        \item[(T2)] For every edge $e \in E(G)$, there exists a $t \in T$ such that both ends of $e$ lie in $V_t$.
+        \item[(T3)] If $t_1, t_2, t_3 \in T$ satisfy $t_2$ lies on the unique path between $t_1$ and $t_3$ in $T$, then 
+        \[
+            V_{t_1} \cap V_{t_3} \subseteq V_{t_2}.
+        \]
+    \end{itemize}
+
+\end{mydefinition}
+
+The \textit{width} of a tree decomposition $(T, V)$ is the size of its largest set $V_t$ minus one.
+The \textit{treewidth} $\operatorname{tw}(G)$ of a graph $G$ is the minimum width among all possible
+tree decompositions of $G$. 
+
+\refstepcounter{definition} % Increment counter after the definition content
+\begin{mydefinition}[Bounded local treewidth]{Definition}
+    \label{def:bounded-local-treewidth}
+
+    A graph $G$ has bounded local treewidth if the subgraph induced by vertices at distance 
+    at most $d$ is a function of $d$ ($f : \mathbb{N} \to \mathbb{R}$) and not $n$.
+
+\end{mydefinition}
+
+\noindent Furthermore, if there exists $\lambda \in \mathbb{R}$, such that 
+$f$ can be defined as $f : r \to \lambda \cdot r$, then $G$ would have linear local treewidth.
+
+\noindent Building on the work of Eppstein~\cite{eppstein2000diameter}, 
+Demaine and Hajiaghayi~\cite{demaine2003equivalence} prove that apex-minor-free graphs 
+have linear local treewidth. Apex graphs are graphs that can be made planar by the removal 
+of a single vertex. From this follows that planar graphs also have linear local treewidth.
+
 \subsubsection{Linear Programming and Randomized Rounding}
 
 One way of approximating solutions is done through Linear Programming (LP). For a more detailed review of \textsc{LP}, 
-the reader can consult Chapter 3 of Korte and Vygen \cite{Korte2007CombinatorialOT}. The algorithm we use solves a linear relaxation, 
-which provides fractional values as solutions. We then round this fractional solution to an integral one, but rather than doing it 
-deterministically, we do the process randomly. This technique is called \textit{randomized rounding}. We exploit that framework, 
-because it is one of the ways one could devise a certified algorithm as explained in Makarychev and Makarychev \cite{Makarychev_Makarychev_2021}. 
+the reader can consult Korte and Vygen \cite[Chapter 3]{Korte2007CombinatorialOT}.
+One solves a linear relaxation, 
+which provides fractional values as solutions. Afterwards, the fractional solution 
+is rounded to an integral one, but rather than doing it 
+deterministically, this process is done in a randomized fashion.
+This technique is called \textit{randomized rounding}.
+This framework provides a way to obtain certified algorithms, for a more in depth look 
+for randomized rounding the reader should consult Makarychev and Makarychev \cite{Makarychev_Makarychev_2021}. 
 
 \subsection{Beyond the Worst-Case Analysis of Algorithms}\label{BWCA-section}
 

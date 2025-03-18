@@ -302,7 +302,7 @@ The notation $\sigma_{s}^{\mod \ell}(i)$ means that we take all of the vertices
 that are on levels that start at 
 level $i \mod \ell$ of width $s$.
 In our case (for the FVS-4CL problem), we wanted two layers of overlap. Therefore, 
-$s$ is equal to two. In 
+$s$ is equal to two.
 
 If we are examining the set $\sigma_{2}^{\ell}(i)$, then 
 we are in fact talking about the sets $F_i$ and $F_{i+1}$, notice that $F_{i+1 \mod \ell}$ may 
@@ -380,7 +380,7 @@ vertices are counted once towards the optimum solution sum. Therefore, we have t
     \item $\sum\limits_{j} |F_{i, j}| = |F| + |\{\text{vertices on the boundary}\}| = |F| + |F_i| + |F_{i+1}|$
     for some $i \in \{0, 1, \dots, \ell-1\}$. \label{enum:eq1}
     \item For the RHS of the equation in step~\ref{enum:eq1}. we argue that:
-    \[\exists i^* |F_{i^*}| + |F_{i^*+1}| \leq \frac{2}{\ell} \cdot |F|\] using Lemma~\ref{lemma-two}.
+    \[\exists i^*: |F_{i^*}| + |F_{i^*+1}| \leq \frac{2}{\ell} \cdot |F|\] using Lemma~\ref{lemma-two}.
     \item For that $i^*$ it holds that $\sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} |F|$.
 \end{enumerate}
 
@@ -675,6 +675,8 @@ whole graph.
     Let $w : V \rightarrow \mathbb{R}$ be a weight function.
     Let $F_i = F$ $\cap$ \{vertices at levels $i$ mod $\ell\}$. 
     The sets $F_i$ are disjoint and $\bigcup_i F_i = F$.
+    Let $\sigma^{\ell}_{\lfloor \rho/2 \rfloor}(q) =
+    \bigcup_{q} F_q \cup F_{q+1}, \dots F_{q + \lfloor \rho/2 \rfloor}-1$.
 
     We claim that: \[\exists q \in \{0, 1, \dots, \ell - 1\}:
     w(\sigma_{\lfloor \rho / 2 \rfloor}(q)) \leq \frac{\lfloor \rho / 2\rfloor}{\ell} \cdot w(F)\]

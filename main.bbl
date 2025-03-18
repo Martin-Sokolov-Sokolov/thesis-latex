@@ -159,6 +159,29 @@ M.~Marzban and Q.-P. Gu, ``Computational study on a ptas for planar dominating
   Available: \url{https://www.mdpi.com/1999-4893/6/1/43}
 \BIBentrySTDinterwordspacing
 
+\bibitem{diestel2000graph}
+R.~Diestel, ``Graph theory electronic edition 2000,'' 2000.
+
+\bibitem{halin1976s}
+R.~Halin, ``S-functions for graphs,'' \emph{Journal of geometry}, vol.~8, pp.
+  171--186, 1976.
+
+\bibitem{ROBERTSON1986309}
+\BIBentryALTinterwordspacing
+N.~Robertson and P.~Seymour, ``Graph minors. ii. algorithmic aspects of
+  tree-width,'' \emph{Journal of Algorithms}, vol.~7, no.~3, pp. 309--322,
+  1986. [Online]. Available:
+  \url{https://www.sciencedirect.com/science/article/pii/0196677486900234}
+\BIBentrySTDinterwordspacing
+
+\bibitem{eppstein2000diameter}
+D.~Eppstein, ``Diameter and treewidth in minor-closed graph families,''
+  \emph{Algorithmica}, vol.~27, pp. 275--291, 2000.
+
+\bibitem{demaine2003equivalence}
+E.~D. Demaine and M.~T. Hajiaghayi, ``Equivalence of local treewidth and linear
+  local treewidth and its algorithmic applications,'' 2003.
+
 \bibitem{bodlaender1998partial}
 H.~L. Bodlaender, ``A partial k-arboretum of graphs with bounded treewidth,''
   \emph{Theoretical computer science}, vol. 209, no. 1-2, pp. 1--45, 1998.
