@@ -1,22 +1,17 @@
 \section{Certified Algorithm}
 
-\noindent In this section we present an Algorithm that finds $\gamma$-certified solutions to the FVS-4CL problem.
-The algorithm is similar to Algorithm~\cite[4.2.1]{bumpus_et_al:LIPIcs.SWAT.2024.19}, 
-but is adopted to our problem. This distinction will be made clear in the first subsection. 
-We will also simulate a run of the certified algorithm, 
-in order to find a solution, which cannot be optimized using $A_{\text{FVS-4CL}}$,
-in the second subsection. Finally, in the third 
-subsection we give a proof that this algorithm indeed finds $\gamma$-certified solutions.
+\noindent In this section we present an algorithm that finds $\gamma$-certified solutions to the FVS-4CL problem.
+It is similar to the one in Bumpus et al.~\cite[4.2.1]{bumpus_et_al:LIPIcs.SWAT.2024.19}, 
+but is adopted to our problem. 
+The proof that Algorithm~\ref{alg:certified-algorithm} is a $(1 + \epsilon)$-certified 
+algorithm is beyond the scope of this paper. This is because the proof is similar to 
+the one in Bumpus et al.~\cite[Section 4.2.3]{bumpus_et_al:LIPIcs.SWAT.2024.19}. 
+
+\noindent However, we still present the algorithm, as this brings more clarity on how exactly 
+one obtains $(1+\epsilon)$-certified solutions, and, on a separate note, we want to argue 
+about the running time of Algorithm~\ref{alg:certified-algorithm}.
 
 \subsection{Certified Algorithm for FVS-4CL}
-
-\noindent The algorithm has three main stages. Much like Baker's technique, we first run 
-BFS in order to obtain a layer decomposition from an arbitrary vertex $r$. Afterwards, 
-we run $A_{\text{FVS-4CL}}$ on a given number of consecutive layers. In this step we claim 
-that we will find a better solution if there is one within those layers, otherwise we 
-choose the next block of layers. Once we loop through the graph in the second step, 
-we get an inclusion-minimal solution. In the third step we perturb the weight function in a way 
-that would give us a certified solution. 
 
 \noindent Before we give the algorithm we will define some concepts, that we will make use of.
 
@@ -31,11 +26,6 @@ that would give us a certified solution.
     $J_{\kappa}$.
 
 \end{mydefinition}
-
-\noindent For more clarity on Def~\ref{def:k-layered-graph}, one can consult line~\ref{line:4} of 
-Algorithm~\ref{alg:baker} and Fig.~\ref{fig:bfs_tree} where for the first time we defined a subgraph $G_{i, j}$ 
-and subsequently sketched it.
-Our graph $G[V(J_{\kappa})]$ is really a subgraph $G_{i, j}$ of $G$ with width $\kappa$ (of $\kappa$ layers).
 
 \noindent Notice that Algorithm~\ref{alg:stitch-fvs-4cl} takes as input a graph and a weighted 
 function $(G, w)$, a feasible solution $S$ and some vertex set $J$. 
@@ -68,117 +58,115 @@ function $(G, w)$, a feasible solution $S$ and some vertex set $J$.
 lines~\ref{line:bfs-one},\ref{line:bfs-two} and is vital when later we have to choose a vertex set 
 $J_{\kappa}$.
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[scale=0.8]
 
-        \node[fill=black, circle, inner sep=1.5pt, label=left:r] (j02) at (-5,-1) {};
+\noindent In the second stage, we compute a feasible solution $S$, set 
+$J_\kappa$\footnote{
+    \noindent A word on the argument $k$ and the value that we set it to. In our case, for the FVS-4CL problem, 
+    $m$ is equal to two. Therefore, $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$. Notice that the set 
+    $J_{\kappa}$ is of width $k-2m$, therefore the $m$-neighbourhood (2-neighbourhood) is of width 
+    $k - 2m + 2m = k$. Therefore, in our case, the graphs within we stitch are of width
+    $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$.
+    Take for example 
+    vertex $v_{2,1}$ in fig.~\ref{fig:reconfigure}. In order to find every cycle that it is a part of, 
+    one would need to consider the layer that it is in, two layers to the left and two layers to the right. 
 
-        \node[fill=black, circle, inner sep=1.5pt] (j1) at (-3,-2.5) {};
-        \node[fill=black, circle, inner sep=1.5pt] (j01) at (-3,-1.5) {};
-        \node[fill=black, circle, inner sep=1.5pt] (j03) at (-3,-0.5) {};
-
-        \node[fill=black, circle, inner sep=1.5pt] (j04) at (-1,-1) {};
-        \node[fill=black, circle, inner sep=1.5pt] (j3) at (-1,0) {};
-        \node[fill=black, circle, inner sep=1.5pt] (j4) at (-1,-2.5) {};
-        \node[fill=black, circle, inner sep=1.5pt] (n14) at (-1,-3.5) {};
-
-
-
-        \node[fill=black, circle, inner sep=1.5pt] (j2) at (1,-1) {};
-        \node[fill=black, circle, inner sep=1.5pt] (n12) at (1,2) {};
-        \node[fill=black, circle, inner sep=1.5pt] (n13) at (1,0) {};
-        \node[fill=black, circle, inner sep=1.5pt] (n15) at (1,-3) {};
-
-        \node[fill=black, circle, inner sep=1.5pt] (n11) at (3,0) {};
-        \node[fill=black, circle, inner sep=1.5pt] (n16) at (3,-2) {};
-
-        \node[fill=black, circle, inner sep=1.5pt, label=above:$v_{2,1}$] (n21) at (3, 1.5) {};
-        
-        \node[fill=black, circle, inner sep=1.5pt] (n22) at (5,-2) {};
-        \node[fill=black, circle, inner sep=1.5pt] (n23) at (5,0) {};
-        \node[fill=black, circle, inner sep=1.5pt] (new31) at (5, 2) {};
-        \node[fill=black, circle, inner sep=1.5pt] (new32) at (5, 1) {};
-
-        \node[fill=black, circle, inner sep=1.5pt] (n32) at (7, -2) {};
-        \node[fill=black, circle, inner sep=1.5pt] (new33) at (7,1.5) {};
-
-
-        \node[fill=black, circle, inner sep=1.5pt] (n31) at (9, -3) {};
-        \node[fill=black, circle, inner sep=1.5pt] (n33) at (9, -1) {};
-
-
-        \node[fill=black, circle, inner sep=1.5pt] (n34) at (11, -2) {};
-
-        % Draw edges inside J (induced subgraph)
-        \draw (j01) -- (j02);
-        \draw (j02) -- (j03);
-        \draw (j03) -- (j04);
-        \draw (j04) -- (j01);
-
-        \draw (j4) -- (j1);
-
-        \draw (j02) -- (j1);
-        \draw (j04) -- (j2);
-        \draw (j03) -- (j3);
-        
-        % Draw edges from J to N^1[J]
-        \draw (j2) -- (n11);
-        \draw (j2) -- (n16);
-        \draw (j3) -- (n12);
-        \draw (j1) -- (n14);
-        \draw (j3) -- (n13);
-        \draw (j4) -- (n15);
-
-        % Draw edges inside N^1[J]
-        \draw (n14) -- (n15);
-        \draw (n16) -- (n11);
-
-        % Draw edges between N^1[J] and N^2[J]
-        \draw (n16) -- (n22);
-        \draw (n11) -- (n23);
-        \draw (n13) -- (n21);
-        \draw (n12) -- (n21);
-
-        % Draw edges between N^2[J] and N^2[J]
-        \draw (n22) -- (n23);
-
-        % Draw edges between N^2[J] and the other part of the graph
-        \draw (n22) -- (n32);
-
-        % Draw edges between the edges that are outside of N^2[J]
-        \draw (n31) -- (n32);
-        \draw (n32) -- (n33);
-        \draw (n33) -- (n34);
-        \draw (n34) -- (n31);
-
-        \draw (n21) -- (new31);
-        \draw (n21) -- (new32);
-        \draw (new31) -- (new33);
-        \draw (new32) -- (new33);
-
-
-    \end{tikzpicture}
-    \caption{Layer decomposition of graph in Fig.~\ref{fig:first-figure}}
-    \label{fig:reconfigure}
-\end{figure}
-
-\noindent Fig.~\ref{fig:reconfigure} is the layer decomposition of fig.~\ref{fig:first-figure}. 
-The starting vertex is $r$ and is shown in both graphics.
-
-\noindent In the second stage, we compute a feasible solution, set $k$ and loop through 
-the layers looking for a better solution. 
-
-\noindent A word on the argument $k$ and the value that we set it to. In our case, for the FVS-4CL problem, 
-$m$ is equal to two. Therefore, $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$. Notice that the set 
-$J_{\kappa}$ is of width $k-2m$, therefore the $m$-neighbourhood (2-neighbourhood) is of width 
-$k - 2m + 2m = k$. Therefore, in our case, the graphs within we stitch are of width
-$k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$.
-Take for example 
-vertex $v_{2,1}$ in fig.~\ref{fig:reconfigure}. In order to find every cycle that it is a part of, 
-one would need to consider the layer that it is in, two layers to the left and two layers to the right. 
-
-\noindent As we will argue later more formally, the while statement 
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[scale=0.8]
+    
+            \node[fill=black, circle, inner sep=1.5pt, label=left:r] (j02) at (-5,-1) {};
+    
+            \node[fill=black, circle, inner sep=1.5pt] (j1) at (-3,-2.5) {};
+            \node[fill=black, circle, inner sep=1.5pt] (j01) at (-3,-1.5) {};
+            \node[fill=black, circle, inner sep=1.5pt] (j03) at (-3,-0.5) {};
+    
+            \node[fill=black, circle, inner sep=1.5pt] (j04) at (-1,-1) {};
+            \node[fill=black, circle, inner sep=1.5pt] (j3) at (-1,0) {};
+            \node[fill=black, circle, inner sep=1.5pt] (j4) at (-1,-2.5) {};
+            \node[fill=black, circle, inner sep=1.5pt] (n14) at (-1,-3.5) {};
+    
+    
+    
+            \node[fill=black, circle, inner sep=1.5pt] (j2) at (1,-1) {};
+            \node[fill=black, circle, inner sep=1.5pt] (n12) at (1,2) {};
+            \node[fill=black, circle, inner sep=1.5pt] (n13) at (1,0) {};
+            \node[fill=black, circle, inner sep=1.5pt] (n15) at (1,-3) {};
+    
+            \node[fill=black, circle, inner sep=1.5pt] (n11) at (3,0) {};
+            \node[fill=black, circle, inner sep=1.5pt] (n16) at (3,-2) {};
+    
+            \node[fill=black, circle, inner sep=1.5pt, label=above:$v_{2,1}$] (n21) at (3, 1.5) {};
+            
+            \node[fill=black, circle, inner sep=1.5pt] (n22) at (5,-2) {};
+            \node[fill=black, circle, inner sep=1.5pt] (n23) at (5,0) {};
+            \node[fill=black, circle, inner sep=1.5pt] (new31) at (5, 2) {};
+            \node[fill=black, circle, inner sep=1.5pt] (new32) at (5, 1) {};
+    
+            \node[fill=black, circle, inner sep=1.5pt] (n32) at (7, -2) {};
+            \node[fill=black, circle, inner sep=1.5pt] (new33) at (7,1.5) {};
+    
+    
+            \node[fill=black, circle, inner sep=1.5pt] (n31) at (9, -3) {};
+            \node[fill=black, circle, inner sep=1.5pt] (n33) at (9, -1) {};
+    
+    
+            \node[fill=black, circle, inner sep=1.5pt] (n34) at (11, -2) {};
+    
+            % Draw edges inside J (induced subgraph)
+            \draw (j01) -- (j02);
+            \draw (j02) -- (j03);
+            \draw (j03) -- (j04);
+            \draw (j04) -- (j01);
+    
+            \draw (j4) -- (j1);
+    
+            \draw (j02) -- (j1);
+            \draw (j04) -- (j2);
+            \draw (j03) -- (j3);
+            
+            % Draw edges from J to N^1[J]
+            \draw (j2) -- (n11);
+            \draw (j2) -- (n16);
+            \draw (j3) -- (n12);
+            \draw (j1) -- (n14);
+            \draw (j3) -- (n13);
+            \draw (j4) -- (n15);
+    
+            % Draw edges inside N^1[J]
+            \draw (n14) -- (n15);
+            \draw (n16) -- (n11);
+    
+            % Draw edges between N^1[J] and N^2[J]
+            \draw (n16) -- (n22);
+            \draw (n11) -- (n23);
+            \draw (n13) -- (n21);
+            \draw (n12) -- (n21);
+    
+            % Draw edges between N^2[J] and N^2[J]
+            \draw (n22) -- (n23);
+    
+            % Draw edges between N^2[J] and the other part of the graph
+            \draw (n22) -- (n32);
+    
+            % Draw edges between the edges that are outside of N^2[J]
+            \draw (n31) -- (n32);
+            \draw (n32) -- (n33);
+            \draw (n33) -- (n34);
+            \draw (n34) -- (n31);
+    
+            \draw (n21) -- (new31);
+            \draw (n21) -- (new32);
+            \draw (new31) -- (new33);
+            \draw (new32) -- (new33);
+    
+    
+        \end{tikzpicture}
+        \caption{Layer decomposition of graph in Fig.~\ref{fig:first-figure}}
+        \label{fig:reconfigure}
+    \end{figure}
+} 
+and loop through 
+the layers looking for a better solution. The while statement 
 is the one that dominates running time and provides us with an ultimately inclusion-minimal solution $S$ on $(G, w)$.
 Note that in the worst case there will be $W \cdot n$ calls to line~\ref{line:while}, where 
 $W = \sum_{v \in V(G)} w(v)$. This is because in each iteration we improve the value of the solution 
@@ -186,3 +174,10 @@ by at least 1, notice that we have used natural numbers for the weight functions
 
 \noindent In the final stage, we obtain a weight function for which we claim that Algorithm~\ref{alg:certified-algorithm} 
 is $(1 + \epsilon)$-certified.
+
+\textbf{Running time:}
+
+\noindent The running time of Algorithm~\ref{alg:certified-algorithm} is clearly dominated 
+by the running time incurred in the second stage. As we mentioned, 
+there are at most $W \cdot n$ calls to Algorithm~\ref{alg:stitch-fvs-4cl}. It follows 
+that the running time of the algorithm is $O()$.

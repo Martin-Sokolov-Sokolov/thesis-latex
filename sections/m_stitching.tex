@@ -311,10 +311,11 @@ we need one more definition.
 
 \end{mydefinition}
 
-The following is Theorem 1.7 in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19}.
+\noindent The following theorem is the main result in 
+Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
 \refstepcounter{definition}
-\begin{mydefinition}[Theorem 1.7 in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19}]{Theorem.}
+\begin{mydefinition}[]{Theorem.}
     \label{theorem-main}
 
     Let $\mathbb{G}$ be a minor-closed graph class whose local tree-width is bounded above by a linear 
@@ -402,7 +403,6 @@ such that $v \in S_3$.
 
 \end{proof}
 
-
 \noindent Now we describe an algorithm to find a feasible solution of minimum weight.
 
 \begin{algorithm}[H]
@@ -415,8 +415,7 @@ such that $v \in S_3$.
     \ENSURE a feasible solution $S'$ on $G$, such that for all other feasible solutions $S^{*}$, 
     we have $w(S') \leq w(S^{*} \oplus^{2}_{G,J} S_1)$. 
     \STATE Let $H \leftarrow G[N^{2}_{G}[J] \backslash (S_1 \backslash J)]$. \label{state:construct-H}
-    \STATE Let $S_2$ be the output of algorithm $A$, described in Lemma~\ref{lemma-stictch-fvs-4cl}, on 
-    input $(H, w)$. \label{state:opt-solution}
+    \STATE Let $S_2$ be the output of algorithm $A$ on input $(H, w)$. \label{state:opt-solution}
     \IF{ $w(S_2 \oplus^{2}_{G,J} S_1) < w(S_1)$ }
         \RETURN $S_2 \oplus^{2}_{G,J} S_1$
     \ELSE
@@ -424,6 +423,10 @@ such that $v \in S_3$.
     \ENDIF
     \end{algorithmic}
 \end{algorithm}
+
+\noindent The algorithm $A$ on line~\ref{alg:stitch-fvs-4cl} refers to calling 
+Algorithm~\ref{courcelle:rho} that takes as input a graph that has bounded treewidth.
+
 
 \refstepcounter{definition}
 \begin{mydefinition}[FVS-4CL-2-stitching]{Lemma}
@@ -1070,3 +1073,9 @@ w|_{V(F)}(S_2) &= w(S_2) && \text{since } S_2 \subseteq V(F) \text{} \\
 \end{aligned}
 \]
 \end{proof}
+
+\textbf{Running time:}
+
+The running time of the algorithm is dominated by the call of algorithm $A$. Therefore, 
+for an integer $m$ and some computable function $f$, the running time is 
+$O(tw(N^{m}_{G}[J])) \cdot |V(G)|^{O(1)}$.
