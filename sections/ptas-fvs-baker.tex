@@ -764,7 +764,7 @@ where a tree decomposition of width $t$ is provided. Using a result from Bodlaen
 one can incur that the treewidth of each subgraph is $3\ell + 5$. Therefore the running time of Alg.~\ref{alg:baker_arbitrary_length} 
 is $O(n) + O(f(3\ell + 5) \cdot \ell \cdot n) + O(n) = O(f(3\ell + 5) \cdot n)$ for some computable function $f$.
 
-\subsection{Exact algorithm for FVS-4CL}
+\subsection{Exact algorithm for FVS-4CL using MSOL}
 \label{subsection:exact-alg}
 
 \noindent In this subsection we are looking for an algorithm that finds exact solutions to the 
@@ -877,3 +877,38 @@ over the size and weight of a free set variable.
     in $G$ in time $f(||\phi||, t) \cdot n$, for some computable function $f$. 
     
 \end{mydefinition}
+
+\subsection{Exact algorithm for FVS-4CL using dynamic programming}
+
+\noindent In order to find an algorithm that solves FVS-4CL, one has to define the following notions. 
+For a more thorough explanation of those concepts, see Bodlaender~\cite[Section 4.]{bodlaender1997treewidth}.
+
+\begin{enumerate}
+    \item Define the notion of a \textit{solution}. In our case for the FVS-4CL problem, the solution for a graph 
+    $G$ is a set $F$, such that $G - F$ does not contain any cycles of length four.
+
+    \item Define the notion of a \textit{partial solution}.
+    For the subgraph $G_i = (V_i, E_i)$, partial solutions $F_i$ are restrictions of solutions 
+    given by the subsets $F_i \subseteq V_i$. 
+    
+    \item Define the notion of \textit{extension of a partial solution}. A solution $F$ is an extension 
+    of a partial solution $F_i$ for $G_i$ if $F \cap V_i = F_i$.
+
+    \item Define the notion of a \textit{characteristic} of a partial solution. 
+    For the set $X_i$ the vertices are partitioned twofold.
+
+    \begin{enumerate}
+        \item The class $I$ corresponds to all vertices that are in the partial solution.
+        \item The class $Flag$ is comprised of all of the pairs of vertices $v,u \in X_i: 
+        (v, u) \in Flag$ if they have a common neighbour $w \in V_i \backslash X_i$, such that 
+        $w \notin I$.
+    \end{enumerate}
+    
+    Let $v, u \in X_i$. 
+    
+    \[ch(G_i, F_i) = (v \in I, (v, u) \in Flag)\]
+
+    \item Define the notion of a \textit{full set of characteristics}.
+
+
+\end{enumerate}

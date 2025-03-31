@@ -209,6 +209,11 @@ B.~Courcelle and M.~Mosbah, ``Monadic second-order evaluations on
   tree-decomposable graphs,'' \emph{Theoretical Computer Science}, vol. 109,
   no. 1-2, pp. 49--82, 1993.
 
+\bibitem{bodlaender1997treewidth}
+H.~L. Bodlaender, ``Treewidth: Algorithmic techniques and results,'' in
+  \emph{International symposium on mathematical foundations of computer
+  science}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 1997, pp. 19--36.
+
 \bibitem{venne2022designing}
 J.~Venne, ``Designing (1)-certified algorithms for planar optimiza-tion
   problems with local feasibility properties,'' 2022.
