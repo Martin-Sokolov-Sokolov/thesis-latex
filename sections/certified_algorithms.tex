@@ -1,19 +1,19 @@
 \section{Certified Algorithm}
 
-\noindent In this section we present an algorithm that finds $\gamma$-certified solutions to the FVS-4CL problem.
+ In this section we present an algorithm that finds $\gamma$-certified solutions to the FVS-4CL problem.
 It is similar to the one in Bumpus et al.~\cite[4.2.1]{bumpus_et_al:LIPIcs.SWAT.2024.19}, 
 but is adopted to our problem. 
 The proof that Algorithm~\ref{alg:certified-algorithm} is a $(1 + \epsilon)$-certified 
 algorithm is beyond the scope of this paper. This is because the proof is similar to 
 the one in Bumpus et al.~\cite[Section 4.2.3]{bumpus_et_al:LIPIcs.SWAT.2024.19}. 
 
-\noindent However, we still present the algorithm, as this brings more clarity on how exactly 
+ However, we still present the algorithm, as this brings more clarity on how exactly 
 one obtains $(1+\epsilon)$-certified solutions, and, on a separate note, we want to argue 
 about the running time of Algorithm~\ref{alg:certified-algorithm}.
 
 \subsection{Certified Algorithm for FVS-4CL}
 
-\noindent Before we give the algorithm we will define some concepts, that we will make use of.
+ Before we give the algorithm we will define some concepts, that we will make use of.
 
 \refstepcounter{definition}
 \begin{mydefinition}[$\kappa$-layered subgraph]{Def.}
@@ -27,7 +27,7 @@ about the running time of Algorithm~\ref{alg:certified-algorithm}.
 
 \end{mydefinition}
 
-\noindent Notice that Algorithm~\ref{alg:stitch-fvs-4cl} takes as input a graph and a weighted 
+ Notice that Algorithm~\ref{alg:stitch-fvs-4cl} takes as input a graph and a weighted 
 function $(G, w)$, a feasible solution $S$ and some vertex set $J$. 
 
 \begin{algorithm}[H]
@@ -54,14 +54,14 @@ function $(G, w)$, a feasible solution $S$ and some vertex set $J$.
     \end{algorithmic}
 \end{algorithm}
 
-\noindent The first stage consists of performing BFS from an arbitrary vertex $r$. This is done on 
+ The first stage consists of performing BFS from an arbitrary vertex $r$. This is done on 
 lines~\ref{line:bfs-one},\ref{line:bfs-two} and is vital when later we have to choose a vertex set 
 $J_{\kappa}$.
 
 
-\noindent In the second stage, we compute a feasible solution $S$, set 
+ In the second stage, we compute a feasible solution $S$, set 
 $J_\kappa$\footnote{
-    \noindent A word on the argument $k$ and the value that we set it to. In our case, for the FVS-4CL problem, 
+     A word on the argument $k$ and the value that we set it to. In our case, for the FVS-4CL problem, 
     $m$ is equal to two. Therefore, $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$. Notice that the set 
     $J_{\kappa}$ is of width $k-2m$, therefore the $m$-neighbourhood (2-neighbourhood) is of width 
     $k - 2m + 2m = k$. Therefore, in our case, the graphs within we stitch are of width
@@ -172,12 +172,12 @@ Note that in the worst case there will be $W \cdot n$ calls to line~\ref{line:wh
 $W = \sum_{v \in V(G)} w(v)$. This is because in each iteration we improve the value of the solution 
 by at least 1, notice that we have used natural numbers for the weight functions. 
 
-\noindent In the final stage, we obtain a weight function for which we claim that Algorithm~\ref{alg:certified-algorithm} 
+ In the final stage, we obtain a weight function for which we claim that Algorithm~\ref{alg:certified-algorithm} 
 is $(1 + \epsilon)$-certified.
 
 \textbf{Running time:}
 
-\noindent The running time of Algorithm~\ref{alg:certified-algorithm} is clearly dominated 
+ The running time of Algorithm~\ref{alg:certified-algorithm} is clearly dominated 
 by the running time incurred in the second stage. As we mentioned, 
 there are at most $W \cdot n$ calls to Algorithm~\ref{alg:stitch-fvs-4cl}. It follows 
 that the running time of the algorithm is $O()$.

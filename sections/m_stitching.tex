@@ -1,30 +1,30 @@
 \section{m-stitching and FVS-BCL-m-stitching}
 
-\noindent In this section we initiate the study of certified algorithms for FVS-BCL.
+ In this section we initiate the study of certified algorithms for FVS-BCL.
 We introduce some key concepts that allow us 
 to construct certified algorithms in general. Some of them include \textit{m-stitching} 
 and the notion of \textit{$\Pi$-m-stitching}. We refer to the literature 
 in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19, venne2022designing}. 
 
-\noindent Unless specified otherwise, let $\Pi$ be a vertex-minimization problem.
+ Unless specified otherwise, let $\Pi$ be a vertex-minimization problem.
 
 \subsection{Algorithms for m-stitching and FVS-m-stitching}
 
-\noindent As we mentioned before, in this section we refer to Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19} 
+ As we mentioned before, in this section we refer to Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19} 
 and a Master's thesis on the subject by Venne \cite{venne2022designing} with more examples. 
 
-\noindent The restriction we imposed on the Feedback Vertex Set problem enables us to look 
+ The restriction we imposed on the Feedback Vertex Set problem enables us to look 
 for optimal solutions in a local space. This is what m-stitching and $\Pi$-m-stitching
 hint at. Here, the the variable $m$ is a positive integer that depends on the vertex optimization 
 problem $\Pi$ at hand. In our case this is tied to the $\rho$ argument, i. e. the length of 
 the cycles we are trying to break. 
 
-\noindent To introduce $\Pi$-m-stitching, one needs to first understand m-stitching and m-stitchable problems. In the stitching 
+ To introduce $\Pi$-m-stitching, one needs to first understand m-stitching and m-stitchable problems. In the stitching 
 operation we are given solutions $S_1$ and $S_2$ for a vertex optimization problem, 
 along with an induced subgraph $J$ of $G$. Intuitively, we take the portion of $S_1$, that is not a part 
 of $J$ and "stitch" onto it some part of $S_2$ along the subgraph $J$. 
 
-\noindent The formal definition is as follows:
+ The formal definition is as follows:
 
 \refstepcounter{definition}
 \begin{mydefinition}[m-stitching]{Def.}
@@ -102,10 +102,10 @@ of $J$ and "stitch" onto it some part of $S_2$ along the subgraph $J$.
     \end{minipage}
 \end{figure}
 
-\noindent In the following we show the subgraph $J$ we have chosen and the 2-neighbourhood 
+ In the following we show the subgraph $J$ we have chosen and the 2-neighbourhood 
 of the subgraph.
 
-\noindent Also, in Fig.~\ref{fig:remove_s1} we show the first step of the m-stitch operation, namely 
+ Also, in Fig.~\ref{fig:remove_s1} we show the first step of the m-stitch operation, namely 
 removing the vertices of $J$ from the set $S_1$.
 
 \begin{figure}[H]
@@ -183,7 +183,7 @@ removing the vertices of $J$ from the set $S_1$.
     \end{minipage}
 \end{figure}
 
-\noindent What follows is the second step in obtaining set $S_3$ in Fig.~\ref{fig:second_step} and the 
+ What follows is the second step in obtaining set $S_3$ in Fig.~\ref{fig:second_step} and the 
 stitched set in Fig.~\ref{fig:stitched_set}.
 
 \begin{figure}[H]
@@ -265,7 +265,7 @@ stitched set in Fig.~\ref{fig:stitched_set}.
     \end{minipage}
 \end{figure}
 
-\noindent A problem $\Pi$ is \textit{m-stitchable} if the set of feasible solutions are closed 
+ A problem $\Pi$ is \textit{m-stitchable} if the set of feasible solutions are closed 
 under the m-stitching operator. We hope that when we take the union in \ref{m-stitch} and arrive 
 at the set $S_3$, this would too be a feasible solution.
 
@@ -281,7 +281,7 @@ at the set $S_3$, this would too be a feasible solution.
 
 \end{mydefinition}
 
-\noindent Now that we have a definition for problems $\Pi$ that are m-stitchable, we introduce 
+ Now that we have a definition for problems $\Pi$ that are m-stitchable, we introduce 
 $\Pi$-m-stitching as defined in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19} and afterwards apply 
 it to the current problem.
 
@@ -299,19 +299,19 @@ it to the current problem.
 
 \end{mydefinition}
 
-\noindent Before we proceed with the main theorem that we use to construct a certified algorithm 
+ Before we proceed with the main theorem that we use to construct a certified algorithm 
 we need one more definition.
 
 \refstepcounter{definition}
 \begin{mydefinition}[Guessable]{Def.}
     \label{guessable}
 
-    \noindent A problem $\Pi$ is guessable if there is an algorithm that outputs a feasible solution 
+     A problem $\Pi$ is guessable if there is an algorithm that outputs a feasible solution 
     with no requirement for optimality in polynomial time.
 
 \end{mydefinition}
 
-\noindent The following theorem is the main result in 
+ The following theorem is the main result in 
 Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
 \refstepcounter{definition}
@@ -334,17 +334,17 @@ Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
 \end{mydefinition}
 
-\noindent The proof of theorem \ref{theorem-main} is beyond the scope of this paper. In this section 
+ The proof of theorem \ref{theorem-main} is beyond the scope of this paper. In this section 
 we only apply the three steps, mentioned to the FVS-BCL problem without generalizing to other 
 vertex-minimization problems. 
 
-\noindent Firstly, we take a look at the guessable property.
+ Firstly, we take a look at the guessable property.
 
 \refstepcounter{definition}
 \begin{mydefinition}[FVS-BCL is guessable]{Lemma}
     \label{lemma-guessable}
 
-    \noindent For any planar graph $G$, the set $V(G)$ is a feasible solution to FVS-BCL.
+     For any planar graph $G$, the set $V(G)$ is a feasible solution to FVS-BCL.
 
 \end{mydefinition}
 
@@ -358,7 +358,7 @@ vertex-minimization problems.
 \begin{mydefinition}[FVS-BCL is 2-stitchable]{Lemma}
     \label{lemma-m-stitchable}
 
-    \noindent Let $(G, w)$ be any instance to the FVS-4CL problem, $J \subseteq V(G)$, some subset
+     Let $(G, w)$ be any instance to the FVS-4CL problem, $J \subseteq V(G)$, some subset
     of the vertices in the graph 
     and $S_1$ and $S_2$ any two feasible solutions to the problem in $G$. Then the set $S_3$:
     \[S_3 := (S_1 \backslash J) \cup (S_2 \cap N^{2}_{G} \left[J\right]).\]
@@ -403,7 +403,7 @@ such that $v \in S_3$.
 
 \end{proof}
 
-\noindent Now we describe an algorithm to find a feasible solution of minimum weight.
+ Now we describe an algorithm to find a feasible solution of minimum weight.
 
 \begin{algorithm}[H]
     \caption{Stitch-FVS-4CL}
@@ -424,7 +424,7 @@ such that $v \in S_3$.
     \end{algorithmic}
 \end{algorithm}
 
-\noindent The algorithm $A$ on line~\ref{alg:stitch-fvs-4cl} refers to calling 
+ The algorithm $A$ on line~\ref{alg:stitch-fvs-4cl} refers to calling 
 Algorithm~\ref{courcelle:rho} that takes as input a graph that has bounded treewidth.
 
 
@@ -432,7 +432,7 @@ Algorithm~\ref{courcelle:rho} that takes as input a graph that has bounded treew
 \begin{mydefinition}[FVS-4CL-2-stitching]{Lemma}
     \label{lemma-stictch-fvs-4cl}
 
-    \noindent Let $A$ be an algorithm that solves FVS-4CL on any vertex-weighted instance $(G, w:V(G) \to \mathbb{N})$
+     Let $A$ be an algorithm that solves FVS-4CL on any vertex-weighted instance $(G, w:V(G) \to \mathbb{N})$
     in time $f(tw(G)) \cdot |V(G)|^{O(1)}$. Then Algorithm~\ref{alg:stitch-fvs-4cl} solves 
     FVS-4CL-2-stitching in time $f(tw(N^{2}_{G}[J])) \cdot V(G)^{O(1)}$.
     
@@ -1045,16 +1045,16 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
 
 \end{enumerate}
 
-\noindent The proof of optimality of the set $S_2 \oplus^{2}_{G,J} S_1$ is similar to the one in 
+ The proof of optimality of the set $S_2 \oplus^{2}_{G,J} S_1$ is similar to the one in 
 Bumpus et al.\cite[Lemma 3.2]{bumpus_et_al:LIPIcs.SWAT.2024.19}. It is important to note 
 that we can use the same proof, because of a property of the FVS-4CL problem, namely that 
 a 4-cycle breaking set is closed under taking induced subgraphs.
 
-\noindent Remember, we are still trying to prove what we mentioned in Algorithm~\ref{alg:p-m-stitching},
+ Remember, we are still trying to prove what we mentioned in Algorithm~\ref{alg:p-m-stitching},
 namely that some feasible solution $S'$ (which in our case is the $S_2 \oplus^{2}_{G,J} S_1$), is of minimum weight,
 that is, for all other feasible solutions $S^{*}$, it holds that $w(S') \leq w(S^{*} \oplus^{2}_{G,J} S_1)$.
 
-\noindent Assume by way of contradiction that there is a feasible solution $S_3$ for $G$,
+ Assume by way of contradiction that there is a feasible solution $S_3$ for $G$,
 such that $w(S_3 \oplus^{2}_{G,J} S_1) < w(S_2 \oplus^{2}_{G,J} S_1)$. Then it would follow that:
 
 \[
