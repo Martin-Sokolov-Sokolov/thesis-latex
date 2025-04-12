@@ -1,4 +1,4 @@
-\section{(E)PTAS for the FVS-BCL Problem Using Baker's Technique}
+\section{(E)PTAS for combinatorial optimization problems using Baker's technique}
 
  In this section we will demonstrate how to obtain an EPTAS for the
 unweighted and weighted versions of FVS-BCL.
@@ -42,7 +42,7 @@ define on line~\ref{alg3:line4} in Algorithm~\ref{alg:unweighted_feedback_vertex
         \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels
         $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + 1$ for $0 \leq i < \ell$. \label{alg3:line4}
         \STATE $\forall j \text{ compute }  S_{i, j}$, the min. unweighted \textsc{FVS-4CL} 
-        of $G_{i, j}$ using Algorithm~\ref{courcelle:unweighted} as a subroutine. \label{alg3:subroutine}
+        of $G_{i, j}$ using Algorithm~\ref{alg:dp} as a subroutine (the weights are equal to ones). \label{alg3:subroutine}
         \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$ \label{alg3:line6}
         \STATE $S \leftarrow S \cup S_i$
     \ENDFOR
@@ -350,7 +350,7 @@ We make the following arguments:
 
 \end{proof}
 
- Now we argue for the size of the sets $F_{i, j}$. It is natural that we should be able 
+Now we argue for the size of the sets $F_{i, j}$. It is natural that we should be able 
 to tie their size to the size of the optimal solution $F$. We will use Lemma~\ref{lemma-two} to do 
 so. Before we state the lemma, the reader should keep in mind that we will abuse notation 
 in order to avoid the loaded symbol $\sigma_{s}^{\mod \ell}$. Whenever we refer to $F_i$ and $F_{i+1}$,
@@ -397,15 +397,14 @@ unweighted FVS-4CL.
 
  \textbf{Running time:}
 
- Lines~\ref{alg3:line1} and~\ref{alg3:line9} of Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
+Lines~\ref{alg3:line1} and~\ref{alg3:line9} of Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
 can be computed in linear time $O(n)$. The loop that starts on line~\ref{alg3:for-loop} has a running time
 that is dominated by step~\ref{alg3:subroutine} where we call Algorithm~\ref{courcelle:unweighted} as a subroutine.
-That algorithm takes as input subgraphs that are $\ell + 2$-outerplanar. Using a result from 
-Bodlaender~\cite[Theorem 83]{bodlaender1998partial}, we get that the treewidth of each of those 
-subgraphs is $3\cdot\ell+6-1=3\cdot\ell+5$. Finally, using Theorem~\ref{theorem:courcelle}, 
-we conclude, that the for loop takes $O(f(3\ell+5)\cdot\ell\cdot n)$ for some computable function $f$. Therefore,
-Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} has a running time of 
-$O(n) + O(f(3\ell + 5)\cdot\ell\cdot n) + O(n) = O(f(3\ell+5)\cdot n)$.
+That algorithm takes as input subgraphs that are $\ell + 2$-outerplanar.
+As we argued in the Preliminaries section, such graphs have bounded treewidth of $k$,
+Bodlaender~\cite[Theorem 83]{bodlaender1998partial}.
+Therefore, Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} has a running time of 
+$O(2^{O(k^2)} n)$.
 
 \subsection{Baker's technique for the weighted FVS-4CL on planar graphs}
 \label{subsec:baker_weighted_fvs}
@@ -429,7 +428,7 @@ we construct Algorithm~\ref{courcelle:weighted} and use it as a subroutine to ge
     \FOR{each $i = 0$ to $\ell-1$}
         \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + 1$ for $0 \leq i < \ell$.
         \STATE $\forall j \text{ compute }  S_{i, j}$, the min. weighted \textsc{FVS-4CL} 
-        of $G_{i, j}$ using Algorithm~\ref{courcelle:weighted} as a subroutine. \label{alg4:step5}
+        of $G_{i, j}$ using Algorithm~\ref{alg:dp} as a subroutine. \label{alg4:step5}
         \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
         \STATE $S \leftarrow S \cup S_i$
     \ENDFOR
@@ -468,7 +467,7 @@ $b \cdot \ell + a$ through $(b + 1) \cdot \ell + a + 1$.
     \[w(S_{a, b}) \leq w(F_{a, b})\].
 \end{enumerate}
 
- The statement in Lemma~\ref{lemma-osbwc} holds for arbitrary values $a,b$. Therefore, in 
+The statement in Lemma~\ref{lemma-osbwc} holds for arbitrary values $a,b$. Therefore, in 
 $G$, it holds that:
 \[\forall i,j: w(S_{i, j}) \leq w(F_{i, j})\]
 
@@ -581,20 +580,10 @@ and Lemma~\ref{lemma-bcisweighted_feedback_vertex_set_global} to argue that for 
 
  \textbf{Running time:}
 
- The only difference from the unweighted case comes from line~\ref{alg4:step5} of 
+The only difference from the unweighted case comes from line~\ref{alg4:step5} of 
 Algorithm~\ref{alg:weighted_feedback_vertex_set_global}. We call a different subroutine, 
-namely Algorithm~\ref{courcelle:weighted}. However, using Theorem~\ref{theorem:courcelle}, 
-we get that the running time of the algorithm is still $O(f(3\ell+5)\cdot\ell\cdot n) = O(f(3\ell+5)\cdot n)$ for some 
-computable function $f$.
-
-
- THINGS TO PROVE/CLARIFY:
-\begin{enumerate}
-    \item justification for outerplanarity (easy?) for each subgraph, i.e. $G_{i, j}$ is $\ell$-outerplanar (because of BFS).
-    \item feasibility of the union solution, prove that $S_i$ is indeed a solution, here make use of the number of overlap layers (medium)
-    \item clarify how we use the shift and slice variables, what does $\forall (i, j)$ mean, explain we actually talk about the subgraphs, what does $i^*$ mean.
-    \item for lemma 4.7 and lemma 4.8, 
-\end{enumerate}
+namely Algorithm~\ref{courcelle:weighted}. However, using Algorithm~\ref{alg:dp} 
+we get that the running time of the algorithm is still $O(2^{O(k^2)} \cdot n)$.
 
 \subsection{Baker's technique for weighted FVS-BCL of arbitrary cycle length}
 \label{subsec:weighted_arbitrary_length}
@@ -762,210 +751,5 @@ of line ~\ref{alg5:line5}, which uses Alg.~\ref{courcelle:rho} as a subroutine. 
 section, the subroutine runs in time $f(||\phi||, t) \cdot n$ for some computable function $f$ 
 where a tree decomposition of width $t$ is provided. Using a result from Bodlaender~\cite[Theorem 83]{bodlaender1998partial}
 one can incur that the treewidth of each subgraph is $3\ell + 5$. Therefore the running time of Alg.~\ref{alg:baker_arbitrary_length} 
-is $O(n) + O(f(3\ell + 5) \cdot \ell \cdot n) + O(n) = O(f(3\ell + 5) \cdot n)$ for some computable function $f$.
-
-\subsection{Exact algorithm for FVS-4CL using MSOL}
-\label{subsection:exact-alg}
-
- In this subsection we are looking for an algorithm that finds exact solutions to the 
-FVS-4CL problem in each subgraph. For each subgraph we can find the treewidth. 
-
- We take a logical approach that was introduced by Courcelle~\cite{courcelle1990monadic}. 
-He shows that graph properties, that can be stated in monadic second-order logic (MSOL), can be solved in 
-linear time for graphs of bounded treewidth. In the following two subsections we briefly explain MSOL and 
-then apply it to our problem. We follow a survey on the matter in Satzinger \cite{satzinger2014tree}. 
-
-\subsubsection{MSOL - a language for graph problems}
-
- We want to introduce a language that translates graph problems to formulas, therefore reducing 
-the problem to a satisfiability problem. Consequently, our goal is to find a formula $\Phi$ with the 
-property: 
-
-\[\text{The problem $\Pi$ is solvable for a graph $G$ \textit{iff} $G \models \Phi$, i. e. the formula 
-$\Phi$ is satisfied by the graph $G$.}\]
-
- Problem $\Pi$ is solvable in polynomial (in this case linear) time for graphs of treewidth at 
-most $k$.
-
- Monadic second-order logic is an extension of first-order logic. Additionally to having 
-object variables $x, y \dots$, logical connectives $\lnot, \land, \lor, \lnot,
-\rightarrow, \longleftrightarrow$ and quantifiers for object variables $\forall x, 
-\exists x$, MSOL considers sets of object variables $X, Y \dots$, and relation to them 
-via $\in$.
-
- Whenever graph problems are involved, typically we express solution through 
-vertices and edges. Additionally, as we mentioned, we can construct sets of vertices 
-and edges. Therefore we have the following machinery:
-
-\begin{enumerate}[label=\textbf{•}]
-    \item Object variables: \textit{vertices}: $v_1, v_2, \dots$ and \textit{edges}: $e_1, e_2, \dots$. 
-    \item Set variables: sets of vertices $V_1, V_2, \dots$ and sets of edges $E_1, E_2, \dots$.
-    \item Binary relation $\in : \{\text{object variable}\} \times \{\text{set variable}\} \to \{0, 1\}$. Therefore 
-    $v \in V$ \textit{iff} $v$ is an element of the corresponding set $V$.
-    \item The $Adj(e, v_i, v_j)$ relation. It detects whether edge $e$ is an edge from vertex $v_i$ to 
-    vertex $v_j$ where $v_i \neq v_j$.
-\end{enumerate}
-
- With this machinery, one obtains a first-order language suitable for expressing relations in a graph. 
-To extend this to a traditional second-order logic language, one must add quantifications over set 
-variables. 
-
-\begin{enumerate}[label=\textbf{•}]
-    \item Quantification over set variables: $\forall V_i, \forall E_i$ and $\exists V_i, \exists E_i$.
-\end{enumerate}
-
-\subsubsection{Exact algorithm for unweighted FVS-4CL using MSOL}
-
- Courcelle's work was extended to extended monadic second-order logic 
-\cite{arnborg1991easy,borie1991deterministic,courcelle1993monadic}. These extensions allow to optimize 
-over the size and weight of a free set variable.
-
-\begin{equation}
-    \label{courcelle:unweighted}
-    \begin{aligned}
-        \min_{F \subseteq V} & \ |F|: \\
-        & \land \forall v u w z: \\
-        & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
-        & \land v \neq w \land u \neq z \\
-        & \land \neg ((v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E)
-    \end{aligned}
-\end{equation}
-
-
-\subsubsection{Exact algorithm for weighted FVS-4CL using MSOL}
-
- The minimum weight FVS-4CL can be expressed as:
-
-\begin{equation}
-    \label{courcelle:weighted}
-    \begin{aligned}
-        \min_{F \subseteq V} & \ w(F) : |F| \leq k \\
-        & \land \forall v u w z: \\
-        & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
-        & \land v \neq w \land u \neq z \\
-        & \land \neg((v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E)
-    \end{aligned}
-\end{equation}
-
-
-\subsubsection{Exact algorithm for weighted FVS-BCL using MSOL}
-
- The minimum weight FVS-$\rho$CL can be expressed as:
-
-\begin{equation}
-    \label{courcelle:rho}
-    \begin{aligned}
-        \min_{F \subseteq V} & \ w(F) : |F| \leq k \\
-        & \land \forall v_1 v_2 \dots v_{\rho}: \\
-        & v_1 \in (V \backslash F) \land v_2 \in (V \backslash F) \dots \land v_{\rho} \in (V \backslash F) \\
-        & \land (v_1 \neq v_2 \land v_1 \neq v_3 \land \dots \land v_1 \neq v_{\rho}) \\ 
-        & \land (v_2 \neq v_1 \land v_2 \neq v_3 \land \dots \land v_2 \neq v_{\rho}) \\
-        & \dots \\
-        & \land (v_{\rho} \neq v_1 \land v_{\rho} \neq v_2 \land \dots \land v_{\rho} \neq v_{\rho-1}) \\
-        & \land \neg((v_1, v_2) \in E \land (v_2, v_3) \in E \land \dots \land (v_{\rho-1},v_{\rho}) \in E \land (v_{\rho}, v_1) \in E)
-    \end{aligned}
-\end{equation}
-
-
-\refstepcounter{definition}
-\begin{mydefinition}[Courcelle's theorem \cite{courcelle1990monadic}]{Theorem}
-    \label{theorem:courcelle}
-
-    Assume that $\phi$ is a MSOL formula and $G$ is an n-vertex graph, and there is an evaluation 
-    of all of the free variables of $\phi$. Suppose, that a tree decomposition of $G$ of width $t$ 
-    is provided. Then there exists an algorithm that verifies that $\phi$ is satisfied 
-    in $G$ in time $f(||\phi||, t) \cdot n$, for some computable function $f$. 
-    
-\end{mydefinition}
-
-\subsection{Exact algorithm for FVS-4CL using dynamic programming}
-
- In order to find an algorithm that solves FVS-4CL, one has to define the following notions. 
-For a more thorough explanation of those concepts, see Bodlaender~\cite[Section 4.]{bodlaender1997treewidth}.
-
-\begin{enumerate}
-    \item Define the notion of a \textit{solution}. In our case for the FVS-4CL problem, the solution for a graph 
-    $G$ is a set $F$, such that $G - F$ does not contain any cycles of length four.
-
-    \item Define the notion of a \textit{partial solution}.
-    For the subgraph $G_i = (V_i, E_i)$, partial solutions $F_i$ are restrictions of solutions 
-    given by the subsets $F_i \subseteq V_i$. 
-    
-    \item Define the notion of \textit{extension of a partial solution}. A solution $F$ is an extension 
-    of a partial solution $F_i$ for $G_i$ if $F \cap V_i = F_i$.
-
-    \item Define the notion of a \textit{characteristic} of a partial solution. 
-    For the set $X_i$ the vertices are partitioned twofold.
-
-    \begin{enumerate}
-        \item The class $I \subseteq X_i$ corresponds to all vertices that are in the partial solution.
-        \item The class $Flag \subseteq X_i \times X_i$ is comprised of all of the pairs of 
-        vertices $v,u \in X_i: 
-        (v, u) \in Flag$ if they have a common neighbour $w \in V_i \backslash X_i$, such that 
-        $w \notin I$.
-    \end{enumerate}
-    
-    \[ch(G_i, F_i) = (\{v \in X_i: v \in F_i\}, 
-    \{(v, u) \in X_i \times X_i: \exists w \in V_i \backslash X_i, 
-    (v, w) \in E_i, (u, w) \in E_i, w \notin F_i\})\]
-
-    The valuation of a characteristic $ch(G_i, F_i)$ is a table $c[i, I, Flag]$.
-    It represents the minimum weight 
-    of a partial solution $F_i$ in $G_i$ and $c[i, I, Flag] \in \mathbb{N} \cup \{\infty\}$.
-    The table keeps the value of infinity if no such set exists.
-
-    \[c[i, I, Flag] = \min\{w(W) : W \text{ is a FVS-4CL of } G_i \land W \cap X_i = I\}\] 
-
-    \item Define the notion of a \textit{full set of characteristics}.
-
-    The full set for a node $X_i$ is a valuation for each characteristic $I \in \{0, 1\}^{|X_i|}$ 
-    and $Flag \in \{0, 1\}^{X_i \times X_i}$. Since there are at most $k+1$ elements, 
-    there are at most $2^{(k+1)} \cdot 2^{\binom{k+1}{2}}$ entries. That yields a storage 
-    capacity of $O(2^{\binom{k+1}{2} + (k+1)})$. 
-
-\end{enumerate}
-
-\textbf{Leaf node:}
-
-For a leaf node $i$, we have that $X_i = \emptyset$. Hence 
-
-\[c[i, \emptyset, \emptyset] = 0\]
-
-\textbf{Introduce node:}
-
-Let $i$ be an introduce node with child node $j$. We have that $X_i = X_j \cup \{v\}$ for some 
-vertex $v \notin X_j$. There are two possible values.
-\[
-\begin{aligned}
-    c[i, I \cup \{v\}, \text{Flag}] &= w(v) + c[j, I, \text{Flag}] \\
-    c[i, I, \text{Flag}] &= 
-    \begin{cases}
-        \infty, & \text{if } \exists u, w \in X_i: (u, w) \in \text{Flag}, u \notin I, w \notin I, (v, u) \in E_i, (v, w) \in E_i \\
-        c[j, I, \text{Flag}], & \text{otherwise}
-    \end{cases}
-\end{aligned}
-\]
-
-\textbf{Forget node:}
-
-Let $i$ be a forget node with child node $j$. We have that $X_i = X_j \backslash \{v\}$ for 
-some vertex $v \in X_j$.
-
-\[c[i, I, Flag] = \min(c[j, I \cup \{v\}, Flag],
-c[j, I, Flag \cup \{(u, w): (v,u) \in E_i, (v, w) \in E_i\}])\]
-
-\textbf{Join node:}
-
-Let $i$ be a join node with children $j_1$ and $j_2$. Recall that $X_i = X_{j_1} = X_{j_2}$. 
-Let $Flag_1$ and $Flag_2$ be the $Flag$ set values of $X_{j_1}$ and $X_{j_2}$ respectively.
-
-\[
-\begin{aligned}
-    c[i, I, Flag_1 \cup Flag_2] =
-    \begin{cases}
-        \infty, & \text{if } \exists u, w \in X_i : (u, w) \in Flag_1, \\
-                & \quad (u, w) \in Flag_2, u \notin I, w \notin I \\
-        c[j_1, I, Flag_1] + c[j_2, I, Flag_2] - w(I), & \text{otherwise}
-    \end{cases}
-\end{aligned}
-\]
+is $O(n) + O(f(3\ell + 5) \cdot \ell \cdot n) + O(n) = O(g(3\ell + 5) \cdot n)$
+for some computable functions $f$ and $g$.

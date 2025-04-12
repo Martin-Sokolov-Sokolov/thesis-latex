@@ -1,6 +1,6 @@
-\section{m-stitching and FVS-BCL-m-stitching}
+\section{m-stitching and $\Pi$-m-stitching}
 
- In this section we initiate the study of certified algorithms for FVS-BCL.
+In this section we initiate the study of certified algorithms for FVS-BCL and r-Dominating Set.
 We introduce some key concepts that allow us 
 to construct certified algorithms in general. Some of them include \textit{m-stitching} 
 and the notion of \textit{$\Pi$-m-stitching}. We refer to the literature 
@@ -10,13 +10,13 @@ in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19, venne2022designing}.
 
 \subsection{Algorithms for m-stitching and FVS-m-stitching}
 
- As we mentioned before, in this section we refer to Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19} 
+As we mentioned before, in this section we refer to Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19} 
 and a Master's thesis on the subject by Venne \cite{venne2022designing} with more examples. 
 
  The restriction we imposed on the Feedback Vertex Set problem enables us to look 
 for optimal solutions in a local space. This is what m-stitching and $\Pi$-m-stitching
 hint at. Here, the the variable $m$ is a positive integer that depends on the vertex optimization 
-problem $\Pi$ at hand. In our case this is tied to the $\rho$ argument, i. e. the length of 
+problem $\Pi$. In our case this is tied to the $\rho$ argument, i. e. the length of 
 the cycles we are trying to break. 
 
  To introduce $\Pi$-m-stitching, one needs to first understand m-stitching and m-stitchable problems. In the stitching 
@@ -350,7 +350,7 @@ vertex-minimization problems.
 
 
 \begin{proof}
-    The graph $G - X$ where $X$ is the set of all vertices $V(G)$ is the empty graph, 
+    The graph $G - X$, where $X$ is the set of all vertices $V(G)$, is the empty graph, 
     therefore there are no 4-cycles left, after selecting that set.
 \end{proof}
 
@@ -368,7 +368,6 @@ vertex-minimization problems.
 
 \end{mydefinition}
 
-
 \begin{proof}
 
 Let the vertices $\{v_1,v_2,v_3,v_4\}$ form a 4-cycle.
@@ -383,7 +382,7 @@ such that $v \in S_3$.
         \item Because $S_2$ is a feasible solution, then $\exists v'' \in \{v_1, v_2, v_3, v_4\}$,
         such that $v'' \in S_2$.
         \item Because there $\exists v' \in \{v_1,v_2,v_3,v_4\} \in J$, then it also holds
-        that $\forall  v' \in \{v_1,v_2,v_3,v_4\}, v' \in N^{2}_{G}[J]$. From that and the previous 
+        that $\forall  v''' \in \{v_1,v_2,v_3,v_4\}, v''' \in N^{2}_{G}[J]$. From that and the previous 
         point it follows that $v'' \in S_2 \cap N^{2}_{G}[J]$.
         \item Finally, $S_2 \cap N^{2}_{G}[J] \subseteq S_3$, therefore $v'' \in S_3$.
     \end{enumerate}
@@ -1079,3 +1078,107 @@ w|_{V(F)}(S_2) &= w(S_2) && \text{since } S_2 \subseteq V(F) \text{} \\
 The running time of the algorithm is dominated by the call of algorithm $A$. Therefore, 
 for an integer $m$ and some computable function $f$, the running time is 
 $O(tw(N^{m}_{G}[J])) \cdot |V(G)|^{O(1)}$.
+
+\subsection{r-Dominating set-m-stitching}
+
+In this subsection we will use the definitions and terminology we have established in the 
+previous section and look at another problem, namely the r-Dominating Set problem. We will 
+argue that in the case of that problem the parameter $m$ has to be set to $r+1$ in order 
+to maintain feasibility when constructing new sets. Afterwards we will prove that 
+when constructing new sets, one can find a feasible solution which is also optimal. 
+We follow the steps we established in the previous section.
+
+Firstly, prove that the problem is guessable and m-stitchable. Secondly, devise an algorithm 
+$A_{\text{r-DS}}$ that solves the problem in FPT. Finally, using Theorem~\ref{theorem-main}, 
+prove that the problem is certified.
+
+\refstepcounter{definition}
+\begin{mydefinition}[\boldsymbol{$r$}-DS is guessable]{Lemma}
+    \label{lemma-ds-guessable}
+
+    For any planar graph $G$, the set $V(G)$ is a feasible solution to r-DS.
+
+\end{mydefinition}
+
+\begin{proof}
+    Let $X$ be the set of all vertices in $G$, $X \leftarrow V(G)$. Therefore, it is 
+    trivially true that $N^r_G[X] = V(G)$. 
+\end{proof}
+
+\refstepcounter{definition}
+\begin{mydefinition}[r-DS is (r+1)-stitchable]{Lemma}
+    \label{lemma-r-DS-stitchable}
+
+    Let $(G, w)$ be any instance to the $r$-DS problem, $J \subseteq V(G)$, some subset
+    of the vertices in the graph 
+    and $S_1$ and $S_2$ any two feasible solutions to the problem in $G$. Then the set $S_3$:
+    \[S_3 := (S_1 \backslash J) \cup (S_2 \cap N^{r+1}_{G} \left[J\right]).\]
+    is a feasible solution to the problem.
+
+\end{mydefinition}
+
+\begin{proof}
+    For a vertex $v \in V(G)$, we have the following cases:
+
+    \begin{enumerate}
+        \item $v \in V(G) \backslash N^{r+1}_{G}[J]$. Because $S_1$ is a feasible solution,
+        it is clear that $v$ will be dominated by some vertex $u$ in $S_1 \backslash J$. Since 
+        $S_1 \backslash J \subseteq S_3$, then $u \in S_3$.
+        \item $v \in N^{r+1}_{G}[J]$. Because $S_2$ is a feasible solution, it is clear 
+        that $S_2 \cap N^{r+1}_{G}[J]$ contains a vertex $u$ which dominates $v$. Since 
+        $S_2 \cap N^{r+1}_{G}[J] \subseteq S_3$, then $u \in S_3$.
+    \end{enumerate}
+
+    In both cases we have argued that there $\exists u \in S_3$, such that for any vertex 
+    $v \in V(G)$, $u$ dominates $v$.
+
+\end{proof}
+
+Now we describe an algorithm to find a feasible solution of minimum weight.
+
+\begin{algorithm}[H]
+    \caption{Stitch-r-DS}
+    \label{alg:stitch-r-DS}
+    \begin{algorithmic}[1]
+    \REQUIRE Vertex-weighted planar graph $(G, w:V(G) \to \mathbb{N})$,
+    a feasible solution of r-DS $S_1$ on $G$
+    and a vertex set $J \subseteq V(G)$.
+    \ENSURE a feasible solution $S'$ on $G$, such that for all other feasible solutions $S^{*}$, 
+    we have $w(S') \leq w(S^{*} \oplus^{r+1}_{G,J} S_1)$. 
+    \STATE Let $H \leftarrow G[N^{r+1}_{G}[J]] \cup \{q\}$, where for vertex $q$
+    it holds that $N_H(q) := N_{G}(N^{r}_{G}[J])$ (Vertex $q$ is adjacent to the vertices 
+    at distance exactly $r+1$ from $J$). \label{state:construct-H-rds}
+    \STATE \[
+    w_H(x) = 
+    \begin{cases}
+    0 & \text{if } x \in (S_1 \setminus J) \cup \{q\} \\
+    w(x) & \text{otherwise}
+    \end{cases}
+    \]
+    \STATE Let $S_2'$ be the output of algorithm $A$ on input $(H, w)$. 
+    \STATE Let $S_2 = S_2' \backslash \{q\}$. \label{state:opt-solution-rds}
+    \IF{ $w(S_2 \oplus^{r+1}_{G,J} S_1) < w(S_1)$ }
+        \RETURN $S_2 \oplus^{r+1}_{G,J} S_1$
+    \ELSE
+        \RETURN $S_1$
+    \ENDIF
+    \end{algorithmic}
+\end{algorithm}
+
+\refstepcounter{definition}
+\begin{mydefinition}[r-DS-(r+1)-stitching]{Lemma}
+    \label{lemma-rds-stitching}
+
+    Let $A$ be an algorithm that solves $r$-stitching on any vertex-weighted instance 
+    $(G, w : V(G) \to \mathbb{N})$ in time $f(tw(G)) \cdot |V(G)|^{O(1)}$. Then 
+    Algorithm~\ref{alg:stitch-r-DS} solves $r$-DS in time 
+    $f(tw(N^{r+1}_{G}[J])) \cdot V(G)^{O(1)}$.
+
+\end{mydefinition}
+
+The proof of Lemma~\ref{lemma-rds-stitching} is outside of the scope of this paper 
+as it is similar to the proof of Lemma~\ref{lemma-stictch-fvs-4cl}. The reader can find 
+a similar proof in Bumpus et al. \cite[Lemma 3.3]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
+
+\textbf{Running time:}
+

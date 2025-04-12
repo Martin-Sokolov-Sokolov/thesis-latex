@@ -17,15 +17,23 @@ of the set $V$ and $m$ for the set of edges $E$. With each edge $e$ of G, let th
 a real number $w(e)$, called its \textit{weight}. Then G, together with the weighting function 
 $w : E \to \mathbb{R}$, is called a \textit{weighted graph}, and denoted $(G, w)$.
 
- A graph can be \textit{embedded in the plane} or is \textit{planar} if it can be drawn on the 
+ A graph can be \textit{embedded in the plane}, or is \textit{planar}, if it can be drawn on the 
 plane in a way that edges intersect each other only at their ends. Such a drawing is called a 
 \textit{planar embedding} of the graph. A graph $G$ is called \textit{outerplanar} if it has a 
 planar embedding $\widetilde{G}$ in which all the vertices lie on the boundary of the outer face. 
 This is also called a \textit{1-outerplanar graph}. Two forbidden minors of that class are the 
 $K_4$ and $K_{2, 3}$ graphs. In the next subsection, we familiarize the reader with Baker's approach 
-\cite{Baker}. Here, we define a \textit{$\ell$-outerplanar} to be a graph that has a planar embedding in which 
+\cite{Baker}. Here, we define an \textit{$\ell$-outerplanar} to be a graph that has a planar embedding in which 
 the vertices belong to at most $\ell$ concentric layers. Every planar graph is \textit{$\ell$-outerplanar} for 
 some $\ell$. Given a graph $G$, we look for the \textit{$\ell$-outerplanar} embedding of $G$ for which $\ell$ is minimal.
+
+Let \( G = (V, E) \) be a graph and let \( v \in V \).
+The \emph{closed \( r \)-neighbourhood} of \( v \), denoted by \( N^{r}[v] \),
+is the set of all vertices in \( G \) that are at distance at most \( r \) from \( v \):
+\[
+N^{r}[v] = \{ u \in V \mid \operatorname{dist}_G(u, v) \leq r \}.
+\]
+
 
 \subsection{Combinatorial Optimization}
 
@@ -154,6 +162,22 @@ Finally, we define the maximization problem with an additional constraint:
 
 \end{mydefinition}
 
+\refstepcounter{definition}
+\begin{mydefinition}[The \(r\)-Dominating Set Problem.]{Definition}
+    \label{def:r-DS}
+
+    \textbf{Input:}
+    A graph $G = (V, E)$, an integer $k$ and an integer $r$.
+
+    \textbf{Question:}
+    Does there exist a subset $D \subseteq V$ of size at most $k$, such that every vertex
+    $v \in V$ is within distance at most $r$ from some vertex in $D$; that is,
+
+    \[
+    \forall v \in V,\ \exists u \in D \text{ such that } \operatorname{dist}_G(u, v) \leq r.
+    \]
+\end{mydefinition}
+
 \subsubsection{Approximation Algorithms and Complexity Classes}
 
  As we mentioned, all the problems are \textbf{NP-complete}, so we turn to \textit{approximation algorithms} 
@@ -197,6 +221,7 @@ that describes what an efficient PTAS is.
 \end{mydefinition}
 
 \subsubsection{Baker's approach}
+\label{subsection:baker}
 
  In this subsection, we are going to describe the Shifting technique. It is described in Baker's seminal paper \cite{Baker}.
 What she describes is a general algorithm that partitions the graph into a disjoint union of levels of vertices. By analysing slices of these 
@@ -468,10 +493,31 @@ algorithms where it is presented as Task 5.13.
 
 \end{mydefinition}
 
- In this procedure, $\mathcal{C}_1$ and $\mathcal{C}_2$ are the sets of constraints that are currently unsatisfied and satisfied,
+In this procedure, $\mathcal{C}_1$ and $\mathcal{C}_2$ are the sets of constraints that are currently unsatisfied and satisfied,
 respectively. If $\gamma = 1$, then Option 1 would try to find a solution where the weight of the unsatisfied constraints is strictly 
 greater than the weight of the unsatisfied by $s$. Therefore, Option 1 finds a better solution than the current one, while Option 2 
 reports that there is no solution better than $s$. The options are not mutually exclusive. 
 
- For the second approach, we refer the reader to the paper of Makarychev and Makarychev \cite{Makarychev_Makarychev_2021} 
+For the second approach, we refer the reader to the paper of Makarychev and Makarychev \cite{Makarychev_Makarychev_2021} 
 as the explanation is quite long and needs to be understood with the examples given.
+
+\subsection{r-Dominating Set; Exact algorithm and PTAS}
+
+For FVS-BCL we will give an algorithm that solves the problem on graphs of bounded treewidth. 
+For Dominating Set and its generalizations there are already existing solutions one can use. 
+The r-Dominating Set problem is one generalization of Dominating Set. We mention an algorithm 
+which solves the generalized version.
+
+There is an algorithm that solves r-Dominating Set using dynamic programming which is realized 
+by Borradaile and Le~\cite[Theorem 1, Appendix B.]{borradaile2015optimal}. It is a generalization 
+of the work done in van Rooij et al.~\cite{van2009dynamic}. As it is argued in Borradaile and Le
+\cite[Appendix B.]{borradaile2015optimal}, the running time needed to solve r-Dominating Set 
+is $O((2r + 1)^{tw + 1} tw^{2} n)$. 
+
+We showed in subsection~\ref{subsection:baker} how one can use an exact algorithm 
+for graphs of bounded treewidth to get an approximation in a planar graph. In 
+Borradaile and Le~\cite{borradaile2015optimal} it is mentioned that one can use Baker's technique 
+to obtain a PTAS. In the MIT lecture notes of \cite{demaine2011lecture9}, there is an explanation 
+of how to get to that approximation. Essentially, instead of two layers of overlap between 
+subgraphs, one would have to increase that overlap to $r+1$. This technique will yield results 
+only for sufficiently small values for the parameter $r$.
