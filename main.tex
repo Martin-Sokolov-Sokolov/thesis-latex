@@ -1,5 +1,17 @@
 \documentclass[12pt]{article}
-\usepackage[numbers]{natbib}
+
+\usepackage[
+  backend=biber,
+  style=numeric,      % or another style: 'authoryear', 'alphabetic', etc.
+  backref=true,
+  backrefstyle=three  % optional: shows "Cited on pages..." nicely
+]{biblatex}
+
+\addbibresource{references.bib}
+
+\usepackage{setspace} % Line spacing control
+\setstretch{1.1}     % Line spacing set to 1.1 (slightly tighter than 1.5)
+
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
@@ -11,21 +23,39 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{float}
-\usepackage{parskip} % Add this package for vertical space between paragraphs
-\usepackage{hyperref}
+\usepackage{parskip}
 \usepackage{tikz}
 \usetikzlibrary{graphs, shapes, positioning}
 \usetikzlibrary{backgrounds}
-
 \usetikzlibrary{positioning}
 
 \usepackage[margin=0.5in]{geometry} % Uniform 1-inch margins
 
-\def\layerheight{0.5} % Height of one layer
-\def\layers{5}        % Total number of layers
-\def\overlap{2}       % Number of overlapping layers
-\def\slicelayers{3}   % Layers in each slice (excluding overlap)
-\def\sliceheight{\slicelayers * \layerheight} % Total height of a slice including overlap
+\usepackage{fancyhdr} 
+\pagestyle{fancy}     
+\lhead{}              
+\chead{}
+\rhead{\thepage}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+
+\usepackage{titlesec}  % For section title customization
+\titleformat{\section}[block]{\normalfont\huge\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\usepackage{listings}  % For better code formatting
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=5pt,
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  captionpos=b
+}
+
 
 \setlength{\parskip}{0.5em}
 
@@ -44,8 +74,8 @@
   title=#2~\thedefinition: #1,  % Custom label and number
 }
 
-\title{Certified Algorithms for Combinatorial Optimization Problems}
-\author{Martin Sokolov}
+\title{\huge Certified Algorithms for Combinatorial Optimization Problems}
+\author{\Large Martin Sokolov}
 \date{\today}
 
 \begin{document}
@@ -56,7 +86,6 @@
 
 \include{sections/introduction}
 \include{sections/preliminaries}
-\include{sections/research-question}
 \include{sections/ptas-fvs-baker}
 \include{sections/exact_algorithms}
 \include{sections/m_stitching}
@@ -64,7 +93,6 @@
 
 %\include{sections/conclusion}
 
-\bibliographystyle{IEEEtran}
-\bibliography{references}
+\printbibliography
 
 \end{document}

@@ -5,9 +5,9 @@ with a reminder of Graph Theory. After that, we move to more advanced definition
 Combinatorial Optimization. Finally, we get on topic by introducing perturbation resilience and certified 
 algorithms from the field of Beyond the Worst-Case Analysis of Algorithms.
 
-\subsection{Graph Theory}
+\subsection{Graph Theory} 
 
- In this section, the authors refer to Bondy and Murty \cite{bondy1976graph}.
+In this section, the authors refer to Bondy and Murty \cite{bondy1976graph}.
 A \textit{graph} $G$ is an ordered pair denoted as $(V(G), E(G))$.
 The set $V(G)$ is called a set of \textit{vertices} and the set $E(G)$ is a set of \textit{edges}.
 The incidence function $\psi_G$ associates each edge with an unordered pair of 
@@ -42,26 +42,26 @@ Williamson and Shmoys \cite{williamson2011design}. Some definitions can be trace
 
 \subsubsection{NP-Complete Problems: Definitions and Variants}
 
-We are going to be looking at a couple of problems, namely the \textsc{Feedback Vertex Set}, the \textsc{Cycle Packing} problem and
-the \textsc{Travelling Salesman Problem}. 
+Two problems are of interest, namely the Feedback Vertex Set and the $r$-Dominating Set. The latter 
+is a generalization of the Dominating Set problem.
 All of those problems belong to the class of \textbf{NP-complete} problems. 
-The decision variant of the \textsc{FVS} problem can be defined as:
+The decision variant of the FVS problem can be defined as:
 
-\refstepcounter{definition} % Increment counter after the definition content
+\refstepcounter{definition}
 \begin{mydefinition}[Feedback Vertex Set (\textbf{FVS})]{Definition}
 
     \label{FVS}
     \textbf{Input:}
-    A graph $G$ and an integer $\ell$.
+    A graph $G$ and an integer $k$.
 
     \textbf{Question:}
-    Does there exist a set $X$ of at most $\ell$ vertices of $G$ such that $G - X$ is a forest?
+    Does there exist a set $X$ of at most $k$ vertices of $G$ such that $G - X$ is a forest?
     
 \end{mydefinition}
 
  The weighted optimization version of the problem can be defined as:
 
-\refstepcounter{definition} % Increment counter after the definition content
+\refstepcounter{definition}
 \begin{mydefinition}[ Minimum Weight Feedback Vertex Set (\textbf{MWFVS})]{Definition}
     \label{MWFVS}
 
@@ -78,89 +78,43 @@ The decision variant of the \textsc{FVS} problem can be defined as:
 
 \end{mydefinition}
 
- In some sense, the \textsc{Cycle Packing} problem is dual to \textsc{FVS}. We use the definition from the blue book of Cygan et al. \cite{cygan2015parameterized}.
 
-\refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[Cycle Packing]{Definition}
-    \label{def:CYCP}
+The suffix 'BCL' in the definitions of the problems FVS-BCL and MWFVS-BCL indicates that they 
+pertain to the bounded cycle length variant.
 
-    \textbf{Input:}
-    A graph $G$ and an integer $\ell$.
-
-    \textbf{Question:}
-    Does there exist in $G$ a family of $\ell$ pairwise vertex-disjoint cycles?
-
-\end{mydefinition}
-
- The other problem we inspect is an edge-optimization problem, namely the \textsc{Travelling Salesman Problem} (TSP).
-
-\refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[Travelling Salesman Problem (\textbf{TSP})]{Definition}
-    \label{TSP}
-
-    \textbf{Instance:}
-    \begin{itemize}[noitemsep, topsep=0pt]
-        \item A set of cities $C = \{c_1, c_2, \ldots, c_n\}$.
-        \item A distance function $w: C \cdot C \to \mathbb{R}$ that gives the distance between each pair of cities.
-    \end{itemize}
-    \textbf{Task:}
-    Find a permutation $\pi$ of the cities such that:
-    \begin{itemize}[noitemsep, topsep=0pt]
-        \item The total distance travelled is minimized, i.e., minimize 
-        \begin{align*}
-            \sum\limits_{i=1}^{n-1} w(c_{\pi(i)}, c_{\pi(i+1)}) + w(c_{\pi(n)}, c_{\pi(1)}).
-        \end{align*}
-    \end{itemize}
-
-\end{mydefinition}
-
- We define the problems \textsc{FVS-BCL}, \textsc{MWFVS-BCL} and \textsc{Cycle Packing-BCL} to be the problems that cover
-and pack cycles of bounded length. The \textsc{'BCL'} stands for bounded cycle length. We give the following definitions:
-
-\refstepcounter{definition} % Increment counter after the definition content
+\refstepcounter{definition}
 \begin{mydefinition}[FVS-BCL]{Definition}
     \label{FVS-BCL}
 
     \textbf{Input:}
-    A graph $G$, integer $\ell$ and an integer $r$.
+    A graph $G$, integer $k$ and an integer $\rho$.
 
     \textbf{Question:}
-    Does there exist a set $X$ of at most $\ell$ vertices such that every cycle of length at most $r$ contains a vertex in $X$?
+    Does there exist a set $X$ of at most $k$ vertices such that every cycle of length $\rho$ contains a vertex in $X$?
 
 \end{mydefinition}
 
 The following is the weighted version of the problem; we define it as an optimization task.
 
-\refstepcounter{definition} % Increment counter after the definition content
+\refstepcounter{definition}
 \begin{mydefinition}[MWFVS-BCL]{Definition}
     \label{MWFVS-BCL}
 
     \textbf{Instance:}
     \begin{itemize}[noitemsep, topsep=0pt]
-        \item An undirected weighted graph $(G, w)$, where $G = (V, E)$ and $w: V \to \mathbb{R}$ and an integer $r$.
+        \item An undirected weighted graph $(G, w)$, where $G = (V, E)$ and $w: V \to \mathbb{R}$ and an integer $\rho$.
     \end{itemize}
     \textbf{Task:}
     Find a vertex set $X \subseteq V$ such that:
     \begin{itemize}[noitemsep, topsep=0pt]
-        \item Every cycle in \( G \setminus X \) of length $\leq r$ has a vertex in $X$.
+        \item Every cycle in \( G \setminus X \) of length $\rho$ has a vertex in $X$.
         \item The sum of the weights of the vertices in $X$ is minimized.
     \end{itemize}
 
 \end{mydefinition}
 
-Finally, we define the maximization problem with an additional constraint:
-
-\refstepcounter{definition}
-\begin{mydefinition}[Cycle Packing-BCL]{Definition}
-    \label{CYCP-BCL}
-
-    \textbf{Input:}
-    A graph $G$, an integer $\ell$ and an integer $r$.
-
-    \textbf{Question:}
-    Does there exist in $G$ a family of $\ell$ pairwise vertex-disjoint cycles with each of them having length $\leq r$?
-
-\end{mydefinition}
+$r$-Dominating Set is a generalization of Dominating Set. Setting the parameter $r$ to one would 
+transform the former problem into the latter.
 
 \refstepcounter{definition}
 \begin{mydefinition}[The \(r\)-Dominating Set Problem.]{Definition}
@@ -178,34 +132,59 @@ Finally, we define the maximization problem with an additional constraint:
     \]
 \end{mydefinition}
 
+The weighted version of the problem is defined as follows:
+
+\refstepcounter{definition}
+\begin{mydefinition}[The Weighted \(r\)-Dominating Set Problem.]{Definition}
+    \label{def:weighted-r-DS}
+
+    \textbf{Input:}
+    A graph $G = (V, E)$, a weight function $w: V \rightarrow \mathbb{N}$, an integer $W$, and an integer $r$.
+
+    \textbf{Question:}
+    Does there exist a subset $D \subseteq V$ such that the total weight of $D$ is at most $W$, and every vertex
+    $v \in V$ is within distance at most $r$ from some vertex in $D$; that is,
+
+    \[
+    \sum_{u \in D} w(u) \leq W
+    \quad \text{and} \quad
+    \forall v \in V,\ \exists u \in D \text{ such that } \operatorname{dist}_G(u, v) \leq r.
+    \]
+\end{mydefinition}
+
+
 \subsubsection{Approximation Algorithms and Complexity Classes}
 
- As we mentioned, all the problems are \textbf{NP-complete}, so we turn to \textit{approximation algorithms} 
-in order to cope with the hardness of the problems. Let $\Pi$ be an optimization problem with nonnegative weights 
-and $k \geq 1$.
-A \textit{k-factor approximation algorithm} for $\Pi$ is a polynomial-time algorithm $A$ for $\Pi$, 
-such that \[\frac{1}{k} \cdot OPT(I) \leq A(I) \leq k \cdot OPT(I)\] for all instances $I$ of $\Pi$.
+In the previous section all of the problems were NP-complete. In order to cope with the hardness 
+of those problems, one can turn to \textit{approximation algorithms}.
+Let $\Pi$ be an optimization problem with nonnegative weights 
+and $q \geq 1$.
+A \textit{$q$-factor approximation algorithm} for $\Pi$ is a polynomial-time algorithm $A$ for $\Pi$, 
+such that \[\frac{1}{q} \cdot OPT(I) \leq A(I) \leq q \cdot OPT(I)\] for all instances $I$ of $\Pi$.
 The first inequality shown is true for maximization problems, while the second one holds for minimization problems.
-We say $A$ has a performance ratio of \textit{k}. If a problem falls into that category, we say that it is \textbf{APX-complete}. 
+We say $A$ has a performance ratio of \textit{q}. If a problem falls into that category, we say that it is \textsc{APX-complete}. 
 
- In the last paragraph, we mentioned the class of problems \textbf{APX} regarding approximation algorithms. Now we turn 
-to another class of approximation algorithms. \textbf{PTAS} is a class of algorithms that work in polynomial time and get close to an optimal 
-solution with a trade-off. 
+The previous paragraph introduced the class of problems \textsc{APX} in the context
+of approximation algorithms. Now, we introduce another important class: \textsc{PTAS},
+which consists of algorithms that run in polynomial time and produce solutions arbitrarily close to optimal, depending on a trade-off parameter.
 
-\refstepcounter{definition} % Increment counter after the definition content
+\refstepcounter{definition}
 \begin{mydefinition}[ Polynomial-Time Approximation Scheme (PTAS)]{Definition}
     \label{PTAS}
     
-    A polynomial-time approximation scheme (\textbf{PTAS}) is a family of algorithms ${A_{\epsilon}}$ where there is an algorithm for each $\epsilon > 0$, 
+    A polynomial-time approximation scheme (PTAS) is a family of algorithms ${A_{\epsilon}}$ where there is an algorithm for each $\epsilon > 0$, 
     such that $A_{\epsilon}$ is a $(1 + \epsilon)$-approximation algorithm (for minimization problems). The running time of the algorithm $A_{\epsilon}$ 
-    is polynomial, but can depend arbitrarily on $1/\epsilon$. This dependence could be exponential or even worse.
-    Thus an algorithm running in time $O(n^{1/\epsilon})$ counts as a PTAS.
+    is polynomial, but can depend arbitrarily on $1/\epsilon$. 
 
 \end{mydefinition}
 
- Every problem with a PTAS is also in APX. The relation between these two classes is similar to the one between 
-\textbf{P} and \textbf{NP}. For more on the topic, such as APX-completeness, L-reductions and the PCP-theorem, 
-we refer to Korte and Vygen \cite{Korte2007CombinatorialOT}.
+The dependence, mentioned in Def.~\ref{PTAS}, on $\frac{1}{\epsilon}$ could be exponential
+or even worse.
+Thus an algorithm running in time $O(n^{1/\epsilon})$ counts as a PTAS.
+
+Every problem with a PTAS is also in APX. The relation between these two classes is similar to the one between 
+\textsc{P} and \textsc{NP} complexity classes. For more on the topic, such as APX-completeness,
+L-reductions and the PCP-theorem, we refer to Korte and Vygen \cite{Korte2007CombinatorialOT}.
 
  An important distinction in the complexity zoo is made in Cesati and
 Trevisan \cite{cesati1997efficiency}. To the best of the knowledge of the author, this is the paper 
@@ -223,26 +202,35 @@ that describes what an efficient PTAS is.
 \subsubsection{Baker's approach}
 \label{subsection:baker}
 
- In this subsection, we are going to describe the Shifting technique. It is described in Baker's seminal paper \cite{Baker}.
-What she describes is a general algorithm that partitions the graph into a disjoint union of levels of vertices. By analysing slices of these 
+This subsection presents the Shifting Technique, originally introduced in Baker's seminal 
+paper~\cite{Baker}. The technique outlines a general algorithm that partitions the graph 
+into a disjoint union of vertex levels. By analysing slices of these 
 levels and, more specifically, the overlap between these slices, one obtains an approximation ratio for the solution to the optimization 
 problem. The slices make up several levels that are specifically chosen for a problem and it should hold that an exact solution 
-can be found on one slice. It must also hold that this solution can be found in optimal time. 
+can be found in each one slice. It must also hold that this solution can be found in optimal time. 
 
- There is also another way to view this approach. Instead of analysing the overlap between slices, one could partition the graph 
-by removing said overlap. This way we get a disjoint union which does not sum up to the total solution, but we can argue that we did not stray 
-away so much from the optimum solution. This approach works for hereditary maximization problems like \textsc{Independent Set}, \textsc{Max-Cut}, 
+There is also another way to view this approach. Instead of analysing the overlap between slices, one could partition the graph 
+by removing said overlap. In this way, the resulting disjoint union may not cover the entire 
+optimal solution, but it can be shown that the deviation from optimality is bounded. \
+This approach works for hereditary maximization problems like \textsc{Independent Set}, \textsc{Max-Cut}, 
 \textsc{Maximum P-Matching}, etc. 
 
- We are going to give two examples. The first is the general shifting technique and the example problem for it will be \textsc{Vertex Cover}. 
-Then we will explore the second perspective and take the \textsc{Independent Set} problem as an example. It is important to note that the general technique is 
-much more powerful than partitioning by removal of vertices. With \textsc{Vertex Cover}, we can still use the second approach 
-and get a PTAS, but the same does not hold for the \textsc{Dominating Set} problem. However, using the general shifting technique, we can obtain a 
-PTAS for \textsc{Dominating Set} in planar graphs. This was done by Marzban and Gu \cite{dominatingsetptas}. They designed a PTAS with an 
-approximation ratio of $(1 + 2/\ell)$ in $O(2^\ell \cdot n)$ time. The two in the approximation ratio appears because of the overlap needed 
-for \textsc{Dominating Set} between slices, which is two levels of overlap.
+The following section presents one example application.
+It focuses on the general Shifting Technique, using the \textsc{Vertex Cover} problem 
+as an illustrative case. 
+This example is explored in great detail, as both the problem and the technique 
+closely resemble the approach required for solving FVS-BCL.
 
- What follows is a brief explanation of Baker's shifting technique with \textsc{Vertex Cover} as an example.
+It is important to highlight that the general Shifting Technique is more powerful than 
+the vertex-removal partitioning. For problems like Dominating Set, the latter technique does not 
+yield a PTAS.
+
+However, using the general shifting technique, one can obtain a 
+PTAS for \textsc{Dominating Set} in planar graphs. This was done by Marzban and Gu \cite{dominatingsetptas}. They designed a PTAS with an 
+approximation ratio of $(1 + 2/\ell)$. The two in the approximation 
+ratio appears because of the overlap on two levels.
+
+What follows is a brief explanation of Baker's shifting technique with \textsc{Vertex Cover} as an example.
 
 \begin{algorithm}[H]
     \caption{Baker's shifting technique}
@@ -265,7 +253,7 @@ for \textsc{Dominating Set} between slices, which is two levels of overlap.
     \end{algorithmic}
 \end{algorithm}
 
- Analysis of the algorithm:
+Analysis of the algorithm:
 
  Let \( V_i \) be the set of vertices at levels \( i \mod \ell \):
 \[ V_i = \{ v \in V \mid \text{level}(v) \equiv i \mod \ell \} \]
@@ -284,51 +272,6 @@ Therefore, we can make the following argument:
 \end{enumerate}
 
  From the first, second and fourth step we can conclude that: \[S_q \leq |OPT| + |OPT_q| \leq (1 + \epsilon) \cdot |OPT|\]
-
- Now we take a look at the second approach we described.
-
-\begin{algorithm}[H]
-    \caption{Baker's technique with removal}
-    \label{alg:bakeremoval}
-    \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, parameter $\ell$
-    \ENSURE $(1 - \epsilon)$-approximation for \textsc{MIS}
-    \STATE $S \leftarrow \emptyset$
-    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
-    \STATE $\ell \leftarrow 1/\epsilon$
-    \STATE Label each vertex according to its layer $i \mod \ell$: ${V_1, V_2, \dots V_{\ell - 1}}$
-    \FOR{each $i = 0$ to $\ell - 1$}
-        \STATE Let $G_{i} \leftarrow G \backslash V_i$
-        \STATE Let $G_1, G_2, \dots G_j$ be the connected components of $G_i$
-        \STATE $\forall j$ compute the MIS $S_{i, j}$ of $G_{i, j}$
-        \STATE $S_i \leftarrow \bigcup_{j} S_{i, j}$
-        \STATE $S \leftarrow S \cup S_i$
-    \ENDFOR
-    \RETURN $S_{i*}$ from $S$ with minimum cardinality
-    \end{algorithmic}
-\end{algorithm}
-
- Consequence of the algorithm:
-
-\begin{enumerate}
-    \item for $\ell = 1/\epsilon$ compute partition $P_1, \dots , P_k$.
-    \item for some $q$ ($1 \leq q \leq \ell)$, $|OPT \cap P_q| \leq \frac{1}{\ell} \cdot |OPT| = \epsilon \cdot |OPT|$ because 
-    of the pigeonhole principle
-    \item hence, $|OPT \cap (G - P_q)| \geq (1 - 1 / \ell) \cdot |OPT| = (1 - \epsilon) \cdot |OPT|$
-    \item return $max_i{|\text{\textsc{MIS}}(G - P_i)|}$
-\end{enumerate}
-
- We skip much of the analysis that we did for the shifting technique, however, we argue that for this particular problem for some $P_q$,
-a small fraction of the solution resides within that partition. Therefore, we can forget about that part and the rest of the solution will still 
-be an independent set of bounded size.
-
- The first approach is more general and powerful for constructing algorithms, but it doesn't apply well to the \textsc{Dominating Set} problem.
-The key issue is that the removal technique relies on intersecting an optimal solution with a subgraph, expecting it to remain valid for the
-subgraph. This fails for \textsc{Dominating Set}, since a vertex in the subgraph could still be dominated by a vertex outside the subgraph.
-
- It is shown that the general shifting technique can be used to obtain a PTAS for \textsc{Dominating Set}. The interesting part is that 
-in order to properly analyse the solution, one must make the slices overlap on two levels. We refer to Marzban and Gu \cite{dominatingsetptas} for
-the explanation as to why the last is true and how to obtain the $(1 + 2 / \ell)$ approximation ratio.
 
 \subsubsection{Treewidth}
 
@@ -506,7 +449,8 @@ as the explanation is quite long and needs to be understood with the examples gi
 For FVS-BCL we will give an algorithm that solves the problem on graphs of bounded treewidth. 
 For Dominating Set and its generalizations there are already existing solutions one can use. 
 The r-Dominating Set problem is one generalization of Dominating Set. We mention an algorithm 
-which solves the generalized version.
+which solves the generalized version. In this work the parameter $r$ is considered to be 
+constant.
 
 There is an algorithm that solves r-Dominating Set using dynamic programming which is realized 
 by Borradaile and Le~\cite[Theorem 1, Appendix B.]{borradaile2015optimal}. It is a generalization 
