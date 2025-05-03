@@ -1,30 +1,29 @@
 \section{m-stitching and $\Pi$-m-stitching}
 
-In this section we initiate the study of certified algorithms for FVS-BCL and r-Dominating Set.
-We introduce some key concepts that allow us 
-to construct certified algorithms in general. Some of them include \textit{m-stitching} 
-and the notion of \textit{$\Pi$-m-stitching}. We refer to the literature 
-in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19, venne2022designing}. 
+This section introduces key concepts that facilitate the construction of certified algorithms. 
+It begins with the definitions of \textit{m-stitching} and \textit{$\Pi$-m-stitching}, 
+followed by a presentation of the main theorem from 
+Bumpus et al.~\cite{bumpus_et_al:LIPIcs.SWAT.2024.19}. 
+These concepts and the theorem will be used for constructing certified algorithms 
+in the following section. 
+Unless stated otherwise, $\Pi$ is assumed to be a vertex-minimization problem.
+We refer to the literature in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19, venne2022designing}.
 
- Unless specified otherwise, let $\Pi$ be a vertex-minimization problem.
+\subsection{FVS-4CL and 2-stitching}
 
-\subsection{Algorithms for m-stitching and FVS-m-stitching}
-
-As we mentioned before, in this section we refer to Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19} 
-and a Master's thesis on the subject by Venne \cite{venne2022designing} with more examples. 
-
- The restriction we imposed on the Feedback Vertex Set problem enables us to look 
+The restriction we imposed on the Feedback Vertex Set problem enables us to look 
 for optimal solutions in a local space. This is what m-stitching and $\Pi$-m-stitching
 hint at. Here, the the variable $m$ is a positive integer that depends on the vertex optimization 
 problem $\Pi$. In our case this is tied to the $\rho$ argument, i. e. the length of 
-the cycles we are trying to break. 
+the cycles one is trying to break. 
 
- To introduce $\Pi$-m-stitching, one needs to first understand m-stitching and m-stitchable problems. In the stitching 
-operation we are given solutions $S_1$ and $S_2$ for a vertex optimization problem, 
-along with an induced subgraph $J$ of $G$. Intuitively, we take the portion of $S_1$, that is not a part 
-of $J$ and "stitch" onto it some part of $S_2$ along the subgraph $J$. 
+To introduce $\Pi$-m-stitching, it is essential to first understand m-stitching 
+and m-stitchable problems. In the stitching operation, two solutions $S_1$ and $S_2$ 
+are given for a vertex optimization problem, along with an induced subgraph $J$ of $G$. 
+Intuitively, the idea is to take the portion of $S_1$ that lies outside of $J$ 
+and stitch onto it a suitable part of $S_2$ within the subgraph $J$.
 
- The formal definition is as follows:
+The formal definition is as follows:
 
 \refstepcounter{definition}
 \begin{mydefinition}[m-stitching]{Def.}
@@ -326,7 +325,7 @@ Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
         \item $\Pi$ is guessable.
         \item $\Pi$ is m-stitchable.
         \item There exists an algorithm $A_{\Pi}$ which solves $\Pi$-m-stitching in time $f(t) \cdot  |V(G)|^{\mathbb{O}(1)}$,
-        where t = \textbf{tw}($G\left[N^{m}_{G}(J)\right]$) and $f$ is a computable function;
+        where t = $\tw$($G\left[N^{m}_{G}(J)\right]$) and $f$ is a computable function;
     \end{enumerate}
 
     then, for each $\epsilon > 0$ there is a $(1 + \epsilon)$-certified algorithm for $\Pi$ that 
@@ -432,8 +431,8 @@ Algorithm~\ref{courcelle:rho} that takes as input a graph that has bounded treew
     \label{lemma-stictch-fvs-4cl}
 
      Let $A$ be an algorithm that solves FVS-4CL on any vertex-weighted instance $(G, w:V(G) \to \mathbb{N})$
-    in time $f(tw(G)) \cdot |V(G)|^{O(1)}$. Then Algorithm~\ref{alg:stitch-fvs-4cl} solves 
-    FVS-4CL-2-stitching in time $f(tw(N^{2}_{G}[J])) \cdot V(G)^{O(1)}$.
+    in time $f(\tw(G)) \cdot |V(G)|^{O(1)}$. Then Algorithm~\ref{alg:stitch-fvs-4cl} solves 
+    FVS-4CL-2-stitching in time $f(\tw(N^{2}_{G}[J])) \cdot V(G)^{O(1)}$.
     
 \end{mydefinition}
 
@@ -1077,9 +1076,13 @@ w|_{V(F)}(S_2) &= w(S_2) && \text{since } S_2 \subseteq V(F) \text{} \\
 
 The running time of the algorithm is dominated by the call of algorithm $A$. Therefore, 
 for an integer $m$ and some computable function $f$, the running time is 
-$O(tw(N^{m}_{G}[J])) \cdot |V(G)|^{O(1)}$.
+$O(\tw(N^{m}_{G}[J])) \cdot |V(G)|^{O(1)}$.
 
-\subsection{r-Dominating set-m-stitching}
+\subsection{FVS-BCL and ($\rho / 2$)-stitching}
+
+In this subsection 
+
+\subsection{r-Dominating Set and (r+1)-stitching}
 
 In this subsection we will use the definitions and terminology we have established in the 
 previous section and look at another problem, namely the r-Dominating Set problem. We will 
@@ -1170,9 +1173,9 @@ Now we describe an algorithm to find a feasible solution of minimum weight.
     \label{lemma-rds-stitching}
 
     Let $A$ be an algorithm that solves $r$-stitching on any vertex-weighted instance 
-    $(G, w : V(G) \to \mathbb{N})$ in time $f(tw(G)) \cdot |V(G)|^{O(1)}$. Then 
+    $(G, w : V(G) \to \mathbb{N})$ in time $f(\tw(G)) \cdot |V(G)|^{O(1)}$. Then 
     Algorithm~\ref{alg:stitch-r-DS} solves $r$-DS in time 
-    $f(tw(N^{r+1}_{G}[J])) \cdot V(G)^{O(1)}$.
+    $f(\tw(N^{r+1}_{G}[J])) \cdot V(G)^{O(1)}$.
 
 \end{mydefinition}
 

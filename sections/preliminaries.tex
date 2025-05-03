@@ -183,14 +183,14 @@ or even worse.
 Thus an algorithm running in time $O(n^{1/\epsilon})$ counts as a PTAS.
 
 Every problem with a PTAS is also in APX. The relation between these two classes is similar to the one between 
-\textsc{P} and \textsc{NP} complexity classes. For more on the topic, such as APX-completeness,
+\textsc{P} and \textsc{NP}. For more on the topic, such as APX-completeness,
 L-reductions and the PCP-theorem, we refer to Korte and Vygen \cite{Korte2007CombinatorialOT}.
 
- An important distinction in the complexity zoo is made in Cesati and
-Trevisan \cite{cesati1997efficiency}. To the best of the knowledge of the author, this is the paper 
-that describes what an efficient PTAS is.
+An important distinction in the complexity zoo is made in Cesati and
+Trevisan \cite{cesati1997efficiency}. To the best of the knowledge of the author, 
+Cesati and Trevisan first describes what an efficient PTAS is.
 
-\refstepcounter{definition} % Increment counter after the definition content
+\refstepcounter{definition}
 \begin{mydefinition}[Efficient Polynomial-Time Approximation Scheme (EPTAS)]{Definition}
     \label{def:EPTAS}
     
@@ -306,7 +306,7 @@ tree decomposition.
 \end{mydefinition}
 
 The \textit{width} of a tree decomposition $(T, V)$ is the size of its largest set $V_t$ minus one.
-The \textit{treewidth} $\operatorname{tw}(G)$ of a graph $G$ is the minimum width among all possible
+The \textit{treewidth} $\tw(G)$ of a graph $G$ is the minimum width among all possible
 tree decompositions of $G$. 
 
 \refstepcounter{definition} % Increment counter after the definition content
@@ -343,13 +343,14 @@ for randomized rounding the reader should consult Makarychev and Makarychev \cit
 In this section we explore perturbation-resilience, also known as \textit{$\gamma$-stability} or Bilu-Linial stability. 
 The authors refer to the original paper of the two authors Bilu and Linial \cite{bilu2012stable} as well as a survey 
 on the matter by Makarychev and Makarychev \cite{makarychev201713}. In a later work, Makarychev and Makarychev define 
-\textit{$\gamma$-certified algorithms} \cite{Makarychev_Makarychev_2021}. In the final paragraph, we take a look 
-back at combinatorial optimization problems through the lens of constraint satisfaction.
+\textit{$\gamma$-certified algorithms} \cite{Makarychev_Makarychev_2021}.
 
-The following definitions for $\gamma$-perturbation are for edge-optimization and vertex-optimization problems, respectively. 
-Afterwards, we are going to define stability and certified algorithms for vertex-optimization problems only.
+The following definitions for $\gamma$-perturbation are for edge-optimization 
+and vertex-optimization problems, respectively. 
+Subsequently, the notions of stability and certified algorithms are introduced 
+specifically for vertex-optimization problems.
 
-\refstepcounter{definition} % Increment counter after the definition content
+\refstepcounter{definition}
 \begin{mydefinition}[$\gamma$-perturbation for Edge-Optimization problems]{Definition}
     \label{gpeop}
 
@@ -391,59 +392,6 @@ Afterwards, we are going to define stability and certified algorithms for vertex
 
 \end{mydefinition}
 
-\refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[Combinatorial Optimization problems (Constraint Satisfaction)]{Definition}
-    \label{cosp}
-
-    An instance of a \textit{combinatorial optimization} problem is specified by a set of feasible solutions $\mathcal{S}$ (the solution space) 
-    a set of constraints $\mathcal{C}$ and constraint weights $w_c > 0$ for $c \in \mathcal{C}$. Typically the solution space is 
-    exponential in size (as is the case with \textsc{MWFVS} with the number of cycles in a graph) and is not provided explicitly. 
-    We say that a feasible solution $s \in \mathcal{S}$ satisfies a constraint $c \in \mathcal{C}$ if $c(s) = 1$.  
-
-     Consider the minimization and maximization objectives.
-
-    \begin{itemize}[noitemsep, topsep=0pt]
-        \item The minimization objective is to minimize the total weight of the unsatisfied constraints: find $s \in \mathcal{S}$ 
-        that minimizes $\sum\limits_{c \in C} w_c \cdot (1 - c(s)) = w(\mathcal{C}) - val_{\mathcal{I}}(s)$, where 
-        $w(\mathcal{C}) = \sum\limits_{c \in \mathcal{C}} w(c)$ is the total weight of the constraints.  
-        \item The maximization objective is to maximize the total weight of the satisfied constraints: find $s \in \mathcal{S}$ that 
-        maximizes $val_{\mathcal{I}}(s) = \sum\limits_{c \in \mathcal{C}} w(c) \cdot c(s)$.
-    \end{itemize}
-
-\end{mydefinition}
-
- Now we familiarize the reader with the two ways of designing certified algorithms as presented in \cite{Makarychev_Makarychev_2021}. 
-The first is a general framework that (1) starts with an arbitrary solution and (2) iteratively improves it. The improvements in step 2,
-however, are not necessarily local, though it may look like a local search technique. The following is taken from the paper on certified 
-algorithms where it is presented as Task 5.13.
-
-\refstepcounter{definition} % Increment counter after the definition content
-\begin{mydefinition}[General framework for $\gamma$-certified algorithms]{Task}
-    \label{gfca}
-
-    Assume we are given an instance $\mathcal{I}(\mathcal{S}, \mathcal{C}, w)$, a partition of its constraints 
-    $\mathcal{C} = \mathcal{C}_{1} \cup \mathcal{C}_{2}$ and a parameter $\gamma$. The task is to either:
-
-    \begin{itemize}[left=0pt, labelsep=5pt, itemsep = 3pt, topsep=3pt]
-
-        \item Option 1: find a better $s \in \mathcal{S}$, such that 
-        $\gamma \cdot \sum\limits_{c \in \mathcal{C}_1} w_c c(s) > \sum\limits_{c \in \mathcal{C}_2} w_c (1 - c(s))$, or
-
-        \item Option 2: to report that for every $s \in \mathcal{S}$:
-        $\sum\limits_{c \in \mathcal{C}_1} w_c c(s) \leq \sum\limits_{c \in \mathcal{C}_2} w_c (1 - c(s))$.
-
-    \end{itemize}
-
-\end{mydefinition}
-
-In this procedure, $\mathcal{C}_1$ and $\mathcal{C}_2$ are the sets of constraints that are currently unsatisfied and satisfied,
-respectively. If $\gamma = 1$, then Option 1 would try to find a solution where the weight of the unsatisfied constraints is strictly 
-greater than the weight of the unsatisfied by $s$. Therefore, Option 1 finds a better solution than the current one, while Option 2 
-reports that there is no solution better than $s$. The options are not mutually exclusive. 
-
-For the second approach, we refer the reader to the paper of Makarychev and Makarychev \cite{Makarychev_Makarychev_2021} 
-as the explanation is quite long and needs to be understood with the examples given.
-
 \subsection{r-Dominating Set; Exact algorithm and PTAS}
 
 For FVS-BCL we will give an algorithm that solves the problem on graphs of bounded treewidth. 
@@ -456,7 +404,7 @@ There is an algorithm that solves r-Dominating Set using dynamic programming whi
 by Borradaile and Le~\cite[Theorem 1, Appendix B.]{borradaile2015optimal}. It is a generalization 
 of the work done in van Rooij et al.~\cite{van2009dynamic}. As it is argued in Borradaile and Le
 \cite[Appendix B.]{borradaile2015optimal}, the running time needed to solve r-Dominating Set 
-is $O((2r + 1)^{tw + 1} tw^{2} n)$. 
+is $O((2r + 1)^{\tw + 1} \tw^{2} n)$. 
 
 We showed in subsection~\ref{subsection:baker} how one can use an exact algorithm 
 for graphs of bounded treewidth to get an approximation in a planar graph. In 

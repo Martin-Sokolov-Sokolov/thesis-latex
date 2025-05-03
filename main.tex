@@ -2,15 +2,15 @@
 
 \usepackage[
   backend=biber,
-  style=numeric,      % or another style: 'authoryear', 'alphabetic', etc.
+  style=numeric,      
   backref=true,
-  backrefstyle=three  % optional: shows "Cited on pages..." nicely
+  backrefstyle=three  
 ]{biblatex}
 
 \addbibresource{references.bib}
 
-\usepackage{setspace} % Line spacing control
-\setstretch{1.1}     % Line spacing set to 1.1 (slightly tighter than 1.5)
+\usepackage{setspace}
+\setstretch{1.1}     
 
 \usepackage{amssymb}
 \usepackage{hyperref}
@@ -29,7 +29,7 @@
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{positioning}
 
-\usepackage[margin=0.5in]{geometry} % Uniform 1-inch margins
+\usepackage[margin=0.5in]{geometry}
 
 \usepackage{fancyhdr} 
 \pagestyle{fancy}     
@@ -40,11 +40,11 @@
 \cfoot{}
 \rfoot{}
 
-\usepackage{titlesec}  % For section title customization
+\usepackage{titlesec}
 \titleformat{\section}[block]{\normalfont\huge\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}[block]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
 
-\usepackage{listings}  % For better code formatting
+\usepackage{listings}
 \lstset{
   basicstyle=\ttfamily\footnotesize,
   numbers=left,
@@ -62,17 +62,19 @@
 \hbadness=10000
 \hfuzz=50pt
 
-\newcounter{definition}[section] % Reset the counter at every new section
-\renewcommand{\thedefinition}{\thesection.\arabic{definition}} % Format the counter as section.definition
+\newcounter{definition}[section]
+\renewcommand{\thedefinition}{\thesection.\arabic{definition}}
 
 \newtcolorbox[]{mydefinition}[2][]{%
-  colback=blue!5!white,  % Background color
-  colframe=blue!75!black, % Frame color
-  fonttitle=\bfseries,    % Title font
-  width=\textwidth,       % Box width
-  sharp corners,          % Style options
-  title=#2~\thedefinition: #1,  % Custom label and number
+  colback=blue!5!white,  
+  colframe=blue!75!black,
+  fonttitle=\bfseries,   
+  width=\textwidth,      
+  sharp corners,         
+  title=#2~\thedefinition: #1,
 }
+
+\newcommand{\tw}{\operatorname{tw}}
 
 \title{\huge Certified Algorithms for Combinatorial Optimization Problems}
 \author{\Large Martin Sokolov}

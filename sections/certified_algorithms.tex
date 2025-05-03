@@ -1,73 +1,25 @@
 \section{Certified Algorithm}
 
- In this section we present an algorithm that finds $\gamma$-certified solutions to the FVS-4CL problem.
-It is similar to the one in Bumpus et al.~\cite[4.2.1]{bumpus_et_al:LIPIcs.SWAT.2024.19}, 
-but is adopted to our problem. 
-The proof that Algorithm~\ref{alg:certified-algorithm} is a $(1 + \epsilon)$-certified 
-algorithm is beyond the scope of this paper. This is because the proof is similar to 
-the one in Bumpus et al.~\cite[Section 4.2.3]{bumpus_et_al:LIPIcs.SWAT.2024.19}. 
-
- However, we still present the algorithm, as this brings more clarity on how exactly 
-one obtains $(1+\epsilon)$-certified solutions, and, on a separate note, we want to argue 
-about the running time of Algorithm~\ref{alg:certified-algorithm}.
-
-\subsection{Certified Algorithm for FVS-4CL}
-
- Before we give the algorithm we will define some concepts, that we will make use of.
-
-\refstepcounter{definition}
-\begin{mydefinition}[$\kappa$-layered subgraph]{Def.}
-    \label{def:k-layered-graph}
-
-    Let $G$ be a planar graph and $\kappa$ a natural number. Let $J$ be the set of vertices of 
-    any $\kappa$ subsequent layers, where the layers are a result of a BFS run. Then the 
-    graph $G[V(J_{\kappa})]$ is a $\kappa$-layered subgraph. We denote such a subgraph $G_{\kappa}$. 
-    If the set of vertices $J$ is made of $\kappa$ subsequent layers, then we denote it as 
-    $J_{\kappa}$.
-
-\end{mydefinition}
-
- Notice that Algorithm~\ref{alg:stitch-fvs-4cl} takes as input a graph and a weighted 
-function $(G, w)$, a feasible solution $S$ and some vertex set $J$. 
-
-\begin{algorithm}[H]
-    \caption{Certified Algorithm}
-    \label{alg:certified-algorithm}
-    \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, weight function $w : V(G) \to \mathbb{N}$, parameter $\epsilon$
-    \ENSURE Solution $S$ to FVS-4CL in $G$, $(1 + \epsilon)$-perturbed weights $w'$ of $w$ that certify $S$.
-    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$ \label{line:bfs-one}.
-    \STATE $L_i = \{v \in V(G)$ $|$ $d(v, r) = i\}$ for $i = 0, \dots d_{\text{max}}$ \label{line:bfs-two}.
-    \STATE Compute a feasible solution $S$ to $G$ according to Def.~\ref{guessable}.
-    \STATE Let $k \leftarrow \lceil \frac{2m}{\epsilon} \rceil + 2m$.
-    \WHILE {there exists a subgraph $G_{\kappa}$ of width $k-2m$ such that \[w(A_{\text{FVS-4CL}}((G, w), S, J_{\kappa})) < w(S)\]} \label{line:while}
-        \STATE $S \leftarrow A_{\text{FVS-4CL}}((G,w), S, J_{\kappa}$)
-    \ENDWHILE
-    \STATE $w' : V(G) \to \mathbb{N}$, \[
-    w' : v \to 
-    \begin{cases} 
-        w(v), & \text{if } v \in S \\
-        (1+\epsilon)w(v), & \text{otherwise}.
-    \end{cases}
-    \]
-    \RETURN $(S, w')$.
-    \end{algorithmic}
-\end{algorithm}
-
- The first stage consists of performing BFS from an arbitrary vertex $r$. This is done on 
-lines~\ref{line:bfs-one},\ref{line:bfs-two} and is vital when later we have to choose a vertex set 
-$J_{\kappa}$.
+In this section we initiate the study of certified algorithms for FVS-4CL and the more general 
+FVS-BCL. In the final subsection the focus is shifted to the r-Dominating Set problem.
 
 
- In the second stage, we compute a feasible solution $S$, set 
+
+\subsection{FVS-4CL}
+
+
+
+
+
+In the second stage, we compute a feasible solution $S$, set 
 $J_\kappa$\footnote{
-     A word on the argument $k$ and the value that we set it to. In our case, for the FVS-4CL problem, 
-    $m$ is equal to two. Therefore, $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$. Notice that the set 
+    A word on the argument $\kappa$ and the value that we set it to. In our case, for the FVS-4CL problem, 
+    $m$ is equal to two. Also, $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$. Notice that the set 
     $J_{\kappa}$ is of width $k-2m$, therefore the $m$-neighbourhood (2-neighbourhood) is of width 
     $k - 2m + 2m = k$. Therefore, in our case, the graphs within we stitch are of width
     $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$.
     Take for example 
-    vertex $v_{2,1}$ in fig.~\ref{fig:reconfigure}. In order to find every cycle that it is a part of, 
+    vertex $v_{2,1}$ in Fig.~\ref{fig:reconfigure}. In order to find every cycle that it is a part of, 
     one would need to consider the layer that it is in, two layers to the left and two layers to the right. 
 
     \begin{figure}[H]
@@ -164,20 +116,9 @@ $J_\kappa$\footnote{
         \caption{Layer decomposition of graph in Fig.~\ref{fig:first-figure}}
         \label{fig:reconfigure}
     \end{figure}
-} 
-and loop through 
-the layers looking for a better solution. The while statement 
-is the one that dominates running time and provides us with an ultimately inclusion-minimal solution $S$ on $(G, w)$.
-Note that in the worst case there will be $W \cdot n$ calls to line~\ref{line:while}, where 
-$W = \sum_{v \in V(G)} w(v)$. This is because in each iteration we improve the value of the solution 
-by at least 1, notice that we have used natural numbers for the weight functions. 
+}
 
- In the final stage, we obtain a weight function for which we claim that Algorithm~\ref{alg:certified-algorithm} 
-is $(1 + \epsilon)$-certified.
+\subsection{FVS-BCL}
 
-\textbf{Running time:}
 
- The running time of Algorithm~\ref{alg:certified-algorithm} is clearly dominated 
-by the running time incurred in the second stage. As we mentioned, 
-there are at most $W \cdot n$ calls to Algorithm~\ref{alg:stitch-fvs-4cl}. It follows 
-that the running time of the algorithm is $O()$.
+\subsection{r-Dominating Set}

@@ -1,26 +1,27 @@
 \section{(E)PTAS for combinatorial optimization problems using Baker's technique}
 
- In this section we will demonstrate how to obtain an EPTAS for the
-unweighted and weighted versions of FVS-BCL.
-We begin 
-by looking at the unweighted version and argue about the correctness and efficiency of our algorithm. 
-Then we prove that using treewidth and Monadic Second Order Logic (MSOL) one can exactly solve the 
-4-cycle-breaking problem in one subgraph.
-Finally, we show that the running time is indeed polynomial in 
-the size of the input.
+This section presents an EPTAS for both the unweighted and weighted versions of 
+the FVS-BCL problem. We begin with the unweighted case, focusing on the algorithm's 
+correctness and efficiency.
 
- Before we start, we introduce some notation that we are going to use from now on. 
-When we are looking to break 4-cycles, we will note that the problem as FVS-4CL. This will be the 
-notation used in subsections~\ref{subsec:baker_unweighted_fvs} and \ref{subsec:baker_weighted_fvs}, 
-i. e. regardless of whether or not the problem is weighted. In subsection~\ref{subsec:weighted_arbitrary_length} 
-we go back to calling the problem $\Pi$ - FVS-BCL as we have arbitrary cycle length $\rho$. 
-In further chapters we also make use of that notation and if mentioned explicitly,
-one should regard FVS-4CL as the weighted version of the problem.
+For the special case of breaking 4-cycles—denoted as FVS-4CL—exact solutions on subgraphs 
+of bounded treewidth are obtained using a dynamic programming approach. In contrast, 
+the general FVS-BCL problem, where cycles of arbitrary length $\rho$ must be broken, is handled using Monadic Second Order Logic (MSOL) and Courcelle’s Theorem.
+
+The running time of the overall approach remains polynomial in the size of the input.
+
+Some notation used throughout this section is introduced here. 
+The 4-cycle-breaking problem is denoted as FVS-4CL and is used consistently in 
+subsections~\ref{subsec:baker_unweighted_fvs} and~\ref{subsec:baker_weighted_fvs}, 
+regardless of whether the input is weighted. In subsection~\ref{subsec:weighted_arbitrary_length}, 
+where arbitrary cycle lengths are considered, the notation FVS-BCL is used. 
+This distinction is maintained in subsequent chapters. Unless stated otherwise, 
+FVS-4CL refers to the weighted variant of the 4-cycle-breaking problem.
 
 \subsection{Baker's technique for unweighted FVS-4CL on planar graphs}
 \label{subsec:baker_unweighted_fvs}
 
- In this subsection we provide the necessary definitions, lemmas and theorems to demonstrate how to obtain an EPTAS for the problem 
+In this subsection we provide the necessary definitions, lemmas and theorems to demonstrate how to obtain an EPTAS for the problem 
 we defined in \ref{FVS-BCL}, namely FVS-4CL. In the preliminaries we gave two examples of how to construct algorithms using Baker's technique 
 and how to further analyse them. In the same fashion we now construct Algorithm \ref{alg:unweighted_feedback_vertex_set_global} and reason for its effectiveness.
 
@@ -31,7 +32,7 @@ define on line~\ref{alg3:line4} in Algorithm~\ref{alg:unweighted_feedback_vertex
     \caption{Baker's technique for the unweighted FVS-4CL}
     \label{alg:unweighted_feedback_vertex_set_global}
     \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, parameter $\ell$
+    \REQUIRE Planar graph $G = (V, E)$, parameter $\ell \leftarrow \frac{1}{\epsilon}$
     \ENSURE $(1 + \epsilon)$-approximation for \textsc{FVS-4CL}
     \STATE Perform \textsc{BFS} from some arbitrary vertex $r$ \label{alg3:line1}
     \STATE $S \leftarrow \emptyset$
@@ -50,50 +51,62 @@ define on line~\ref{alg3:line4} in Algorithm~\ref{alg:unweighted_feedback_vertex
     \end{algorithmic}
 \end{algorithm}
 
- In the analysis of the algorithm we are going to need three lemmas in order 
+In the analysis of the algorithm we are going to need three lemmas in order 
 to prove that Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} obtains a $(1 + 2/\ell)$-approximation of the 
 optimum solution.
 
 \refstepcounter{definition}
-\begin{mydefinition}[Optimum solution bound (Unweighted Case)]{Lemma}
-    \label{lemma-one}
-
-    Let $S_{i, j}$ be an optimum solution for $G_{i, j}$ for some shift $i$ and slice $j$, 
-    let $F \equiv OPT$ be the optimum solution in $G$ and let $F_{i, j} = G_{i, j} \cap F$. 
-    In the unweighted case we claim that: \[|S_{i, j}| \leq |F_{i, j}|\text{.}\]
-
-    We will say that $F_{i, j}$ is a FVS-4CL of $G_{i, j}$, not necessarily the one of minimum cardinality.
-
+\begin{mydefinition}[Bound on the Optimum Solution in Subgraphs (Unweighted Case)]{Lemma}
+    \label{lemma:opt-unweighted-fvs-4cl}
+    
+    Let \( S_{i,j} \) be the minimum unweighted feedback vertex set (FVS-4CL)
+    for subgraph \( G_{i,j} \), computed using 
+    Algorithm~\ref{alg:unweighted_feedback_vertex_set_global}, and let 
+    \( F \equiv \text{OPT} \) be the optimum solution for the full graph \( G \).
+    
+    Define \( F_{i,j} := F \cap V(G_{i,j}) \), i.e., the restriction of the global solution \( F \) to the subgraph \( G_{i,j} \).
+    
+    Then:
+    \[
+    |S_{i,j}| \leq |F_{i,j}|
+    \]
 \end{mydefinition}
-
- For now we do not argue about how we obtain an optimum solution.
-In subsection~\ref{subsection:exact-alg} we show how to get an exact solution, but for now we argue
-that the inequality in Lemma~\ref{lemma-one} holds in each subgraph $G_{i, j}$.
+    
 
 \begin{proof}
-    We first argue that in each subgraph $G_{i, j}$, the set $F_{i, j}$ contains a vertex that 
-    breaks every 4-cycle.
-    
+    We prove this in three steps by fixing a particular shift \( i \) and slice \( j \), 
+    and analysing the corresponding subgraph \( G_{i,j} \), which is induced on the set of vertices 
+    at levels from \( j \cdot \ell + i \) to \( (j + 1) \cdot \ell + i + 1 \).
+
     \begin{enumerate}
-        \item Let us fix a slice and shift $a$ and $b$ and take a look at the subgraph $G_{a, b}$.
-        \item For $G_{a, b}$, using Algorithm~\ref{alg:unweighted_feedback_vertex_set_global}
-        we can get $S_{a, b}$ and we have $F_{a, b}$.
-        \item Notice that, much like in the Vertex Cover
-        analysis, no vertex in $V(G) \backslash V(G_{a, b})$ can break any 4-cycle that is contained within 
-        $G_{a, b}$. Therefore $F_{a, b}$ must contain a vertex that hits every 4-cycle or it will not be 
-        a solution in $G_{a, b}$ and subsequently in $G$.
-        \item From this and the fact that $S_{a, b}$ is the optimum 
-        solution for $G_{a, b}$ we conclude that: \[|S_{a, b}| \leq |F_{a, b}|\text{.}\]
-        for some $(a, b)$, therefore it holds $\forall (i, j)$. 
+        \item \textbf{Locality of 4-cycles:}  
+        Any 4-cycle that is fully contained in \( G_{i,j} \) must be broken by vertices within \( G_{i,j} \).  
+        That is, no vertex \( v \in V(G) \setminus V(G_{i,j}) \) can break 4-cycles entirely within \( G_{i,j} \).
+
+        \item \textbf{Feasibility of restricted solution:}  
+        Since \( F \) is a valid global solution for the 4-cycle-breaking problem in \( G \),  
+        its restriction to \( G_{i,j} \), namely \( F_{i,j} = F \cap V(G_{i,j}) \),  
+        must also be a feasible 4-cycle-breaking set for the subgraph \( G_{i,j} \).
+
+        \item \textbf{Optimality of \( S_{i,j} \):}  
+        By assumption, \( S_{i,j} \) is the minimum unweighted solution for \( G_{i,j} \).  
+        Since \( F_{i,j} \) is also feasible (though not necessarily optimal), we have:
+        \[
+        |S_{i,j}| \leq |F_{i,j}|\text{.}
+        \]
     \end{enumerate}
+
+    This argument holds for arbitrary values of \( i \) and \( j \), so we conclude that:
+    \[
+    \forall i, j: \quad |S_{i,j}| \leq |F_{i,j}|\text{.}
+    \]
 
 \end{proof}
 
-
- One must confront the fact that notation is abused throughout the paper, especially when it 
+One must confront the fact notation is abused throughout the paper, especially when it 
 comes down to $j$, the slice variable. When we say that a statement holds for all values $i$ and
 $j$, we mean that it holds for the subgraphs that these variables outline. We will sketch an example 
-to deepen our understanding of Lemma~\ref{lemma-one}. Moreover, we are going to explore one avenue 
+to deepen our understanding of Lemma~\ref{lemma:opt-unweighted-fvs-4cl}. Moreover, we are going to explore one avenue 
 that gives rise to an inequality in the lemma.
 
 \begin{figure}[H]
@@ -251,7 +264,7 @@ $v_{17} \in F_{0, 0}$. This example should not distract the reader from the fact
 that $|S_{0, 0}| \leq |F_{0, 0}|$ is because $S_{0, 0}$ is by definition the minimum 4-cycle-breaking 
 set for $G_{0, 0}$, while $F_{0, 0}$ is, as we previously argued, a feasible 4-cycle-breaking set.
 
- What follows from Lemma~\ref{lemma-one} is a result that holds for any shift $i$.
+ What follows from Lemma~\ref{lemma:opt-unweighted-fvs-4cl} is a result that holds for any shift $i$.
 
 \refstepcounter{definition}
 \begin{mydefinition}[Optimum solution bound for the whole graph (Unweighted Case)]{Result}
@@ -268,45 +281,12 @@ set for $G_{0, 0}$, while $F_{0, 0}$ is, as we previously argued, a feasible 4-c
 in the $S_{i, j}$ sum may appear twice. This pertains to vertices that are located on the boundary. 
 For example if the $v_{30} \in S_{0, 1} \wedge v_{30} \in S_{0, 2}$, then it would be counted once in 
 $S_0$, but twice in $\sum\limits_j S_{0,j}$.
-The second inequality is a result from Lemma~\ref{lemma-one} 
+The second inequality is a result from Lemma~\ref{lemma:opt-unweighted-fvs-4cl} 
 where we argue that $S_{i, j}$ is an optimum solution for $G_{i, j}$ while $F_{i, j}$ is a 
 4-cycle-breaking set, but not one of necessarily minimum cardinality. 
 
  In Lemma~\ref{lemma-three} we look at the bound of the union of the $F_{i, j}$ sets. 
 Before that, however, we make an argument for the vertices on the boundaries in Lemma~\ref{lemma-two}. 
-
- Before we continue with the next lemma, we define what in \cite[Definition 4.5]{bumpus_et_al:LIPIcs.SWAT.2024.19} 
-is described as modular slices. In the preliminaries section the algorithms () had 
-one layer of overlap. Now we need a way to map to all $s$-consequent layers where 
-$s$ is a width parameter. For Fig.~\ref{fig:modular-slices}, imagine we ran a 
-BFS algorithm from an arbitrary vertex and the graph was decomposed into nine layers.
-
-\begin{figure}[h]
-    \centering
-    \setlength{\arrayrulewidth}{0.2pt}
-    \renewcommand{\arraystretch}{1}
-    
-    \begin{tabular}{r c c c c c c c c c c c c}
-        \textit{index} : & 0 & & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & \\
-        $\sigma_{2}^{\mod 4}(0)$ : & \multicolumn{3}{|c|}{\hrulefill} & & & \multicolumn{2}{|c|}{\hrulefill} & & & \multicolumn{2}{|c|}{\hrulefill} &  \\
-        $\sigma_{2}^{\mod 4}(1)$ : & \multicolumn{1}{c|}{\hrulefill} & & \multicolumn{2}{|c|}{\hrulefill} & & & \multicolumn{2}{|c|}{\hrulefill} & & & \multicolumn{2}{|c}{\hrulefill}  \\
-
-    \end{tabular}
-
-    \caption{Modular slices}
-    \label{fig:modular-slices}
-    
-\end{figure}
-
-The notation $\sigma_{s}^{\mod \ell}(i)$ means that we take all of the vertices
-that are on levels that start at 
-level $i \mod \ell$ of width $s$.
-In our case (for the FVS-4CL problem), we wanted two layers of overlap. Therefore, 
-$s$ is equal to two.
-
-If we are examining the set $\sigma_{2}^{\ell}(i)$, then 
-we are in fact talking about the sets $F_i$ and $F_{i+1}$, notice that $F_{i+1 \mod \ell}$ may 
-wrap around and be $F_0$.
 
 \refstepcounter{definition}
 \begin{mydefinition}[Bound for the vertices on the boundaries (Unweighted Case)]{Lemma}
@@ -316,47 +296,48 @@ wrap around and be $F_0$.
     The sets $F_i$ are disjoint and $\bigcup_i F_i = F$.
 
     We claim that: \[\exists q \in \{0, 1, \dots, \ell-1\}:
-    |\sigma_{2}^{\ell}(q)| \leq \frac{2}{\ell} \cdot |F|\]
+     |F_q| + |F_{q+1}| \leq \frac{2}{\ell} \cdot |F| \text{.}\]
 
 \end{mydefinition}
 
 \begin{proof}
-    
-Assume, by way of contradiction, that:
-
-\begin{equation}
-    \forall i \in \{0,1,\dots,\ell-1\}: |\sigma_{2}^{\ell}(i)| > \frac{2}{\ell} \cdot |F|
-    \label{ineq:opt_bound}
-\end{equation}
-
- As we said the sets $F_i$ are disjoint, i. e. $\forall i, j (i \neq j)$,
-$F_i \cap F_j = \emptyset$. 
-Also, $F = \cup_{i} F_i$.
-We make the following arguments:
-
-\begin{enumerate}
-    \item If inequality \ref{ineq:opt_bound} holds,
-    then $\sum\limits_{i=0}^{\ell-1} |\sigma_{2}^{\ell}(i)| >
-    \sum\limits_{i=0}^{\ell-1} \frac{2}{\ell} |F| =
-    2 \cdot |F|$. 
-    \item Now, we argue for the LHS of the inequality in the previous step.
-    In the sum $\sum\limits_{i=0}^{\ell-1} |\sigma_{2}^{\ell}(i)|$,
-    $\forall i \in \{0,1,\dots,\ell-1\}: F_i$ is counted exactly twice.
-    Therefore $\sum\limits_{i=0}^{\ell-1} |\sigma_{2}^{\ell}(i)| = 2 \cdot |F|$
-    \item From the contradiction in step two, we argue that there indeed 
-    $\exists q: q \in \{0, 1, \dots, \ell-2\}$ by the \textit{pigeonhole principle},
-    such that $|\sigma_{2}^{\ell}(q)| \leq \frac{2}{\ell} \cdot |F|$.
-\end{enumerate}
-
+    Assume for the sake of contradiction that
+    \begin{equation}
+        \forall i\in\{0,1,\dots,\ell-1\}:\quad
+        |F_i| + |F_{i+1}| \;>\; \frac{2}{\ell}\,|F|.
+        \label{ineq:opt_bound}
+    \end{equation}
+    Then we argue in three steps:
+    \begin{enumerate}
+      \item Summing \ref{ineq:opt_bound} over all \(i=0,\dots,\ell-1\) gives
+        \[
+          \sum_{i=0}^{\ell-1}\bigl(|F_i|+|F_{i+1}|\bigr)
+          \;>\;
+          \sum_{i=0}^{\ell-1}\frac{2}{\ell}\,|F|
+          \;=\;
+          2\,|F|.
+        \]
+      \item On the other hand, since the sets \(F_0,\dots,F_{\ell-1}\) are pairwise disjoint
+        and \(\bigcup_iF_i=F\), each \(F_i\) appears exactly twice in the left-hand sum.  Therefore
+        \[
+          \sum_{i=0}^{\ell-1}\bigl(|F_i|+|F_{i+1}|\bigr)
+          =2\sum_{i=0}^{\ell-1}|F_i|
+          =2\,|F|,
+        \]
+        yielding a contradiction.
+      \item Hence the assumption \(\forall i:\;|F_i|+|F_{i+1}|>\tfrac{2}{\ell}|F|\) must be false.  By the pigeonhole principle there is at least one index 
+        \[
+          q\in\{0,1,\dots,\ell-1\}
+          \quad\text{such that}\quad
+          |F_q| + |F_{q+1}|\;\le\;\frac{2}{\ell}\,|F|.
+        \]
+    \end{enumerate}
 \end{proof}
-
-Now we argue for the size of the sets $F_{i, j}$. It is natural that we should be able 
-to tie their size to the size of the optimal solution $F$. We will use Lemma~\ref{lemma-two} to do 
-so. Before we state the lemma, the reader should keep in mind that we will abuse notation 
-in order to avoid the loaded symbol $\sigma_{s}^{\mod \ell}$. Whenever we refer to $F_i$ and $F_{i+1}$,
-one should keep in mind that the second term may wrap around and become $F_0$. This 
-definition is instructive and we will come back to it in the weighted case and 
-more importantly in the arbitrary cycle length case in \ref{lemma-rho-cl-boundary}.
+    
+Now we argue for the size of the sets $F_{i, j}$. It is natural to try and 
+tie their size to the size of the optimal solution $F$ using Lemma~\ref{lemma-two}. 
+Whenever we refer to $F_i$ and $F_{i+1}$,
+one should keep in mind that the second term may wrap around and become $F_0$.
 
 \refstepcounter{definition}
 \begin{mydefinition}[Bound for the cardinality of the intersection sets (Unweighted Case)]{Lemma}
@@ -364,9 +345,9 @@ more importantly in the arbitrary cycle length case in \ref{lemma-rho-cl-boundar
 
     Let $F \equiv OPT$ be the optimal solution and $F_{i, j} = F \cap G_{i, j}$ be the intersection 
     sets with the subgraphs. Then we have: 
-    \[\sum\limits_{j} |F_{i, j}| \leq |F| + \frac{2}{\ell} \cdot |F|\]
+    \[\sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} \cdot |F|\]
 
-    for some specific integer $i$.
+    for some specific integer $i^*$.
 
 \end{mydefinition}
 
@@ -378,7 +359,7 @@ vertices are counted once towards the optimum solution sum. Therefore, we have t
 
 \begin{enumerate}
     \item $\sum\limits_{j} |F_{i, j}| = |F| + |\{\text{vertices on the boundary}\}| = |F| + |F_i| + |F_{i+1}|$
-    for some $i \in \{0, 1, \dots, \ell-1\}$. \label{enum:eq1}
+    for $i \in \{0, 1, \dots, \ell-1\}$. \label{enum:eq1}
     \item For the RHS of the equation in step~\ref{enum:eq1}. we argue that:
     \[\exists i^*: |F_{i^*}| + |F_{i^*+1}| \leq \frac{2}{\ell} \cdot |F|\] using Lemma~\ref{lemma-two}.
     \item For that $i^*$ it holds that $\sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} |F|$.
@@ -386,25 +367,30 @@ vertices are counted once towards the optimum solution sum. Therefore, we have t
 
 \end{proof}
 
-Finally, we chain the inequalities presented in Lemma~\ref{lemma-one}, Result~\ref{result-two}
+Finally, we chain the inequalities presented in Lemma~\ref{lemma:opt-unweighted-fvs-4cl}, Result~\ref{result-two}
 and Lemma~\ref{lemma-three}, and get that for some slice $i^*$, it holds that:
 
 \[|S_{i^*}| \leq \sum\limits_{j} |S_{i^*, j}| \leq \sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} \cdot |F| = (1 + \frac{2}{\ell}) \cdot |F|\].
 
- The inequality $S_{i^*} \leq (1 + \frac{2}{\ell}) \cdot |F|$, gives us that the solution 
-produced by Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} has the approximation ratio $(1 + \frac{2}{\ell})$ for the planar 
-unweighted FVS-4CL.
+The inequality
+\[
+|S_{i^*}| \leq \left(1 + \frac{2}{\ell} \right) \cdot |F|
+\]
+implies that Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} returns a 
+\(\left(1 + \frac{2}{\ell}\right)\)-approximate solution. Since we set \(\ell \leftarrow \frac{1}{\epsilon}\), 
+this yields a \((1 + 2\epsilon)\)-approximation for the unweighted planar FVS-4CL problem.
 
- \textbf{Running time:}
+
+\textbf{Running time:}
 
 Lines~\ref{alg3:line1} and~\ref{alg3:line9} of Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
 can be computed in linear time $O(n)$. The loop that starts on line~\ref{alg3:for-loop} has a running time
-that is dominated by step~\ref{alg3:subroutine} where we call Algorithm~\ref{courcelle:unweighted} as a subroutine.
+that is dominated by step~\ref{alg3:subroutine} where we call Algorithm~\ref{alg:dp} (with weights equal to ones) as a subroutine.
 That algorithm takes as input subgraphs that are $\ell + 2$-outerplanar.
-As we argued in the Preliminaries section, such graphs have bounded treewidth of $k$,
+As we argued in the Preliminaries section, such graphs have bounded treewidth of $\tw$,
 Bodlaender~\cite[Theorem 83]{bodlaender1998partial}.
 Therefore, Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} has a running time of 
-$O(2^{O(k^2)} n)$.
+$O(2^{\tw^2} n)$.
 
 \subsection{Baker's technique for the weighted FVS-4CL on planar graphs}
 \label{subsec:baker_weighted_fvs}
@@ -418,7 +404,7 @@ we construct Algorithm~\ref{courcelle:weighted} and use it as a subroutine to ge
     \caption{Baker's technique for the weighted FVS-4CL}
     \label{alg:weighted_feedback_vertex_set_global}
     \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, parameter $\ell$, $w : V \rightarrow \mathbb{R}$
+    \REQUIRE Planar graph $G = (V, E)$, parameter $\ell \leftarrow \frac{1}{\epsilon}$, $w : V \rightarrow \mathbb{R}$
     \ENSURE $(1 + \epsilon)$-approximation for \textsc{FVS-4CL}
     \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
     \STATE $S \leftarrow \emptyset$
@@ -452,25 +438,33 @@ finding a bound for the optimum solution for each subgraph.
 
 \begin{proof}
     
-The proof of Lemma~\ref{lemma-osbwc} is presented in three steps. Let us fix the integer arguments for 
-shift and slice. We take $a$ to be the offset (shift) and look at an arbitrary slice $b$. Note that 
-when we look at a slice $b$, we mean that we look at the subgraph $G_{a, b}$ induced on vertices at levels 
-$b \cdot \ell + a$ through $(b + 1) \cdot \ell + a + 1$.
-
-\begin{enumerate}
-    \item Firstly, one needs to be sure that no vertex $v$, such that $v \in V(G) \backslash V(G_{a, b})$ 
-    can break any 4-cycle that is contained within $G_{a, b}$.
-    \item From step 1 and the definition of $F_{a, b}$, it follows that $F_{a, b}$ is a feasible solution 
-    of the 4-cycle-breaking problem within $G_{a, b}$.
-    \item Finally we argue, that because $S_{a, b}$ is an optimum solution for the 4-cycle-breaking problem 
-    within $G_{a, b}$ and $F_{a, b}$ is a feasible solution for the same problem, we have: 
-    \[w(S_{a, b}) \leq w(F_{a, b})\].
-\end{enumerate}
-
-The statement in Lemma~\ref{lemma-osbwc} holds for arbitrary values $a,b$. Therefore, in 
-$G$, it holds that:
-\[\forall i,j: w(S_{i, j}) \leq w(F_{i, j})\]
-
+    We prove this in three steps by fixing a particular shift $i$ and slice $j$, 
+    and analysing the corresponding subgraph $G_{i, j}$, which is induced on the set of vertices 
+    at levels from $j \cdot \ell + i$ to $(j + 1) \cdot \ell + i + 1$.
+    
+    \begin{enumerate}
+        \item \textbf{Locality of 4-cycles:}  
+        Any 4-cycle that is fully contained in $G_{i, j}$ must be broken by vertices within $G_{i, j}$.  
+        That is, no vertex \( v \in V(G) \setminus V(G_{i, j}) \) can break 4-cycles entirely within \( G_{i, j} \).
+    
+        \item \textbf{Feasibility of restricted solution:}  
+        Since $F$ is a valid global solution for the 4-cycle-breaking problem in $G$,  
+        its restriction to $G_{i, j}$, namely \( F_{i, j} = F \cap G_{i, j} \),  
+        must also be a feasible 4-cycle-breaking set for the subgraph $G_{i, j}$.
+    
+        \item \textbf{Optimality of $S_{i, j}$:}  
+        By assumption, $S_{i, j}$ is the minimum-weight solution for $G_{i, j}$.  
+        Since $F_{i, j}$ is also feasible (though not necessarily optimal), we have:
+        \[
+        w(S_{i, j}) \leq w(F_{i, j})\text{.}
+        \]
+    \end{enumerate}
+    
+    This argument holds for arbitrary values of \( i \) and \( j \), so we conclude that:
+    \[
+    \forall i, j: \quad w(S_{i, j}) \leq w(F_{i, j})\text{.}
+    \]
+    
 \end{proof}
 
 \refstepcounter{definition}
@@ -496,48 +490,59 @@ and from Lemma~\ref{lemma-osbwc} we chain the inequalities to get Result~\ref{re
 \end{proof}
 
 \refstepcounter{definition}
-\begin{mydefinition}[Bound for the weight of the vertices on the boundary (Weighted Case)]{Lemma}
-    \label{lemma-bvweighted_feedback_vertex_set_global}
+\begin{mydefinition}[Bound on the Weight of Boundary Vertices (Weighted Case)]{Lemma}
+\label{lemma-bvweighted_feedback_vertex_set_global}
 
-    Let $G = (V, E)$ be a planar graph and suppose we run a BFS from an arbitrary vertex.
-    Let $w : V \rightarrow \mathbb{R}$ be a weight function.
-    Let $F_i = F$ $\cap$ \{vertices at levels $i$ mod $\ell\}$. 
-    The sets $F_i$ are disjoint and $\bigcup_i F_i = F$.
+Let \( G = (V, E) \) be a planar graph, and let \( w : V \rightarrow \mathbb{R} \) be a weight function on the vertices. 
 
-    We claim that: \[\exists q \in \{0, 1, \dots, \ell-1\}:
-    w(\sigma_{2}^{\mod \ell}(q)) \leq \frac{2}{\ell} \cdot w(F)\]
+Let \( F \subseteq V \) be a feedback vertex set, and define the sets \( F_i \) as:
+\[
+F_i := F \cap \{ \text{vertices at BFS level } i \bmod \ell \}
+\]
+for each \( i \in \{0, 1, \dots, \ell - 1\} \). Then, the sets \( F_i \) are disjoint, and:
+\[
+F = \bigcup_{i = 0}^{\ell - 1} F_i
+\]
+
+We claim that:
+\[
+\exists q \in \{0, 1, \dots, \ell - 1\} \text{ such that } w(F_q) + w(F_{q+1}) \leq \frac{2}{\ell} \cdot w(F)
+\]
 \end{mydefinition}
 
 \begin{proof}
-    
-Assume, by way of contradiction, that:
-
+Assume by way of contradiction that the following inequality holds for all \( i \in \{0, 1, \dots, \ell - 1\} \) (with indices taken modulo \( \ell \)):
 \begin{equation}
-    \forall i \in \{1, 2, \dots, \ell-1\}, w(\sigma_{2}^{\mod \ell}(i)) > \frac{2}{\ell} \cdot w(F).
+    w(F_i) + w(F_{i+1}) > \frac{2}{\ell} \cdot w(F)
     \label{ineq:two}
 \end{equation}
 
 \begin{enumerate}
-    \item From the two properties in the definition of $F_i$, namely that
-    
-    $F_i \cap F_j = \emptyset, \forall i, j \in \{0, 1, 2, \dots, \ell-1\}, i \neq j$ and 
+    \item From the definitions of the sets \( F_i \), we know:
+    \[F_i \cap F_j = \emptyset \quad \text{for all } i \neq j\]
+    \[F = \bigcup_{i = 0}^{\ell - 1} F_i\]
+    Therefore, each vertex in \( F \) is in exactly one \( F_i \), and:
+    \[
+        \sum_{i=0}^{\ell - 1} w(F_i) = w(F)
+    \]
 
-    $F = \bigcup_i F_i$ $\forall i \in \{0,1,2,\dots \ell-1\}$,
-    
-    it follows that $\sum\limits_{i = 0}^{\ell-1} w(\sigma_{2}^{\mod \ell}(i)) = 2 \cdot w(F)$.
-    
-    \item However, if inequality \ref{ineq:two} holds,
-    then $\sum\limits_{i=0}^{\ell-1} w(\sigma_{2}^{\mod \ell}(i)) >
-    \sum\limits_{i=0}^{\ell-1} \frac{2}{\ell} \cdot w(F) =
-    2 \cdot w(F)$. 
-    Because each $F_i$ is counted twice in the sum of step 2, then there is a contradiction between 
-    the sums in steps 1 and 2. 
+    When summing all pairs \( w(F_i) + w(F_{i+1}) \), each term \( w(F_i) \) appears exactly twice (once in the pair \( (F_{i-1}, F_i) \) and once in \( (F_i, F_{i+1}) \)). So:
+    \[
+        \sum_{i=0}^{\ell - 1} \bigl( w(F_i) + w(F_{i+1}) \bigr) = 2 \cdot w(F)
+    \]
 
-    \item Because of the \textit{pigeonhole principle}, there $\exists q$, such that 
-    $w(\sigma_{2}^{\mod \ell}(q)) \leq \frac{2}{\ell} \cdot w(F)$.
-    
+    \item Now, under the assumption of inequality~\eqref{ineq:two}, we would have:
+    \[
+        \sum_{i=0}^{\ell - 1} \bigl( w(F_i) + w(F_{i+1}) \bigr) > \sum_{i=0}^{\ell - 1} \frac{2}{\ell} \cdot w(F) = 2 \cdot w(F)
+    \]
+    which contradicts the conclusion from step 1 that this sum equals \( 2 \cdot w(F) \).
+
+    \item Therefore, our assumption must be false. By the contrapositive, there must exist at least one index \( q \in \{0, 1, \dots, \ell - 1\} \) such that:
+    \[
+        w(F_q) + w(F_{q+1}) \leq \frac{2}{\ell} \cdot w(F)
+    \]
+    This completes the proof.
 \end{enumerate}
-
 \end{proof}
 
 \refstepcounter{definition}
@@ -555,7 +560,7 @@ Assume, by way of contradiction, that:
 
 \begin{proof}
     
-     The interior vertices of each subgraph have their weights counted only once towards the sum 
+    The interior vertices of each subgraph have their weights counted only once towards the sum 
     $\sum\limits_j w(F_{i, j})$. The same does not hold for the vertices on the boundary, they are counted 
     once in $F_{i, j}$ and once in $F_{i, j+1}$. To account for that we rewrite the sum on the LHS as:
 
@@ -563,7 +568,7 @@ Assume, by way of contradiction, that:
         \item $\sum\limits_j w(F_{i, j}) = w(F) + w(\{\text{vertices on the boundary}\})$.
         \item From Lemma~\ref{lemma-bvweighted_feedback_vertex_set_global} we have an integer $i^* \in \{1, 2, \dots, \ell-1\}$, such that:
         
-        $w(OPT_{i^*}) + w(OPT_{i^* + 1}) \leq \frac{2}{\ell} \cdot w(F)$.
+        $w(F_{i^*}) + w(F_{i^* + 1}) \leq \frac{2}{\ell} \cdot w(F)$.
         \item From the previous two steps we get:
         \[\sum\limits_j w(F_{i, j}) =
         w(F) + w(\{\text{vertices on the boundary}\}) \leq
@@ -581,16 +586,14 @@ and Lemma~\ref{lemma-bcisweighted_feedback_vertex_set_global} to argue that for 
  \textbf{Running time:}
 
 The only difference from the unweighted case comes from line~\ref{alg4:step5} of 
-Algorithm~\ref{alg:weighted_feedback_vertex_set_global}. We call a different subroutine, 
-namely Algorithm~\ref{courcelle:weighted}. However, using Algorithm~\ref{alg:dp} 
-we get that the running time of the algorithm is still $O(2^{O(k^2)} \cdot n)$.
+Algorithm~\ref{alg:weighted_feedback_vertex_set_global}. However, using Algorithm~\ref{alg:dp} 
+we get that the running time of the algorithm is still $O(2^{\tw^2} \cdot n)$.
 
 \subsection{Baker's technique for weighted FVS-BCL of arbitrary cycle length}
 \label{subsec:weighted_arbitrary_length}
 
- In this subsection we generalize what we saw in subsection~\ref{subsec:baker_weighted_fvs} and inspect 
-what happens when we try to break all cycles of length $\rho$. To reiterate, our algorithm is only 
-interested in breaking cycles of length $\rho$. 
+This subsection extends the concepts discussed in subsection~\ref{subsec:baker_weighted_fvs} 
+by examining the outcome of attempting to break all weighted cycles of length $\rho$. 
 
 \begin{algorithm}[H]
     \caption{Baker's technique for the weighted FVS-BCL}
@@ -638,109 +641,148 @@ whole graph.
 \end{mydefinition}
 
 \begin{proof}
-     We first prove the second inequality by choosing arbitrary shift and slice variables
-    $(a, b)$ and observing that the inequality holds. The induced subgraph $G_{a, b}$ is 
-    defined on levels $b \cdot \ell + a$ through $(b + 1) \cdot \ell + a + \lfloor \frac{\rho}{2} \rfloor$.
-    In the next subsection, we argue that using Alg.~\ref{courcelle:rho}, we get $S_{a, b}$, an optimal solution 
-    in $G_{a,b}$, while $F_{a, b}$ is feasible, but not necessarily optimal.
-    Thus the following inequality holds:
-    \[\sum_{j} w(S_{i, j}) \leq \sum_{j} w(F_{i, j})\]
-
-     The first inequality holds, because the vertices on the boundaries are counted twice towards 
-    the RHS of the inequality and only once in the LHS. Therefore we have:
-    \[w(S_i) \leq \sum\limits_{j} w(S_{i, j})\]
-
-     Chaining the inequalities we get
-    \[w(S_i) \leq \sum\limits_{j} w(S_{i, j}) \leq \sum_{j} w(F_{i, j})\]
-\end{proof}
-
-
-\refstepcounter{definition}
-\begin{mydefinition}[Bound for the weight of the vertices on the boundary $\rho$-cycle length]{Lemma}
-    \label{lemma-rho-cl-boundary}
-
-    Let $G = (V, E)$ be a planar graph and suppose we run a BFS from an arbitrary vertex.
-
-    Let $w : V \rightarrow \mathbb{R}$ be a weight function.
-    Let $F_i = F$ $\cap$ \{vertices at levels $i$ mod $\ell\}$. 
-    The sets $F_i$ are disjoint and $\bigcup_i F_i = F$.
-    Let $\sigma^{\ell}_{\lfloor \rho/2 \rfloor}(q) =
-    \bigcup_{q} F_q \cup F_{q+1}, \dots F_{q + \lfloor \rho/2 \rfloor}-1$.
-
-    We claim that: \[\exists q \in \{0, 1, \dots, \ell - 1\}:
-    w(\sigma_{\lfloor \rho / 2 \rfloor}(q)) \leq \frac{\lfloor \rho / 2\rfloor}{\ell} \cdot w(F)\]
-\end{mydefinition}
-
-\begin{proof}
-    Assume, by way of contradiction, that: 
-
-    \begin{equation}
-        \label{ineq:lemma-rho-bound}
-        \forall i \in \{0, 1, \dots, \ell - 1\}:
-        w(\sigma_{\lfloor \rho / 2 \rfloor}(i))
-        > \frac{\lfloor \rho / 2 \rfloor}{\ell} \cdot w(F)
-    \end{equation}
+    We prove this in three steps by fixing a particular shift \( i \) and analysing the solution 
+    constructed from slices \( G_{i,j} \), each induced on vertices at levels 
+    from \( j \cdot \ell + i \) to \( (j + 1) \cdot \ell + i + \left\lfloor \frac{\rho}{2} \right\rfloor \), 
+    where \( \rho \) is the maximum cycle length we wish to break.
 
     \begin{enumerate}
-        \item In Lemma~\ref{lemma-rho-cl-boundary} we laid out two properties for $F_i$, namely that:
-        
-        $F_i \cap F_j = \emptyset,
-        \forall i, j \in \{0, 1, 2, \dots, \ell-1\}, i \neq j$ and 
-    
-        $F = \bigcup_i F_i$ $ \forall i \in \{0,1,2,\dots \ell-1\}$,
-        
-        it follows that
-        $\sum\limits_{i = 0}^{\ell-1} w(\sigma_{\lfloor \rho / 2 \rfloor}(i)) =
-        \lfloor \rho / 2 \rfloor \cdot w(F)$ as every set $F_i$ is counted 
-        $\lfloor \rho / 2 \rfloor$ times.
-        
-        \item However, if inequality \ref{ineq:lemma-rho-bound} holds,
-        then:
-        \[\sum\limits_{i=0}^{\ell-1} w(\sigma_{\lfloor \rho / 2 \rfloor}(i)) >
-        \sum\limits_{i=0}^{\ell-1} \frac{\lfloor\rho/2\rfloor}{\ell} \cdot w(F) =
-        \lfloor \rho/2 \rfloor \cdot w(F)\] 
-        There is a contradiction between the results in step one and two.
-    
-        \item Therefore, we claim that:
-        \[\exists q \in \{0, 1, \dots, \ell - 1\}:
-    w(\sigma_{\lfloor \rho / 2 \rfloor}(q)) \leq \frac{\lfloor \rho / 2\rfloor}{\ell} \cdot w(F)\]
+        \item \textbf{Locality of \(\rho\)-cycles:}  
+        Any cycle of length \( \rho \) that is entirely contained within \( G_{i,j} \) 
+        must be broken by vertices from within \( G_{i,j} \).  
+        That is, no vertex \( v \in V(G) \setminus V(G_{i,j}) \) can break such cycles in \( G_{i,j} \).
 
-    \end{enumerate}
+        \item \textbf{Feasibility of restricted solution:}  
+        Since \( F \) is a valid global solution that breaks all cycles of length \( \rho \),  
+        the restriction \( F_{i,j} = F \cap V(G_{i,j}) \) is a feasible solution for the 
+        \(\rho\)-cycle-breaking problem in \( G_{i,j} \).  
+        By definition, \( S_{i,j} \) is the optimal solution for \( G_{i,j} \), so:
+        \[
+        w(S_{i,j}) \leq w(F_{i,j})
+        \]
+        Summing over all \( j \), we get:
+        \[
+        \sum_j w(S_{i,j}) \leq \sum_j w(F_{i,j})
+        \]
 
-\end{proof}
-
-\refstepcounter{definition}
-\begin{mydefinition}[Bound for the weight of the intersection sets]{Lemma}
-    \label{lemma-rho-bound-is}
-
-    Let $F \equiv OPT$ be the optimal solution of the FVS-$\rho$CL length problem for 
-    an integer $\rho \in \mathbb{N}_{\geq 3}$.
-    Let $F_{i, j} = F \cap G_{i, j}$ be the intersection 
-    sets with the subgraphs. Then we have: 
-    \[\sum\limits_{j} w(F_{i^*, j}) \leq w(F) + \frac{\lfloor\rho/2\rfloor}{\ell} \cdot w(F)\]
-
-    for some specific integer $i^*$.
-
-\end{mydefinition}
-
-\begin{proof}
-    
-    \begin{enumerate}
-        \item $\sum\limits_j w(F_{i, j}) = w(F) + w(\{\text{vertices on the boundary}\})$.
-        \item From Lemma~\ref{lemma-rho-cl-boundary} we have that: \[\exists i^* \in \{0, 1, \dots, \ell - 1\}:
-        w(\sigma_{\lfloor \rho / 2 \rfloor}(i^*)) \leq \frac{\lfloor \rho / 2\rfloor}{\ell} \cdot w(F)\]
-
-        The vertices on the boundary are comprised of exactly $\lfloor \rho/2 \rfloor$ consecutive 
-        layers of vertices.
-
-        \item From the previous two steps we get:
-        \[\sum\limits_j w(F_{i^*, j}) =
-        w(F) + w(\{\text{vertices on the boundary}\}) \leq
-        \frac{\lfloor\rho/2\rfloor}{\ell} \cdot w(F)
+        \item \textbf{Overlap and accounting for duplicates:}  
+        The total weight \( w(S_i) \) of the combined solution across slices may be smaller than 
+        \( \sum_j w(S_{i,j}) \), because vertices near slice boundaries can appear in multiple \( G_{i,j} \)  
+        but are only counted once in \( S_i \). Therefore:
+        \[
+        w(S_i) \leq \sum_j w(S_{i,j})
         \]
     \end{enumerate}
 
+    Chaining both inequalities, we conclude:
+    \[
+    w(S_i) \leq \sum_j w(S_{i,j}) \leq \sum_j w(F_{i,j})\text{.}
+    \]
 \end{proof}
+
+\begin{mydefinition}[Bound on the Weight of Boundary Vertices for FVS-$\rho$CL]{Lemma}
+    \label{lemma:boundary_weight_bound_rho}
+    
+    Let \( G = (V, E) \) be a planar graph, and let \( w : V \rightarrow \mathbb{R} \) be a weight function on the vertices.  
+    Let \( F \subseteq V \) be a solution to the FVS-\(\rho\)CL problem (i.e., a set that breaks all cycles of length \( \rho \)).  
+    For a fixed layering from a BFS traversal, define:
+    \[
+    F_i := F \cap \{ \text{vertices at level } i \bmod \ell \}
+    \]
+    for each \( i \in \{0, 1, \ldots, \ell - 1\} \). Then the sets \( F_i \) are disjoint and together cover all of \( F \):
+    \[
+    F = \bigcup_{i=0}^{\ell - 1} F_i\text{.}
+    \]
+    
+    We claim that there exists some \( q \in \{0, 1, \ldots, \ell - 1\} \) such that:
+    \[
+    w(F_q) + w(F_{q+1}) + \cdots + w(F_{q + \lfloor \rho/2 \rfloor - 1}) \leq \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F)
+    \]
+    where the indices are taken modulo \( \ell \).
+\end{mydefinition}
+
+\begin{proof}
+    Assume, for contradiction, that the above inequality does not hold for any \( i \in \{0, 1, \ldots, \ell - 1\} \).  
+    That is, suppose:
+    \[
+    \forall i: \quad w(F_i) + w(F_{i+1}) + \cdots + w(F_{i + \lfloor \rho/2 \rfloor - 1}) > \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F)
+    \]
+    
+    \begin{enumerate}
+        \item From the definition of the sets \( F_i \), we know that:
+        \[
+        F_i \cap F_j = \emptyset \quad \text{for all } i \neq j, \quad \text{and} \quad \bigcup_{i=0}^{\ell - 1} F_i = F
+        \]
+        Hence,
+        \[
+        \sum_{i=0}^{\ell - 1} w(F_i) = w(F)
+        \]
+
+        \item \textbf{Counting each vertex \(\lfloor \rho/2 \rfloor\) times:}  
+        When we sum the weights of all such consecutive windows of length \( \lfloor \rho/2 \rfloor \) across \( \ell \) values of \( i \),  
+        each set \( F_j \) is included in exactly \( \lfloor \rho/2 \rfloor \) of these sums (i.e., it appears in that many overlapping windows).
+        Therefore:
+        \[
+        \sum_{i=0}^{\ell - 1} \left( w(F_i) + \cdots + w(F_{i + \lfloor \rho/2 \rfloor - 1}) \right) = \lfloor \rho/2 \rfloor \cdot w(F)
+        \]
+
+        \item \textbf{Contradiction:}  
+        On the other hand, if every window sum is strictly greater than \( \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F) \), then:
+        \[
+        \sum_{i=0}^{\ell - 1} \left( w(F_i) + \cdots + w(F_{i + \lfloor \rho/2 \rfloor - 1}) \right)
+        > \ell \cdot \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F)
+        = \lfloor \rho/2 \rfloor \cdot w(F)
+        \]
+        which contradicts the equality from step 2.
+
+        \item \textbf{Conclusion:}  
+        Therefore, our assumption must be false. We conclude that:
+        \[
+        \exists q \in \{0, 1, \ldots, \ell - 1\} \text{ such that }
+        w(F_q) + \cdots + w(F_{q + \lfloor \rho/2 \rfloor - 1}) \leq \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F)
+        \]
+    \end{enumerate}
+\end{proof}
+
+
+\refstepcounter{definition}
+\begin{mydefinition}[Bound for the weight of the intersection sets (Weighted Case)]{Lemma}
+    \label{lemma-rho-weighted-bound}
+
+    Let \( F \equiv \text{OPT} \) be the optimal solution to the FVS-\(\rho\)CL problem for some \(\rho \in \mathbb{N}_{\geq 3}\),
+    and let \( F_{i, j} = F \cap G_{i, j} \) be the intersection of \( F \) with the subgraphs. Then there exists an
+    integer \( i^* \in \{0, 1, \dots, \ell - 1\} \) such that:
+    \[
+        \sum\limits_{j} w(F_{i^*, j}) \leq w(F) + \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F)
+    \]
+\end{mydefinition}
+
+\begin{proof}
+
+When observing the construction of the subgraphs \( G_{i, j} \), we note that the vertices within the overlap regions
+(boundary layers) are counted $\lfloor \rho / 2 \rfloor$ in the total sum \( \sum\limits_{j} w(F_{i, j}) \). The remaining (interior)
+vertices of each \( G_{i, j} \) contribute exactly once to the total weight. This gives us:
+
+\begin{enumerate}
+    \item Vertices on the boundary: \[
+        \sum\limits_{j} w(F_{i, j}) = w(F) + w(\{\text{vertices on the boundary}\}) = 
+        w(F) + w(F_i) + w(F_{i+1}) + \dots + w(F_{i+\lfloor \rho/2 \rfloor - 1})
+    \]
+    for some \( i \in \{0, 1, \dots, \ell - 1\} \). \label{enum:rho-eq1}
+    
+    \item From Lemma~\ref{lemma:boundary_weight_bound_rho}, we know there exists some \( i^* \in \{0, 1, \dots, \ell - 1\} \) such that:
+    \[
+        w(F_{i^*}) + w(F_{i^* + 1}) + \dots + w(F_{i^* + \lfloor \rho/2 \rfloor - 1}) \leq \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F)
+    \]
+    
+    \item Plugging this into step~\ref{enum:rho-eq1}, we obtain:
+    \[
+        \sum\limits_{j} w(F_{i^*, j}) \leq w(F) + \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F)
+    \]
+\end{enumerate}
+
+\end{proof}
+
 
 \textbf{Running time:}
 
@@ -750,6 +792,5 @@ to the input. Using Courcelle's theorem \cite{courcelle1990monadic} we argue for
 of line ~\ref{alg5:line5}, which uses Alg.~\ref{courcelle:rho} as a subroutine. As we will say in the next 
 section, the subroutine runs in time $f(||\phi||, t) \cdot n$ for some computable function $f$ 
 where a tree decomposition of width $t$ is provided. Using a result from Bodlaender~\cite[Theorem 83]{bodlaender1998partial}
-one can incur that the treewidth of each subgraph is $3\ell + 5$. Therefore the running time of Alg.~\ref{alg:baker_arbitrary_length} 
-is $O(n) + O(f(3\ell + 5) \cdot \ell \cdot n) + O(n) = O(g(3\ell + 5) \cdot n)$
-for some computable functions $f$ and $g$.
+one can incur that the treewidth of each subgraph is bounded $\tw$. Therefore the running time of Alg.~\ref{alg:baker_arbitrary_length} 
+is $O(f(\tw) \cdot n)$ for some computable function $f$.
