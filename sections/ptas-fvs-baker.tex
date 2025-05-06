@@ -390,7 +390,7 @@ That algorithm takes as input subgraphs that are $\ell + 2$-outerplanar.
 As we argued in the Preliminaries section, such graphs have bounded treewidth of $\tw$,
 Bodlaender~\cite[Theorem 83]{bodlaender1998partial}.
 Therefore, Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} has a running time of 
-$O(2^{\tw^2} n)$.
+$2^{\mathcal{O}(\tw^2)} \cdot n$.
 
 \subsection{Baker's technique for the weighted FVS-4CL on planar graphs}
 \label{subsec:baker_weighted_fvs}
@@ -587,7 +587,7 @@ and Lemma~\ref{lemma-bcisweighted_feedback_vertex_set_global} to argue that for 
 
 The only difference from the unweighted case comes from line~\ref{alg4:step5} of 
 Algorithm~\ref{alg:weighted_feedback_vertex_set_global}. However, using Algorithm~\ref{alg:dp} 
-we get that the running time of the algorithm is still $O(2^{\tw^2} \cdot n)$.
+we get that the running time of the algorithm is still $2^{\mathcal{O}(\tw^2)} \cdot n$.
 
 \subsection{Baker's technique for weighted FVS-BCL of arbitrary cycle length}
 \label{subsec:weighted_arbitrary_length}
@@ -793,4 +793,4 @@ of line ~\ref{alg5:line5}, which uses Alg.~\ref{courcelle:rho} as a subroutine. 
 section, the subroutine runs in time $f(||\phi||, t) \cdot n$ for some computable function $f$ 
 where a tree decomposition of width $t$ is provided. Using a result from Bodlaender~\cite[Theorem 83]{bodlaender1998partial}
 one can incur that the treewidth of each subgraph is bounded $\tw$. Therefore the running time of Alg.~\ref{alg:baker_arbitrary_length} 
-is $O(f(\tw) \cdot n)$ for some computable function $f$.
+is $\mathcal{O}(f(\tw) \cdot n)$ for some computable function $f$.

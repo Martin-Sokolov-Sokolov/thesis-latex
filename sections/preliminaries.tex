@@ -28,16 +28,15 @@ the vertices belong to at most $\ell$ concentric layers. Every planar graph is \
 some $\ell$. Given a graph $G$, we look for the \textit{$\ell$-outerplanar} embedding of $G$ for which $\ell$ is minimal.
 
 Let \( G = (V, E) \) be a graph and let \( v \in V \).
-The \emph{closed \( r \)-neighbourhood} of \( v \), denoted by \( N^{r}[v] \),
+The \emph{closed \( m \)-neighbourhood} of \( v \), denoted by \( N^{m}_{G}[v] \),
 is the set of all vertices in \( G \) that are at distance at most \( r \) from \( v \):
 \[
-N^{r}[v] = \{ u \in V \mid \operatorname{dist}_G(u, v) \leq r \}.
+N^{m}_{G}[v] = \{ u \in V \mid \operatorname{dist}_G(u, v) \leq m \}.
 \]
-
 
 \subsection{Combinatorial Optimization}
 
- In this section, we refer to the book on Combinatorial Optimization by Korte and Vygen \cite{Korte2007CombinatorialOT} and 
+In this section, we refer to the book on Combinatorial Optimization by Korte and Vygen \cite{Korte2007CombinatorialOT} and 
 Williamson and Shmoys \cite{williamson2011design}. Some definitions can be traced to the end of the book by Cygan et al. \cite{cygan2015parameterized}. 
 
 \subsubsection{NP-Complete Problems: Definitions and Variants}
@@ -341,8 +340,8 @@ for randomized rounding the reader should consult Makarychev and Makarychev \cit
 \subsection{Beyond the Worst-Case Analysis of Algorithms}\label{BWCA-section}
 
 In this section we explore perturbation-resilience, also known as \textit{$\gamma$-stability} or Bilu-Linial stability. 
-The authors refer to the original paper of the two authors Bilu and Linial \cite{bilu2012stable} as well as a survey 
-on the matter by Makarychev and Makarychev \cite{makarychev201713}. In a later work, Makarychev and Makarychev define 
+The authors refer to the original paper of Bilu and Linial \cite{bilu2012stable} as well as a survey 
+by Makarychev and Makarychev \cite{makarychev201713}. In a later work, Makarychev and Makarychev define 
 \textit{$\gamma$-certified algorithms} \cite{Makarychev_Makarychev_2021}.
 
 The following definitions for $\gamma$-perturbation are for edge-optimization 
@@ -404,7 +403,7 @@ There is an algorithm that solves r-Dominating Set using dynamic programming whi
 by Borradaile and Le~\cite[Theorem 1, Appendix B.]{borradaile2015optimal}. It is a generalization 
 of the work done in van Rooij et al.~\cite{van2009dynamic}. As it is argued in Borradaile and Le
 \cite[Appendix B.]{borradaile2015optimal}, the running time needed to solve r-Dominating Set 
-is $O((2r + 1)^{\tw + 1} \tw^{2} n)$. 
+is $(2r + 1)^{\tw + 1} \cdot \tw^{2} \cdot n$. 
 
 We showed in subsection~\ref{subsection:baker} how one can use an exact algorithm 
 for graphs of bounded treewidth to get an approximation in a planar graph. In 

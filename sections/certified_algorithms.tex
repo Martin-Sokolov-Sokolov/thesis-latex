@@ -1,23 +1,65 @@
-\section{Certified Algorithm}
+\section{Certified Algorithms}
 
-In this section we initiate the study of certified algorithms for FVS-4CL and the more general 
-FVS-BCL. In the final subsection the focus is shifted to the r-Dominating Set problem.
+In this section, we initiate the study of certified algorithms for FVS-4CL 
+and the more general FVS-BCL problem. We conclude with a discussion on extending 
+these techniques to the $r$-Dominating Set problem.
 
+In the previous section, we established a framework and proved several properties that apply 
+to all three problems. This allows us to now claim the existence of 
+$(1 + \epsilon)$-certified algorithms for each of them. 
+For FVS-4CL, we illustrate how to derive such an algorithm by adapting our earlier 
+techniques, though we do not explicitly prove that the solutions are 
+$(1 + \epsilon)$-certified. For the remaining problems, we invoke 
+Theorem~\ref{theorem-main} directly to obtain the desired guarantees.
 
+Instead of directly invoking Theorem~\ref{theorem-main} to assert the existence of a \
+\((1 + \epsilon)\)-certified algorithm for FVS-4CL, we explicitly present it.
+While a formal proof that the algorithm maps instances to \((1 + \epsilon)\)-certified solutions lies outside 
+the scope of this paper, our aim is to provide a clear and instructive presentation. 
+This should help illustrate how such certified algorithms can be derived. The algorithm 
+is adapted from Bumpus et al.~\cite[Section 4.2.1]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
-\subsection{FVS-4CL}
+There are three main steps in Algorithm~\ref{alg:certified-alg}. In line~\ref{line-one:certs} 
+we only define variables that help with the computation.
 
+\begin{algorithm}[H]
+    \caption{$(1+\epsilon)$-certified algorithm for FVS-4CL}
+    \label{alg:certified-alg}
+    \begin{algorithmic}[1]
+    \REQUIRE Vertex-weighted planar graph $(G, w:V(G) \to \mathbb{N})$, $\epsilon > 0$.
+    \ENSURE a vertex set $S^* \subseteq V(G)$ and a $(1+\epsilon)$-perturbation $w'$ of 
+    $w$, such that $S^*$ is an optimal solution (in this case for FVS-4CL on $(G, w')$) 
 
+    \STATE $\kappa \leftarrow \lceil \frac{2m}{\epsilon} \rceil + 2m$ ($m \leftarrow 2$ in this case);
+    Let $S^*$ be a feasible solution (we proved that FVS-4CL is guessable) \label{line-one:certs}
+    \STATE Perform BFS from an arbitrary vertex $r$ 
+    \WHILE{there exists a subgraph $J_{\kappa-2m}$ of width $\kappa - 2m$ such that 
+    $w_A((G,w), S^*, J_{\kappa-2m}) < w(S^*)$}
+        \STATE Replace $S^*$ with $A((G,w), S^*, J_{\kappa-2m})$
+    \ENDWHILE
+    
+    \RETURN $(S^*, w')$, where $w': V(G) \rightarrow \mathbb{R}^+$ is defined by:
+    \[
+    w'(x) = 
+    \begin{cases}
+    w(x) & \text{if } x \in S^* \\
+    (1 + \epsilon)w(x) & \text{otherwise}
+    \end{cases}
+    \]
+    \end{algorithmic}
+\end{algorithm}
 
+The first stage simply runs a BFS from a root node. This layer decomposition is used in further 
+steps to facilitate the correct inducing of subgraphs.
 
-
-In the second stage, we compute a feasible solution $S$, set 
-$J_\kappa$\footnote{
+In the second stage, we compute a feasible solution $S^*$, set 
+$J_{\kappa-2m}$\footnote{
     A word on the argument $\kappa$ and the value that we set it to. In our case, for the FVS-4CL problem, 
-    $m$ is equal to two. Also, $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$. Notice that the set 
-    $J_{\kappa}$ is of width $k-2m$, therefore the $m$-neighbourhood (2-neighbourhood) is of width 
-    $k - 2m + 2m = k$. Therefore, in our case, the graphs within we stitch are of width
-    $k = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$.
+    $m$ is equal to two. Also, $\kappa = \lceil \frac{2m}{\epsilon} \rceil + 2m \geq 5$. Notice that the set 
+    $J_{\kappa-2m}$ is of width $\kappa-2m$, therefore the $m$-neighbourhood (2-neighbourhood) is of width 
+    $\kappa - 2m + 2m = \kappa$. Therefore, in our case, the graphs within we stitch are of width
+    $\kappa = \lceil \frac{2m}{\epsilon} \rceil + 2m = 
+    \lceil \frac{4}{\epsilon} \rceil + 4 \geq 5$.
     Take for example 
     vertex $v_{2,1}$ in Fig.~\ref{fig:reconfigure}. In order to find every cycle that it is a part of, 
     one would need to consider the layer that it is in, two layers to the left and two layers to the right. 
@@ -36,8 +78,6 @@ $J_\kappa$\footnote{
             \node[fill=black, circle, inner sep=1.5pt] (j3) at (-1,0) {};
             \node[fill=black, circle, inner sep=1.5pt] (j4) at (-1,-2.5) {};
             \node[fill=black, circle, inner sep=1.5pt] (n14) at (-1,-3.5) {};
-    
-    
     
             \node[fill=black, circle, inner sep=1.5pt] (j2) at (1,-1) {};
             \node[fill=black, circle, inner sep=1.5pt] (n12) at (1,2) {};
@@ -116,9 +156,43 @@ $J_\kappa$\footnote{
         \caption{Layer decomposition of graph in Fig.~\ref{fig:first-figure}}
         \label{fig:reconfigure}
     \end{figure}
-}
+} and improve that solution whilst a better one can be found. This step incurs additional running 
+time. Note that, for $W = max_{v \in V(G)} w(v)$ the number of times we can find a strictly 
+better solution than the current one is bounded by $W \cdot n$. This is because our weights 
+are integers and the value of a solution cannot be less than 0. We now understand why 
+the weights have to be polynomially-bounded as is stated in the main theorem. 
 
-\subsection{FVS-BCL}
+In the third and final step we obtain a $(1 + \epsilon)$-perturbation of $w$. The 
+weight function $w'$ is derived by maximally increasing every vertex that is not in the 
+solution $S^*$. Intuitively, this is the reason that our solution $S^*$ is an optimal 
+instance of FVS-4CL in $(G, w')$.
 
+Notice that in Algorithm~\ref{alg:certified-alg} there is not anything FVS-4CL specific, 
+apart from the three properties, mentioned in the main theorem. 
+Therefore, this algorithm can be used for any problem that satisfies 
+those structural properties.
 
-\subsection{r-Dominating Set}
+Finally we invoke Theorem~\ref{theorem-main} to get:
+
+\refstepcounter{definition}
+\begin{mydefinition}[]{Corollary}
+    \label{corollary-final}
+
+    For a planar graph $G$ and a weighted function 
+    $w : V(G) \to \mathbb{N}$ (polynomially-bounded weights) and 
+    $\epsilon > 0$ there are $(1 + \epsilon)$-certified algorithms solving FVS-4CL, FVS-BCL and 
+    $r$-Dominating Set.
+
+\end{mydefinition}
+
+The algorithms admit the following worst-case running times, where $\tw$ is the treewidth 
+of the graph $G$.
+
+\begin{enumerate}
+    \item \textsc{FVS-4CL}: $2^{\cdot\mathcal{O}((\frac{2}{\epsilon})^2)} \cdot n^{\mathcal{O}(1)}$.
+    \item \textsc{FVS-BCL}: $f(\lfloor\frac{\rho}{2\cdot\epsilon}\rfloor) \cdot n^{\mathcal{O}(1)}$ for some computable function $f$.
+    \item \textsc{$r$-Dominating Set}: $(2r + 1)^{\mathcal{O}(\frac{r}{\epsilon})} \cdot 
+    \bigl(\frac{r}{\epsilon}\bigr)^2 \cdot n$ for a constant $r$.
+\end{enumerate}
+
+asd

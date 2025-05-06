@@ -314,7 +314,7 @@ we need one more definition.
 Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
 \refstepcounter{definition}
-\begin{mydefinition}[]{Theorem.}
+\begin{mydefinition}[Main Theorem]{Theorem.}
     \label{theorem-main}
 
     Let $\mathbb{G}$ be a minor-closed graph class whose local tree-width is bounded above by a linear 
@@ -329,7 +329,9 @@ Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
     \end{enumerate}
 
     then, for each $\epsilon > 0$ there is a $(1 + \epsilon)$-certified algorithm for $\Pi$ that 
-    runs in time $f(\lambda \cdot m / \epsilon) \cdot \left|V(G)\right| ^ {\mathbb{O}(1)}$.
+    runs in time $f(\lambda \cdot m / \epsilon) \cdot \left|V(G)\right| ^ {\mathbb{O}(1)}$ 
+    on any input $(G, w : V(G) \to \mathbb{N})$ with $G \in \mathbb{G}$ and 
+    polynomially-bounded weights.
 
 \end{mydefinition}
 
@@ -422,7 +424,7 @@ such that $v \in S_3$.
     \end{algorithmic}
 \end{algorithm}
 
- The algorithm $A$ on line~\ref{alg:stitch-fvs-4cl} refers to calling 
+The algorithm $A$ on line~\ref{alg:stitch-fvs-4cl} refers to calling 
 Algorithm~\ref{courcelle:rho} that takes as input a graph that has bounded treewidth.
 
 
@@ -430,9 +432,12 @@ Algorithm~\ref{courcelle:rho} that takes as input a graph that has bounded treew
 \begin{mydefinition}[FVS-4CL-2-stitching]{Lemma}
     \label{lemma-stictch-fvs-4cl}
 
-     Let $A$ be an algorithm that solves FVS-4CL on any vertex-weighted instance $(G, w:V(G) \to \mathbb{N})$
-    in time $f(\tw(G)) \cdot |V(G)|^{O(1)}$. Then Algorithm~\ref{alg:stitch-fvs-4cl} solves 
-    FVS-4CL-2-stitching in time $f(\tw(N^{2}_{G}[J])) \cdot V(G)^{O(1)}$.
+    Let $A$ be an algorithm that solves FVS-4CL on any vertex-weighted instance $(G, w : V(G) \to \mathbb{N})$
+    in time $f(t) \cdot |V(G)|^{O(1)}$ where $t$ is the treewidth of $G$. 
+    Then Algorithm~\ref{alg:stitch-fvs-4cl} solves 
+    FVS-4CL-2-stitching in time $f(\tw) \cdot n^{\mathcal{O}(1)}$ where 
+    $\tw$ is the treewidth of $N^{2}_{G}[J]$. 
+    In the end of the lemma we argue about the exact running time of the algorithm.
     
 \end{mydefinition}
 
@@ -443,7 +448,7 @@ feasibility of $S_2 \oplus^{2}_{G,J} S_1$. Afterwards, we prove that it is of mi
 
 \begin{proof}
     
-We prove the feasibility of $S_2 \oplus^{2}_{G,J} S_1$ by case analysis on any four vertices $v_1 v_2 v_3 v_4$
+We prove the feasibility of $S_2 \oplus^{2}_{G,J} S_1$ by case analysis on any four vertices
 that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J) \cup (S_2 \cap N^{2}_{G}[J])$.
 
 \begin{enumerate}
@@ -563,11 +568,11 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
         
                 \draw[blue, thick] (j1) circle(0.3);
                 \draw[blue, thick] (j3) circle(0.3);
-                \draw[blue, thick] (n14) circle(0.5);
-                \draw[blue, thick] (n16) circle(0.5);
-                \draw[blue, thick] (n23) circle(0.5);
-                \draw[blue, thick] (n31) circle(0.5);
-                \draw[blue, thick] (new31) circle(0.5);
+                \draw[blue, thick] (n14) circle(0.3);
+                \draw[blue, thick] (n16) circle(0.3);
+                \draw[blue, thick] (n23) circle(0.3);
+                \draw[blue, thick] (n31) circle(0.3);
+                \draw[blue, thick] (new31) circle(0.3);
 
                 \draw (n21) -- (new31);
                 \draw (n21) -- (new32);
@@ -711,11 +716,11 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
     
                 \draw[blue, thick] (j1) circle(0.3);
                 \draw[blue, thick] (j3) circle(0.3);
-                \draw[blue, thick] (n14) circle(0.5);
-                \draw[blue, thick] (n16) circle(0.5);
-                \draw[blue, thick] (n23) circle(0.5);
-                \draw[blue, thick] (n31) circle(0.5);
-                \draw[blue, thick] (new31) circle(0.5);
+                \draw[blue, thick] (n14) circle(0.3);
+                \draw[blue, thick] (n16) circle(0.3);
+                \draw[blue, thick] (n23) circle(0.3);
+                \draw[blue, thick] (n31) circle(0.3);
+                \draw[blue, thick] (new31) circle(0.3);
     
                 \begin{scope}[on background layer]   
                     \filldraw[orange!35,line width=15pt,rounded corners=5pt] (n31.center) -- (n32.center) -- (n33.center) -- (n34.center) -- cycle;
@@ -877,10 +882,10 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \draw[blue, thick] (j1) circle(0.3);
                 \draw[blue, thick] (j3) circle(0.3);
                 \draw[blue, thick] (n14) circle(0.3);
-                \draw[blue, thick] (n16) circle(0.5);
-                \draw[blue, thick] (n23) circle(0.5);
-                \draw[blue, thick] (n31) circle(0.5);
-                \draw[blue, thick] (new31) circle(0.5);
+                \draw[blue, thick] (n16) circle(0.3);
+                \draw[blue, thick] (n23) circle(0.3);
+                \draw[blue, thick] (n31) circle(0.3);
+                \draw[blue, thick] (new31) circle(0.3);
     
                 \begin{scope}[on background layer]   
                     \filldraw[orange!35,line width=15pt,rounded corners=5pt] (j1.center) -- (n14.center) -- (n15.center) -- (j4.center) -- cycle;
@@ -1021,11 +1026,11 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
     
                 \draw[blue, thick] (j1) circle(0.3);
                 \draw[blue, thick] (j3) circle(0.3);
-                \draw[blue, thick] (n14) circle(0.5);
-                \draw[blue, thick] (n16) circle(0.5);
-                \draw[blue, thick] (n23) circle(0.5);
-                \draw[blue, thick] (n31) circle(0.5);
-                \draw[blue, thick] (new31) circle(0.5);
+                \draw[blue, thick] (n14) circle(0.3);
+                \draw[blue, thick] (n16) circle(0.3);
+                \draw[blue, thick] (n23) circle(0.3);
+                \draw[blue, thick] (n31) circle(0.3);
+                \draw[blue, thick] (new31) circle(0.3);
     
                 \begin{scope}[on background layer]   
                     \filldraw[orange!35,line width=15pt,rounded corners=5pt] (j01.center) -- (j02.center) -- (j03.center) -- (j04.center) -- cycle;
@@ -1052,7 +1057,7 @@ a 4-cycle breaking set is closed under taking induced subgraphs.
 namely that some feasible solution $S'$ (which in our case is the $S_2 \oplus^{2}_{G,J} S_1$), is of minimum weight,
 that is, for all other feasible solutions $S^{*}$, it holds that $w(S') \leq w(S^{*} \oplus^{2}_{G,J} S_1)$.
 
- Assume by way of contradiction that there is a feasible solution $S_3$ for $G$,
+Assume by way of contradiction that there is a feasible solution $S_3$ for $G$,
 such that $w(S_3 \oplus^{2}_{G,J} S_1) < w(S_2 \oplus^{2}_{G,J} S_1)$. Then it would follow that:
 
 \[
@@ -1074,15 +1079,51 @@ w|_{V(F)}(S_2) &= w(S_2) && \text{since } S_2 \subseteq V(F) \text{} \\
 
 \textbf{Running time:}
 
-The running time of the algorithm is dominated by the call of algorithm $A$. Therefore, 
-for an integer $m$ and some computable function $f$, the running time is 
-$O(\tw(N^{m}_{G}[J])) \cdot |V(G)|^{O(1)}$.
+The running time of the algorithm is dominated by the call of algorithm $A$. For 
+$\tw$, the treewidth of $N^{2}_{G}[J]$, 
+the running time is 
+$2^{\mathcal{O}(\tw^2)} \cdot n^{\mathcal{O}(1)}$. Here we use the dynamic programming algorithm (\ref{alg:dp}).
 
 \subsection{FVS-BCL and ($\rho / 2$)-stitching}
 
-In this subsection 
+In this subsection, we extend the results for FVS-4CL to the more general problem. 
+In earlier sections, we showed that FVS-BCL admits an EPTAS by observing that 
+$\lfloor \frac{\rho}{2} \rfloor$ layers of overlap between two subgraphs are sufficient for a 
+$\rho$-cycle to be entirely contained within one of the subgraphs, possibly including the 
+overlapping region (see Fig.~\ref{fig:bfs_tree}, \ref{fig:first-figure}). 
+When applying the $m$-stitching technique, the reader should understand that the two relevant 
+subgraphs are $G[V(G) \setminus J]$ and $G[J]$. If we construct an algorithm similar to 
+Algorithm~\ref{alg:stitch-fvs-4cl} but set the parameter $m$ to 
+$\lfloor \frac{\rho}{2} \rfloor$ instead of 2, the resulting algorithm solves 
+FVS-BCL-stitching in time 
+$f(\tw) \cdot n^{\mathcal{O}(1)}$ 
+where $\tw$ is the treewidth of $N^{\lfloor\frac{\rho}{2}\rfloor}_{G}[J]$. 
+It is important to note that a $\rho$-cycle breaking set is closed under taking 
+induced subgraphs. This is another reason we can construct such an algorithm and do not 
+have to take a different approach as we will do with the $r$-Dominating Set.
 
-\subsection{r-Dominating Set and (r+1)-stitching}
+From the arguments in the previous paragraph we can infer that:
+
+\begin{enumerate}
+    \item FVS-BCL is $\lfloor\frac{\rho}{2}\rfloor$-stitchable.
+    \item There exists an algorithm $A_{\text{FVS-BCL}}$ which solves 
+    FVS-BCL-$\lfloor\frac{\rho}{2}\rfloor$-stitching in time 
+    $f(\tw) \cdot n^{\mathcal{O}(1)}$ 
+    where $\tw$ is the treewidth of any $N^{\lfloor\frac{\rho}{2}\rfloor}_{G}[J]$ and 
+    $f$ is some computable function.
+\end{enumerate}
+
+The problem is also trivially guessable. Like in the FVS-4CL, taking the set $V(G)$, would 
+break all $\rho$-cycles in a graph.
+
+\textbf{Running time:}
+
+For some computable function $f$, constant $\rho$ and $\tw$, treewidth of 
+$N^{\lfloor\frac{\rho}{2}\rfloor}_{G}[J]$,
+the algorithm we described solves 
+FVS-BCL-$\rho$-stitching in time $f(\tw) \cdot n^{\mathcal{O}(1)}$.
+
+\subsection{r-Dominating Set and $(r+1)$-stitching}
 
 In this subsection we will use the definitions and terminology we have established in the 
 previous section and look at another problem, namely the r-Dominating Set problem. We will 
@@ -1109,7 +1150,7 @@ prove that the problem is certified.
 \end{proof}
 
 \refstepcounter{definition}
-\begin{mydefinition}[r-DS is (r+1)-stitchable]{Lemma}
+\begin{mydefinition}[r-DS is $(r+1)$-stitchable]{Lemma}
     \label{lemma-r-DS-stitchable}
 
     Let $(G, w)$ be any instance to the $r$-DS problem, $J \subseteq V(G)$, some subset
@@ -1169,13 +1210,14 @@ Now we describe an algorithm to find a feasible solution of minimum weight.
 \end{algorithm}
 
 \refstepcounter{definition}
-\begin{mydefinition}[r-DS-(r+1)-stitching]{Lemma}
+\begin{mydefinition}[$r$-DS-$(r+1)$-stitching]{Lemma}
     \label{lemma-rds-stitching}
 
     Let $A$ be an algorithm that solves $r$-stitching on any vertex-weighted instance 
-    $(G, w : V(G) \to \mathbb{N})$ in time $f(\tw(G)) \cdot |V(G)|^{O(1)}$. Then 
+    $(G, w : V(G) \to \mathbb{N})$ in time $f(t) \cdot |V(G)|^{\mathcal{O}(1)}$ where 
+    $t$ is the treewidth of $G$. Then 
     Algorithm~\ref{alg:stitch-r-DS} solves $r$-DS in time 
-    $f(\tw(N^{r+1}_{G}[J])) \cdot V(G)^{O(1)}$.
+    $f(\tw) \cdot V(G)^{\mathcal{O}(1)}$ where $\tw$ is the treewidth of $(N^{r+1}_{G}[J])$.
 
 \end{mydefinition}
 
@@ -1185,3 +1227,5 @@ a similar proof in Bumpus et al. \cite[Lemma 3.3]{bumpus_et_al:LIPIcs.SWAT.2024.
 
 \textbf{Running time:}
 
+For some constant $r$ and $\tw$, the treewidth of $N^{r+1}_{G}[J]$, the running time of 
+the algorithm is: $(2r+1)^{\tw + 1} \cdot \tw^{2} \cdot n^{\mathcal{O}(1)}$.

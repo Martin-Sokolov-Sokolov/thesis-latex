@@ -1,35 +1,38 @@
 \section{Introduction}
 
-The \textsc{Feedback Vertex Set} (\textsc{FVS}) problem is central to the field of computer science. Karp's paper \cite{Karp1972} 
-showed that there is a reduction from \textsc{Satisfiability} to twenty-one problems, one of which is \textsc{FVS}. Because of the 
-hardness of the problem, extensive research has been conducted in order to find a good approximation solution. The problem is \textbf{APX-complete} 
-and the best approximation ratio so far is two and was first found by Becker and Geiger \cite{BECKER1996167}. Around the same time, Bafna et al. 
-\cite{bafnaandfujito} devised the first local ratio technique in order to arrive at the same approximation ratio. These algorithms were translated 
-in primal-dual terms by Chudak et al. \cite{CHUDAK1998111} who constructed a third algorithm which yields a 2-approximation both for the unweighted and 
-weighted case of the \textsc{FVS} problem. 
-
-For planar graphs and \textsc{H-Minor-Free} graphs two approaches have yielded PTASs for many problems. Baker's technique \cite{Baker} 
-focused on approximation algorithms for \textbf{NP-Complete} problems on planar graphs, while Demaine and Hajiaghayi \cite{demaine2005bidimensionality} 
-generalized the shifting technique for the latter class of graphs. One of the known limitations of the shifting technique is that it does not
-handle non-local problems, such as the ones we are examining (\textsc{FVS}, \textsc{Cycle Packing}). In our paper, we impose restrictions on 
-the problems in order to introduce a local property that allows us to devise a PTAS for the \textsc{FVS-BCL} problem.
-Baker's technique allows for the translation into the weighted version of the problem. We adapt the algorithm to work for the \textsc{MWFVS-BCL} 
-all the while trying to follow the framework for devising certified algorithms established in 
-\cite{Makarychev_Makarychev_2021, angelidakis2018bilu,bumpus_et_al:LIPIcs.SWAT.2024.19}.
+The \textsc{Feedback Vertex Set} (\textsc{FVS}) problem is central to the field of computer 
+science. Karp's paper \cite{Karp1972} 
+showed that there is a reduction from \textsc{Satisfiability} to twenty-one problems, 
+one of which is FVS. Because of the 
+hardness of the problem, extensive research has been conducted in order to find a good 
+approximation solution. 
 
 The \textsc{FVS} problem has applications in the field of Bayesian networks. As we said, researchers turned to approximation algorithms 
 and made use of the linear programming (\textsc{LP}) framework in order to get desirable ratios. In this paper, we make use of the existing literature on
 \textsc{LP} for \textsc{FVS} and analyse how to translate the results for the class of graphs with bounded cycle length. In Section \ref{BWCA-section}, 
-we familiarize the reader with two ways of designing certified algorithms. One way is by using convex relations. This motivates us to 
-define the problem as an \textsc{ILP}, solve the \textsc{LP} relaxation and exploit a randomized rounding scheme to get the values for the 
-approximate and co-approximate conditions, as defined in the same section. Those values are then used to calculate the $\gamma$ for the 
-$\gamma-$certified algorithm.
+we familiarize the reader with two ways of designing certified algorithms.
 
 Finally, we consider the notions of Bilu-Linial stability \cite{bilu2012stable} and certified algorithms \cite{Makarychev_Makarychev_2021}. 
 In the last two paragraphs, we explained how we plan to translate existing techniques to get certified solutions of instances. In the final work, 
 the last sections will be dedicated to proving that these algorithms are indeed certified. 
 
- \textbf{Related Work}
+\textbf{Related Work}
+
+The problem is \textsc{APX-complete} in general graphs
+and the best approximation ratio so far is two and was first found by Becker and Geiger \cite{BECKER1996167}. Around the same time, Bafna et al. 
+\cite{bafnaandfujito} devised the first local ratio technique in order to arrive at the same approximation ratio. These algorithms were translated 
+in primal-dual terms by Chudak et al. \cite{CHUDAK1998111} who constructed a third algorithm which yields a 2-approximation both for the unweighted and 
+weighted case of the FVS problem. 
+
+For planar graphs and H-Minor-Free graphs two approaches have yielded PTASs for many problems. Baker's technique \cite{Baker} 
+focused on approximation algorithms for \textsc{NP-Complete} problems on planar graphs, while Demaine and Hajiaghayi \cite{demaine2005bidimensionality} 
+used recursive separators for the latter class of graphs. One of the known limitations of the shifting technique is that it does not
+handle non-local problems, such as FVS. 
+In our paper, we impose restrictions on 
+the problems in order to introduce a local property that allows us to devise a PTAS for the \textsc{FVS-BCL} problem.
+Baker's technique allows for the translation into the weighted version of the problem. We adapt the algorithm to work for the \textsc{MWFVS-BCL} 
+all the while trying to follow the framework for devising certified algorithms established in 
+\cite{Makarychev_Makarychev_2021, angelidakis2018bilu,bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
 This work is inspired by Baker's seminal paper on designing PTASs in planar graphs \cite{Baker}. There have been other techniques that 
 generalize this approach, namely Demaine and Hajiaghayi \cite{demaine2005bidimensionality}'s bidimensionality theory. The latter framework 
@@ -64,8 +67,7 @@ run in time $f(1/\epsilon) \cdot n^{O(1)}$ on minor-closed classes of graphs of 
     $k$ & Solution size \\
     $r$ & Radius parameter in $r$-Dominating Set; each node dominates vertices at distance at most $r$ \\
     $n$ & Number of vertices in the graph \\
-    $m$ & Number of edges in the graph \\
-    $\mu$ & The $\mu$-neighbourhood of a vertex (e.g., all vertices within distance $\mu$) \\
+    $m$ & The parameter for the $m$-stitching operation; parameter for $m$-neighbourhood of a subgraph \\
     $\gamma$ & Perturbation parameter, $\gamma \in \mathbb{N}$ \\
     \end{tabular}
     \caption{Summary of Notation}
