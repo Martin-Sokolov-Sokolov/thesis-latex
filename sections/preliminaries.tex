@@ -201,7 +201,7 @@ Cesati and Trevisan first describes what an efficient PTAS is.
 \subsubsection{Baker's approach}
 \label{subsection:baker}
 
-This subsection presents the Shifting Technique, originally introduced in Baker's seminal 
+This subsection presents the shifting technique, originally introduced in Baker's seminal 
 paper~\cite{Baker}. The technique outlines a general algorithm that partitions the graph 
 into a disjoint union of vertex levels. By analysing slices of these 
 levels and, more specifically, the overlap between these slices, one obtains an approximation ratio for the solution to the optimization 
@@ -215,12 +215,12 @@ This approach works for hereditary maximization problems like \textsc{Independen
 \textsc{Maximum P-Matching}, etc. 
 
 The following section presents one example application.
-It focuses on the general Shifting Technique, using the \textsc{Vertex Cover} problem 
+It focuses on the general shifting technique, using the \textsc{Vertex Cover} problem 
 as an illustrative case. 
 This example is explored in great detail, as both the problem and the technique 
 closely resemble the approach required for solving FVS-BCL.
 
-It is important to highlight that the general Shifting Technique is more powerful than 
+It is important to highlight that the general shifting technique is more powerful than 
 the vertex-removal partitioning. For problems like Dominating Set, the latter technique does not 
 yield a PTAS.
 
@@ -320,10 +320,8 @@ tree decompositions of $G$.
  Furthermore, if there exists $\lambda \in \mathbb{R}$, such that 
 $f$ can be defined as $f : r \to \lambda \cdot r$, then $G$ would have linear local treewidth.
 
- Building on the work of Eppstein~\cite{eppstein2000diameter}, 
-Demaine and Hajiaghayi~\cite{demaine2003equivalence} prove that apex-minor-free graphs 
-have linear local treewidth. Apex graphs are graphs that can be made planar by the removal 
-of a single vertex. From this follows that planar graphs also have linear local treewidth.
+We know that planar graphs are a class of graphs that also have linear 
+local treewidth \cite{bodlaender1998partial,eppstein2000diameter,demaine2003equivalence}.
 
 \subsubsection{Linear Programming and Randomized Rounding}
 

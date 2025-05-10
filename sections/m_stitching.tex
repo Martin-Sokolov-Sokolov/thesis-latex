@@ -314,7 +314,7 @@ we need one more definition.
 Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
 \refstepcounter{definition}
-\begin{mydefinition}[Main Theorem]{Theorem.}
+\begin{mydefinition}[Meta-Theorem for Minor-Closed Graph Classes]{Theorem.}
     \label{theorem-main}
 
     Let $\mathbb{G}$ be a minor-closed graph class whose local tree-width is bounded above by a linear 
@@ -345,7 +345,7 @@ vertex-minimization problems.
 \begin{mydefinition}[FVS-BCL is guessable]{Lemma}
     \label{lemma-guessable}
 
-     For any planar graph $G$, the set $V(G)$ is a feasible solution to FVS-BCL.
+    For any planar graph $G$, the set $V(G)$ is a feasible solution to FVS-BCL.
 
 \end{mydefinition}
 
@@ -424,9 +424,8 @@ such that $v \in S_3$.
     \end{algorithmic}
 \end{algorithm}
 
-The algorithm $A$ on line~\ref{alg:stitch-fvs-4cl} refers to calling 
-Algorithm~\ref{courcelle:rho} that takes as input a graph that has bounded treewidth.
-
+The algorithm $A$ on line~\ref{alg:stitch-fvs-4cl} refers to using 
+Corollary~\ref{cor:msol-fvs-rho} as a result.
 
 \refstepcounter{definition}
 \begin{mydefinition}[FVS-4CL-2-stitching]{Lemma}

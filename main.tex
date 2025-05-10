@@ -1,16 +1,10 @@
 \documentclass[12pt]{article}
 
-\usepackage[
-  backend=biber,
-  style=numeric,      
-  backref=true,
-  backrefstyle=three  
-]{biblatex}
-
+\usepackage[backend=biber, style=numeric, backref=true, backrefstyle=three]{biblatex}
 \addbibresource{references.bib}
 
 \usepackage{setspace}
-\setstretch{1.1}     
+\setstretch{1.1}      % Adjust line spacing
 
 \usepackage{amssymb}
 \usepackage{hyperref}
@@ -25,6 +19,7 @@
 \usepackage{float}
 \usepackage{parskip}
 \usepackage{tikz}
+\usepackage{longtable}
 \usetikzlibrary{graphs, shapes, positioning}
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{positioning}
@@ -55,8 +50,6 @@
   frame=single,
   captionpos=b
 }
-
-
 
 \hbadness=10000
 \hfuzz=50pt
@@ -95,5 +88,9 @@
 %\include{sections/conclusion}
 
 \printbibliography
+
+% Include the appendix
+\newpage
+\include{appendix}
 
 \end{document}

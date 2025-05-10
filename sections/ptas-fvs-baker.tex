@@ -613,7 +613,7 @@ by examining the outcome of attempting to break all weighted cycles of length $\
         $(j+1) \cdot \ell + i + \lfloor \frac{\rho}{2} \rfloor$ 
         for $0 \leq i < \ell$. \label{alg5:line4}
         \STATE $\forall j \text{ compute }  S_{i, j}$, the min. weighted \textsc{FVS-BCL} 
-        of $G_{i, j}$ using Algorithm~\ref{courcelle:rho} as a subroutine. \label{alg5:line5}
+        of $G_{i, j}$ using Corollary~\ref{cor:msol-fvs-rho} as a result. \label{alg5:line5}
         \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$ \label{alg5:line6}
         \STATE $S \leftarrow S \cup S_i$ \label{alg5:line7}
     \ENDFOR
@@ -789,8 +789,8 @@ vertices of each \( G_{i, j} \) contribute exactly once to the total weight. Thi
 In Algorithm~\ref{alg:baker_arbitrary_length} which solves FVS-BCL the computation on line~\ref{alg5:line5}
 dominates the running time. In planar graphs steps \ref{alg5:line1} and \ref{alg5:line9} take linear time 
 to the input. Using Courcelle's theorem \cite{courcelle1990monadic} we argue for the running time 
-of line ~\ref{alg5:line5}, which uses Alg.~\ref{courcelle:rho} as a subroutine. As we will say in the next 
-section, the subroutine runs in time $f(||\phi||, t) \cdot n$ for some computable function $f$ 
+of line ~\ref{alg5:line5}, which uses Corollary.~\ref{cor:msol-fvs-rho} as a result. As we will say in the next 
+section, the running time is $f(\rho, t) \cdot n^{\mathcal{O}(1)}$ for some computable function $f$ 
 where a tree decomposition of width $t$ is provided. Using a result from Bodlaender~\cite[Theorem 83]{bodlaender1998partial}
-one can incur that the treewidth of each subgraph is bounded $\tw$. Therefore the running time of Alg.~\ref{alg:baker_arbitrary_length} 
-is $\mathcal{O}(f(\tw) \cdot n)$ for some computable function $f$.
+one can incur that the treewidth of each subgraph is bounded by $\tw$. Therefore the running time of Alg.~\ref{alg:baker_arbitrary_length} 
+is $\mathcal{O}(f(\rho, \tw) \cdot n)$ for some computable function $f$.

@@ -109,6 +109,20 @@ The minimum weight FVS-4CL can be expressed as:
     
 \end{mydefinition}
 
+\refstepcounter{definition}
+\begin{mydefinition}[MSOL Solvability of FVS-$\rho$CL on Bounded-Treewidth Graphs]{Corollary}
+    \label{cor:msol-fvs-rho}
+    Let $\rho\ge 3$ be a constant, and let $G=(V,E)$ be an undirected graph of treewidth at 
+    most $\tw$, equipped with a vertex-weight function $w:V\to\mathbb{N}$.  Then the 
+    minimum-weight feedback-vertex-set that breaks all $\rho$-cycles in $G$ 
+    (i.e.\ solves FVS-$\rho$CL) can be computed in time
+    \[
+        f(\rho, \tw) \cdot n^{\mathcal{O}(1)},
+    \]
+    where $f$ is some computable function depending only on $\rho$ and $\tw$. 
+\end{mydefinition}
+  
+
 \subsection{Exact algorithm for FVS-4CL using dynamic programming}
 
 \label{alg:dp}
@@ -131,28 +145,29 @@ For a more thorough explanation of those concepts, see Bodlaender~\cite[Section 
     For the set $X_i$ the vertices are partitioned twofold.
 
     \begin{enumerate}
-        \item The class $I \subseteq X_i$ corresponds to all vertices that are in the partial solution.
-        \item The class $Flag \subseteq X_i \times X_i$ is comprised of all of the pairs of 
+        \item The class $I \subseteq X_i$ corresponds to all vertices that are in the partial solution 
+        for the current node $X_i$.
+        \item The class $\mathcal{F} \subseteq X_i \times X_i$ is comprised of all of the pairs of 
         vertices $v,u \in X_i: 
-        (v, u) \in Flag$ if they have a common neighbour $w \in V_i \backslash X_i$, such that 
-        $w \notin I$.
+        (v, u) \in \Phi$ if they have a common neighbour $w \in V_i \backslash X_i$, such that 
+        $w \notin F_i$.
     \end{enumerate}
     
     \[ch(G_i, F_i) = (\{v \in X_i: v \in F_i\}, 
     \{(v, u) \in X_i \times X_i: \exists w \in V_i \backslash X_i, 
     (v, w) \in E_i, (u, w) \in E_i, w \notin F_i\})\]
 
-    The valuation of a characteristic $ch(G_i, F_i)$ is a table $c[i, I, Flag]$.
+    The valuation of a characteristic $ch(G_i, F_i)$ is a table $c[i, I, \mathcal{F}]$.
     It represents the minimum weight 
-    of a partial solution $F_i$ in $G_i$ and $c[i, I, Flag] \in \mathbb{N} \cup \{\infty\}$.
+    of a partial solution $F_i$ in $G_i$ and $c[i, I, \mathcal{F}] \in \mathbb{N} \cup \{\infty\}$.
     The table keeps the value of infinity if no such set exists.
 
-    \[c[i, I, Flag] = \min\{w(W) : W \text{ is a FVS-4CL of } G_i \land W \cap X_i = I\}\] 
+    \[c[i, I, \mathcal{F}] = \min\{w(W) : W \text{ is a FVS-4CL of } G_i \land W \cap X_i = I\}\] 
 
     \item Define the notion of a \textit{full set of characteristics}.
 
     The full set for a node $X_i$ is a valuation for each characteristic $I \in \{0, 1\}^{|X_i|}$ 
-    and $Flag \in \{0, 1\}^{X_i \times X_i}$. Since there are at most $\tw+1$ elements, 
+    and $\mathcal{F} \in \{0, 1\}^{X_i \times X_i}$. Since there are at most $\tw+1$ elements, 
     there are at most $2^{(\tw+1)} \cdot 2^{\binom{\tw+1}{2}}$ entries. That yields a storage 
     capacity of $2^{\binom{\tw+1}{2} + (\tw+1)} = 2^{\mathcal{O}(\tw^2)}$. 
 
@@ -170,11 +185,11 @@ Let $i$ be an introduce node with child node $j$. We have that $X_i = X_j \cup \
 vertex $v \notin X_j$. There are two possible values.
 \[
 \begin{aligned}
-    c[i, I \cup \{v\}, \text{Flag}] &= w(v) + c[j, I, \text{Flag}] \\
-    c[i, I, \text{Flag}] &= 
+    c[i, I \cup \{v\}, \mathcal{F}] &= w(v) + c[j, I, \mathcal{F}] \\
+    c[i, I, \mathcal{F}] &= 
     \begin{cases}
-        \infty, & \text{if } \exists u, w \in X_i: (u, w) \in \text{Flag}, u \notin I, w \notin I, (v, u) \in E_i, (v, w) \in E_i \\
-        c[j, I, \text{Flag}], & \text{otherwise}
+        \infty, & \text{if } \exists u, w \in X_i: (u, w) \in \mathcal{F}, u \notin I, w \notin I, (v, u) \in E_i, (v, w) \in E_i \\
+        c[j, I, \mathcal{F}], & \text{otherwise}
     \end{cases}
 \end{aligned}
 \]
@@ -184,21 +199,22 @@ vertex $v \notin X_j$. There are two possible values.
 Let $i$ be a forget node with child node $j$. We have that $X_i = X_j \backslash \{v\}$ for 
 some vertex $v \in X_j$.
 
-\[c[i, I, Flag] = \min(c[j, I \cup \{v\}, Flag],
-c[j, I, Flag \cup \{(u, w): (v,u) \in E_i, (v, w) \in E_i\}])\]
+\[c[i, I, \mathcal{F}] = \min(c[j, I \cup \{v\}, \mathcal{F}],
+c[j, I, \mathcal{F} \cup \{(u, w): (v,u) \in E_i, (v, w) \in E_i\}])\]
 
 \textbf{Join node:}
 
 Let $i$ be a join node with children $j_1$ and $j_2$. Recall that $X_i = X_{j_1} = X_{j_2}$. 
-Let $Flag_1$ and $Flag_2$ be the $Flag$ set values of $X_{j_1}$ and $X_{j_2}$ respectively.
+Let $\mathcal{F}_1$ and $\mathcal{F}_2$ be the $\mathcal{F}$ set values of $X_{j_1}$ and $X_{j_2}$ respectively.
 
 \[
 \begin{aligned}
-    c[i, I, Flag_1 \cup Flag_2] =
+    c[i, I, \mathcal{F}_1 \cup \mathcal{F}_2] =
     \begin{cases}
-        \infty, & \text{if } \exists u, w \in X_i : (u, w) \in Flag_1, \\
-                & \quad (u, w) \in Flag_2, u \notin I, w \notin I \\
-        c[j_1, I, Flag_1] + c[j_2, I, Flag_2] - w(I), & \text{otherwise}
+        \infty, & \text{if } \exists u, w \in X_i : (u, w) \in \mathcal{F}_1, \\
+                & \quad (u, w) \in \mathcal{F}_2, u \notin I, w \notin I \\
+        c[j_1, I, \mathcal{F}_1] + c[j_2, I, \mathcal{F}_2] - w(I), & \text{otherwise}
     \end{cases}
 \end{aligned}
 \]
+
