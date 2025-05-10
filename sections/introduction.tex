@@ -75,4 +75,57 @@ run in time $f(1/\epsilon) \cdot n^{O(1)}$ on minor-closed classes of graphs of 
 \end{table}
     
 
-% \textbf{Organization of Material}
+\begin{center}
+\begin{forest}
+for tree={
+    draw,
+    rounded corners,
+    align=center,
+    font=\small,
+    text width=6cm,
+    fill=blue!10,
+    minimum height=2cm,
+    inner sep=5pt,
+    l sep=2.5cm,
+    s sep=1.5cm,
+    edge={->},
+},
+bignode/.style={
+    text width=8cm,
+    font=\normalsize\bfseries,
+    minimum height=3.2cm,
+    fill=blue!20,
+}
+[
+\textbf{1 Introduction / 2 Preliminaries}
+  [
+  \textbf{4. Exact algorithm for FVS-4CL using MSOL}
+    [
+    {\textbf{3 (E)PTAS for combinatorial optimization problems using Baker's technique} \\
+    \vspace{0.2cm}
+    \hspace{-8.5cm}
+    \adjustbox{scale=0.75}{
+        \begin{tabular}{| l | p{2cm} | p{2cm} | p{2.5cm} |}
+        \hline
+        & \textbf{FVS-4CL} & \textbf{FVS-BCL} & \textbf{r-Dominating Set} \\
+        \hline
+        Complexity & Info for FVS-4CL (R1) & Info for FVS-BCL (R1) & Info for r-Dominating Set (R1) \\
+        \hline
+        Algorithm & Info for FVS-4CL (R2) & Info for FVS-BCL (R2) & Info for r-Dominating Set (R2) \\
+        \hline
+        Reference & Info for FVS-4CL (R3) & Info for FVS-BCL (R3) & Info for r-Dominating Set (R3) \\
+        \hline
+        \end{tabular}
+    }}
+    , bignode
+    ]
+    [
+    \textbf{5 m-stitching and $\Pi$-m-stitching}
+      [
+      \textbf{6 Certified Algorithms}
+      ]
+    ]
+  ]
+]
+\end{forest}
+\end{center}

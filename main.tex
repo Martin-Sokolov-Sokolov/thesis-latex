@@ -7,6 +7,7 @@
 \setstretch{1.1}      % Adjust line spacing
 
 \usepackage{amssymb}
+\usepackage{amsfonts} % For additional math fonts if needed
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{tcolorbox}
@@ -19,6 +20,12 @@
 \usepackage{float}
 \usepackage{parskip}
 \usepackage{tikz}
+\usepackage{graphicx} % Required for the \scalebox command
+\usepackage{array}
+
+\usepackage[edges]{forest}
+\usepackage{adjustbox}
+
 \usepackage{longtable}
 \usetikzlibrary{graphs, shapes, positioning}
 \usetikzlibrary{backgrounds}
@@ -91,6 +98,7 @@
 
 % Include the appendix
 \newpage
-\include{appendix}
+
+\include{sections/appendix}
 
 \end{document}
