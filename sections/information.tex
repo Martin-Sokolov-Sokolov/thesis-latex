@@ -1,0 +1,82 @@
+\section*{Notation and Structure Overview}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ll}
+    \textbf{Symbol} & \textbf{Meaning} \\
+    \textbf{FVS-$\rho$CL} & Feedback Vertex Set problem for breaking every cycle of length exactly $\rho$ \\
+    $\ell$ & Outerplanarity parameter; typically is set to $\frac{1}{\epsilon}$ \\
+    $k$ & Solution size \\
+    $r$ & Radius parameter in $r$-Dominating Set; each node dominates vertices at distance at most $r$ \\
+    $n$ & Number of vertices in the graph \\
+    $m$ & The parameter for the $m$-stitching operation; parameter for $m$-neighbourhood of a subgraph \\
+    $\gamma$ & Perturbation parameter, $\gamma \in \mathbb{N}$ \\
+    \end{tabular}
+    \caption{Summary of Notation}
+    \label{tab:notation}
+\end{table}
+    
+
+\begin{center}
+\begin{tikzpicture}[
+    level distance=3.5cm, % Vertical spacing between levels
+    sibling distance=4.5cm, % Horizontal spacing between sibling nodes
+    every node/.style={
+        draw, % Draw a border around the node
+        rounded corners, % Rounded corners for the node box
+        align=center, % Align text to the left within the node
+        text width=7.5cm, % Fixed width for the node text area
+        font=\small, % Smaller font size for node content
+        inner sep=5pt, % Padding inside the node border
+        minimum height=2cm, % Minimum height for all nodes
+        fill=blue!10, % Light blue background fill for nodes
+        node distance=2cm % Space between nodes in the same level (not directly used by qtree)
+    },
+    edge from parent path={(\tikzparentnode.south) -- (\tikzchildnode.north)} % Draw edges from parent's bottom to child's top
+]
+% Root Node: Introduction and Preliminaries
+\Tree [.{\parbox{\linewidth}{\textbf{1 Introduction / \textbf{2 Preliminaries}} \\
+}}
+    % Child of Root: Section 4
+    [.{\parbox{\linewidth}{\textbf{4. Exact algorithm for FVS-4CL using MSOL} \\
+    }}
+        [.{\parbox{\linewidth}{\textbf{3 (E)PTAS for combinatorial optimization problems using Baker's technique} \\
+        % --- START OF SCALED TABLE ---
+        % Adjust the scale factor (e.g., 0.7) and p{} column widths (e.g., 2cm)
+        % as needed to fit the content within the node's text width (7.5cm here).
+        \scalebox{0.85}{ % Scale the table down by 75%
+            \begin{tabular}{| l | p{1.4cm} | p{1.4cm} | p{1.85cm} |} % Using p{2cm} for scaled columns
+            \hline
+            & \textbf{FVS-4CL} & \textbf{WFVS-4CL} & \textbf{WFVS-BCL} \\
+            \hline
+            Row 1 Label: & % Replace "Row 1 Label:" with content like "Complexity"
+            Info for FVS-4CL (R1) & % Replace with actual info
+            Info for FVS-BCL (R1) & % Replace with actual info
+            Info for r-Dominating Set (R1) \\
+            \hline
+            Row 2 Label: & % Replace "Row 2 Label:" with content like "Algorithm"
+            Info for FVS-4CL (R2) &
+            Info for FVS-BCL (R2) &
+            Info for r-Dominating Set (R2) \\
+            \hline
+            Row 3 Label: & % Replace "Row 3 Label:" with content like "Reference"
+            Info for FVS-4CL (R3) &
+            Info for FVS-BCL (R3) &
+            Info for r-Dominating Set (R3) \\
+            \hline
+            \end{tabular}
+        }
+        }}
+        ]
+        % Child of Section 4 (second one): Section 5
+        [.{\parbox{\linewidth}{\textbf{5 m-stitching and $\Pi$-m-stitching} \\
+        }}
+            % Child of Section 5: Section 6
+            [.{\parbox{\linewidth}{\textbf{6 Certified Algorithms} \\
+            }}
+            ]
+        ]
+    ]
+]
+\end{tikzpicture}
+\end{center}

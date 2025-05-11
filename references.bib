@@ -198,61 +198,123 @@ ABSTRACT = {The dominating set problem is a core NP-hard problem in combinatoria
 DOI = {10.3390/a6010043}
 }
 
-@article{BECKER1996167,
-title = {Optimization of Pearl's method of conditioning and greedy-like approximation algorithms for the vertex feedback set problem},
-journal = {Artificial Intelligence},
-volume = {83},
-number = {1},
-pages = {167-188},
-year = {1996},
-issn = {0004-3702},
-doi = {https://doi.org/10.1016/0004-3702(95)00004-6},
-url = {https://www.sciencedirect.com/science/article/pii/0004370295000046},
-author = {Ann Becker and Dan Geiger},
-abstract = {We show how to find a small loop cutset in a Bayesian network. Finding such a loop cutset is the first step in the method of conditioning for inference. Our algorithm for finding a loop cutset, called MGA, finds a loop cutset which is guaranteed in the worst case to contain less than twice the number of variables contained in a minimum loop cutset. The algorithm is based on a reduction to the weighted vertex feedback set problem and a 2-approximation of the latter problem. The complexity of MGA is O(m + nlogn) where m and n are the number of edges and vertices respectively. A greedy algorithm, called GA, for the weighted vertex feedback set problem is also analyzed and bounds on its performance are given. We test MGA on randomly generated graphs and find that the average ratio between the number of instances associated with the algorithm's output and the number of instances associated with an optimum solution is far better than the worst-case bound.}
+@inproceedings{bafna1995constant,
+  title={Constant ratio approximations of the weighted feedback vertex set problem for undirected graphs},
+  author={Bafna, Vineet and Berman, Piotr and Fujito, Toshihiro},
+  booktitle={Algorithms and Computations: 6th International Symposium, ISAAC'95 Cairns, Australia, December 4--6, 1995 Proceedings 6},
+  pages={142--151},
+  year={1995},
+  organization={Springer}
 }
 
-@article{bafnaandfujito,
-author = {Bafna, Vineet and Berman, Piotr and Fujito, Toshihiro},
-title = {A 2-Approximation Algorithm for the Undirected Feedback Vertex Set Problem},
-journal = {SIAM Journal on Discrete Mathematics},
-volume = {12},
-number = {3},
-pages = {289-297},
-year = {1999},
-doi = {10.1137/S0895480196305124},
-
-URL = { 
-    
-        https://doi.org/10.1137/S0895480196305124
-    
-    
-
-},
-eprint = { 
-    
-        https://doi.org/10.1137/S0895480196305124
-    
-    
-
-}
-,
-    abstract = { A feedback vertex set of a graph is a subset of vertices that contains at least one vertex from every cycle in the graph. The problem considered is that of finding a minimum feedback vertex set given a weighted and undirected graph. We present a simple and efficient approximation algorithm with performance ratio of at most 2, improving previous best bounds for either weighted or unweighted cases of the problem. Any further improvement on this bound, matching the best constant factor known for the vertex cover problem, is deemed challenging.The approximation principle, underlying the algorithm, is based on a generalized form of the classical local ratio theorem, originally developed for approximation of the vertex cover problem, and a more flexible style of its application. }
+@article{bar1998approximation,
+  title={Approximation algorithms for the feedback vertex set problem with applications to constraint satisfaction and Bayesian inference},
+  author={Bar-Yehuda, Reuven and Geiger, Dan and Naor, Joseph and Roth, Ron M},
+  journal={SIAM journal on computing},
+  volume={27},
+  number={4},
+  pages={942--959},
+  year={1998},
+  publisher={SIAM}
 }
 
-@article{CHUDAK1998111,
-title = {A primal–dual interpretation of two 2-approximation algorithms for the feedback vertex set problem in undirected graphs},
-journal = {Operations Research Letters},
-volume = {22},
-number = {4},
-pages = {111-118},
-year = {1998},
-issn = {0167-6377},
-doi = {https://doi.org/10.1016/S0167-6377(98)00021-2},
-url = {https://www.sciencedirect.com/science/article/pii/S0167637798000212},
-author = {Fabián A. Chudak and Michel X. Goemans and Dorit S. Hochbaum and David P. Williamson},
-keywords = {Approximation algorithms, Combinatorial optimization, Feedback vertex set},
-abstract = {Recently, Becker and Geiger and Bafna, Berman and Fujito gave 2-approximation algorithms for the feedback vertex set problem in undirected graphs. We show how their algorithms can be explained in terms of the primal–dual method for approximation algorithms, which has been used to derive approximation algorithms for network design problems. In the process, we give a new integer programming formulation for the feedback vertex set problem whose integrality gap is at worst a factor of two; the well-known cycle formulation has an integrality gap of Θ(logn), as shown by Even, Naor, Schieber and Zosin. We also give a new 2-approximation algorithm for the problem which is a simplification of the Bafna et al. algorithm.}
+@article{becker1996optimization,
+  title={Optimization of Pearl's method of conditioning and greedy-like approximation algorithms for the vertex feedback set problem},
+  author={Becker, Ann and Geiger, Dan},
+  journal={Artificial Intelligence},
+  volume={83},
+  number={1},
+  pages={167--188},
+  year={1996},
+  publisher={Elsevier}
+}
+
+@article{chudak1998primal,
+  title={A primal--dual interpretation of two 2-approximation algorithms for the feedback vertex set problem in undirected graphs},
+  author={Chudak, Fabi{\'a}n A and Goemans, Michel X and Hochbaum, Dorit S and Williamson, David P},
+  journal={Operations Research Letters},
+  volume={22},
+  number={4-5},
+  pages={111--118},
+  year={1998},
+  publisher={Elsevier}
+}
+
+@article{goemans1998primal,
+  title={Primal-dual approximation algorithms for feedback problems in planar graphs},
+  author={Goemans, Michel X and Williamson, David P},
+  journal={Combinatorica},
+  year={1998}
+}
+
+@article{johnson1975finding,
+  title={Finding all the elementary circuits of a directed graph},
+  author={Johnson, Donald B},
+  journal={SIAM Journal on Computing},
+  volume={4},
+  number={1},
+  pages={77--84},
+  year={1975},
+  publisher={SIAM}
+}
+
+@article{lloyd1988locating,
+  title={On locating minimum feedback vertex sets},
+  author={Lloyd, Errol L and Soffa, Mary Lou and Wang, Ching-Chy},
+  journal={Journal of Computer and System Sciences},
+  volume={37},
+  number={3},
+  pages={292--311},
+  year={1988},
+  publisher={Elsevier}
+}
+
+@article{shaw1978software,
+  title={Software descriptions with flow expressions},
+  author={Shaw, Alan C.},
+  journal={IEEE Transactions on Software Engineering},
+  number={3},
+  pages={242--254},
+  year={1978},
+  publisher={IEEE}
+}
+
+@inproceedings{gupta1989ballast,
+  title={BALLAST: A methodology for partial scan design},
+  author={Gupta, Rajesh and Gupta, Rajiv and Breuer, Melvin A},
+  booktitle={1989 The Nineteenth International Symposium on Fault-Tolerant Computing. Digest of Papers},
+  pages={118--125},
+  year={1989},
+  organization={IEEE Computer Society}
+}
+
+@article{kunzmann1990analytical,
+  title={An analytical approach to the partial scan problem},
+  author={Kunzmann, Arno and Wunderlich, Hans-Joachim},
+  journal={Journal of Electronic Testing},
+  volume={1},
+  pages={163--174},
+  year={1990},
+  publisher={Springer}
+}
+
+@article{luccio1998almost,
+  title={Almost exact minimum feedback vertex set in meshes and butterflies},
+  author={Luccio, Flaminia L and others},
+  journal={Inf. Process. Lett.},
+  volume={66},
+  number={2},
+  pages={59--64},
+  year={1998}
+}
+
+@incollection{festa2012feedback,
+  title={Feedback set problems},
+  author={Festa, Paola and Pardalos, Panos M and C. Resende, Mauricio G},
+  booktitle={Encyclopedia of optimization},
+  pages={1--13},
+  year={2012},
+  publisher={Springer}
 }
 
 @article{courcelle1990monadic,

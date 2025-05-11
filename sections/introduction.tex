@@ -1,27 +1,48 @@
 \section{Introduction}
 
 The \textsc{Feedback Vertex Set} (\textsc{FVS}) problem is central to the field of computer 
-science. Karp's paper \cite{Karp1972} 
+science. 
+It asks for the smallest set of vertices whose removal results in an acyclic graph.
+Karp's paper \cite{Karp1972} 
 showed that there is a reduction from \textsc{Satisfiability} to twenty-one problems, 
 one of which is FVS. Because of the 
-hardness of the problem, extensive research has been conducted in order to find a good 
-approximation solution. 
+hardness of the problem, extensive research has been conducted in order to find good 
+approximation solutions~\cite{bafna1995constant,bar1998approximation,becker1996optimization,chudak1998primal,goemans1998primal}. 
+In our paper, we focus on the Feedback Vertex Set with Bounded Cycle Length problem (\textsc{FVS-BCL}).
+The goal is to find a set of vertices that intersects every cycle of a given length.
 
-The \textsc{FVS} problem has applications in the field of Bayesian networks. As we said, researchers turned to approximation algorithms 
-and made use of the linear programming (\textsc{LP}) framework in order to get desirable ratios. In this paper, we make use of the existing literature on
-\textsc{LP} for \textsc{FVS} and analyse how to translate the results for the class of graphs with bounded cycle length. In Section \ref{BWCA-section}, 
-we familiarize the reader with two ways of designing certified algorithms.
+The \textsc{FVS} problem has applications in many different fields. 
+Some of them include combinatorial circuit design~\cite{johnson1975finding}, deadlock prevention 
+in computer systems~\cite{lloyd1988locating, shaw1978software}, 
+VLSI chip design~\cite{gupta1989ballast,kunzmann1990analytical},
+synchronous systems~\cite{luccio1998almost} 
+and in artificial intelligence. More specifically, in the field of AI, the FVS problem is important 
+for Bayesian inference~\cite{bar1998approximation,becker1996optimization}. 
+In the context of Bayesian inference, researchers often pursue approximation algorithms for the 
+FVS problem, as approximations provide a practical and effective approach.
+A survey on the FVS problem and its applications by Festa et al.~\cite{festa2012feedback} gives more 
+details on everything mentioned so far. The same survey argues that detecting cycles 
+is an expensive operation, but ends its argument with:
 
-Finally, we consider the notions of Bilu-Linial stability \cite{bilu2012stable} and certified algorithms \cite{Makarychev_Makarychev_2021}. 
-In the last two paragraphs, we explained how we plan to translate existing techniques to get certified solutions of instances. In the final work, 
-the last sections will be dedicated to proving that these algorithms are indeed certified. 
+\begin{quote}
+The design of efficient local search procedures is also considered a key component 
+in developing effective computational methods for solving the \textsc{FVS} problem.
+\end{quote}
+
+Building on this perspective, recent developments have focused on 
+certified algorithms for combinatorial optimization problems~\cite{angelidakis2018bilu,bumpus_et_al:LIPIcs.SWAT.2024.19,Makarychev_Makarychev_2021}. 
+In order to understand certified algorithms we first introduce 
+perturbation resilience~\cite{bilu2012stable} - a condition that captures instances whose 
+optimal solutions remain unchanged under small modifications to the input. 
+This notion serves as a powerful foundation for designing local techniques that are 
+both effective in practice and provably reliable.
 
 \textbf{Related Work}
 
 The problem is \textsc{APX-complete} in general graphs
-and the best approximation ratio so far is two and was first found by Becker and Geiger \cite{BECKER1996167}. Around the same time, Bafna et al. 
-\cite{bafnaandfujito} devised the first local ratio technique in order to arrive at the same approximation ratio. These algorithms were translated 
-in primal-dual terms by Chudak et al. \cite{CHUDAK1998111} who constructed a third algorithm which yields a 2-approximation both for the unweighted and 
+and the best approximation ratio so far is two and was first found by Becker and Geiger \cite{becker1996optimization}. Around the same time, Bafna et al. 
+\cite{bafna1995constant} devised the first local ratio technique in order to arrive at the same approximation ratio. These algorithms were translated 
+in primal-dual terms by Chudak et al. \cite{chudak1998primal} who constructed a third algorithm which yields a 2-approximation both for the unweighted and 
 weighted case of the FVS problem. 
 
 For planar graphs and H-Minor-Free graphs two approaches have yielded PTASs for many problems. Baker's technique \cite{Baker} 
@@ -29,14 +50,11 @@ focused on approximation algorithms for \textsc{NP-Complete} problems on planar 
 used recursive separators for the latter class of graphs. One of the known limitations of the shifting technique is that it does not
 handle non-local problems, such as FVS. 
 In our paper, we impose restrictions on 
-the problems in order to introduce a local property that allows us to devise a PTAS for the \textsc{FVS-BCL} problem.
-Baker's technique allows for the translation into the weighted version of the problem. We adapt the algorithm to work for the \textsc{MWFVS-BCL} 
+the problems in order to introduce a local property that allows us to devise an 
+EPTAS for the weighted FVS-BCL.
+We adapt the algorithm to work for the \textsc{MWFVS-BCL} 
 all the while trying to follow the framework for devising certified algorithms established in 
 \cite{Makarychev_Makarychev_2021, angelidakis2018bilu,bumpus_et_al:LIPIcs.SWAT.2024.19}.
-
-This work is inspired by Baker's seminal paper on designing PTASs in planar graphs \cite{Baker}. There have been other techniques that 
-generalize this approach, namely Demaine and Hajiaghayi \cite{demaine2005bidimensionality}'s bidimensionality theory. The latter framework 
-explores problems in \textsc{H-Minor-Free} graphs. 
 
 The notion of Bilu-Linial stability has given rise to much exploration of structured instances in many problems. 
 In their paper, Bilu and Linial \cite{bilu2012stable} offer the first evidence that stable instances are much easier than worst-case instances of problems. 
@@ -56,76 +74,3 @@ for the \textsc{Maximum Independent Set} problem (\textsc{MIS}). They provide ro
 of planar \textsc{MIS}, for any fixed $\epsilon > 0$. Covering and Dominating in planar graphs was further explored by Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19}. 
 They provide ($1 + \epsilon$)-certified algorithms for \textsc{Dominating Set} and \textsc{H-Subgraph-Free-Deletion}, which for any $\epsilon$ 
 run in time $f(1/\epsilon) \cdot n^{O(1)}$ on minor-closed classes of graphs of bounded local treewidth.
-
-
-\begin{table}[h]
-    \centering
-    \begin{tabular}{ll}
-    \textbf{Symbol} & \textbf{Meaning} \\
-    \textbf{FVS-$\rho$CL} & Feedback Vertex Set problem for breaking every cycle of length exactly $\rho$ \\
-    $\ell$ & Outerplanarity parameter; typically is set to $\frac{1}{\epsilon}$ \\
-    $k$ & Solution size \\
-    $r$ & Radius parameter in $r$-Dominating Set; each node dominates vertices at distance at most $r$ \\
-    $n$ & Number of vertices in the graph \\
-    $m$ & The parameter for the $m$-stitching operation; parameter for $m$-neighbourhood of a subgraph \\
-    $\gamma$ & Perturbation parameter, $\gamma \in \mathbb{N}$ \\
-    \end{tabular}
-    \caption{Summary of Notation}
-    \label{tab:notation}
-\end{table}
-    
-
-\begin{center}
-\begin{forest}
-for tree={
-    draw,
-    rounded corners,
-    align=center,
-    font=\small,
-    text width=6cm,
-    fill=blue!10,
-    minimum height=2cm,
-    inner sep=5pt,
-    l sep=2.5cm,
-    s sep=1.5cm,
-    edge={->},
-},
-bignode/.style={
-    text width=8cm,
-    font=\normalsize\bfseries,
-    minimum height=3.2cm,
-    fill=blue!20,
-}
-[
-\textbf{1 Introduction / 2 Preliminaries}
-  [
-  \textbf{4. Exact algorithm for FVS-4CL using MSOL}
-    [
-    {\textbf{3 (E)PTAS for combinatorial optimization problems using Baker's technique} \\
-    \vspace{0.2cm}
-    \hspace{-8.5cm}
-    \adjustbox{scale=0.75}{
-        \begin{tabular}{| l | p{2cm} | p{2cm} | p{2.5cm} |}
-        \hline
-        & \textbf{FVS-4CL} & \textbf{FVS-BCL} & \textbf{r-Dominating Set} \\
-        \hline
-        Complexity & Info for FVS-4CL (R1) & Info for FVS-BCL (R1) & Info for r-Dominating Set (R1) \\
-        \hline
-        Algorithm & Info for FVS-4CL (R2) & Info for FVS-BCL (R2) & Info for r-Dominating Set (R2) \\
-        \hline
-        Reference & Info for FVS-4CL (R3) & Info for FVS-BCL (R3) & Info for r-Dominating Set (R3) \\
-        \hline
-        \end{tabular}
-    }}
-    , bignode
-    ]
-    [
-    \textbf{5 m-stitching and $\Pi$-m-stitching}
-      [
-      \textbf{6 Certified Algorithms}
-      ]
-    ]
-  ]
-]
-\end{forest}
-\end{center}
