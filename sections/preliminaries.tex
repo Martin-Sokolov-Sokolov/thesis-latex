@@ -134,21 +134,23 @@ transform the former problem into the latter.
 The weighted version of the problem is defined as follows:
 
 \refstepcounter{definition}
-\begin{mydefinition}[The Weighted \(r\)-Dominating Set Problem.]{Definition}
+\begin{mydefinition}[Weighted \(r\)-Dominating Set]{Definition}
     \label{def:weighted-r-DS}
 
-    \textbf{Input:}
-    A graph $G = (V, E)$, a weight function $w: V \rightarrow \mathbb{N}$, an integer $W$, and an integer $r$.
+    \textbf{Instance:}
+    \begin{itemize}[noitemsep, topsep=0pt]
+        \item An undirected graph \( G = (V, E) \).
+        \item A weight function \( w: V \rightarrow \mathbb{N} \).
+        \item An integer radius \( r \)
+    \end{itemize}
 
-    \textbf{Question:}
-    Does there exist a subset $D \subseteq V$ such that the total weight of $D$ is at most $W$, and every vertex
-    $v \in V$ is within distance at most $r$ from some vertex in $D$; that is,
+    \textbf{Task:}
+    Find a vertex set \( D \subseteq V \) such that:
+    \begin{itemize}[noitemsep, topsep=0pt]
+        \item Every vertex \( v \in V \) is within distance at most \( r \) from some vertex in \( D \); that is, \( \forall v \in V,\ \exists u \in D \) such that \( \operatorname{dist}_G(u, v) \leq r \).
+        \item The total weight of the vertices in \( D \) is minimized.
+    \end{itemize}
 
-    \[
-    \sum_{u \in D} w(u) \leq W
-    \quad \text{and} \quad
-    \forall v \in V,\ \exists u \in D \text{ such that } \operatorname{dist}_G(u, v) \leq r.
-    \]
 \end{mydefinition}
 
 

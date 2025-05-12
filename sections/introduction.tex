@@ -8,8 +8,20 @@ showed that there is a reduction from \textsc{Satisfiability} to twenty-one prob
 one of which is FVS. Because of the 
 hardness of the problem, extensive research has been conducted in order to find good 
 approximation solutions~\cite{bafna1995constant,bar1998approximation,becker1996optimization,chudak1998primal,goemans1998primal}. 
-In our paper, we focus on the Feedback Vertex Set with Bounded Cycle Length problem (\textsc{FVS-BCL}).
-The goal is to find a set of vertices that intersects every cycle of a given length.
+In our paper, we focus on the Feedback Vertex Set with Bounded Cycle Length problem (FVS-BCL).
+The goal is to find a set of vertices that intersects every cycle of a given length. 
+
+Another restriction 
+that is imposed is on the class of graphs, namely we are only considering planar graphs. 
+Two prominent approaches have led to PTASs for a variety of problems on planar and 
+H-minor-free graphs. Baker's technique \cite{Baker} provides approximation algorithms for 
+\textsc{NP-Complete} problems on planar graphs, while Demaine and Hajiaghayi 
+\cite{demaine2005bidimensionality} extend this idea using recursive separators to apply to 
+several broader classes of graphs. A well-known limitation of the shifting technique is its 
+inability to handle non-local problems, such as the FVS problem.
+In our paper, we impose restrictions on 
+the problems in order to introduce a local property that allows us to devise an 
+EPTAS for the weighted FVS-BCL.
 
 The \textsc{FVS} problem has applications in many different fields. 
 Some of them include combinatorial circuit design~\cite{johnson1975finding}, deadlock prevention 
@@ -37,7 +49,7 @@ optimal solutions remain unchanged under small modifications to the input.
 This notion serves as a powerful foundation for designing local techniques that are 
 both effective in practice and provably reliable.
 
-\textbf{Related Work}
+\subsection*{Related Work}
 
 The problem is \textsc{APX-complete} in general graphs
 and the best approximation ratio so far is two and was first found by Becker and Geiger \cite{becker1996optimization}. Around the same time, Bafna et al. 
@@ -45,32 +57,43 @@ and the best approximation ratio so far is two and was first found by Becker and
 in primal-dual terms by Chudak et al. \cite{chudak1998primal} who constructed a third algorithm which yields a 2-approximation both for the unweighted and 
 weighted case of the FVS problem. 
 
-For planar graphs and H-Minor-Free graphs two approaches have yielded PTASs for many problems. Baker's technique \cite{Baker} 
-focused on approximation algorithms for \textsc{NP-Complete} problems on planar graphs, while Demaine and Hajiaghayi \cite{demaine2005bidimensionality} 
-used recursive separators for the latter class of graphs. One of the known limitations of the shifting technique is that it does not
-handle non-local problems, such as FVS. 
-In our paper, we impose restrictions on 
-the problems in order to introduce a local property that allows us to devise an 
-EPTAS for the weighted FVS-BCL.
-We adapt the algorithm to work for the \textsc{MWFVS-BCL} 
-all the while trying to follow the framework for devising certified algorithms established in 
-\cite{Makarychev_Makarychev_2021, angelidakis2018bilu,bumpus_et_al:LIPIcs.SWAT.2024.19}.
-
-The notion of Bilu-Linial stability has given rise to much exploration of structured instances in many problems. 
-In their paper, Bilu and Linial \cite{bilu2012stable} offer the first evidence that stable instances are much easier than worst-case instances of problems. 
-They propose an exact algorithm for $O(n)$-stable instances of \textsc{Max Cut}. This result was improved by Bilu et al. \cite{bilu2012practically} 
-who designed a $O(\sqrt{n})$ for the same problem. Further research yielded a general approach to analysing stable instances in 
-Makarychev et al. \cite{makarychev2014bilu}. They applied that approach to graph partitioning problems and designed 
-$O(\sqrt{\log n}\log\log n)$-stable instances of \textsc{Max Cut} and 4-stable instances of \textsc{Minimum Multiway Cut}. The study of
-perturbation resilience of clustering problems is explored in \cite{awasthi2012center, balcan2016clustering, balcan2015k}.
-On the \textsc{Travelling Salesman Problem}, Mihal\'ak et al. \cite{mihalak2011complexity} gave an algorithm for 1.8-stable instances. 
-We refer the reader to the survey \cite{makarychev201713}.
+There has been much research on the complexity of algorithms for FVS in planar graphs. 
+Kleinberg and Kumar~\cite{kleinberg2001wavelength} give the first PTAS for FVS, while 
+Demaine and Hajiaghayi~\cite{demaine2005bidimensionality} give an EPTAS in the unweighted case.
+Le and Zheng~\cite{le2020local} use a local search heuristic to obtain a PTAS for the 
+unweighted FVS problem. For the weighted case, Cohen et al.~\cite{cohen2016approximating} give a 
+PTAS for this problem in bounded-genus graphs. An interesting open problem is giving an efficient PTAS for 
+the weighted case of FVS in planar graphs.
 
 On the subject of Beyond the Worst-Case Analysis, we refer to Makarychev and Makarychev \cite{Makarychev_Makarychev_2021}. 
 In that paper certified algorithms are first described in an attempt to bridge the gap between the worst-case and structured instances. 
-Since then, researchers have made use of the definitions and results in that paper and applied them to other problems.
-Angelidakis et al. \cite{angelidakis2018bilu} explore the notion of stability and initiate the study of certified algorithms 
+Angelidakis et al.~\cite{angelidakis2018bilu} explore the notion of stability and initiate the study of certified algorithms 
 for the \textsc{Maximum Independent Set} problem (\textsc{MIS}). They provide robust and certified algorithms for $(1 + \epsilon)$-stable instances 
 of planar \textsc{MIS}, for any fixed $\epsilon > 0$. Covering and Dominating in planar graphs was further explored by Bumpus et al. \cite{bumpus_et_al:LIPIcs.SWAT.2024.19}. 
 They provide ($1 + \epsilon$)-certified algorithms for \textsc{Dominating Set} and \textsc{H-Subgraph-Free-Deletion}, which for any $\epsilon$ 
 run in time $f(1/\epsilon) \cdot n^{O(1)}$ on minor-closed classes of graphs of bounded local treewidth.
+
+\subsection*{Our Contributions}
+
+Our contributions can be grouped into three main categories.
+
+First, we prove that both the unweighted and weighted variants of the FVS-4CL 
+(which aims to break all cycles of length four) and the more general FVS-BCL problem admit 
+efficient PTASs. This result is achieved through the application of Baker's technique.
+
+Second, we present a dynamic programming algorithm for solving FVS-4CL on graphs with 
+bounded treewidth.
+
+Finally, we initiate the study of certified algorithms for both FVS-4CL and FVS-BCL. 
+In the setting of planar graphs with polynomially bounded weights, we design a 
+$(1+\epsilon)$-certified algorithm that runs efficiently.
+
+\subsection*{Organization of Material}
+
+In Section 2 we present every definition that is used throughout the thesis. In Section 3 we present 
+the proof that both the unweighted and weighted FVS-4CL and FVS-BCL admit an efficient PTAS. In order 
+to prove that we use a result from Section 4, namely that there is an efficient algorithm for solving 
+these problems in graphs of bounded treewidth. The focus is shifted to Beyond the Worst-Case analysis in 
+Section 5. We present the necessary lemmas to show that our problems have the structural properties, so 
+we can devise a certified algorithm for them. In Section 6 we provide that algorithm and argue for 
+the running time that is incurred.
