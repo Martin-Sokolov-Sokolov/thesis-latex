@@ -104,47 +104,6 @@
       \field{pages}{308\bibrangedash 340}
       \range{pages}{33}
     \endentry
-    \entry{awasthi2012center}{article}{}{}
-      \name{author}{3}{}{%
-        {{hash=18ba8f316ee8452e2ce1ed20304d260a}{%
-           family={Awasthi},
-           familyi={A\bibinitperiod},
-           given={Pranjal},
-           giveni={P\bibinitperiod}}}%
-        {{hash=c348e11a9e7f34b17b0811660fa01649}{%
-           family={Blum},
-           familyi={B\bibinitperiod},
-           given={Avrim},
-           giveni={A\bibinitperiod}}}%
-        {{hash=b6e363cfbfe2baaa9cc167d439779964}{%
-           family={Sheffet},
-           familyi={S\bibinitperiod},
-           given={Or},
-           giveni={O\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Elsevier}%
-      }
-      \strng{namehash}{07fbb162f507a6dd637a8f6b8644ae77}
-      \strng{fullhash}{07fbb162f507a6dd637a8f6b8644ae77}
-      \strng{fullhashraw}{07fbb162f507a6dd637a8f6b8644ae77}
-      \strng{bibnamehash}{07fbb162f507a6dd637a8f6b8644ae77}
-      \strng{authorbibnamehash}{07fbb162f507a6dd637a8f6b8644ae77}
-      \strng{authornamehash}{07fbb162f507a6dd637a8f6b8644ae77}
-      \strng{authorfullhash}{07fbb162f507a6dd637a8f6b8644ae77}
-      \strng{authorfullhashraw}{07fbb162f507a6dd637a8f6b8644ae77}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Information Processing Letters}
-      \field{number}{1-2}
-      \field{title}{Center-based clustering under perturbation stability}
-      \field{volume}{112}
-      \field{year}{2012}
-      \field{pages}{49\bibrangedash 54}
-      \range{pages}{6}
-    \endentry
     \entry{bafna1995constant}{inproceedings}{}{}
       \name{author}{3}{}{%
         {{hash=2a9a73d9d465079f806c59f4e41daf13}{%
@@ -178,7 +137,7 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Algorithms and Computations: 6th International Symposium, ISAAC'95 Cairns, Australia, December 4--6, 1995 Proceedings 6}
+      \field{booktitle}{Algorithms and Computations: 6th International Symposium, ISAAC'95, 1995 Proceedings 6}
       \field{title}{Constant ratio approximations of the weighted feedback vertex set problem for undirected graphs}
       \field{year}{1995}
       \field{pages}{142\bibrangedash 151}
@@ -210,7 +169,6 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{issn}{0004-5411}
       \field{journaltitle}{J. ACM}
       \field{month}{1}
       \field{number}{1}
@@ -222,83 +180,7 @@
       \verb{doi}
       \verb 10.1145/174644.174650
       \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.1145/174644.174650
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.1145/174644.174650
-      \endverb
       \keyw{Hamiltonian circuit,Hamiltonian path,NP-complete,approximation algorithms,approximation schemes,dominating set,independent set,partition into perfect matchings,partition into triangles,planar graphs,vertex cover}
-    \endentry
-    \entry{balcan2016clustering}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=024bfb76c2f5540f5021fb377901cc25}{%
-           family={Balcan},
-           familyi={B\bibinitperiod},
-           given={Maria\bibnamedelima Florina},
-           giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
-        {{hash=d5fb1ed54b449391f816658687f0db72}{%
-           family={Liang},
-           familyi={L\bibinitperiod},
-           given={Yingyu},
-           giveni={Y\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {SIAM}%
-      }
-      \strng{namehash}{3e972b20ac4f27c5f885b138c53006d3}
-      \strng{fullhash}{3e972b20ac4f27c5f885b138c53006d3}
-      \strng{fullhashraw}{3e972b20ac4f27c5f885b138c53006d3}
-      \strng{bibnamehash}{3e972b20ac4f27c5f885b138c53006d3}
-      \strng{authorbibnamehash}{3e972b20ac4f27c5f885b138c53006d3}
-      \strng{authornamehash}{3e972b20ac4f27c5f885b138c53006d3}
-      \strng{authorfullhash}{3e972b20ac4f27c5f885b138c53006d3}
-      \strng{authorfullhashraw}{3e972b20ac4f27c5f885b138c53006d3}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{SIAM Journal on Computing}
-      \field{number}{1}
-      \field{title}{Clustering under perturbation resilience}
-      \field{volume}{45}
-      \field{year}{2016}
-      \field{pages}{102\bibrangedash 155}
-      \range{pages}{54}
-    \endentry
-    \entry{balcan2015k}{article}{}{}
-      \name{author}{3}{}{%
-        {{hash=cc044fe1286d34711800ba57507df30a}{%
-           family={Balcan},
-           familyi={B\bibinitperiod},
-           given={Maria-Florina},
-           giveni={M\bibinithyphendelim F\bibinitperiod}}}%
-        {{hash=ef45a88580d8b390d9b005d482c4281f}{%
-           family={Haghtalab},
-           familyi={H\bibinitperiod},
-           given={Nika},
-           giveni={N\bibinitperiod}}}%
-        {{hash=06b08277491e42a0282f55e671cd7327}{%
-           family={White},
-           familyi={W\bibinitperiod},
-           given={Colin},
-           giveni={C\bibinitperiod}}}%
-      }
-      \strng{namehash}{925e2ef214e8568625c2b4b65b5fd10b}
-      \strng{fullhash}{925e2ef214e8568625c2b4b65b5fd10b}
-      \strng{fullhashraw}{925e2ef214e8568625c2b4b65b5fd10b}
-      \strng{bibnamehash}{925e2ef214e8568625c2b4b65b5fd10b}
-      \strng{authorbibnamehash}{925e2ef214e8568625c2b4b65b5fd10b}
-      \strng{authornamehash}{925e2ef214e8568625c2b4b65b5fd10b}
-      \strng{authorfullhash}{925e2ef214e8568625c2b4b65b5fd10b}
-      \strng{authorfullhashraw}{925e2ef214e8568625c2b4b65b5fd10b}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:1505.03924}
-      \field{title}{$ k $-center Clustering under Perturbation Resilience}
-      \field{year}{2015}
     \endentry
     \entry{bar1998approximation}{article}{}{}
       \name{author}{4}{}{%
@@ -338,7 +220,7 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{SIAM journal on computing}
+      \field{journaltitle}{SIAM Journal on Computing}
       \field{number}{4}
       \field{title}{Approximation algorithms for the feedback vertex set problem with applications to constraint satisfaction and Bayesian inference}
       \field{volume}{27}
@@ -418,45 +300,6 @@
       \field{pages}{643\bibrangedash 660}
       \range{pages}{18}
     \endentry
-    \entry{bilu2012practically}{article}{}{}
-      \name{author}{4}{}{%
-        {{hash=3bbd44373a66508cfcf3cec82e7536b4}{%
-           family={Bilu},
-           familyi={B\bibinitperiod},
-           given={Yonatan},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=3e3cb694117f9794594290f446d2dd8f}{%
-           family={Daniely},
-           familyi={D\bibinitperiod},
-           given={Amit},
-           giveni={A\bibinitperiod}}}%
-        {{hash=3b80b70579822636ea287c0eae2bbf72}{%
-           family={Linial},
-           familyi={L\bibinitperiod},
-           given={Nati},
-           giveni={N\bibinitperiod}}}%
-        {{hash=abaed48929d947283af9f818c822dbab}{%
-           family={Saks},
-           familyi={S\bibinitperiod},
-           given={Michael},
-           giveni={M\bibinitperiod}}}%
-      }
-      \strng{namehash}{5a580be95ac728730fcc1d8f7f9cfa97}
-      \strng{fullhash}{c9dba036d1c25c44a3600e83fdc0dc39}
-      \strng{fullhashraw}{c9dba036d1c25c44a3600e83fdc0dc39}
-      \strng{bibnamehash}{5a580be95ac728730fcc1d8f7f9cfa97}
-      \strng{authorbibnamehash}{5a580be95ac728730fcc1d8f7f9cfa97}
-      \strng{authornamehash}{5a580be95ac728730fcc1d8f7f9cfa97}
-      \strng{authorfullhash}{c9dba036d1c25c44a3600e83fdc0dc39}
-      \strng{authorfullhashraw}{c9dba036d1c25c44a3600e83fdc0dc39}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:1205.4893}
-      \field{title}{On the practically interesting instances of MAXCUT}
-      \field{year}{2012}
-    \endentry
     \entry{bodlaender1998partial}{article}{}{}
       \name{author}{1}{}{%
         {{hash=85d4ff4ae6234ff61c5dfd4020e20bbb}{%
@@ -481,7 +324,7 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Theoretical computer science}
+      \field{journaltitle}{Theoretical Computer Science}
       \field{number}{1-2}
       \field{title}{A partial k-arboretum of graphs with bounded treewidth}
       \field{volume}{209}
@@ -549,7 +392,7 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Graph theory with applications}
+      \field{title}{Graph Theory with Applications}
       \field{volume}{290}
       \field{year}{1976}
     \endentry
@@ -683,12 +526,6 @@
       \verb{doi}
       \verb 10.4230/LIPIcs.SWAT.2024.19
       \endverb
-      \verb{urlraw}
-      \verb https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.SWAT.2024.19
-      \endverb
-      \verb{url}
-      \verb https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.SWAT.2024.19
-      \endverb
     \endentry
     \entry{cesati1997efficiency}{article}{}{}
       \name{author}{2}{}{%
@@ -772,6 +609,52 @@
       \field{pages}{111\bibrangedash 118}
       \range{pages}{8}
     \endentry
+    \entry{cohen2016approximating}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{hash=981ea6e679476bf8ab3a03c26a11268f}{%
+           family={Cohen-Addad},
+           familyi={C\bibinithyphendelim A\bibinitperiod},
+           given={Vincent},
+           giveni={V\bibinitperiod}}}%
+        {{hash=78c8e7d1883c36917726b6c1ef7ab41b}{%
+           family={Colin\bibnamedelimb de\bibnamedelima Verdière},
+           familyi={C\bibinitperiod\bibinitdelim d\bibinitperiod\bibinitdelim V\bibinitperiod},
+           given={Éric},
+           giveni={É\bibinitperiod}}}%
+        {{hash=273c08956334f2b17010bdfd364fc594}{%
+           family={Klein},
+           familyi={K\bibinitperiod},
+           given={Philip\bibnamedelima N},
+           giveni={P\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=f93342a205eab3e57d8988490444de26}{%
+           family={Mathieu},
+           familyi={M\bibinitperiod},
+           given={Claire},
+           giveni={C\bibinitperiod}}}%
+        {{hash=4b3727345f5e29ffa21a86b348ee1185}{%
+           family={Meierfrankenfeld},
+           familyi={M\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{7790000f813d3af89fdaebd3bfbd970f}
+      \strng{fullhash}{82e95cc750e370e5fdcb2c3752a80bfd}
+      \strng{fullhashraw}{82e95cc750e370e5fdcb2c3752a80bfd}
+      \strng{bibnamehash}{7790000f813d3af89fdaebd3bfbd970f}
+      \strng{authorbibnamehash}{7790000f813d3af89fdaebd3bfbd970f}
+      \strng{authornamehash}{7790000f813d3af89fdaebd3bfbd970f}
+      \strng{authorfullhash}{82e95cc750e370e5fdcb2c3752a80bfd}
+      \strng{authorfullhashraw}{82e95cc750e370e5fdcb2c3752a80bfd}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the forty-eighth annual ACM symposium on Theory of Computing}
+      \field{title}{Approximating connectivity domination in weighted bounded-genus graphs}
+      \field{year}{2016}
+      \field{pages}{584\bibrangedash 597}
+      \range{pages}{14}
+    \endentry
     \entry{courcelle1990monadic}{article}{}{}
       \name{author}{1}{}{%
         {{hash=5eb043c6d579ba54ec303811f38c6bfe}{%
@@ -795,7 +678,7 @@
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Information and computation}
+      \field{journaltitle}{Information and Computation}
       \field{number}{1}
       \field{title}{The monadic second-order logic of graphs. I. Recognizable sets of finite graphs}
       \field{volume}{85}
@@ -898,7 +781,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{number}{4}
-      \field{title}{Parameterized algorithms}
+      \field{title}{Parameterized Algorithms}
       \field{volume}{5}
       \field{year}{2015}
     \endentry
@@ -976,7 +859,7 @@
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{SODA}
+      \field{booktitle}{Symposium on Discrete Algorithms}
       \field{title}{Bidimensionality: new connections between FPT algorithms and PTASs.}
       \field{volume}{5}
       \field{year}{2005}
@@ -1012,7 +895,7 @@
       \field{title}{Equivalence of local treewidth and linear local treewidth and its algorithmic applications}
       \field{year}{2003}
     \endentry
-    \entry{diestel2000graph}{article}{}{}
+    \entry{diestel2025graph}{book}{}{}
       \name{author}{1}{}{%
         {{hash=d7750765c1eb004bdcdce07ed2272ba7}{%
            family={Diestel},
@@ -1021,7 +904,7 @@
            giveni={R\bibinitperiod}}}%
       }
       \list{publisher}{1}{%
-        {Springer-Verlag New York}%
+        {Springer-Verlag}%
       }
       \strng{namehash}{d7750765c1eb004bdcdce07ed2272ba7}
       \strng{fullhash}{d7750765c1eb004bdcdce07ed2272ba7}
@@ -1035,8 +918,12 @@
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Graph Theory Electronic Edition 2000}
-      \field{year}{2000}
+      \field{edition}{6}
+      \field{isbn}{978-3-662-53621-6}
+      \field{series}{Graduate Texts in Mathematics}
+      \field{title}{Graph Theory}
+      \field{volume}{173}
+      \field{year}{2025}
     \endentry
     \entry{eppstein2000diameter}{article}{}{}
       \name{author}{1}{}{%
@@ -1198,7 +1085,7 @@
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of geometry}
+      \field{journaltitle}{Journal of Geometry}
       \field{title}{S-functions for graphs}
       \field{volume}{8}
       \field{year}{1976}
@@ -1261,9 +1148,6 @@
            given={Jean\bibnamedelima D.},
            giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
       }
-      \list{location}{1}{%
-        {Boston, MA}%
-      }
       \list{publisher}{1}{%
         {Springer US}%
       }
@@ -1283,22 +1167,49 @@
       \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{A large class of computational problems involve the determination of properties of graphs, digraphs, integers, arrays of integers, finite families of finite sets, boolean formulas and elements of other countable domains. Through simple encodings from such domains into the set of words over a finite alphabet these problems can be converted into language recognition problems, and we can inquire into their computational complexity. It is reasonable to consider such a problem satisfactorily solved when an algorithm for its solution is found which terminates within a number of steps bounded by a polynomial in the length of the input. We show that a large number of classic unsolved problems of covering, matching, packing, routing, assignment and sequencing are equivalent, in the sense that either each of them possesses a polynomial-bounded algorithm or none of them does.}
-      \field{booktitle}{Complexity of Computer Computations: Proceedings of a symposium on the Complexity of Computer Computations, held March 20--22, 1972, at the IBM Thomas J. Watson Research Center, Yorktown Heights, New York, and sponsored by the Office of Naval Research, Mathematics Program, IBM World Trade Corporation, and the IBM Research Mathematical Sciences Department}
-      \field{isbn}{978-1-4684-2001-2}
-      \field{title}{Reducibility among Combinatorial Problems}
+      \field{title}{Reducibility among combinatorial problems}
       \field{year}{1972}
       \field{pages}{85\bibrangedash 103}
       \range{pages}{19}
       \verb{doi}
       \verb 10.1007/978-1-4684-2001-2_9
       \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.1007/978-1-4684-2001-2_9
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.1007/978-1-4684-2001-2_9
-      \endverb
+    \endentry
+    \entry{kleinberg2001wavelength}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=e405ae3c720db1b0e447ff5b601b968f}{%
+           family={Kleinberg},
+           familyi={K\bibinitperiod},
+           given={Jon},
+           giveni={J\bibinitperiod}}}%
+        {{hash=d6e7552c865637927e1649455d2326f4}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Amit},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{2af0107fc40144d39362723e9acde9c6}
+      \strng{fullhash}{2af0107fc40144d39362723e9acde9c6}
+      \strng{fullhashraw}{2af0107fc40144d39362723e9acde9c6}
+      \strng{bibnamehash}{2af0107fc40144d39362723e9acde9c6}
+      \strng{authorbibnamehash}{2af0107fc40144d39362723e9acde9c6}
+      \strng{authornamehash}{2af0107fc40144d39362723e9acde9c6}
+      \strng{authorfullhash}{2af0107fc40144d39362723e9acde9c6}
+      \strng{authorfullhashraw}{2af0107fc40144d39362723e9acde9c6}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of algorithms}
+      \field{number}{1}
+      \field{title}{Wavelength conversion in optical networks}
+      \field{volume}{38}
+      \field{year}{2001}
+      \field{pages}{25\bibrangedash 50}
+      \range{pages}{26}
     \endentry
     \entry{Korte2007CombinatorialOT}{inproceedings}{}{}
       \name{author}{2}{}{%
@@ -1368,6 +1279,41 @@
       \field{year}{1990}
       \field{pages}{163\bibrangedash 174}
       \range{pages}{12}
+    \endentry
+    \entry{le2020local}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=d17bf32f854b20aa5395f7466bf2e8f7}{%
+           family={Le},
+           familyi={L\bibinitperiod},
+           given={Hung},
+           giveni={H\bibinitperiod}}}%
+        {{hash=591598ae8e34dcaf50f96297503000ef}{%
+           family={Zheng},
+           familyi={Z\bibinitperiod},
+           given={Baigong},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{72aa5c89c97432671f5b8009da607b50}
+      \strng{fullhash}{72aa5c89c97432671f5b8009da607b50}
+      \strng{fullhashraw}{72aa5c89c97432671f5b8009da607b50}
+      \strng{bibnamehash}{72aa5c89c97432671f5b8009da607b50}
+      \strng{authorbibnamehash}{72aa5c89c97432671f5b8009da607b50}
+      \strng{authornamehash}{72aa5c89c97432671f5b8009da607b50}
+      \strng{authorfullhash}{72aa5c89c97432671f5b8009da607b50}
+      \strng{authorfullhashraw}{72aa5c89c97432671f5b8009da607b50}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Theoretical Computer Science}
+      \field{title}{Local search is a PTAS for feedback vertex set in minor-free graphs}
+      \field{volume}{838}
+      \field{year}{2020}
+      \field{pages}{17\bibrangedash 24}
+      \range{pages}{8}
     \endentry
     \entry{lloyd1988locating}{article}{}{}
       \name{author}{3}{}{%
@@ -1509,49 +1455,10 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Beyond the Worst-Case Analysis of Algorithms}
-      \field{title}{Perturbation Resilience}
+      \field{title}{Perturbation resilience}
       \field{year}{2021}
       \field{pages}{95\bibrangedash 119}
       \range{pages}{25}
-    \endentry
-    \entry{makarychev2014bilu}{inproceedings}{}{}
-      \name{author}{3}{}{%
-        {{hash=1f33de956ace439983657f28b15d2882}{%
-           family={Makarychev},
-           familyi={M\bibinitperiod},
-           given={Konstantin},
-           giveni={K\bibinitperiod}}}%
-        {{hash=92136e84d23639a2960704bdc1d05d24}{%
-           family={Makarychev},
-           familyi={M\bibinitperiod},
-           given={Yury},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=c4747c73d67e6e8fc74e39f5afc81059}{%
-           family={Vijayaraghavan},
-           familyi={V\bibinitperiod},
-           given={Aravindan},
-           giveni={A\bibinitperiod}}}%
-      }
-      \list{organization}{1}{%
-        {SIAM}%
-      }
-      \strng{namehash}{68ab4d6d354ed348810aadc6d65ce4d7}
-      \strng{fullhash}{68ab4d6d354ed348810aadc6d65ce4d7}
-      \strng{fullhashraw}{68ab4d6d354ed348810aadc6d65ce4d7}
-      \strng{bibnamehash}{68ab4d6d354ed348810aadc6d65ce4d7}
-      \strng{authorbibnamehash}{68ab4d6d354ed348810aadc6d65ce4d7}
-      \strng{authornamehash}{68ab4d6d354ed348810aadc6d65ce4d7}
-      \strng{authorfullhash}{68ab4d6d354ed348810aadc6d65ce4d7}
-      \strng{authorfullhashraw}{68ab4d6d354ed348810aadc6d65ce4d7}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the twenty-fifth annual ACM-SIAM symposium on Discrete algorithms}
-      \field{title}{Bilu--Linial stable instances of max cut and minimum multiway cut}
-      \field{year}{2014}
-      \field{pages}{890\bibrangedash 906}
-      \range{pages}{17}
     \endentry
     \entry{dominatingsetptas}{article}{}{}
       \name{author}{2}{}{%
@@ -1582,7 +1489,7 @@
       \field{issn}{1999-4893}
       \field{journaltitle}{Algorithms}
       \field{number}{1}
-      \field{title}{Computational Study on a PTAS for Planar Dominating Set Problem}
+      \field{title}{Computational study on a PTAS for Planar Dominating Set Problem}
       \field{volume}{6}
       \field{year}{2013}
       \field{pages}{43\bibrangedash 59}
@@ -1590,56 +1497,6 @@
       \verb{doi}
       \verb 10.3390/a6010043
       \endverb
-      \verb{urlraw}
-      \verb https://www.mdpi.com/1999-4893/6/1/43
-      \endverb
-      \verb{url}
-      \verb https://www.mdpi.com/1999-4893/6/1/43
-      \endverb
-    \endentry
-    \entry{mihalak2011complexity}{inproceedings}{}{}
-      \name{author}{4}{}{%
-        {{hash=a547f11f634234c747dda7da9e34d8e8}{%
-           family={Mihalák},
-           familyi={M\bibinitperiod},
-           given={Matúš},
-           giveni={M\bibinitperiod}}}%
-        {{hash=79f25fa596f541e2d4e1ab50f9e0f936}{%
-           family={Schöngens},
-           familyi={S\bibinitperiod},
-           given={Marcel},
-           giveni={M\bibinitperiod}}}%
-        {{hash=ff87c96978c598d2c70ea96efcb3a534}{%
-           family={Šrámek},
-           familyi={Š\bibinitperiod},
-           given={Rastislav},
-           giveni={R\bibinitperiod}}}%
-        {{hash=980f44eb8255d3949ab556b996e5d35b}{%
-           family={Widmayer},
-           familyi={W\bibinitperiod},
-           given={Peter},
-           giveni={P\bibinitperiod}}}%
-      }
-      \list{organization}{1}{%
-        {Springer}%
-      }
-      \strng{namehash}{ca7c658b6b4178951a79626299d52da8}
-      \strng{fullhash}{80385fccc0082c0e7fc61a34003957e1}
-      \strng{fullhashraw}{80385fccc0082c0e7fc61a34003957e1}
-      \strng{bibnamehash}{ca7c658b6b4178951a79626299d52da8}
-      \strng{authorbibnamehash}{ca7c658b6b4178951a79626299d52da8}
-      \strng{authornamehash}{ca7c658b6b4178951a79626299d52da8}
-      \strng{authorfullhash}{80385fccc0082c0e7fc61a34003957e1}
-      \strng{authorfullhashraw}{80385fccc0082c0e7fc61a34003957e1}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{SOFSEM 2011: Theory and Practice of Computer Science: 37th Conference on Current Trends in Theory and Practice of Computer Science, Novỳ Smokovec, Slovakia, January 22-28, 2011. Proceedings 37}
-      \field{title}{On the complexity of the metric tsp under stability considerations}
-      \field{year}{2011}
-      \field{pages}{382\bibrangedash 393}
-      \range{pages}{12}
     \endentry
     \entry{ROBERTSON1986309}{article}{}{}
       \name{author}{2}{}{%
@@ -1667,7 +1524,6 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{We introduce an invariant of graphs called the tree-width, and use it to obtain a polynomially bounded algorithm to test if a graph has a subgraph contractible to H, where H is any fixed planar graph. We also nonconstructively prove the existence of a polynomial algorithm to test if a graph has tree-width ≤ w, for fixed w. Neither of these is a practical algorithm, as the exponents of the polynomials are large. Both algorithms are derived from a polynomial algorithm for the DISJOINT CONNECTING PATHS problem (with the number of paths fixed), for graphs of bounded tree-width.}
-      \field{issn}{0196-6774}
       \field{journaltitle}{Journal of Algorithms}
       \field{number}{3}
       \field{title}{Graph minors. II. Algorithmic aspects of tree-width}
@@ -1678,12 +1534,6 @@
       \verb{doi}
       \verb https://doi.org/10.1016/0196-6774(86)90023-4
       \endverb
-      \verb{urlraw}
-      \verb https://www.sciencedirect.com/science/article/pii/0196677486900234
-      \endverb
-      \verb{url}
-      \verb https://www.sciencedirect.com/science/article/pii/0196677486900234
-      \endverb
     \endentry
     \entry{satzinger2014tree}{thesis}{}{}
       \name{author}{1}{}{%
@@ -1692,6 +1542,9 @@
            familyi={S\bibinitperiod},
            given={Christina},
            giveni={C\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {TU Wien, Österreich}%
       }
       \strng{namehash}{fe031c0980b95a49b5656e8e0c11ee20}
       \strng{fullhash}{fe031c0980b95a49b5656e8e0c11ee20}
@@ -1706,7 +1559,8 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{On Tree-Decompositions and their Algorithmic Implications for Bounded-Treewidth Graphs}
-      \field{type}{phdthesis}
+      \field{type}{mathesis}
+      \field{year}{2014}
     \endentry
     \entry{shaw1978software}{article}{}{}
       \name{author}{1}{}{%
@@ -1828,7 +1682,7 @@
       \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{The design of approximation algorithms}
+      \field{title}{The design of Approximation Algorithms}
       \field{year}{2011}
     \endentry
   \enddatalist

@@ -1,4 +1,4 @@
-\section{m-stitching and $\Pi$-m-stitching}
+\section{$m$-Stitching and $\Pi$-$m$-Stitching}
 
 This section introduces key concepts that facilitate the construction of certified algorithms. 
 It begins with the definitions of \textit{m-stitching} and \textit{$\Pi$-m-stitching}, 
@@ -26,7 +26,7 @@ and stitch onto it a suitable part of $S_2$ within the subgraph $J$.
 The formal definition is as follows:
 
 \refstepcounter{definition}
-\begin{mydefinition}[m-stitching]{Def.}
+\begin{mydefinition}[m-stitching]{Definition}
     \label{m-stitch}
 
     Assume $m \geq 0$ is an integer, $J$ is an induced subgraph of $G$, and 
@@ -269,7 +269,7 @@ under the m-stitching operator. We hope that when we take the union in \ref{m-st
 at the set $S_3$, this would too be a feasible solution.
 
 \refstepcounter{definition}
-\begin{mydefinition}[m-stitchable]{Def.}
+\begin{mydefinition}[m-stitchable]{Definition}
     \label{m-stitchable}
 
     For an integer $m \geq 0$, induced subgraph $J$ and feasible solutions $S_1, S_2 \subseteq V(G)$ 
@@ -302,10 +302,10 @@ it to the current problem.
 we need one more definition.
 
 \refstepcounter{definition}
-\begin{mydefinition}[Guessable]{Def.}
+\begin{mydefinition}[Guessable]{Definition}
     \label{guessable}
 
-     A problem $\Pi$ is guessable if there is an algorithm that outputs a feasible solution 
+     A problem $\Pi$ is \emph{guessable} if there is an algorithm that outputs a feasible solution 
     with no requirement for optimality in polynomial time.
 
 \end{mydefinition}
@@ -424,7 +424,7 @@ such that $v \in S_3$.
     \end{algorithmic}
 \end{algorithm}
 
-The algorithm $A$ on line~\ref{alg:stitch-fvs-4cl} refers to using 
+The algorithm $A$ on Line~\ref{alg:stitch-fvs-4cl} refers to using 
 Corollary~\ref{cor:msol-fvs-rho} as a result.
 
 \refstepcounter{definition}
@@ -756,7 +756,7 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
 
         \item $\forall v \in S_1: v \in J$:
 
-        In line~\ref{state:construct-H} of Algorithm~\ref{alg:stitch-fvs-4cl}, we have the following 
+        In Line~\ref{state:construct-H} of Algorithm~\ref{alg:stitch-fvs-4cl}, we have the following 
         construction of $H \leftarrow G[N^{2}_{G}[J] \backslash (S_1 \backslash J)]$. 
 
         \begin{align}
@@ -766,7 +766,7 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
         \end{align}
 
         However, $\forall v \in \{v_1,v_2,v_3,v_4\}: v \in S_1 \land v \in J$. 
-        Therefore $\{v_1,v_2,v_3,v_4\} \subseteq V(H)$. This means that in line~\ref{state:opt-solution} of 
+        Therefore $\{v_1,v_2,v_3,v_4\} \subseteq V(H)$. This means that in Line~\ref{state:opt-solution} of 
         Algorithm~\ref{alg:stitch-fvs-4cl} we will add some $v^{*} \in \{v_1,v_2,v_3,v_4\}$ to $S_2$.
 
         Therefore $v \in S_2$, which has the same meaning as $v \in S_2 \cap N^{2}_{G}[J]$,

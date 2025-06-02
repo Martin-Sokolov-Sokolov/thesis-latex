@@ -81,6 +81,34 @@
 
 \maketitle
 
+\begin{abstract}
+The \textsc{Feedback Vertex Set} (FVS) problem is a classical NP-complete problem that asks 
+for the smallest set of vertices whose removal eliminates all cycles from a graph. 
+In this thesis, we study the problem on \emph{planar graphs}, focusing on a variant we call 
+\textsc{Feedback Vertex Set with Bounded Cycle Length} (FVS-BCL), where the goal is to 
+intersect all cycles of a fixed length. While FVS-BCL is inapproximable within any constant 
+factor in general graphs, the planar restriction opens up opportunities for efficient 
+approximation.
+
+In the first part of this work, we develop Efficient Polynomial-Time Approximation Schemes 
+(EPTAS) for both the FVS-4CL (which targets 4-cycles) and the more general FVS-BCL problem. 
+These schemes are achieved by adapting \emph{Baker's technique}, 
+a well-known method for designing approximation algorithms on planar graphs. 
+
+Next, we show that FVS-4CL is \emph{fixed-parameter tractable} (FPT) by constructing a dynamic 
+programming algorithm on \emph{nice tree decompositions}, exploiting the fact that planar graphs 
+have bounded treewidth. We also propose a strategy to extend the dynamic programming approach 
+in order to prove the tractability of FVS-BCL.
+In addition, we utilize \emph{Monadic Second Order Logic} (MSOL) to express and solve FVS-BCL 
+instances on graphs of bounded treewidth, thereby demonstrating that the problem is fixed-parameter 
+tractable when parameterized by the treewidth of the input graph.
+
+Finally, we initiate the study of \emph{certified algorithms} for FVS variants. 
+Leveraging local search techniques and structural properties of FVS-BCL in planar graphs with polynomially 
+bounded weights, we prove that it is possible to obtain \((1 + \epsilon)\)-certified solutions. 
+
+\end{abstract}
+
 \tableofcontents
 
 \include{sections/introduction}
@@ -91,7 +119,7 @@
 \include{sections/m_stitching}
 \include{sections/certified_algorithms}
 
-%\include{sections/conclusion}
+\include{sections/conclusion}
 
 \printbibliography
 

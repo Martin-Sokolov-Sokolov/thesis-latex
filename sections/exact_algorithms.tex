@@ -1,5 +1,5 @@
-\section{Exact algorithms for FVS-4CL and FVS-BCL}
-\label{subsection:exact-alg}
+\section{Establishing Fixed-Parameter Tractability for FVS-4CL and FVS-BCL}
+\label{section:exact-alg}
 
 In this section we are looking for an algorithm that finds exact solutions to the 
 FVS-4CL problem in each subgraph. For each subgraph we assume that the treewidth is bounded. 
@@ -48,7 +48,7 @@ variables.
     \item Quantification over set variables: $\forall V_i, \forall E_i$ and $\exists V_i, \exists E_i$.
 \end{enumerate}
 
-\subsection{Exact algorithm for FVS-4CL using MSOL}
+\subsection{FPT Result for FVS-4CL via MSOL}
 
 Courcelle's work was extended to extended monadic second-order logic 
 \cite{arnborg1991easy,borie1991deterministic,courcelle1993monadic}. These extensions allow to optimize 
@@ -79,7 +79,7 @@ The minimum weight FVS-4CL can be expressed as:
 \end{equation}
 
 
-\subsection{Exact algorithm for weighted FVS-BCL using MSOL}
+\subsection{FPT Result for Weighted FVS-BCL via MSOL}
 
  The minimum weight FVS-$\rho$CL can be expressed as:
 
@@ -102,7 +102,7 @@ The minimum weight FVS-4CL can be expressed as:
 \begin{mydefinition}[Courcelle's theorem \cite{courcelle1990monadic}]{Theorem}
     \label{theorem:courcelle}
 
-    Assume that $\phi$ is a MSOL formula and $G$ is an n-vertex graph, and there is an evaluation 
+    Assume that $\phi$ is a MSOL formula and $G$ is an $n$-vertex graph, and there is an evaluation 
     of all of the free variables of $\phi$. Suppose, that a tree decomposition of $G$ of width $t$ 
     is provided. Then there exists an algorithm that verifies that $\phi$ is satisfied 
     in $G$ in time $f(||\phi||, t) \cdot n$, for some computable function $f$. 
@@ -123,8 +123,7 @@ The minimum weight FVS-4CL can be expressed as:
 \end{mydefinition}
   
 
-\subsection{Exact algorithm for FVS-4CL using dynamic programming}
-
+\subsection{FPT Result for FVS-4CL via Dynamic Programming on Nice Tree Decompositions}
 \label{alg:dp}
 
 In order to find an algorithm that solves FVS-4CL, one has to define the following notions. 
@@ -207,14 +206,31 @@ c[j, I, \mathcal{F} \cup \{(u, w): (v,u) \in E_i, (v, w) \in E_i\}])\]
 Let $i$ be a join node with children $j_1$ and $j_2$. Recall that $X_i = X_{j_1} = X_{j_2}$. 
 Let $\mathcal{F}_1$ and $\mathcal{F}_2$ be the $\mathcal{F}$ set values of $X_{j_1}$ and $X_{j_2}$ respectively.
 
-\[
-\begin{aligned}
-    c[i, I, \mathcal{F}_1 \cup \mathcal{F}_2] =
-    \begin{cases}
-        \infty, & \text{if } \exists u, w \in X_i : (u, w) \in \mathcal{F}_1, \\
-                & \quad (u, w) \in \mathcal{F}_2, u \notin I, w \notin I \\
-        c[j_1, I, \mathcal{F}_1] + c[j_2, I, \mathcal{F}_2] - w(I), & \text{otherwise}
-    \end{cases}
-\end{aligned}
-\]
+\begin{align*}
+c[i, I, \mathcal{F}] 
+&= \min_{\substack{\mathcal{F}_1 \cup \mathcal{F}_2 = \mathcal{F}}} 
+\left( 
+  c[j_1, I, \mathcal{F}_1] + c[j_2, I, \mathcal{F}_2] - w(I) 
+\right), \\
+\text{where} \quad
+c[t, I, \mathcal{F}] 
+&= \infty \quad \text{if the state } (t, I, \mathcal{F}) \text{ is infeasible}.
+\end{align*}
 
+A state \( (t, I, \mathcal{F}) \) at a \emph{join node} \( t \), 
+with left child \( t_1 \) and 
+right child \( t_2 \), is \emph{infeasible} if there exist vertices \( u, w \in X_t \) such that:
+\begin{itemize}
+    \item \( u, w \notin I \),
+    \item \( \{u, w\} \in \mathcal{F}_1 \)
+    \item \( \{u, w\} \in \mathcal{F}_2 \).
+\end{itemize}
+
+In this case, since neither \( u \) nor \( w \) are in \( I \), but both appear in the flag sets 
+of both children, they both have forgotten adjacent vertices that have not had their weights included 
+in the table. Therefore, a four cycle emerges where none of the vertices are included in the partial 
+solution and thus we assign the special $\infty$ value to that table value.
+
+\[
+c[t, I, \mathcal{F}] = \infty.
+\]

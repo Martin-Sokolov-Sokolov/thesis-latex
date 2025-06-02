@@ -1,4 +1,5 @@
 \section{EPTAS for FVS-4CL and FVS-BCL using Baker's technique}
+\label{section:eptas}
 
 This section presents an EPTAS for both the unweighted and weighted versions of 
 the FVS-BCL problem. We begin with the unweighted case, focusing on the algorithm's 
@@ -26,7 +27,7 @@ we defined in \ref{FVS-BCL}, namely FVS-4CL. In the preliminaries we gave two ex
 and how to further analyse them. In the same fashion we now construct Algorithm \ref{alg:unweighted_feedback_vertex_set_global} and reason for its effectiveness.
 
  In the following algorithm we use the letter $\ell$ for the outerplanarity of each subgraph, i.e. each $G_{i, j}$ that we 
-define on line~\ref{alg3:line4} in Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} is $\ell$-outerplanar.
+define on Line~\ref{alg3:line4} in Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} is $\ell$-outerplanar.
 
 \begin{algorithm}[H]
     \caption{Baker's technique for the unweighted FVS-4CL}
@@ -41,15 +42,16 @@ define on line~\ref{alg3:line4} in Algorithm~\ref{alg:unweighted_feedback_vertex
 
     \FOR{each $i = 0$ to $\ell-1$} \label{alg3:for-loop}
         \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels
-        $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + 1$ for $0 \leq i < \ell$. \label{alg3:line4}
-        \STATE $\forall j \text{ compute }  S_{i, j}$, the min. unweighted \textsc{FVS-4CL} 
-        of $G_{i, j}$ using Algorithm~\ref{alg:dp} as a subroutine (the weights are equal to ones). \label{alg3:subroutine}
-        \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$ \label{alg3:line6}
-        \STATE $S \leftarrow S \cup S_i$
+        $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + 1$ for all $j \geq 0$. \label{alg3:line4}
+        \STATE For each $j$, compute $S_{i, j}$, the minimum unweighted \textsc{FVS-4CL} 
+        of $G_{i, j}$ using Algorithm~\ref{alg:dp} as a subroutine (weights are all ones). \label{alg3:subroutine}
+        \STATE Let $S_i = \bigcup_{j} S_{i, j}$ \label{alg3:line6}
+        \STATE $S \leftarrow S \cup \{S_i\}$ \label{alg3:line7}
     \ENDFOR
-    \RETURN $S_{i*}$ from $S$ with minimum cardinality \label{alg3:line9}
+    \RETURN $S_{i^*}$ from $S$ with minimum cardinality \label{alg3:line9}
     \end{algorithmic}
 \end{algorithm}
+
 
 In the analysis of the algorithm we are going to need three lemmas in order 
 to prove that Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} obtains a $(1 + 2/\ell)$-approximation of the 
@@ -270,7 +272,7 @@ set for $G_{0, 0}$, while $F_{0, 0}$ is, as we previously argued, a feasible 4-c
 \begin{mydefinition}[Optimum solution bound for the whole graph (Unweighted Case)]{Result}
     \label{result-two}
 
-    Let $S_i$ be the union of optimal solutions defined on line~\ref{alg3:line6} of Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
+    Let $S_i$ be the union of optimal solutions defined on Line~\ref{alg3:line6} of Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
     for some shift $i$. 
     Let $F \equiv OPT$ be the optimum solution in $G$ and let $F_{i, j} = G_{i, j} \cap F$.
     For those sets it holds that: \[|S_{i}| \leq \sum\limits_{j} |S_{i, j}| \leq \sum\limits_{j} |F_{i, j}|\text{.}\]  
@@ -384,7 +386,7 @@ this yields a \((1 + 2\epsilon)\)-approximation for the unweighted planar FVS-4C
 \textbf{Running time:}
 
 Lines~\ref{alg3:line1} and~\ref{alg3:line9} of Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
-can be computed in linear time $O(n)$. The loop that starts on line~\ref{alg3:for-loop} has a running time
+can be computed in linear time $O(n)$. The loop that starts on Line~\ref{alg3:for-loop} has a running time
 that is dominated by step~\ref{alg3:subroutine} where we call Algorithm~\ref{alg:dp} (with weights equal to ones) as a subroutine.
 That algorithm takes as input subgraphs that are $\ell + 2$-outerplanar.
 As we argued in the Preliminaries section, such graphs have bounded treewidth of $\tw$,
@@ -397,32 +399,32 @@ $2^{\mathcal{O}(\tw^2)} \cdot n$.
 
  In this subsection we look at the weighted version of the problem. 
 Firstly, we construct Algorithm~\ref{alg:weighted_feedback_vertex_set_global} which differs from Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
-only on step~\ref{alg4:step5}. On line~\ref{alg4:step5}
+only on step~\ref{alg4:step5}. On Line~\ref{alg4:step5}
 we construct Algorithm~\ref{courcelle:weighted} and use it as a subroutine to get the solution we want.
 
 \begin{algorithm}[H]
-    \caption{Baker's technique for the weighted FVS-4CL}
+    \caption{Baker's technique for the weighted \textsc{FVS-4CL}}
     \label{alg:weighted_feedback_vertex_set_global}
     \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, parameter $\ell \leftarrow \frac{1}{\epsilon}$, $w : V \rightarrow \mathbb{R}$
+    \REQUIRE Planar graph $G = (V, E)$, vertex weight function $w : V \rightarrow \mathbb{R}_{\ge 0}$, parameter $\ell \leftarrow \frac{1}{\epsilon}$
     \ENSURE $(1 + \epsilon)$-approximation for \textsc{FVS-4CL}
-    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$
+    \STATE Perform \textsc{BFS} from some arbitrary root vertex $r$
     \STATE $S \leftarrow \emptyset$
-
+    
     $i$: \textit{shift}; $j$: \textit{slice}
-
-    \FOR{each $i = 0$ to $\ell-1$}
-        \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + 1$ for $0 \leq i < \ell$.
-        \STATE $\forall j \text{ compute }  S_{i, j}$, the min. weighted \textsc{FVS-4CL} 
-        of $G_{i, j}$ using Algorithm~\ref{alg:dp} as a subroutine. \label{alg4:step5}
-        \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
-        \STATE $S \leftarrow S \cup S_i$
+    
+    \FOR{each $i = 0$ to $\ell - 1$}
+        \STATE Let $G_{i,j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + 1$, for all $j \geq 0$
+        \STATE For each $j$, solve the weighted \textsc{FVS-4CL} problem exactly on the subgraph $G_{i,j}$ using Algorithm~\ref{alg:dp} as a subroutine, and let the solution be $S_{i,j}$ \label{alg4:step5}
+        \STATE Let $S_i = \bigcup_{j} S_{i,j}$
+        \STATE $S \leftarrow S \cup \{S_i\}$
     \ENDFOR
-    \RETURN $S_{i*}$ from $S$, such that $w(S_{i^*}) \leq w(S_{i}) , \forall i \in \{1, 2, \dots, \ell-1\}$.
+    \RETURN $S_{i^*} \in S$ such that $w(S_{i^*}) \leq w(S_i)$ for all $i \in \{0, 1, \dots, \ell - 1\}$
     \end{algorithmic}
 \end{algorithm}
 
- Much like the proof we did in subsection~\ref{subsec:baker_unweighted_fvs}, we start off with 
+
+Much like the proof we did in subsection~\ref{subsec:baker_unweighted_fvs}, we start off with 
 finding a bound for the optimum solution for each subgraph. 
 
 \refstepcounter{definition}
@@ -471,7 +473,7 @@ finding a bound for the optimum solution for each subgraph.
 \begin{mydefinition}[Optimum solution bound for the whole graph (Weighted Case)]{Result}
     \label{result-osbwc}
 
-    Let $S_i$ be the union of optimal solutions defined on line 6 of Algorithm~\ref{alg:weighted_feedback_vertex_set_global} 
+    Let $S_i$ be the union of optimal solutions defined on Line 6 of Algorithm~\ref{alg:weighted_feedback_vertex_set_global} 
     for some shift $i$.
     Let $F \equiv OPT$ be the optimum solution in $G$ and let $F_{i, j} = G_{i, j} \cap F$.
     For those sets it holds that: \[w(S_{i}) \leq \sum\limits_{j} w(S_{i, j}) \leq \sum\limits_{j} w(F_{i, j}) \text{.}\]  
@@ -585,7 +587,7 @@ and Lemma~\ref{lemma-bcisweighted_feedback_vertex_set_global} to argue that for 
 
  \textbf{Running time:}
 
-The only difference from the unweighted case comes from line~\ref{alg4:step5} of 
+The only difference from the unweighted case comes from Line~\ref{alg4:step5} of 
 Algorithm~\ref{alg:weighted_feedback_vertex_set_global}. However, using Algorithm~\ref{alg:dp} 
 we get that the running time of the algorithm is still $2^{\mathcal{O}(\tw^2)} \cdot n$.
 
@@ -596,36 +598,32 @@ This subsection extends the concepts discussed in subsection~\ref{subsec:baker_w
 by examining the outcome of attempting to break all weighted cycles of length $\rho$. 
 
 \begin{algorithm}[H]
-    \caption{Baker's technique for the weighted FVS-BCL}
+    \caption{Baker's technique for the weighted \textsc{FVS-BCL}}
     \label{alg:baker_arbitrary_length}
     \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, parameter $\ell \leftarrow \frac{1}{\epsilon}$, $w : V \rightarrow \mathbb{R}$, 
-    $\rho$ - integer specifying cycles of what length to break
-    \ENSURE $(1 + \epsilon)$-approximation for \textsc{FVS-BCL}
-    \STATE Perform \textsc{BFS} from some arbitrary vertex $r$ \label{alg5:line1}
+    \REQUIRE Planar graph $G = (V, E)$, vertex weight function $w : V \rightarrow \mathbb{R}_{\ge 0}$, parameter $\ell \leftarrow \frac{1}{\epsilon}$, integer $\rho$ specifying the maximum cycle length to break
+    \ENSURE $(1 + \lfloor \frac{\rho}{2} \rfloor \cdot \epsilon)$-approximation for \textsc{FVS-BCL}
+    \STATE Perform \textsc{BFS} from some arbitrary root vertex $r$ \label{alg5:line1}
     \STATE $S \leftarrow \emptyset$
-
+    
     $i$: \textit{shift}; $j$: \textit{slice}
-
-    \FOR{each $i = 0$ to $\ell-1$}
-        \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels 
-        $j \cdot \ell + i$ through 
-        $(j+1) \cdot \ell + i + \lfloor \frac{\rho}{2} \rfloor$ 
-        for $0 \leq i < \ell$. \label{alg5:line4}
-        \STATE $\forall j \text{ compute }  S_{i, j}$, the min. weighted \textsc{FVS-BCL} 
-        of $G_{i, j}$ using Corollary~\ref{cor:msol-fvs-rho} as a result. \label{alg5:line5}
-        \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$ \label{alg5:line6}
-        \STATE $S \leftarrow S \cup S_i$ \label{alg5:line7}
+    
+    \FOR{each $i = 0$ to $\ell - 1$}
+        \STATE Let $G_{i,j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + \left\lfloor \frac{\rho}{2} \right\rfloor$, for all $j \geq 0$ \label{alg5:line4}
+        \STATE For each $j$, solve the weighted \textsc{FVS-BCL} problem exactly on the subgraph $G_{i,j}$ using Corollary~\ref{cor:msol-fvs-rho}, and let the solution be $S_{i,j}$ \label{alg5:line5}
+        \STATE Let $S_i = \bigcup_{j} S_{i,j}$ \label{alg5:line6}
+        \STATE $S \leftarrow S \cup \{S_i\}$ \label{alg5:line7}
     \ENDFOR
-    \RETURN $S_{i*}$ from $S$, such that $w(S_{i^*}) \leq w(S_{i}) , \forall i \in \{1, 2, \dots, \ell-1\}$. \label{alg5:line9}
+    \RETURN $S_{i^*} \in S$ such that $w(S_{i^*}) \leq w(S_i)$ for all $i \in \{0, 1, \dots, \ell - 1\}$ \label{alg5:line9}
     \end{algorithmic}
 \end{algorithm}
 
+
  The changes between Algorithm~\ref{alg:weighted_feedback_vertex_set_global} and 
-Algorithm~\ref{alg:baker_arbitrary_length} pertain to lines \ref{alg5:line4}-\ref{alg5:line7}.
-The main difference is on line \ref{alg5:line4} where 
+Algorithm~\ref{alg:baker_arbitrary_length} pertain to Lines \ref{alg5:line4}-\ref{alg5:line7}.
+The main difference is on Line~\ref{alg5:line4} where 
 we define the subgraphs we want to inspect. This change enables us to argue that the union 
-of the local solutions, defined on line \ref{alg5:line6}, is indeed a feasible solution for the
+of the local solutions, defined on Line~\ref{alg5:line6}, is indeed a feasible solution for the
 whole graph. 
 
 \refstepcounter{definition}
@@ -786,10 +784,10 @@ vertices of each \( G_{i, j} \) contribute exactly once to the total weight. Thi
 
 \textbf{Running time:}
 
-In Algorithm~\ref{alg:baker_arbitrary_length} which solves FVS-BCL the computation on line~\ref{alg5:line5}
+In Algorithm~\ref{alg:baker_arbitrary_length} which solves FVS-BCL the computation on Line~\ref{alg5:line5}
 dominates the running time. In planar graphs steps \ref{alg5:line1} and \ref{alg5:line9} take linear time 
 to the input. Using Courcelle's theorem \cite{courcelle1990monadic} we argue for the running time 
-of line ~\ref{alg5:line5}, which uses Corollary.~\ref{cor:msol-fvs-rho} as a result. As we will say in the next 
+of Line~\ref{alg5:line5}, which uses Corollary.~\ref{cor:msol-fvs-rho} as a result. As we will say in the next 
 section, the running time is $f(\rho, t) \cdot n^{\mathcal{O}(1)}$ for some computable function $f$ 
 where a tree decomposition of width $t$ is provided. Using a result from Bodlaender~\cite[Theorem 83]{bodlaender1998partial}
 one can incur that the treewidth of each subgraph is bounded by $\tw$. Therefore the running time of Alg.~\ref{alg:baker_arbitrary_length} 

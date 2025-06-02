@@ -1,6 +1,6 @@
 \section{Preliminaries}
 
- In this section, we provide the reader with the necessary information in order to follow the paper. We start 
+In this section, we provide the reader with the necessary information in order to follow the paper. We start 
 with a reminder of Graph Theory. After that, we move to more advanced definitions in the field of 
 Combinatorial Optimization. Finally, we get on topic by introducing perturbation resilience and certified 
 algorithms from the field of Beyond the Worst-Case Analysis of Algorithms.
@@ -36,8 +36,10 @@ N^{m}_{G}[v] = \{ u \in V \mid \operatorname{dist}_G(u, v) \leq m \}.
 
 \subsection{Combinatorial Optimization}
 
-In this section, we refer to the book on Combinatorial Optimization by Korte and Vygen \cite{Korte2007CombinatorialOT} and 
-Williamson and Shmoys \cite{williamson2011design}. Some definitions can be traced to the end of the book by Cygan et al. \cite{cygan2015parameterized}. 
+In this section, we refer to the standard textbook on combinatorial optimization by Korte 
+and Vygen \cite{Korte2007CombinatorialOT} and 
+Williamson and Shmoys \cite{williamson2011design}. Some definitions can be traced to 
+the textbook on parameterized complexity by Cygan et al. \cite{cygan2015parameterized}.
 
 \subsubsection{NP-Complete Problems: Definitions and Variants}
 
@@ -179,7 +181,7 @@ which consists of algorithms that run in polynomial time and produce solutions a
 
 \end{mydefinition}
 
-The dependence, mentioned in Def.~\ref{PTAS}, on $\frac{1}{\epsilon}$ could be exponential
+The dependence, mentioned in Definition~\ref{PTAS}, on $\frac{1}{\epsilon}$ could be exponential
 or even worse.
 Thus an algorithm running in time $O(n^{1/\epsilon})$ counts as a PTAS.
 
@@ -276,14 +278,14 @@ Therefore, we can make the following argument:
 
 \subsubsection{Treewidth}
 
- According to Diestel~\cite[pp. 354-355]{diestel2000graph} the notions of 
+According to Diestel~\cite[pp. 354-355]{diestel2025graph} the notions of 
 tree decomposition and treewidth were introduced by 
 Halin~\cite{halin1976s} under the name of $S$-functions and Robertson and Seymour ~\cite{ROBERTSON1986309}.
 We give brief definitions of these concepts and then discuss bounded local treewidth and linear local 
 treewidth. The last two notions are important for the main theorem we work with, namely
 Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
- From Diestel~\cite[Section 12.3]{diestel2000graph} we have the following definition of a 
+From Diestel~\cite[Section 12.3]{diestel2025graph} we have the following definition of a 
 tree decomposition.
 
 \refstepcounter{definition} % Increment counter after the definition content
@@ -351,18 +353,18 @@ specifically for vertex-optimization problems.
 
 \refstepcounter{definition}
 \begin{mydefinition}[$\gamma$-perturbation for Edge-Optimization problems]{Definition}
-    \label{gpeop}
-
-    Consider a weighted graph $G = (V, E, w)$ with a set of edge weights $w_e$. An instance $G' = (V, E, w')$ is a 
-    $\gamma$-perturbation ($\gamma \in \mathbb{R_{\geq \text{1}}}$) of $G$ if $w(e) \leq w'(e) \leq \gamma \cdot w(e)$; that is, if we can 
-    obtain a perturbed instance from the original by multiplying the weight of each edge by a number between $1$ and $\gamma$ 
-    (the number may vary for each edge).
-
+Consider a weighted graph \( G = (V, E, w) \) with vertex set \( V \), 
+edge set \( E \), and a weight function \( w \) defined on the edges. 
+An instance \( G' = (V, E, w') \) is a \emph{$\gamma$-perturbation} 
+(for \( \gamma \in \mathbb{R}_{\ge 1} \)) of 
+\( G \) if \( w(e) \le w'(e) \le \gamma \cdot w(e) \) for every edge 
+\( e \in E \); in other words, the perturbed instance is obtained by independently 
+scaling the weight of each edge by a factor between 1 and \( \gamma \).
 \end{mydefinition}
 
- From now on, the definitions will concentrate on Vertex-Optimization problems.
+From now on, the definitions will concentrate on Vertex-Optimization problems.
 
-\refstepcounter{definition} % Increment counter after the definition content
+\refstepcounter{definition}
 \begin{mydefinition}[ $\gamma$-perturbation for Vertex-Optimization problems]{Definition}
     \label{gpvop}
 
@@ -410,5 +412,5 @@ for graphs of bounded treewidth to get an approximation in a planar graph. In
 Borradaile and Le~\cite{borradaile2015optimal} it is mentioned that one can use Baker's technique 
 to obtain a PTAS. In the MIT lecture notes of \cite{demaine2011lecture9}, there is an explanation 
 of how to get to that approximation. Essentially, instead of two layers of overlap between 
-subgraphs, one would have to increase that overlap to $r+1$. This technique will yield results 
-only for sufficiently small values for the parameter $r$.
+subgraphs, one would have to increase that overlap to $r+1$. This technique yields results 
+for constant values of $r$.
