@@ -1,6 +1,7 @@
 \section{Preliminaries}
+\label{section:preliminaries}
 
-In this section, we provide the reader with the necessary information in order to follow the paper. We start 
+In this section, we provide the reader with the necessary information in order to follow the thesis. We start 
 with a reminder of Graph Theory. After that, we move to more advanced definitions in the field of 
 Combinatorial Optimization. Finally, we get on topic by introducing perturbation resilience and certified 
 algorithms from the field of Beyond the Worst-Case Analysis of Algorithms.
@@ -393,21 +394,21 @@ From now on, the definitions will concentrate on Vertex-Optimization problems.
 
 \end{mydefinition}
 
-\subsection{r-Dominating Set; Exact algorithm and PTAS}
+\subsection{$r$-Dominating Set; Exact algorithm and PTAS}
 
 For FVS-BCL we will give an algorithm that solves the problem on graphs of bounded treewidth. 
 For Dominating Set and its generalizations there are already existing solutions one can use. 
-The r-Dominating Set problem is one generalization of Dominating Set. We mention an algorithm 
+The $r$-Dominating Set problem is one generalization of Dominating Set. We mention an algorithm 
 which solves the generalized version. In this work the parameter $r$ is considered to be 
 constant.
 
-There is an algorithm that solves r-Dominating Set using dynamic programming which is realized 
+There is an algorithm that solves $r$-Dominating Set using dynamic programming which is realized 
 by Borradaile and Le~\cite[Theorem 1, Appendix B.]{borradaile2015optimal}. It is a generalization 
 of the work done in van Rooij et al.~\cite{van2009dynamic}. As it is argued in Borradaile and Le
-\cite[Appendix B.]{borradaile2015optimal}, the running time needed to solve r-Dominating Set 
+\cite[Appendix B.]{borradaile2015optimal}, the running time needed to solve $r$-Dominating Set 
 is $(2r + 1)^{\tw + 1} \cdot \tw^{2} \cdot n$. 
 
-We showed in subsection~\ref{subsection:baker} how one can use an exact algorithm 
+We showed in Subsection~\ref{subsection:baker} how one can use an exact algorithm 
 for graphs of bounded treewidth to get an approximation in a planar graph. In 
 Borradaile and Le~\cite{borradaile2015optimal} it is mentioned that one can use Baker's technique 
 to obtain a PTAS. In the MIT lecture notes of \cite{demaine2011lecture9}, there is an explanation 

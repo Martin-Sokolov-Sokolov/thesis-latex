@@ -7,8 +7,14 @@ it is shown that there is a reduction from \textsc{Satisfiability} to twenty-one
 one of which is FVS. Because of the 
 hardness of the problem, extensive research has been conducted in order to find good 
 approximation solutions~\cite{bafna1995constant,bar1998approximation,becker1996optimization,chudak1998primal,goemans1998primal}. 
-In our paper, we focus on the Feedback Vertex Set with Bounded Cycle Length problem (FVS-BCL).
+In this thesis, we focus on the Feedback Vertex Set with Bounded Cycle Length problem (FVS-BCL).
 The goal is to find a set of vertices that intersects every cycle of a given length. 
+Guruswami and Lee~\cite{guruswami2014inapproximability} prove \emph{NP-hardness} of 
+approximation results, parameterized by cycle length $\rho$. More specifically, 
+for any 
+integer $\rho \geq 3$ and $\epsilon > 0$, it is hard to find a
+$\left(\rho-1-\epsilon\right)$-approximate solution to the problem of intersecting every 
+cycle of length $\rho$ in general graphs.
 
 Another restriction 
 that is imposed is on the class of graphs, namely we are only considering planar graphs. 
@@ -18,7 +24,7 @@ H-minor-free graphs. Baker's technique \cite{Baker} provides approximation algor
 \cite{demaine2005bidimensionality} extend this idea using recursive separators to apply to 
 several broader classes of graphs. A well-known limitation of the shifting technique is its 
 inability to handle non-local problems, such as the FVS problem.
-In our paper, we impose restrictions on 
+In this thesis, we impose restrictions on 
 the problems in order to introduce a local property that allows us to devise an 
 EPTAS for the weighted FVS-BCL.
 
@@ -89,10 +95,11 @@ $(1+\epsilon)$-certified algorithm that runs efficiently.
 
 \subsection*{Organization of Material}
 
-In Section 2 we present every definition that is used throughout the thesis. In Section 3 we present 
+In Section~\ref{section:preliminaries} we present every definition that is used throughout the thesis. 
+In Section~\ref{section:eptas} we present 
 the proof that both the unweighted and weighted FVS-4CL and FVS-BCL admit an efficient PTAS. In order 
-to prove that we use a result from Section 4, namely that there is an efficient algorithm for solving 
+to prove that we use a result from Section~\ref{section:exact-alg}, namely that there is an efficient algorithm for solving 
 these problems in graphs of bounded treewidth. The focus is shifted to Beyond the Worst-Case analysis in 
-Section 5. We present the necessary lemmas to show that our problems have the structural properties, so 
-we can devise a certified algorithm for them. In Section 6 we provide that algorithm and argue for 
+Section~\ref{section:m-stitching}. We present the necessary lemmas to show that our problems have the structural properties, so 
+we can devise a certified algorithm for them. In Section~\ref{section:certified-algs} we provide that algorithm and argue for 
 the running time that is incurred.

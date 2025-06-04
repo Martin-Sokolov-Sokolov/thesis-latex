@@ -4,13 +4,16 @@ The primary goal of this thesis was to explore the weighted version of the Feedb
 with Bounded Cycle Length (FVS-BCL) problem in planar graphs and develop approximate solutions. 
 Unlike the classical Feedback Vertex Set problem, the FVS-BCL variant has received comparatively 
 little attention, despite its potential relevance in applications. To tackle this problem, we 
-employed a combination of established methods, such as Baker's outerplanarity technique, 
+employed a combination of established methods, such as Baker's outerplanarity technique in Section~\ref{section:eptas}, 
 and more recent innovations, including the construction of certified algorithms for instances 
 of polynomially-bounded weights. 
 This approach was chosen not only to contribute new insights into the FVS-BCL problem but also 
 to provide a broader understanding of how hard problems can be addressed by leveraging 
-local structural properties.
-
+local structural properties. 
+In Section~\ref{section:m-stitching}, we demonstrate how $m$-stitching can be applied to 
+solve FVS-BCL and the $r$-Dominating Set problem. 
+This approach may also inspire the use of $m$-stitching in addressing other NP-Complete problems.
+ 
 The key findings of this thesis can be grouped into three main contributions. 
 First, we demonstrated that the FVS-BCL problem is fixed-parameter tractable when parameterized 
 by treewidth in Section~\ref{section:exact-alg}. This result was crucial for enabling the subsequent developments. 
@@ -37,7 +40,7 @@ in planar graphs remains an open question. In particular, it would be valuable t
 how many cycles a $\rho$-cycle breaking set intersects.
 
 There are a couple of directions for future research. The first one relates to the tractability 
-results in Subsection~\ref{alg:dp}. Improving the $2^{\mathcal{O}(\tw^2)} \cdot n$ running time 
+results in Subsection~\ref{alg:dp}. Improving the $2^{\mathcal{O}(\tw^2)} \cdot n^{\mathcal{O}(1)}$ running time 
 could be explored by a deploying some existing techniques. The traditional dynamic programming 
 techniques for FVS yield $2^{\mathcal{O}(\tw \cdot \log\tw )} \cdot n^{\mathcal{O}(1)}$. Furthermore, 
 Cygan et al.~\cite{cygan2022solving} developed the Cut \& Count technique which obtained 

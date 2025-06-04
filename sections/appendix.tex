@@ -1,7 +1,7 @@
 \appendix
 \section{Appendix}
 
-\subsection{Example one graph and Nice Tree Decomposition}
+\subsection{Example graph and first Nice Tree Decomposition}
 
 Here we provide a detailed simulation of the dynamic programming algorithm.
 \begin{figure}[h!]
@@ -60,7 +60,7 @@ Here we provide a detailed simulation of the dynamic programming algorithm.
     \end{minipage}
 \end{figure}
 
-\subsection{Simulation of Table Population of graph one}
+\subsection{Simulation of Table Population}
 
 The table \( c[\text{i}, I, \mathcal{F}] \) represents the population of the values as we move through the tree decomposition steps. Below, we provide a simulation of this process.
 
@@ -232,7 +232,10 @@ every 4-cycle in a planar graph $G$.
 
 \newpage
 
-\subsection{Example two graph and Nice Tree Decomposition}
+\subsection{Example graph and second Nice Tree Decomposition}
+
+Here we offer a different nice tree decomposition, so we can inspect what happens at a join 
+node.
 
 \begin{figure}[h]
     \centering
@@ -264,18 +267,19 @@ every 4-cycle in a planar graph $G$.
         \centering
         \begin{tikzpicture}[every node/.style={draw, rounded corners, align=left, font=\small, text width=3cm, inner sep=4pt}, level distance=1.6cm, sibling distance=5cm]
 
-            \node (root) {\{ \} \\ Root \hfill \scriptsize(12)}
-                child { node (f_d) {\{d\} \\ Forget $d$ \hfill \scriptsize(11)}
-                    child { node (join) {\{b,d\} \\ Join \hfill \scriptsize(10)}
-                        child { node (path1) {\{b,d\} \\ Forget $a$ \hfill \scriptsize(4)}
-                            child { node (i_b1) {\{a,b,d\} \\ Introduce $d$ \hfill \scriptsize(3)}
-                                child { node (i_d1) {\{a,b\} \\ Introduce $b$ \hfill \scriptsize(2)}
-                                    child { node (i_a) {\{a\} \\ Introduce $a$ \hfill \scriptsize(1)}
-                                        child { node (leaf1) {\{ \} \\ Leaf \hfill \scriptsize(0)} }
+            \node (root) {\{ \} \\ Root \hfill \scriptsize(13) }
+                child { node (f_d) {\{ \} \\ Forget $d$ \hfill \scriptsize(12)}
+                    child { node (f_b) {\{d\} \\ Forget $b$ \hfill \scriptsize(11)}
+                        child { node (join) {\{b,d\} \\ Join \hfill \scriptsize(10)}
+                            child { node (path1) {\{b,d\} \\ Forget $a$ \hfill \scriptsize(4)}
+                                child { node (i_b1) {\{a,b,d\} \\ Introduce $d$ \hfill \scriptsize(3)}
+                                    child { node (i_d1) {\{a,b\} \\ Introduce $b$ \hfill \scriptsize(2)}
+                                        child { node (i_a) {\{a\} \\ Introduce $a$ \hfill \scriptsize(1)}
+                                            child { node (leaf1) {\{ \} \\ Leaf \hfill \scriptsize(0)} }
+                                        }
                                     }
                                 }
                             }
-                        }
                         child { node (path2) {\{b,d\} \\ Forget $c$ \hfill \scriptsize(9)}
                             child { node (i_b2) {\{c,b,d\} \\ Introduce $d$ \hfill \scriptsize(8)}
                                 child { node (i_d2) {\{c,b\} \\ Introduce $b$ \hfill \scriptsize(7)}
@@ -286,7 +290,8 @@ every 4-cycle in a planar graph $G$.
                             }
                         }
                     }
-                };
+                }
+            };
 
         \end{tikzpicture}
         \caption{Alternative Tree Decomposition with Join Node at \{b,d\}}
@@ -295,6 +300,8 @@ every 4-cycle in a planar graph $G$.
 \end{figure}
 
 \subsection{Simulation of Table Population of graph two}
+
+Up until the join node, the calculation of the dynamic programming table is standard.
 
 \begin{minipage}[t]{0.48\textwidth} % [t] for top alignment
     \centering
@@ -387,4 +394,60 @@ every 4-cycle in a planar graph $G$.
     \end{longtable}
 \end{minipage}
 
+Now we have to calculate the join node. Note that we will not write out every value and only 
+then take the minimum, but write the minimum values in the table directly.
+
+\begin{minipage}[t]{0.48\textwidth} % [t] for top alignment
+    \centering
+    \begin{longtable}{|c|c|c|c|}
+        \hline
+        \textbf{Index $i$} & \textbf{Set $I$} & \textbf{Flag $\mathcal{F}$} & \textbf{Value $c[i, I, \mathcal{F}]$} \\
+        \hline
+        \endfirsthead
+        \hline
+        \textbf{Index $i$} & \textbf{Set $I$} & \textbf{Flag $\mathcal{F}$} & \textbf{Value $c[i, I, \mathcal{F}]$} \\
+        \hline
+        \endhead
+        \hline
+        \endfoot
+
+        \hline
+        10 & $\{b,d\}$ & $\emptyset$ & \textbf{10} \\
+        10 & $\{b,d\}$ & $\{b,d\}$ & \textbf{5} \\
+        10 & $\{b\}$ & $\emptyset$ & \textbf{8} \\
+        10 & $\{b\}$ & $\{b,d\}$ & \textbf{3} \\
+        10 & $\{d\}$ & $\emptyset$ & \textbf{7} \\
+        10 & $\{d\}$ & $\{b,d\}$ & \textbf{2} \\
+
+        \hline
+    \end{longtable}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth} % [t] for top alignment
+    \centering
+    \begin{longtable}{|c|c|c|c|}
+        \hline
+        \textbf{Index $i$} & \textbf{Set $I$} & \textbf{Flag $\mathcal{F}$} & \textbf{Value $c[i, I, \mathcal{F}]$} \\
+        \hline
+        \endfirsthead
+        \hline
+        \textbf{Index $i$} & \textbf{Set $I$} & \textbf{Flag $\mathcal{F}$} & \textbf{Value $c[i, I, \mathcal{F}]$} \\
+        \hline
+        \endhead
+        \hline
+        \endfoot
+
+        10 & $\emptyset$ & $\emptyset$ & \textbf{5} \\
+        10 & $\emptyset$ & $\{b,d\}$ & \textbf{1} \\
+        \hline
+        11 & $\{d\}$ & $\emptyset$ & \textbf{2} \\
+        11 & $\emptyset$ & $\emptyset$ & \textbf{1} \\
+        \hline
+        12 & $\emptyset$ & $\emptyset$ & \textbf{1} \\
+        \hline
+        13 & $\emptyset$ & $\emptyset$ & \textbf{1} \\
+        \hline
+        
+    \end{longtable}
+\end{minipage}
 

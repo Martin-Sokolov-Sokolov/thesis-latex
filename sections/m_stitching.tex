@@ -1,4 +1,5 @@
 \section{$m$-Stitching and $\Pi$-$m$-Stitching}
+\label{section:m-stitching}
 
 This section introduces key concepts that facilitate the construction of certified algorithms. 
 It begins with the definitions of \textit{m-stitching} and \textit{$\Pi$-m-stitching}, 
@@ -335,7 +336,7 @@ Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
 \end{mydefinition}
 
- The proof of theorem \ref{theorem-main} is beyond the scope of this paper. In this section 
+The proof of theorem \ref{theorem-main} is beyond the scope of this thesis. In this section 
 we only apply the three steps, mentioned to the FVS-BCL problem without generalizing to other 
 vertex-minimization problems. 
 
@@ -734,7 +735,8 @@ that form a 4-cycle. Remember that $S_2 \oplus^{2}_{G,J} S_1 = (S_1 \backslash J
                 \end{scope}
     
             \end{tikzpicture}
-            \caption{$\forall v \in \{v_1,v_2,v_3,v_4\}: v \notin J$}
+            \caption{$\forall v \in \{v_1,v_2,v_3,v_4\}$, such that $v_1v_2v_3v_4$ is a four 
+            cycle: $v \notin J$}
             \label{fig:second-figure}
         \end{minipage}
     \end{figure}
@@ -1122,10 +1124,10 @@ $N^{\lfloor\frac{\rho}{2}\rfloor}_{G}[J]$,
 the algorithm we described solves 
 FVS-BCL-$\rho$-stitching in time $f(\tw) \cdot n^{\mathcal{O}(1)}$.
 
-\subsection{r-Dominating Set and $(r+1)$-stitching}
+\subsection{$r$-Dominating Set and $(r+1)$-stitching}
 
 In this subsection we will use the definitions and terminology we have established in the 
-previous section and look at another problem, namely the r-Dominating Set problem. We will 
+previous section and look at another problem, namely the $r$-Dominating Set problem. We will 
 argue that in the case of that problem the parameter $m$ has to be set to $r+1$ in order 
 to maintain feasibility when constructing new sets. Afterwards we will prove that 
 when constructing new sets, one can find a feasible solution which is also optimal. 
@@ -1139,7 +1141,7 @@ prove that the problem is certified.
 \begin{mydefinition}[\boldsymbol{$r$}-DS is guessable]{Lemma}
     \label{lemma-ds-guessable}
 
-    For any planar graph $G$, the set $V(G)$ is a feasible solution to r-DS.
+    For any planar graph $G$, the set $V(G)$ is a feasible solution to $r$-Dominating Set.
 
 \end{mydefinition}
 
@@ -1149,7 +1151,7 @@ prove that the problem is certified.
 \end{proof}
 
 \refstepcounter{definition}
-\begin{mydefinition}[r-DS is $(r+1)$-stitchable]{Lemma}
+\begin{mydefinition}[$r$-Dominating Set is $(r+1)$-stitchable]{Lemma}
     \label{lemma-r-DS-stitchable}
 
     Let $(G, w)$ be any instance to the $r$-DS problem, $J \subseteq V(G)$, some subset
@@ -1184,7 +1186,7 @@ Now we describe an algorithm to find a feasible solution of minimum weight.
     \label{alg:stitch-r-DS}
     \begin{algorithmic}[1]
     \REQUIRE Vertex-weighted planar graph $(G, w:V(G) \to \mathbb{N})$,
-    a feasible solution of r-DS $S_1$ on $G$
+    a feasible solution of $r$-Dominating Set $S_1$ on $G$
     and a vertex set $J \subseteq V(G)$.
     \ENSURE a feasible solution $S'$ on $G$, such that for all other feasible solutions $S^{*}$, 
     we have $w(S') \leq w(S^{*} \oplus^{r+1}_{G,J} S_1)$. 
@@ -1220,7 +1222,7 @@ Now we describe an algorithm to find a feasible solution of minimum weight.
 
 \end{mydefinition}
 
-The proof of Lemma~\ref{lemma-rds-stitching} is outside of the scope of this paper 
+The proof of Lemma~\ref{lemma-rds-stitching} is outside of the scope of this thesis 
 as it is similar to the proof of Lemma~\ref{lemma-stictch-fvs-4cl}. The reader can find 
 a similar proof in Bumpus et al. \cite[Lemma 3.3]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
