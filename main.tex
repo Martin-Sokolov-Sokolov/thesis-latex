@@ -1,15 +1,11 @@
 \documentclass[12pt]{article}
-
-\usepackage[backend=biber, style=numeric, backref=true, backrefstyle=three]{biblatex}
-\addbibresource{references.bib}
-
+\usepackage[utf8]{inputenc}
 \usepackage{setspace}
 \setstretch{1.1}      % Adjust line spacing
 
 \usepackage{amssymb}
 \usepackage{amsfonts} % For additional math fonts if needed
 \usepackage{hyperref}
-\usepackage[utf8]{inputenc}
 \usepackage{tcolorbox}
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -73,6 +69,10 @@
 
 \newcommand{\tw}{\operatorname{tw}}
 
+\usepackage[backend=biber, style=numeric, backref=true, backrefstyle=three]{biblatex}
+\addbibresource{references.bib}
+
+
 \title{\huge Certified Algorithms for Combinatorial Optimization Problems}
 \author{\Large Martin Sokolov}
 \date{\today}
@@ -88,7 +88,7 @@ In this thesis, we study the problem on \emph{planar graphs}, focusing on a vari
 \textsc{Feedback Vertex Set with Bounded Cycle Length} (FVS-BCL), where the goal is to 
 intersect all cycles of a fixed length. FVS-BCL is known to be hard to approximate within a 
 factor better than \( \rho - 1 \) in general graphs for fixed cycle lengths \( \rho \geq 3 \), but 
-structural restrictions such as planarity offer potential for more efficient approximation.
+structural restrictions such as planarity offer potential for better approximations.
 
 In the first part of this work, we develop Efficient Polynomial-Time Approximation Schemes 
 (EPTAS) for both the FVS-4CL (which targets 4-cycles) and the more general FVS-BCL problem. 

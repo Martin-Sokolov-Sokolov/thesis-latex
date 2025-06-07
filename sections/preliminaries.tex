@@ -249,9 +249,9 @@ What follows is a brief explanation of Baker's shifting technique with \textsc{V
 
     \FOR{each $i = 0$ to $\ell - 1$}
         \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i$ for $0 \leq i < \ell$. \label{line:4}
-        \STATE $\forall j \text{ compute }  S_{i, j}$, the min. \textsc{VC} of $G_{i, j}$.
-        \STATE $\forall j \text{ let } S_i = \bigcup_{j} S_{i, j}$
-        \STATE $S \leftarrow S \cup S_i$
+        \STATE Let $S_{i, j}$, the min. \textsc{VC} of $G_{i, j}$.
+        \STATE Let $S_i = \bigcup_{j} S_{i, j}$
+        \STATE $S \leftarrow S \cup \{ S_i \}$
     \ENDFOR
     \RETURN $S_{i*}$ from $S$ with minimum cardinality
     \end{algorithmic}
@@ -394,7 +394,7 @@ From now on, the definitions will concentrate on Vertex-Optimization problems.
 
 \end{mydefinition}
 
-\subsection{$r$-Dominating Set; Exact algorithm and PTAS}
+\subsection{$r$-Dominating Set; FPT algorithm and PTAS}
 
 For FVS-BCL we will give an algorithm that solves the problem on graphs of bounded treewidth. 
 For Dominating Set and its generalizations there are already existing solutions one can use. 
@@ -408,7 +408,7 @@ of the work done in van Rooij et al.~\cite{van2009dynamic}. As it is argued in B
 \cite[Appendix B.]{borradaile2015optimal}, the running time needed to solve $r$-Dominating Set 
 is $(2r + 1)^{\tw + 1} \cdot \tw^{2} \cdot n$. 
 
-We showed in Subsection~\ref{subsection:baker} how one can use an exact algorithm 
+We showed in Subsection~\ref{subsection:baker} how one can use an FPT algorithm 
 for graphs of bounded treewidth to get an approximation in a planar graph. In 
 Borradaile and Le~\cite{borradaile2015optimal} it is mentioned that one can use Baker's technique 
 to obtain a PTAS. In the MIT lecture notes of \cite{demaine2011lecture9}, there is an explanation 

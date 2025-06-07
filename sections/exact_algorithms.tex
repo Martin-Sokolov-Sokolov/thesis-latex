@@ -1,8 +1,8 @@
 \section{Establishing Fixed-Parameter Tractability for FVS-4CL and FVS-BCL}
 \label{section:exact-alg}
 
-In this section we are looking for an algorithm that finds exact solutions to the 
-FVS-4CL problem in each subgraph. For each subgraph we assume that the treewidth is bounded. 
+In this section, we present an algorithm that finds exact solutions to the FVS-4CL problem in each subgraph. 
+For each subgraph, we assume that the treewidth is bounded, allowing our algorithm to achieve FPT running time.
 
 We take a logical approach that was introduced by Courcelle~\cite{courcelle1990monadic}. 
 He shows that graph properties, that can be stated in monadic second-order logic (MSOL), can be solved in 
@@ -148,7 +148,7 @@ For a more thorough explanation of those concepts, see Bodlaender~\cite[Section 
         for the current node $X_i$.
         \item The class $\mathcal{F} \subseteq X_i \times X_i$ is comprised of all of the pairs of 
         vertices $v,u \in X_i: 
-        (v, u) \in \Phi$ if they have a common neighbour $w \in V_i \backslash X_i$, such that 
+        (v, u) \in \mathcal{F}$ if they have a common neighbour $w \in V_i \backslash X_i$, such that 
         $w \notin F_i$.
     \end{enumerate}
     

@@ -5,7 +5,7 @@ This section presents an EPTAS for both the unweighted and weighted versions of
 the FVS-BCL problem. We begin with the unweighted case, focusing on the algorithm's 
 correctness and efficiency.
 
-For the special case of breaking 4-cycles—denoted as FVS-4CL—exact solutions on subgraphs 
+For the special case of breaking 4-cycles, denoted as FVS-4CL, exact solutions on subgraphs 
 of bounded treewidth are obtained using a dynamic programming approach. In contrast, 
 the general FVS-BCL problem, where cycles of arbitrary length $\rho$ must be broken, is handled using Monadic Second Order Logic (MSOL) and Courcelle’s Theorem.
 
@@ -43,8 +43,7 @@ define on Line~\ref{alg3:line4} in Algorithm~\ref{alg:unweighted_feedback_vertex
     \FOR{each $i = 0$ to $\ell-1$} \label{alg3:for-loop}
         \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels
         $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + 1$ for all $j \geq 0$. \label{alg3:line4}
-        \STATE For each $j$, compute $S_{i, j}$, the minimum unweighted \textsc{FVS-4CL} 
-        of $G_{i, j}$ using Algorithm~\ref{alg:dp} as a subroutine (weights are all ones). \label{alg3:subroutine}
+        \STATE Compute $S_{i, j}$, the minimum unweighted \textsc{FVS-4CL} of $G_{i, j}$ using Algorithm~\ref{alg:dp} as a subroutine (weights are all ones). \label{alg3:subroutine}
         \STATE Let $S_i = \bigcup_{j} S_{i, j}$ \label{alg3:line6}
         \STATE $S \leftarrow S \cup \{S_i\}$ \label{alg3:line7}
     \ENDFOR
@@ -397,7 +396,7 @@ $2^{\mathcal{O}(\tw^2)} \cdot n$.
 \subsection{Baker's technique for the weighted FVS-4CL on planar graphs}
 \label{subsec:baker_weighted_fvs}
 
- In this subsection we look at the weighted version of the problem. 
+In this subsection we look at the weighted version of the problem. 
 Firstly, we construct Algorithm~\ref{alg:weighted_feedback_vertex_set_global} which differs from Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
 only on step~\ref{alg4:step5}. On Line~\ref{alg4:step5}
 we construct Algorithm~\ref{courcelle:weighted} and use it as a subroutine to get the solution we want.
@@ -415,7 +414,7 @@ we construct Algorithm~\ref{courcelle:weighted} and use it as a subroutine to ge
     
     \FOR{each $i = 0$ to $\ell - 1$}
         \STATE Let $G_{i,j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + 1$, for all $j \geq 0$
-        \STATE For each $j$, solve the weighted \textsc{FVS-4CL} problem exactly on the subgraph $G_{i,j}$ using Algorithm~\ref{alg:dp} as a subroutine, and let the solution be $S_{i,j}$ \label{alg4:step5}
+        \STATE Let $S_{i, j}$ be the exact solution of the weighted FVS-4CL on the subgraph $G_{i, j}$ using Algorithm~\ref{alg:dp} as a subroutine \label{alg4:step5}
         \STATE Let $S_i = \bigcup_{j} S_{i,j}$
         \STATE $S \leftarrow S \cup \{S_i\}$
     \ENDFOR
@@ -610,7 +609,7 @@ by examining the outcome of attempting to break all weighted cycles of length $\
     
     \FOR{each $i = 0$ to $\ell - 1$}
         \STATE Let $G_{i,j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i + \left\lfloor \frac{\rho}{2} \right\rfloor$, for all $j \geq 0$ \label{alg5:line4}
-        \STATE For each $j$, solve the weighted \textsc{FVS-BCL} problem exactly on the subgraph $G_{i,j}$ using Corollary~\ref{cor:msol-fvs-rho}, and let the solution be $S_{i,j}$ \label{alg5:line5}
+        \STATE Let $S_{i, j}$ be the exact solution of the weighted FVS-BCL on the subgraph $G_{i, j}$ using Corollary~\ref{cor:msol-fvs-rho} \label{alg5:line5}
         \STATE Let $S_i = \bigcup_{j} S_{i,j}$ \label{alg5:line6}
         \STATE $S \leftarrow S \cup \{S_i\}$ \label{alg5:line7}
     \ENDFOR

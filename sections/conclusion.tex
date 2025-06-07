@@ -34,20 +34,29 @@ may serve as a foundation for future work on similarly structured graph problems
 One limitation of this work is that, although we aimed to generalize the positive results 
 obtained for the FVS-BCL problem to the more general Feedback Vertex Set problem on 
 weighted planar graphs, we were unable to establish a direct connection. 
-While we successfully developed an efficient PTAS for the FVS-BCL variant, 
+While we successfully developed an efficient PTAS for the weighted FVS-BCL variant, 
 the existence of such an approximation scheme for the general weighted FVS problem 
 in planar graphs remains an open question. In particular, it would be valuable to investigate 
 how many cycles a $\rho$-cycle breaking set intersects.
 
 There are a couple of directions for future research. The first one relates to the tractability 
-results in Subsection~\ref{alg:dp}. Improving the $2^{\mathcal{O}(\tw^2)} \cdot n^{\mathcal{O}(1)}$ running time 
-could be explored by a deploying some existing techniques. The traditional dynamic programming 
-techniques for FVS yield $2^{\mathcal{O}(\tw \cdot \log\tw )} \cdot n^{\mathcal{O}(1)}$. Furthermore, 
-Cygan et al.~\cite{cygan2022solving} developed the Cut \& Count technique which obtained 
-a $3^{\mathcal{O}(\tw)} \cdot n^{\mathcal{O}(1)}$ randomized algorithm and 
+results in Subsection~\ref{alg:dp}. Here, there are again two paths to consider.
+
+First, as briefly mentioned in that subsection, one could attempt to extend the approach we used for 
+breaking $\rho$-cycles. This would require introducing additional flag sets beyond the one we used, 
+$\mathcal{F}$, to track distances between forgotten vertices: namely, 
+$\mathcal{F}_1, \mathcal{F}_2, \dots, \mathcal{F}_{\rho-3}$.
+
+Second, improving the $2^{\mathcal{O}(\tw^2)} \cdot n^{\mathcal{O}(1)}$ running time 
+could be explored by deploying some existing techniques. Traditional dynamic programming 
+approaches for FVS yield a $2^{\mathcal{O}(\tw \cdot \log \tw)} \cdot n^{\mathcal{O}(1)}$ running time. 
+Furthermore, Cygan et al.~\cite{cygan2022solving} developed the Cut \& Count technique, 
+which obtained a $3^{\mathcal{O}(\tw)} \cdot n^{\mathcal{O}(1)}$ randomized algorithm, and 
 Bodlaender et al.~\cite{bodlaender2015deterministic} 
-showed a deterministic $2^{\mathcal{O}(\tw)} \cdot n^{\mathcal{O}(1)}$ rank-based approach. 
-Any of these should serve as motivation to improve the algorithm in this thesis.
+showed a deterministic $2^{\mathcal{O}(\tw)} \cdot n^{\mathcal{O}(1)}$ rank-based approach.
+
+Any of these should serve as inspiration to improve the algorithm in this thesis.
+
 Another promising direction for future research is improving the certified algorithm for FVS-BCL. 
 In particular, it would be valuable to develop an approach that eliminates the current reliance on 
 the polynomially-bounded weights constraint. At present, this assumption is essential for 
