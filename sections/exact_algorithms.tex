@@ -152,7 +152,7 @@ For a more thorough explanation of those concepts, see Bodlaender~\cite[Section 
         $w \notin F_i$.
     \end{enumerate}
     
-    \[ch(G_i, F_i) = (\{v \in X_i: v \in F_i\}, 
+    \[ch(G_i, F_i) = (I, 
     \{(v, u) \in X_i \times X_i: \exists w \in V_i \backslash X_i, 
     (v, w) \in E_i, (u, w) \in E_i, w \notin F_i\})\]
 
@@ -166,7 +166,7 @@ For a more thorough explanation of those concepts, see Bodlaender~\cite[Section 
     \item Define the notion of a \textit{full set of characteristics}.
 
     The full set for a node $X_i$ is a valuation for each characteristic $I \in \{0, 1\}^{|X_i|}$ 
-    and $\mathcal{F} \in \{0, 1\}^{X_i \times X_i}$. Since there are at most $\tw+1$ elements, 
+    and $\mathcal{F} \in \{0, 1\}^{|X_i \times X_i|}$. Since there are at most $\tw+1$ elements, 
     there are at most $2^{(\tw+1)} \cdot 2^{\binom{\tw+1}{2}}$ entries. That yields a storage 
     capacity of $2^{\binom{\tw+1}{2} + (\tw+1)} = 2^{\mathcal{O}(\tw^2)}$. 
 

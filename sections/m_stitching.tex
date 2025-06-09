@@ -2,23 +2,23 @@
 \label{section:m-stitching}
 
 This section introduces key concepts that facilitate the construction of certified algorithms. 
-It begins with the definitions of \textit{m-stitching} and \textit{$\Pi$-m-stitching}, 
+It begins with the definitions of \textit{$m$-stitching} and \textit{$\Pi$-$m$-stitching}, 
 followed by a presentation of the main theorem from 
 Bumpus et al.~\cite{bumpus_et_al:LIPIcs.SWAT.2024.19}. 
 These concepts and the theorem will be used for constructing certified algorithms 
 in the following section. 
 Unless stated otherwise, $\Pi$ is assumed to be a vertex-minimization problem.
-We refer to the literature in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19, venne2022designing}.
+We refer to the literature in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 
 \subsection{FVS-4CL and 2-stitching}
 
 The restriction we imposed on the Feedback Vertex Set problem enables us to look 
-for optimal solutions in a local space. This is what m-stitching and $\Pi$-m-stitching
+for optimal solutions in a local space. This is what $m$-stitching and $\Pi$-$m$-stitching
 hint at. Here, the the variable $m$ is a positive integer that depends on the vertex optimization 
 problem $\Pi$. In our case this is tied to the $\rho$ argument, i. e. the length of 
 the cycles one is trying to break. 
 
-To introduce $\Pi$-m-stitching, it is essential to first understand m-stitching 
+To introduce $\Pi$-$m$-stitching, it is essential to first understand $m$-stitching 
 and m-stitchable problems. In the stitching operation, two solutions $S_1$ and $S_2$ 
 are given for a vertex optimization problem, along with an induced subgraph $J$ of $G$. 
 Intuitively, the idea is to take the portion of $S_1$ that lies outside of $J$ 
@@ -27,7 +27,7 @@ and stitch onto it a suitable part of $S_2$ within the subgraph $J$.
 The formal definition is as follows:
 
 \refstepcounter{definition}
-\begin{mydefinition}[m-stitching]{Definition}
+\begin{mydefinition}[$m$-stitching]{Definition}
     \label{m-stitch}
 
     Assume $m \geq 0$ is an integer, $J$ is an induced subgraph of $G$, and 
@@ -265,8 +265,8 @@ stitched set in Fig.~\ref{fig:stitched_set}.
     \end{minipage}
 \end{figure}
 
- A problem $\Pi$ is \textit{m-stitchable} if the set of feasible solutions are closed 
-under the m-stitching operator. We hope that when we take the union in \ref{m-stitch} and arrive 
+A problem $\Pi$ is \textit{m-stitchable} if the set of feasible solutions are closed 
+under the $m$-stitching operator. We hope that when we take the union in \ref{m-stitch} and arrive 
 at the set $S_3$, this would too be a feasible solution.
 
 \refstepcounter{definition}
@@ -274,7 +274,7 @@ at the set $S_3$, this would too be a feasible solution.
     \label{m-stitchable}
 
     For an integer $m \geq 0$, induced subgraph $J$ and feasible solutions $S_1, S_2 \subseteq V(G)$ 
-    of a vertex optimization problem $\Pi$ we have that the m-stitching of $S_2$ onto $S_1$ along 
+    of a vertex optimization problem $\Pi$ we have that the $m$-stitching of $S_2$ onto $S_1$ along 
     $J$, $S_3$ is a feasible solution to $\Pi$ on $G$.
 
     \[S_3 := (S_1 \backslash J) \cup (S_2 \cap N^{m}_{G} \left[J\right]).\]
@@ -282,11 +282,11 @@ at the set $S_3$, this would too be a feasible solution.
 \end{mydefinition}
 
  Now that we have a definition for problems $\Pi$ that are m-stitchable, we introduce 
-$\Pi$-m-stitching as defined in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19} and afterwards apply 
+$\Pi$-$m$-stitching as defined in \cite{bumpus_et_al:LIPIcs.SWAT.2024.19} and afterwards apply 
 it to the current problem.
 
 \refstepcounter{definition}
-\begin{mydefinition}[$\Pi$-m-stitching]{Algorithm.}
+\begin{mydefinition}[$\Pi$-$m$-stitching]{Algorithm.}
     \label{alg:p-m-stitching}
 
     \textbf{Input:}
@@ -318,20 +318,20 @@ Bumpus et al.~\cite[Theorem 1.7]{bumpus_et_al:LIPIcs.SWAT.2024.19}.
 \begin{mydefinition}[Meta-Theorem for Minor-Closed Graph Classes]{Theorem.}
     \label{theorem-main}
 
-    Let $\mathbb{G}$ be a minor-closed graph class whose local tree-width is bounded above by a linear 
+    Let $\mathcal{G}$ be a minor-closed graph class whose local treewidth is bounded above by a linear 
     function of the form $g : r \to \lambda \cdot r$ (fixed $\lambda \in \mathbb{R}$ and $r \in \mathbb{N}$).
     If $\Pi$ is a vertex-minimization problem and it holds that:
 
     \begin{enumerate}
         \item $\Pi$ is guessable.
         \item $\Pi$ is m-stitchable.
-        \item There exists an algorithm $A_{\Pi}$ which solves $\Pi$-m-stitching in time $f(t) \cdot  |V(G)|^{\mathbb{O}(1)}$,
+        \item There exists an algorithm $A_{\Pi}$ which solves $\Pi$-$m$-stitching in time $f(t) \cdot  |V(G)|^{\mathbb{O}(1)}$,
         where t = $\tw$($G\left[N^{m}_{G}(J)\right]$) and $f$ is a computable function;
     \end{enumerate}
 
     then, for each $\epsilon > 0$ there is a $(1 + \epsilon)$-certified algorithm for $\Pi$ that 
     runs in time $f(\lambda \cdot m / \epsilon) \cdot \left|V(G)\right| ^ {\mathbb{O}(1)}$ 
-    on any input $(G, w : V(G) \to \mathbb{N})$ with $G \in \mathbb{G}$ and 
+    on any input $(G, w : V(G) \to \mathbb{N})$ with $G \in \mathcal{G}$ and 
     polynomially-bounded weights.
 
 \end{mydefinition}
@@ -360,7 +360,7 @@ vertex-minimization problems.
 \begin{mydefinition}[FVS-BCL is 2-stitchable]{Lemma}
     \label{lemma-m-stitchable}
 
-     Let $(G, w)$ be any instance to the FVS-4CL problem, $J \subseteq V(G)$, some subset
+    Let $(G, w)$ be any instance to the FVS-4CL problem, $J \subseteq V(G)$, some subset
     of the vertices in the graph 
     and $S_1$ and $S_2$ any two feasible solutions to the problem in $G$. Then the set $S_3$:
     \[S_3 := (S_1 \backslash J) \cup (S_2 \cap N^{2}_{G} \left[J\right]).\]
@@ -433,7 +433,7 @@ Corollary~\ref{cor:msol-fvs-rho} as a result.
     \label{lemma-stictch-fvs-4cl}
 
     Let $A$ be an algorithm that solves FVS-4CL on any vertex-weighted instance $(G, w : V(G) \to \mathbb{N})$
-    in time $f(t) \cdot |V(G)|^{O(1)}$ where $t$ is the treewidth of $G$. 
+    in time $f(t) \cdot |V(G)|^{\mathcal{O}(1)}$ where $t$ is the treewidth of $G$. 
     Then Algorithm~\ref{alg:stitch-fvs-4cl} solves 
     FVS-4CL-2-stitching in time $f(\tw) \cdot n^{\mathcal{O}(1)}$ where 
     $\tw$ is the treewidth of $N^{2}_{G}[J]$. 
@@ -1124,11 +1124,11 @@ $N^{\lfloor\frac{\rho}{2}\rfloor}_{G}[J]$,
 the algorithm we described solves 
 FVS-BCL-$\rho$-stitching in time $f(\tw) \cdot n^{\mathcal{O}(1)}$.
 
-\subsection{$r$-Dominating Set and $(r+1)$-stitching}
+\subsection{$r$-Dominating Set and $(2r)$-stitching}
 
 In this subsection we will use the definitions and terminology we have established in the 
 previous section and look at another problem, namely the $r$-Dominating Set problem. We will 
-argue that in the case of that problem the parameter $m$ has to be set to $r+1$ in order 
+argue that in the case of that problem the parameter $m$ has to be set to $2r$ in order 
 to maintain feasibility when constructing new sets. Afterwards we will prove that 
 when constructing new sets, one can find a feasible solution which is also optimal. 
 We follow the steps we established in the previous section.
@@ -1151,13 +1151,13 @@ prove that the problem is certified.
 \end{proof}
 
 \refstepcounter{definition}
-\begin{mydefinition}[$r$-Dominating Set is $(r+1)$-stitchable]{Lemma}
+\begin{mydefinition}[$r$-Dominating Set is $(2r)$-stitchable]{Lemma}
     \label{lemma-r-DS-stitchable}
 
     Let $(G, w)$ be any instance to the $r$-DS problem, $J \subseteq V(G)$, some subset
     of the vertices in the graph 
     and $S_1$ and $S_2$ any two feasible solutions to the problem in $G$. Then the set $S_3$:
-    \[S_3 := (S_1 \backslash J) \cup (S_2 \cap N^{r+1}_{G} \left[J\right]).\]
+    \[S_3 := (S_1 \backslash J) \cup (S_2 \cap N^{2r}_{G} \left[J\right]).\]
     is a feasible solution to the problem.
 
 \end{mydefinition}
@@ -1166,12 +1166,12 @@ prove that the problem is certified.
     For a vertex $v \in V(G)$, we have the following cases:
 
     \begin{enumerate}
-        \item $v \in V(G) \backslash N^{r+1}_{G}[J]$. Because $S_1$ is a feasible solution,
+        \item $v \in V(G) \backslash N^{2r}_{G}[J]$. Because $S_1$ is a feasible solution,
         it is clear that $v$ will be dominated by some vertex $u$ in $S_1 \backslash J$. Since 
         $S_1 \backslash J \subseteq S_3$, then $u \in S_3$.
-        \item $v \in N^{r+1}_{G}[J]$. Because $S_2$ is a feasible solution, it is clear 
-        that $S_2 \cap N^{r+1}_{G}[J]$ contains a vertex $u$ which dominates $v$. Since 
-        $S_2 \cap N^{r+1}_{G}[J] \subseteq S_3$, then $u \in S_3$.
+        \item $v \in N^{2r}_{G}[J]$. Because $S_2$ is a feasible solution, it is clear 
+        that $S_2 \cap N^{2r}_{G}[J]$ contains a vertex $u$ which dominates $v$. Since 
+        $S_2 \cap N^{2r}_{G}[J] \subseteq S_3$, then $u \in S_3$.
     \end{enumerate}
 
     In both cases we have argued that there $\exists u \in S_3$, such that for any vertex 
@@ -1189,10 +1189,10 @@ Now we describe an algorithm to find a feasible solution of minimum weight.
     a feasible solution of $r$-Dominating Set $S_1$ on $G$
     and a vertex set $J \subseteq V(G)$.
     \ENSURE a feasible solution $S'$ on $G$, such that for all other feasible solutions $S^{*}$, 
-    we have $w(S') \leq w(S^{*} \oplus^{r+1}_{G,J} S_1)$. 
-    \STATE Let $H \leftarrow G[N^{r+1}_{G}[J]] \cup \{q\}$, where for vertex $q$
-    it holds that $N_H(q) := N_{G}(N^{r}_{G}[J])$ (Vertex $q$ is adjacent to the vertices 
-    at distance exactly $r+1$ from $J$). \label{state:construct-H-rds}
+    we have $w(S') \leq w(S^{*} \oplus^{2r}_{G,J} S_1)$. 
+    \STATE Let $H \leftarrow G[N^{2r}_{G}[J]] \cup \{q\}$, where for vertex $q$
+    it holds that $N_H(q) := N_{G}(N^{2r}_{G}[J])$ (Vertex $q$ is adjacent to the vertices 
+    at distance exactly $2r$ from $J$). \label{state:construct-H-rds}
     \STATE \[
     w_H(x) = 
     \begin{cases}
@@ -1202,8 +1202,8 @@ Now we describe an algorithm to find a feasible solution of minimum weight.
     \]
     \STATE Let $S_2'$ be the output of algorithm $A$ on input $(H, w)$. 
     \STATE Let $S_2 = S_2' \backslash \{q\}$. \label{state:opt-solution-rds}
-    \IF{ $w(S_2 \oplus^{r+1}_{G,J} S_1) < w(S_1)$ }
-        \RETURN $S_2 \oplus^{r+1}_{G,J} S_1$
+    \IF{ $w(S_2 \oplus^{2r}_{G,J} S_1) < w(S_1)$ }
+        \RETURN $S_2 \oplus^{2r}_{G,J} S_1$
     \ELSE
         \RETURN $S_1$
     \ENDIF
@@ -1211,14 +1211,14 @@ Now we describe an algorithm to find a feasible solution of minimum weight.
 \end{algorithm}
 
 \refstepcounter{definition}
-\begin{mydefinition}[$r$-DS-$(r+1)$-stitching]{Lemma}
+\begin{mydefinition}[$r$-DS-$(2r)$-stitching]{Lemma}
     \label{lemma-rds-stitching}
 
     Let $A$ be an algorithm that solves $r$-stitching on any vertex-weighted instance 
     $(G, w : V(G) \to \mathbb{N})$ in time $f(t) \cdot |V(G)|^{\mathcal{O}(1)}$ where 
     $t$ is the treewidth of $G$. Then 
     Algorithm~\ref{alg:stitch-r-DS} solves $r$-DS in time 
-    $f(\tw) \cdot V(G)^{\mathcal{O}(1)}$ where $\tw$ is the treewidth of $(N^{r+1}_{G}[J])$.
+    $f(\tw) \cdot V(G)^{\mathcal{O}(1)}$ where $\tw$ is the treewidth of $(N^{2r}_{G}[J])$.
 
 \end{mydefinition}
 
@@ -1228,5 +1228,5 @@ a similar proof in Bumpus et al. \cite[Lemma 3.3]{bumpus_et_al:LIPIcs.SWAT.2024.
 
 \textbf{Running time:}
 
-For some constant $r$ and $\tw$, the treewidth of $N^{r+1}_{G}[J]$, the running time of 
+For some constant $r$ and $\tw$, the treewidth of $N^{2r}_{G}[J]$, the running time of 
 the algorithm is: $(2r+1)^{\tw + 1} \cdot \tw^{2} \cdot n^{\mathcal{O}(1)}$.

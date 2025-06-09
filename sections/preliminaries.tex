@@ -184,7 +184,7 @@ which consists of algorithms that run in polynomial time and produce solutions a
 
 The dependence, mentioned in Definition~\ref{PTAS}, on $\frac{1}{\epsilon}$ could be exponential
 or even worse.
-Thus an algorithm running in time $O(n^{1/\epsilon})$ counts as a PTAS.
+Thus an algorithm running in time $\mathcal{O}(n^{1/\epsilon})$ counts as a PTAS.
 
 Every problem with a PTAS is also in APX. The relation between these two classes is similar to the one between 
 \textsc{P} and \textsc{NP}. For more on the topic, such as APX-completeness,
@@ -413,5 +413,5 @@ for graphs of bounded treewidth to get an approximation in a planar graph. In
 Borradaile and Le~\cite{borradaile2015optimal} it is mentioned that one can use Baker's technique 
 to obtain a PTAS. In the MIT lecture notes of \cite{demaine2011lecture9}, there is an explanation 
 of how to get to that approximation. Essentially, instead of two layers of overlap between 
-subgraphs, one would have to increase that overlap to $r+1$. This technique yields results 
+subgraphs, one would have to increase that overlap to $2r$. This technique yields results 
 for constant values of $r$.

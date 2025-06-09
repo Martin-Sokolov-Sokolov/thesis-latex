@@ -186,12 +186,11 @@ Finally we invoke Theorem~\ref{theorem-main} to get:
 
 \end{mydefinition}
 
-The algorithms admit the following worst-case running times, where $\tw$ is the treewidth 
-of the graph $G$.
+The algorithms admit the following worst-case running times:
 
 \begin{enumerate}
     \item \textsc{FVS-4CL}: $2^{\cdot\mathcal{O}((\frac{2}{\epsilon})^2)} \cdot n^{\mathcal{O}(1)}$.
-    \item \textsc{FVS-BCL}: $f(\lfloor\frac{\rho}{2\cdot\epsilon}\rfloor) \cdot n^{\mathcal{O}(1)}$ for some computable function $f$.
+    \item \textsc{FVS-BCL}: $f(\frac{\lfloor\rho/2\rfloor}{\epsilon}) \cdot n^{\mathcal{O}(1)}$ for some computable function $f$.
     \item \textsc{$r$-Dominating Set}: $(2r + 1)^{\mathcal{O}(\frac{r}{\epsilon})} \cdot 
     \bigl(\frac{r}{\epsilon}\bigr)^2 \cdot n^{\mathcal{O}(1)}$ for a constant $r$.
 \end{enumerate}
