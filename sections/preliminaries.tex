@@ -249,7 +249,7 @@ What follows is a brief explanation of Baker's shifting technique with \textsc{V
 
     \FOR{each $i = 0$ to $\ell - 1$}
         \STATE Let $G_{i, j}$ be the subgraph induced on vertices at levels $j \cdot \ell + i$ through $(j+1) \cdot \ell + i$ for $0 \leq i < \ell$. \label{line:4}
-        \STATE Let $S_{i, j}$, the min. \textsc{VC} of $G_{i, j}$.
+        \STATE Let $S_{i, j}$, the min. \textsc{VC} of $G_{i, j}$ \label{prel:step5}
         \STATE Let $S_i = \bigcup_{j} S_{i, j}$
         \STATE $S \leftarrow S \cup \{ S_i \}$
     \ENDFOR
@@ -267,7 +267,7 @@ Therefore, we can make the following argument:
 
 \begin{enumerate}
     \item $\exists q: |OPT_q| \leq \frac{1}{\ell} \cdot OPT = \epsilon |OPT|$
-    \item $S_q \leq \sum\limits_{j} S_{q, j}$, for some shift $q$ we have this inequality because in step 5. of the algorithm 
+    \item $S_q \leq \sum\limits_{j} S_{q, j}$, for some shift $q$ we have this inequality because in Step~\ref{prel:step5}. of the algorithm 
     we define the set to be a union over all slices and some vertices may appear twice in the boundary layers. 
     \item $\sum\limits_{j} S_{qj} \leq \sum\limits_{j} |OPT \cap V(G_{q, j})|$, we know that $S_{q, j}$ is a min. \textsc{VC} for $G_{q, j}$, while the 
     optimal solution may choose different vertices, especially on the boundary for the global optimality of the solution.
@@ -344,7 +344,7 @@ for randomized rounding the reader should consult Makarychev and Makarychev \cit
 
 In this section we explore perturbation-resilience, also known as \textit{$\gamma$-stability} or Bilu-Linial stability. 
 The authors refer to the original paper of Bilu and Linial \cite{bilu2012stable} as well as a survey 
-by Makarychev and Makarychev \cite{makarychev201713}. In a later work, Makarychev and Makarychev define 
+by Makarychev and Makarychev \cite{makarychev2016bilu}. In a later work, Makarychev and Makarychev define 
 \textit{$\gamma$-certified algorithms} \cite{Makarychev_Makarychev_2021}.
 
 The following definitions for $\gamma$-perturbation are for edge-optimization 
@@ -393,6 +393,11 @@ From now on, the definitions will concentrate on Vertex-Optimization problems.
     for $\Pi$ maps instances of $\Pi$ to $\gamma$-certified solutions. 
 
 \end{mydefinition}
+
+In Section~\ref{section:certified-algs} we look at certified algorithms and put an additional 
+constraint on the weight function. More specifically we say that $w$ is polynomially-bounded. 
+This constraint is on the input size of the graph, meaning 
+$w : V(G) \to \{0, 1, \dots \left|V(G)\right|^{ \mathcal{O}(1)}\}$.
 
 \subsection{$r$-Dominating Set; FPT algorithm and PTAS}
 

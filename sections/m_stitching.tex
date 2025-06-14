@@ -105,7 +105,7 @@ The formal definition is as follows:
  In the following we show the subgraph $J$ we have chosen and the 2-neighbourhood 
 of the subgraph.
 
- Also, in Fig.~\ref{fig:remove_s1} we show the first step of the m-stitch operation, namely 
+Also, in Fig.~\ref{fig:remove_s1} we show the first step of the m-stitch operation, namely 
 removing the vertices of $J$ from the set $S_1$.
 
 \begin{figure}[H]
@@ -183,7 +183,7 @@ removing the vertices of $J$ from the set $S_1$.
     \end{minipage}
 \end{figure}
 
- What follows is the second step in obtaining set $S_3$ in Fig.~\ref{fig:second_step} and the 
+What follows is the second step in obtaining set $S_3$ in Fig.~\ref{fig:second_step} and the 
 stitched set in Fig.~\ref{fig:stitched_set}.
 
 \begin{figure}[H]
@@ -1097,11 +1097,11 @@ subgraphs are $G[V(G) \setminus J]$ and $G[J]$. If we construct an algorithm sim
 Algorithm~\ref{alg:stitch-fvs-4cl} but set the parameter $m$ to 
 $\lfloor \frac{\rho}{2} \rfloor$ instead of 2, the resulting algorithm solves 
 FVS-BCL-stitching in time 
-$f(\tw) \cdot n^{\mathcal{O}(1)}$ 
+$f(\tw, \rho) \cdot n^{\mathcal{O}(1)}$ 
 where $\tw$ is the treewidth of $N^{\lfloor\frac{\rho}{2}\rfloor}_{G}[J]$. 
 It is important to note that a $\rho$-cycle breaking set is closed under taking 
 induced subgraphs. This is another reason we can construct such an algorithm and do not 
-have to take a different approach as we will do with the $r$-Dominating Set.
+have to take a different approach as we will do with the $r$-Dominating Set problem.
 
 From the arguments in the previous paragraph we can infer that:
 
@@ -1109,7 +1109,7 @@ From the arguments in the previous paragraph we can infer that:
     \item FVS-BCL is $\lfloor\frac{\rho}{2}\rfloor$-stitchable.
     \item There exists an algorithm $A_{\text{FVS-BCL}}$ which solves 
     FVS-BCL-$\lfloor\frac{\rho}{2}\rfloor$-stitching in time 
-    $f(\tw) \cdot n^{\mathcal{O}(1)}$ 
+    $f(\tw, \rho) \cdot n^{\mathcal{O}(1)}$ 
     where $\tw$ is the treewidth of any $N^{\lfloor\frac{\rho}{2}\rfloor}_{G}[J]$ and 
     $f$ is some computable function.
 \end{enumerate}
@@ -1122,7 +1122,7 @@ break all $\rho$-cycles in a graph.
 For some computable function $f$, constant $\rho$ and $\tw$, treewidth of 
 $N^{\lfloor\frac{\rho}{2}\rfloor}_{G}[J]$,
 the algorithm we described solves 
-FVS-BCL-$\rho$-stitching in time $f(\tw) \cdot n^{\mathcal{O}(1)}$.
+FVS-BCL-$\rho$-stitching in time $f(\tw, \rho) \cdot n^{\mathcal{O}(1)}$.
 
 \subsection{$r$-Dominating Set and $(2r)$-stitching}
 

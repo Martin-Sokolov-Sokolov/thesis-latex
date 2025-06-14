@@ -57,8 +57,8 @@ over the size and weight of a free set variable.
 \begin{equation}
     \label{courcelle:unweighted}
     \begin{aligned}
-        \min_{F \subseteq V} & \ |F| \\
-        & \land \forall v \forall u \forall w \forall z \\
+        \min_{F \subseteq V} & \ |F|: \\
+        & \forall v : \forall u : \forall w : \forall z : \\
         & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
         & \land v \neq w \land u \neq z \\
         & \land \neg ((v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E)
@@ -71,7 +71,7 @@ The minimum weight FVS-4CL can be expressed as:
     \label{courcelle:weighted}
     \begin{aligned}
         \min_{F \subseteq V} & \ w(F): \\
-        & \forall v \forall u \forall w \forall z \\
+        & \forall v : \forall u : \forall w : \forall z : \\
         & v \in (V \backslash F) \land u \in (V \backslash F) \land w \in (V \backslash F) \land z \in (V \backslash F) \\
         & \land v \neq w \land u \neq z \\
         & \land \neg((v, u) \in E \land (u, w) \in E \land (w, z) \in E \land (v, z) \in E)
@@ -87,7 +87,7 @@ The minimum weight FVS-4CL can be expressed as:
     \label{courcelle:rho}
     \begin{aligned}
         \min_{F \subseteq V} & \ w(F) : \\
-        & \land \forall v_1 \forall v_2 \dots \forall v_{\rho} \\
+        & \forall v_1 : \forall v_2 : \dots \forall v_{\rho} : \\
         & v_1 \in (V \backslash F) \land v_2 \in (V \backslash F) \dots \land v_{\rho} \in (V \backslash F) \\
         & \land (v_1 \neq v_2 \land v_1 \neq v_3 \land \dots \land v_1 \neq v_{\rho}) \\ 
         & \land (v_2 \neq v_1 \land v_2 \neq v_3 \land \dots \land v_2 \neq v_{\rho}) \\
@@ -125,6 +125,12 @@ The minimum weight FVS-4CL can be expressed as:
 
 \subsection{FPT Result for FVS-4CL via Dynamic Programming on Nice Tree Decompositions}
 \label{alg:dp}
+
+The following algorithm was changed midway writing the thesis. Initially it used multiple flag 
+sets $\mathcal{F}_1, \mathcal{F}_2, \dots \mathcal{F}_{\rho-3}$. We will explain the idea in the 
+end of this Subsection. The reason is that the author found that this problem was already stated 
+in Cygan et al.~\cite{cygan2015parameterized}[Problem 7.21]. We extend their idea 
+and give formal definitions of the problem.
 
 In order to find an algorithm that solves FVS-4CL, one has to define the following notions. 
 For a more thorough explanation of those concepts, see Bodlaender~\cite[Section 4.]{bodlaender1997treewidth}.
@@ -234,3 +240,13 @@ solution and thus we assign the special $\infty$ value to that table value.
 \[
 c[t, I, \mathcal{F}] = \infty.
 \]
+
+We refer to examples to better understand the table population in the Appendix~\ref{app:first} and \ref{app:second}.
+
+It is important to note that this method of solving FVS-4CL on nice tree decompositions can 
+be extended to the more general FVS-BCL problem. One would need to hold additional flag sets 
+$\mathcal{F}_1, \mathcal{F}_2, \dots \mathcal{F}_{\rho-3}$ for the forgotten vertices that are 
+not in the partial solution and are of distance $d_1, d_2, \dots d_{\rho-3}$ to the vertices in 
+the bag. This way of solving the FVS-BCL problem, would however, incur additional running time 
+and space. In the final section of this thesis we propose other methods worth exploring in order 
+to devise better algorithms.

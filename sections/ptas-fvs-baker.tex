@@ -53,8 +53,9 @@ define on Line~\ref{alg3:line4} in Algorithm~\ref{alg:unweighted_feedback_vertex
 
 
 In the analysis of the algorithm we are going to need three lemmas in order 
-to prove that Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} obtains a $(1 + 2/\ell)$-approximation of the 
-optimum solution.
+to prove that Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} obtains a 
+$(1 + 2/\ell)$-approximation of the optimum solution. This is the same as saying that we 
+get a $(1 + 2\epsilon)$-approximation.
 
 \refstepcounter{definition}
 \begin{mydefinition}[Bound on the Optimum Solution in Subgraphs (Unweighted Case)]{Lemma}
@@ -361,7 +362,7 @@ vertices are counted once towards the optimum solution sum. Therefore, we have t
 \begin{enumerate}
     \item $\sum\limits_{j} |F_{i, j}| = |F| + |\{\text{vertices on the boundary}\}| = |F| + |F_i| + |F_{i+1}|$
     for $i \in \{0, 1, \dots, \ell-1\}$. \label{enum:eq1}
-    \item For the RHS of the equation in step~\ref{enum:eq1}. we argue that:
+    \item For the RHS of the equation in Step~\ref{enum:eq1}. we argue that:
     \[\exists i^*: |F_{i^*}| + |F_{i^*+1}| \leq \frac{2}{\ell} \cdot |F|\] using Lemma~\ref{lemma-two}.
     \item For that $i^*$ it holds that $\sum\limits_{j} |F_{i^*, j}| \leq |F| + \frac{2}{\ell} |F|$.
 \end{enumerate}
@@ -386,19 +387,19 @@ this yields a \((1 + 2\epsilon)\)-approximation for the unweighted planar FVS-4C
 
 Lines~\ref{alg3:line1} and~\ref{alg3:line9} of Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
 can be computed in linear time $\mathcal{O}(n)$. The loop that starts on Line~\ref{alg3:for-loop} has a running time
-that is dominated by step~\ref{alg3:subroutine} where we call Algorithm~\ref{alg:dp} (with weights equal to ones) as a subroutine.
-That algorithm takes as input subgraphs that are $\ell + 2$-outerplanar.
+that is dominated by Step~\ref{alg3:subroutine} where we call Algorithm~\ref{alg:dp} (with weights equal to ones) as a subroutine.
+That algorithm takes as input subgraphs that are ($\ell + 2$)-outerplanar.
 As we argued in the Preliminaries section, such graphs have bounded treewidth of $\tw$,
 Bodlaender~\cite[Theorem 83]{bodlaender1998partial}.
 Therefore, Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} has a running time of 
-$2^{\mathcal{O}(\tw^2)} \cdot n$.
+$2^{\mathcal{O}(\tw^2)} \cdot n^{\mathcal{O}(1)}$.
 
 \subsection{Baker's technique for the weighted FVS-4CL on planar graphs}
 \label{subsec:baker_weighted_fvs}
 
 In this subsection we look at the weighted version of the problem. 
 Firstly, we construct Algorithm~\ref{alg:weighted_feedback_vertex_set_global} which differs from Algorithm~\ref{alg:unweighted_feedback_vertex_set_global} 
-only on step~\ref{alg4:step5}. On Line~\ref{alg4:step5}
+only on Step~\ref{alg4:step5}. On Line~\ref{alg4:step5}
 we construct Algorithm~\ref{courcelle:weighted} and use it as a subroutine to get the solution we want.
 
 \begin{algorithm}[H]
@@ -536,7 +537,7 @@ Assume by way of contradiction that the following inequality holds for all \( i 
     \[
         \sum_{i=0}^{\ell - 1} \bigl( w(F_i) + w(F_{i+1}) \bigr) > \sum_{i=0}^{\ell - 1} \frac{2}{\ell} \cdot w(F) = 2 \cdot w(F)
     \]
-    which contradicts the conclusion from step 1 that this sum equals \( 2 \cdot w(F) \).
+    which contradicts the conclusion from Step 1 that this sum equals \( 2 \cdot w(F) \).
 
     \item Therefore, our assumption must be false. By the contrapositive, there must exist at least one index \( q \in \{0, 1, \dots, \ell - 1\} \) such that:
     \[
@@ -730,7 +731,7 @@ whole graph.
         > \ell \cdot \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F)
         = \lfloor \rho/2 \rfloor \cdot w(F)
         \]
-        which contradicts the equality from step 2.
+        which contradicts the equality from Step 2.
 
         \item \textbf{Conclusion:}  
         Therefore, our assumption must be false. We conclude that:
@@ -772,7 +773,7 @@ vertices of each \( G_{i, j} \) contribute exactly once to the total weight. Thi
         w(F_{i^*}) + w(F_{i^* + 1}) + \dots + w(F_{i^* + \lfloor \rho/2 \rfloor - 1}) \leq \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F)
     \]
     
-    \item Plugging this into step~\ref{enum:rho-eq1}, we obtain:
+    \item Plugging this into Step~\ref{enum:rho-eq1}, we obtain:
     \[
         \sum\limits_{j} w(F_{i^*, j}) \leq w(F) + \frac{\lfloor \rho/2 \rfloor}{\ell} \cdot w(F)
     \]
@@ -784,7 +785,7 @@ vertices of each \( G_{i, j} \) contribute exactly once to the total weight. Thi
 \textbf{Running time:}
 
 In Algorithm~\ref{alg:baker_arbitrary_length} which solves FVS-BCL the computation on Line~\ref{alg5:line5}
-dominates the running time. In planar graphs steps \ref{alg5:line1} and \ref{alg5:line9} take linear time 
+dominates the running time. In planar graphs Steps \ref{alg5:line1} and \ref{alg5:line9} take linear time 
 to the input. Using Courcelle's theorem \cite{courcelle1990monadic} we argue for the running time 
 of Line~\ref{alg5:line5}, which uses Corollary.~\ref{cor:msol-fvs-rho} as a result. As we will say in the next 
 section, the running time is $f(\rho, t) \cdot n^{\mathcal{O}(1)}$ for some computable function $f$ 

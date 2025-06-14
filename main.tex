@@ -91,11 +91,11 @@ factor better than \( \rho - 1 \) in general graphs for fixed cycle lengths \( \
 structural restrictions such as planarity offer potential for better approximations.
 
 In the first part of this work, we develop Efficient Polynomial-Time Approximation Schemes 
-(EPTAS) for both the FVS-4CL (which targets 4-cycles) and the more general FVS-BCL problem. 
+(EPTAS) for both the FVS-4CL (which targets 4-cycles) and the more general FVS-BCL problems. 
 These schemes are achieved by adapting \emph{Baker's technique}, 
 a well-known method for designing approximation algorithms on planar graphs. 
 
-Next, we show that FVS-4CL is \emph{fixed-parameter tractable} (FPT) by constructing a dynamic 
+Next, we show that FVS-4CL is \emph{fixed-parameter tractable} (\textsc{FPT}) by constructing a dynamic 
 programming algorithm on \emph{nice tree decompositions}, exploiting the fact that planar graphs 
 have bounded treewidth. We also propose a strategy to extend the dynamic programming approach 
 in order to prove the tractability of FVS-BCL.
@@ -103,7 +103,7 @@ In addition, we utilize \emph{Monadic Second Order Logic} (MSOL) to express and 
 instances on graphs of bounded treewidth, thereby demonstrating that the problem is fixed-parameter 
 tractable when parameterized by the treewidth of the input graph.
 
-Finally, we initiate the study of \emph{certified algorithms} for FVS variants. 
+Finally, we initiate the study of \emph{certified algorithms} for FVS-4CL and FVS-BCL. 
 Leveraging local search techniques and structural properties of FVS-BCL in planar graphs with polynomially 
 bounded weights, we prove that it is possible to obtain \((1 + \epsilon)\)-certified solutions. 
 
