@@ -16,7 +16,7 @@ The incidence function $\psi_G$ associates each edge with an unordered pair of
 We are going to use $n$ as the cardinality 
 of the set $V$ and $m$ for the set of edges $E$. With each edge $e$ of G, let there be associated 
 a real number $w(e)$, called its \textit{weight}. Then G, together with the weighting function 
-$w : E \to \mathbb{R}$, is called a \textit{weighted graph}, and denoted $(G, w)$.
+$w : E \to \mathbb{N}$, is called a \textit{weighted graph}, and denoted $(G, w)$.
 
  A graph can be \textit{embedded in the plane}, or is \textit{planar}, if it can be drawn on the 
 plane in a way that edges intersect each other only at their ends. Such a drawing is called a 
@@ -46,7 +46,7 @@ the textbook on parameterized complexity by Cygan et al. \cite{cygan2015paramete
 
 Two problems are of interest, namely the Feedback Vertex Set and the $r$-Dominating Set. The latter 
 is a generalization of the Dominating Set problem.
-All of those problems belong to the class of \textbf{NP-complete} problems. 
+All of those problems belong to the class of NP-complete problems. 
 The decision variant of the FVS problem can be defined as:
 
 \refstepcounter{definition}
@@ -64,12 +64,12 @@ The decision variant of the FVS problem can be defined as:
  The weighted optimization version of the problem can be defined as:
 
 \refstepcounter{definition}
-\begin{mydefinition}[ Minimum Weight Feedback Vertex Set (\textbf{MWFVS})]{Definition}
+\begin{mydefinition}[ Minimum Weight Feedback Vertex Set (\textsc{MWFVS})]{Definition}
     \label{MWFVS}
 
     \textbf{Instance:}
     \begin{itemize}[noitemsep, topsep=0pt]
-        \item An undirected weighted graph $(G, w)$, where $G = (V, E)$ and $w: V \to \mathbb{R}$.
+        \item An undirected weighted graph $(G, w)$, where $G = (V, E)$ and $w: V \to \mathbb{N}$.
     \end{itemize}
     \textbf{Task:}
     Find a vertex set $X \subseteq V$ such that:
@@ -104,7 +104,7 @@ The following is the weighted version of the problem; we define it as an optimiz
 
     \textbf{Instance:}
     \begin{itemize}[noitemsep, topsep=0pt]
-        \item An undirected weighted graph $(G, w)$, where $G = (V, E)$ and $w: V \to \mathbb{R}$ and an integer $\rho$.
+        \item An undirected weighted graph $(G, w)$, where $G = (V, E)$ and $w: V \to \mathbb{N}$ and an integer $\rho$.
     \end{itemize}
     \textbf{Task:}
     Find a vertex set $X \subseteq V$ such that:
@@ -322,7 +322,7 @@ tree decompositions of $G$.
 
 \end{mydefinition}
 
- Furthermore, if there exists $\lambda \in \mathbb{R}$, such that 
+Furthermore, if there exists $\lambda \in \mathbb{R}$, such that 
 $f$ can be defined as $f : r \to \lambda \cdot r$, then $G$ would have linear local treewidth.
 
 We know that planar graphs are a class of graphs that also have linear 
@@ -370,7 +370,7 @@ From now on, the definitions will concentrate on Vertex-Optimization problems.
     \label{gpvop}
 
     Consider a weighted graph $(G, w)$. For any $\gamma \in \mathbb{R_{\geq \text{1}}}$ a $\gamma$-perturbation of the weight function 
-    $w : V \to \mathbb{R}$ is a function $w' : V \to R$ satisfying $w(v) \leq w'(v) \leq \gamma \cdot w(v) \; \forall v \in V$.
+    $w : V \to \mathbb{N}$ is a function $w' : V \to \mathbb{R}$ satisfying $w(v) \leq w'(v) \leq \gamma \cdot w(v) \; \forall v \in V$.
 
 \end{mydefinition}
 

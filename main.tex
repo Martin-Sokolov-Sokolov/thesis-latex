@@ -85,17 +85,28 @@
 The \textsc{Feedback Vertex Set} (FVS) problem is a classical NP-complete problem that asks 
 for the smallest set of vertices whose removal eliminates all cycles from a graph. 
 In this thesis, we study the problem on \emph{planar graphs}, focusing on a variant we call 
-\textsc{Feedback Vertex Set with Bounded Cycle Length} (FVS-BCL), where the goal is to 
+\textsc{Feedback Vertex Set with Bounded Cycle Length} (\textsc{FVS-BCL}), where the goal is to 
 intersect all cycles of a fixed length. FVS-BCL is known to be hard to approximate within a 
 factor better than \( \rho - 1 \) in general graphs for fixed cycle lengths \( \rho \geq 3 \), but 
-structural restrictions such as planarity offer potential for better approximations.
+structural restrictions such as planarity offer potential for approximations using \emph{treewidth} as 
+a parameter. 
 
 In the first part of this work, we develop Efficient Polynomial-Time Approximation Schemes 
 (EPTAS) for both the FVS-4CL (which targets 4-cycles) and the more general FVS-BCL problems. 
 These schemes are achieved by adapting \emph{Baker's technique}, 
 a well-known method for designing approximation algorithms on planar graphs. 
+We obtain a \((1 + 2\epsilon)\)-approximation algorithm for the FVS-4CL 
+problem and a \(\left(1 + \frac{\lfloor\rho/2\rfloor}{\epsilon}\right)\)-approximation algorithm for the 
+FVS-BCL problem. 
+The running time of the FVS-4CL algorithm is 
+\( 2^{\mathcal{O}\left(\tw^{2}\right)} \cdot n^{\mathcal{O}\left(1\right)} \)
+, while the FVS-BCL algorithm runs in time 
+\( f\left(\tw, \rho\right) \cdot n^{\mathcal{O}\left(1\right)} \) for some computable function 
+\( f \), where \( \tw \) denotes the treewidth of the induced subgraphs and the runtime depends 
+on the parameter \( \epsilon \).
 
-Next, we show that FVS-4CL is \emph{fixed-parameter tractable} (\textsc{FPT}) by constructing a dynamic 
+
+Next, we show that FVS-4CL is \emph{Fixed-Parameter Tractable} (\textsc{FPT}) by constructing a dynamic 
 programming algorithm on \emph{nice tree decompositions}, exploiting the fact that planar graphs 
 have bounded treewidth. We also propose a strategy to extend the dynamic programming approach 
 in order to prove the tractability of FVS-BCL.
@@ -106,6 +117,11 @@ tractable when parameterized by the treewidth of the input graph.
 Finally, we initiate the study of \emph{certified algorithms} for FVS-4CL and FVS-BCL. 
 Leveraging local search techniques and structural properties of FVS-BCL in planar graphs with polynomially 
 bounded weights, we prove that it is possible to obtain \((1 + \epsilon)\)-certified solutions. 
+The certified algorithm has a running time of 
+\( 2^{\mathcal{O}\left(\frac{1}{\epsilon^2}\right)} \cdot n^{\mathcal{O}(1)} \) 
+for FVS-4CL and 
+\( f\left(\epsilon, \rho\right) \cdot n^{\mathcal{O}\left(1\right)} \) for some 
+computable function \( f \) for FVS-BCL.
 
 \end{abstract}
 

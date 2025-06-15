@@ -406,7 +406,7 @@ we construct Algorithm~\ref{courcelle:weighted} and use it as a subroutine to ge
     \caption{Baker's technique for the weighted \textsc{FVS-4CL}}
     \label{alg:weighted_feedback_vertex_set_global}
     \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, vertex weight function $w : V \rightarrow \mathbb{R}_{\ge 0}$, parameter $\ell \leftarrow \frac{1}{\epsilon}$
+    \REQUIRE Planar graph $G = (V, E)$, vertex weight function $w : V \rightarrow \mathbb{N}$, parameter $\ell \leftarrow \frac{1}{\epsilon}$
     \ENSURE $(1 + \epsilon)$-approximation for \textsc{FVS-4CL}
     \STATE Perform \textsc{BFS} from some arbitrary root vertex $r$
     \STATE $S \leftarrow \emptyset$
@@ -431,7 +431,7 @@ finding a bound for the optimum solution for each subgraph.
 \begin{mydefinition}[Optimum solution bound (Weighted Case)]{Lemma}
     \label{lemma-osbwc}
 
-    Let $G = (V, E)$ be a planar graph and $w : V \rightarrow \mathbb{R}$ be a weight function.
+    Let $G = (V, E)$ be a planar graph and $w : V \rightarrow \mathbb{N}$ be a weight function.
     Let $S_{i, j}$ be an optimum solution for $G_{i, j}$ for some shift $i$ and slice $j$, 
     let $F \equiv OPT$ be the optimum solution in $G$ and let $F_{i, j} = G_{i, j} \cap F$. 
     In the weighted case we claim that: \[w(S_{i, j}) \leq w(F_{i, j})\text{.}\]
@@ -495,7 +495,7 @@ and from Lemma~\ref{lemma-osbwc} we chain the inequalities to get Result~\ref{re
 \begin{mydefinition}[Bound on the Weight of Boundary Vertices (Weighted Case)]{Lemma}
 \label{lemma-bvweighted_feedback_vertex_set_global}
 
-Let \( G = (V, E) \) be a planar graph, and let \( w : V \rightarrow \mathbb{R} \) be a weight function on the vertices. 
+Let \( G = (V, E) \) be a planar graph, and let \( w : V \rightarrow \mathbb{N} \) be a weight function on the vertices. 
 
 Let \( F \subseteq V \) be a feedback vertex set, and define the sets \( F_i \) as:
 \[
@@ -589,7 +589,7 @@ and Lemma~\ref{lemma-bcisweighted_feedback_vertex_set_global} to argue that for 
 
 The only difference from the unweighted case comes from Line~\ref{alg4:step5} of 
 Algorithm~\ref{alg:weighted_feedback_vertex_set_global}. However, using Algorithm~\ref{alg:dp} 
-we get that the running time of the algorithm is still $2^{\mathcal{O}(\tw^2)} \cdot n$.
+we get that the running time of the algorithm is still $2^{\mathcal{O}(\tw^2)} \cdot n^{\mathcal{O}(1)}$.
 
 \subsection{Baker's technique for weighted FVS-BCL of arbitrary cycle length}
 \label{subsec:weighted_arbitrary_length}
@@ -601,7 +601,7 @@ by examining the outcome of attempting to break all weighted cycles of length $\
     \caption{Baker's technique for the weighted \textsc{FVS-BCL}}
     \label{alg:baker_arbitrary_length}
     \begin{algorithmic}[1]
-    \REQUIRE Planar graph $G = (V, E)$, vertex weight function $w : V \rightarrow \mathbb{R}_{\ge 0}$, parameter $\ell \leftarrow \frac{1}{\epsilon}$, integer $\rho$ specifying the maximum cycle length to break
+    \REQUIRE Planar graph $G = (V, E)$, vertex weight function $w : V \rightarrow \mathbb{N}$, parameter $\ell \leftarrow \frac{1}{\epsilon}$, integer $\rho$ specifying the maximum cycle length to break
     \ENSURE $(1 + \lfloor \frac{\rho}{2} \rfloor \cdot \epsilon)$-approximation for \textsc{FVS-BCL}
     \STATE Perform \textsc{BFS} from some arbitrary root vertex $r$ \label{alg5:line1}
     \STATE $S \leftarrow \emptyset$
@@ -630,7 +630,7 @@ whole graph.
 \begin{mydefinition}[Optimum solution bound for FVS-$\rho$CL]{Lemma}
     \label{lemma:optimum_solution_bound_rho_cycle_length}
 
-    Let $G = (V, E)$ be a planar graph, $w : V \rightarrow \mathbb{R}$ be a weight function and 
+    Let $G = (V, E)$ be a planar graph, $w : V \rightarrow \mathbb{N}$ be a weight function and 
     $\rho$ an integer. Let $F \equiv OPT$ be the optimum solution in the whole graph for 
     FVS-$\rho$-BCL and $F_{i, j} = G_{i, j} \cap F$.
     Let $S_{i, j}$ be an optimum solution for $G_{i, j}$ for some shift $i$ and slice $j$.
@@ -681,7 +681,7 @@ whole graph.
 \begin{mydefinition}[Bound on the Weight of Boundary Vertices for FVS-$\rho$CL]{Lemma}
     \label{lemma:boundary_weight_bound_rho}
     
-    Let \( G = (V, E) \) be a planar graph, and let \( w : V \rightarrow \mathbb{R} \) be a weight function on the vertices.  
+    Let \( G = (V, E) \) be a planar graph, and let \( w : V \rightarrow \mathbb{N} \) be a weight function on the vertices.  
     Let \( F \subseteq V \) be a solution to the FVS-\(\rho\)CL problem (i.e., a set that breaks all cycles of length \( \rho \)).  
     For a fixed layering from a BFS traversal, define:
     \[
